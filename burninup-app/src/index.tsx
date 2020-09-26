@@ -1,14 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './index.css';
-import App from './App';
+
 import * as serviceWorker from './serviceWorker';
 
+//pages
+import App from "./views/App";
+import About from "./views/About";
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route path="/landing" render={(props) => <App />} />
+      <Route
+        path="/about"
+        render={(props) => <About />}
+      />
+      <Redirect to="/landing" />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
