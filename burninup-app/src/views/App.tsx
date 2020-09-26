@@ -10,7 +10,7 @@ function App() {
         <h1>
           "I'm burning up, burning up for you baby." - Jonas Brothers (2008)
         </h1>
-        <Button variant="primary">About Us</Button>{' '}
+        <Button variant="primary" href = "/about">About Us</Button>{' '}
         <a
           className="App-link"
           href="https://reactjs.org"
