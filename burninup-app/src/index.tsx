@@ -10,6 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./views/App";
 import About from "./views/About";
 import Cities from "./views/Cities";
+import GeneralYears from "./views/GeneralYears"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -17,6 +18,7 @@ ReactDOM.render(
       <Route path="/landing" render={(props) => <App />} />
       <Route path="/about" render={(props) => <About />} />
       <Route path="/cities" render={(props) => <Cities />} />
+      <Route path="/climatechange" render={(props) => <GeneralYears />} />
       <Redirect to="/landing" />
     </Switch>
   </BrowserRouter>,
