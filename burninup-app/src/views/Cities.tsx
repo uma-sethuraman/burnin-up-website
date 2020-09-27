@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import Image from "react-bootstrap/Image";
 
 function Cities() {
   return (
@@ -11,6 +12,7 @@ function Cities() {
         <div>
           <Button variant="primary">Landing page</Button>{" "}
         </div>
+        <Image src={require("../assets/map.jpg")} fluid />
         <Table striped bordered hover size="sm" variant="dark">
           <thead>
             <tr>
@@ -24,6 +26,11 @@ function Cities() {
               <td>Austin</td>
               <td>United States</td>
               <td>2</td>
+            </tr>
+            <tr>
+              <td>Los Angeles</td>
+              <td>United States</td>
+              <td>3</td>
             </tr>
           </tbody>
         </Table>
