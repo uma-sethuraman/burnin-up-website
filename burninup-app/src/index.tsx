@@ -1,28 +1,26 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import "bootstrap/dist/css/bootstrap.css";
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
-import './index.css';
+import "./index.css";
 
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from "./serviceWorker";
 
 //pages
 import App from "./views/App";
 import About from "./views/About";
-
+import Cities from "./views/Cities";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/landing" render={(props) => <App />} />
-      <Route
-        path="/about"
-        render={(props) => <About />}
-      />
+      <Route path="/about" render={(props) => <About />} />
+      <Route path="/cities" render={(props) => <Cities />} />
       <Redirect to="/landing" />
     </Switch>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
