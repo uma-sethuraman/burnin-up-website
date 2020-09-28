@@ -17,12 +17,14 @@ import Beijing from "./views/Beijing";
 import Paris from "./views/Paris";
 import Countries from "./views/Countries";
 import USA from "./views/USA";
+import China from "./views/China";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/landing" render={(props) => <App />} />
       <Route path="/country/USA" render={(props) => <USA />} />
+      <Route path="/country/China" render={(props) => <China />} />
       <Route path="/about" render={(props) => <About />} />
       <Route path="/cities/Beijing" render={(props) => <Beijing />} />
       <Route path="/cities/Paris" render={(props) => <Paris />} />
