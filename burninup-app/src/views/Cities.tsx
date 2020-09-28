@@ -4,28 +4,16 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
-import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import FormControl from "react-bootstrap/FormControl";
+import Navbar from './components/OurNavbar';
 
 function Cities() {
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">Burnin' Up</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">About</Nav.Link>
-              <Nav.Link href="#link">Countries</Nav.Link>
-              <Nav.Link href="#link">Cities</Nav.Link>
-              <Nav.Link href="#link">Global Climate Change</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
         <h1>Cities page</h1>
         <Image src={require("../assets/map.jpg")} fluid />
         <Form>
@@ -50,9 +38,14 @@ function Cities() {
               <td>2</td>
             </tr>
             <tr>
-              <td>Los Angeles</td>
-              <td>United States</td>
+              <td>Beijing</td>
+              <td>China</td>
               <td>3</td>
+            </tr>
+            <tr>
+              <td>Paris</td>
+              <td>France</td>
+              <td>4</td>
             </tr>
           </tbody>
         </Table>
