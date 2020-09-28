@@ -18,7 +18,7 @@ function Cities() {
       <Navbar />
       <header className="App-header">
         <h1>Cities page</h1>
-        <Image src={require("../assets/map.jpg")} fluid />
+        <Image src={require("../assets/city-landing-photo-singapore.jpg")} fluid />
         <Form>
           <Form.Group>
             <Form inline>
@@ -70,17 +70,17 @@ function Cities() {
           <tbody>
             <tr>
               <td><Link to="/cities/austin">Austin</Link></td>
-              <td><Link to="/countries/USA">United States</Link></td>
+              <td><Link to="/country/USA">United States</Link></td>
               <td>2</td>
             </tr>
             <tr>
               <td><Link to="/cities/beijing">Beijing</Link></td>
-              <td><Link to="/countries/china">China</Link></td>
+              <td><Link to="/country/China">China</Link></td>
               <td>3</td>
             </tr>
             <tr>
               <td><Link to="/cities/paris">Paris</Link></td>
-              <td><Link to="/countries/france">France</Link></td>
+              <td><Link to="/country/France">France</Link></td>
               <td>4</td>
             </tr>
           </tbody>

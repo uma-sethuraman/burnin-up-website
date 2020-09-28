@@ -15,9 +15,11 @@ import Year2005 from "./views/Year2005";
 import Year2010 from "./views/Year2010";
 import Beijing from "./views/Beijing";
 import Paris from "./views/Paris";
+import Austin from "./views/Austin";
 import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -28,6 +30,7 @@ ReactDOM.render(
       <Route path="/about" render={(props) => <About />} />
       <Route path="/cities/Beijing" render={(props) => <Beijing />} />
       <Route path="/cities/Paris" render={(props) => <Paris />} />
+      <Route path="/cities/Austin" render={(props) => <Austin />} />
       <Route path="/cities" render={(props) => <Cities />} />
       <Route path="/climatechange/2000" render={(props) => <Year2000 />} />
       <Route path="/climatechange/2005" render={(props) => <Year2005 />} />

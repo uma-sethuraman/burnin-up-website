@@ -5,38 +5,39 @@ import Navbar from './components/OurNavbar';
 import Image from "react-bootstrap/Image"; 
 import Table from "react-bootstrap/Table";
 
-function Beijing() {
+function Austin() {
     return (
-        <div className="Beijing">
+        <div className="Austin">
             <Navbar />
             <header className="App-header">
-                <h1>Beijing,
-                    <Link to="/country/China"> China</Link> </h1> 
+                <h1>Austin, Texas, 
+                    <Link to="/country/USA"> United States</Link>
+                </h1> 
                 <br />
                 <Table striped bordered hover size="sm" variant="dark">
                     <tbody>
                         <tr>
                         <td>Population: </td>
-                        <td>21.54 million</td>
+                        <td>964,254</td>
                         </tr>
                         <tr>
                         <td>Time Zone: </td>
-                        <td>China Standard Time (GMT + 8)</td>
+                        <td>Central Daylight Time (GMT -5)</td>
                         </tr>
                         <tr>
                         <td>Elevation: </td>
-                        <td>144ft</td>
+                        <td>425ft</td>
                         </tr>
                     </tbody>
                     </Table>
-                <Image src={require("../assets/beijing-skyline.jpg")} fluid />
+                <Image src={require("../assets/austin-capitol.jpg")} fluid />
                 <br />
-                <Image src={require("../assets/beijing-location.gif")} fluid />
+                <Image src={require("../assets/austin-location-map.jpg")} fluid />
                 <br />
-                <Image src={require("../assets/beijing-AQ.jpg")} fluid />
+                <Image src={require("../assets/austin-OzoneGraph.jpg")} fluid />
             </header>
         </div>
     );
 }
 
-export default Beijing;
+export default Austin;
