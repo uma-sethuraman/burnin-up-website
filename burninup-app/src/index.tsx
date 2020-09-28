@@ -12,6 +12,7 @@ import About from "./views/About";
 import Cities from "./views/Cities";
 import GeneralYears from "./views/GeneralYears"
 import Year2005 from "./views/Year2005"
+import Year2000 from "./views/Year2000"
 import Beijing from "./views/Beijing";
 import Paris from "./views/Paris";
 
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route path="/cities/Beijing" render={(props) => <Beijing />} />
       <Route path="/cities/Paris" render={(props) => <Paris />} />
       <Route path="/cities" render={(props) => <Cities />} />
+      <Route path="/climatechange/2000" render={(props) => <Year2000 />} />
       <Route path="/climatechange/2005" render={(props) => <Year2005 />} />
       <Route path="/climatechange" render={(props) => <GeneralYears />} />
       <Redirect to="/landing" />
