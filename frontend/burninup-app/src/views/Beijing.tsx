@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './App.css';
 import Navbar from './components/OurNavbar';
@@ -9,7 +10,8 @@ function Beijing() {
         <div className="Beijing">
             <Navbar />
             <header className="App-header">
-                <h1>Beijing, China</h1> 
+                <h1>Beijing,
+                    <Link to="/country/China"> China</Link> </h1> 
                 <br />
                 <Table striped bordered hover size="sm" variant="dark">
                     <tbody>
