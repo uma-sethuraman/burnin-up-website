@@ -45,7 +45,7 @@ function Countries() {
                   variant={variant.toLowerCase()}
                   title={variant}
                 >
-                  <Dropdown.Item eventKey="1">Action</Dropdown.Item>
+                  <Dropdown.Item eventKey="1">Action 1</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
                   <Dropdown.Item eventKey="3" active>
                     Active Item
