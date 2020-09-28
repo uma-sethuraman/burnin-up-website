@@ -11,6 +11,7 @@ import App from "./views/App";
 import About from "./views/About";
 import Cities from "./views/Cities";
 import GeneralYears from "./views/GeneralYears"
+import Year2005 from "./views/Year2005"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path="/country/USA" render = {(props) => <USA />} /> 
       <Route path="/about" render={(props) => <About />} />
       <Route path="/cities" render={(props) => <Cities />} />
+      <Route path="/climatechange/2005" render={(props) => <Year2005 />} />
       <Route path="/climatechange" render={(props) => <GeneralYears />} />
       <Redirect to="/landing" />
     </Switch>

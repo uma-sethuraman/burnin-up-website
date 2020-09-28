@@ -8,7 +8,7 @@ function GeneralYears() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Cities page</h1>
+        <h1>Global Climate Change</h1>
         <div>
           <Button variant="primary">Landing page</Button>{" "}
         </div>
