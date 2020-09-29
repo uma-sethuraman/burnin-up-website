@@ -10,7 +10,7 @@ import App from "./views/App";
 import About from "./views/About";
 import Cities from "./views/Cities";
 import GeneralYears from "./views/GeneralYears";
-import Year2000 from "./views/Year2000"
+import Year2000 from "./views/Year2000";
 import Year2005 from "./views/Year2005";
 import Year2010 from "./views/Year2010";
 import Beijing from "./views/Beijing";
@@ -19,14 +19,15 @@ import Austin from "./views/Austin";
 import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
-
+import France from "./views/France";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/landing" render={(props) => <App />} />
-      <Route path="/country/USA" render={(props) => <USA />} />
-      <Route path="/country/China" render={(props) => <China />} />
+      <Route path="/countries/USA" render={(props) => <USA />} />
+      <Route path="/countries/China" render={(props) => <China />} />
+      <Route path="/countries/France" render={(props) => <France />} />
       <Route path="/about" render={(props) => <About />} />
       <Route path="/cities/Beijing" render={(props) => <Beijing />} />
       <Route path="/cities/Paris" render={(props) => <Paris />} />
