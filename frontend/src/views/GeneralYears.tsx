@@ -28,37 +28,41 @@ function GeneralYears() {
           <thead>
             <tr>
               <th>Year</th>
-              <th>Global Temperature</th>
-              <th>Carbon Dioxide Level</th>
-              <th>Methane Level</th>
-              <th>Nitrous Oxide Level</th>
-              <th>Polar Ice Coverage</th>
+              <th>World Population</th>
+              <th>Global Mean Surface Temperature Anomaly</th>
+              <th>Carbon Dioxide Levels (ppm)</th>
+              <th>Methane Levels (ppm)</th>
+              <th>Nitrous Oxide Levels (ppm)</th>
+              <th>Arctic Sea Ice Extent (km<sup>2</sup>)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><Link to="/climatechange/2000">2000</Link></td>
-              <td>25</td>
-              <td>50</td>
-              <td>100</td>
-              <td>125</td>
-              <td>150</td>
+              <td><Link to="/climatechange/2013">2013</Link></td>
+              <td>7,181,715,139</td>
+              <td>1.04</td>
+              <td>394.91</td>
+              <td>1814.1</td>
+              <td>325.5</td>
+              <td>5.21</td>
             </tr>
             <tr>
-            <td><Link to="/climatechange/2005">2005</Link></td>
-              <td>10</td>
-              <td>20</td>
-              <td>30</td>
-              <td>40</td>
-              <td>50</td>
+            <td><Link to="/climatechange/2014">2014</Link></td>
+              <td>7,265,785,946</td>
+              <td>1.02</td>
+              <td>397.51</td>
+              <td>1816.9</td>
+              <td>326.6</td>
+              <td>5.22</td>
             </tr>
             <tr>
-            <td><Link to="/climatechange/2010">2010</Link></td>
-              <td>10</td>
-              <td>20</td>
-              <td>30</td>
-              <td>40</td>
-              <td>50</td>
+            <td><Link to="/climatechange/2015">2015</Link></td>
+              <td>7,349,472,099</td>
+              <td>1.04</td>
+              <td>399.54</td>
+              <td>1832.9</td>
+              <td>328.0</td>
+              <td>4.62</td>
             </tr>
           </tbody>
         </Table>
