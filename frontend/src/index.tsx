@@ -10,7 +10,7 @@ import App from "./views/App";
 import About from "./views/About";
 import Cities from "./views/Cities";
 import GeneralYears from "./views/GeneralYears";
-import Year2000 from "./views/Year2000";
+import Year2013 from "./views/Year2013";
 import Year2005 from "./views/Year2005";
 import Year2010 from "./views/Year2010";
 import Beijing from "./views/Beijing";
@@ -33,7 +33,7 @@ ReactDOM.render(
       <Route path="/cities/Paris" render={(props) => <Paris />} />
       <Route path="/cities/Austin" render={(props) => <Austin />} />
       <Route path="/cities" render={(props) => <Cities />} />
-      <Route path="/climatechange/2000" render={(props) => <Year2000 />} />
+      <Route path="/climatechange/2013" render={(props) => <Year2013 />} />
       <Route path="/climatechange/2005" render={(props) => <Year2005 />} />
       <Route path="/climatechange/2010" render={(props) => <Year2010 />} />
       <Route path="/climatechange" render={(props) => <GeneralYears />} />

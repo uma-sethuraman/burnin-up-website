@@ -3,18 +3,19 @@ import "./App.css";
 import NavBar from "./components/OurNavbar";
 import Image from "react-bootstrap/Image";
 
-function Year2000() {
+function Year2013() {
   return (
     <div className="App">
       <NavBar />
       <header className="App-header">
-        <h1>Year 2000</h1>
+        <h1>Year 2013</h1>
         <br></br>
-        <p>Global Temperature: 25</p>
-        <p>Carbon Dioxide Levels: 50</p>
-        <p>Methane Levels: 100</p>
-        <p>Nitrous Oxide Levels: 125</p>
-        <p>Polar Ice Levels: 150</p>
+        <p>World Population: 7,181,715,139</p>
+        <p>Global Mean Surface Temperature Anomaly: 1.04</p>
+        <p>Carbon Dioxide Levels: 394.91 ppm</p>
+        <p>Methane Levels: 1814.1 ppm</p>
+        <p>Nitrous Oxide Levels: 325.5 ppm</p>
+        <p>Polar Ice Levels: 5.21 square kilometers</p>
         <Image src={require("../assets/example-climate-change-graph.jpg")}/>
         <br></br>
       </header>
@@ -22,4 +23,4 @@ function Year2000() {
   );
 }
 
-export default Year2000;
+export default Year2013;
