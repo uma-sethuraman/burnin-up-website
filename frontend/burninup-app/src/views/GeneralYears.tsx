@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from "react";
 import "./App.css";
 import Button from "react-bootstrap/Button";
@@ -36,7 +37,7 @@ function GeneralYears() {
           </thead>
           <tbody>
             <tr>
-              <td>2000</td>
+              <td><Link to="/climatechange/2000">2000</Link></td>
               <td>25</td>
               <td>50</td>
               <td>100</td>
@@ -44,7 +45,15 @@ function GeneralYears() {
               <td>150</td>
             </tr>
             <tr>
-              <td>2005</td>
+            <td><Link to="/climatechange/2005">2005</Link></td>
+              <td>10</td>
+              <td>20</td>
+              <td>30</td>
+              <td>40</td>
+              <td>50</td>
+            </tr>
+            <tr>
+            <td><Link to="/climatechange/2010">2010</Link></td>
               <td>10</td>
               <td>20</td>
               <td>30</td>
