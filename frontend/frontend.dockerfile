@@ -13,9 +13,6 @@ WORKDIR /app
 # Copy the app package and package-lock.json file
 COPY frontend/package*.json ./
 
-RUN pwd
-RUN ls
-
 # # Remove node modules
 # RUN rm -r node_modules
 
@@ -26,7 +23,7 @@ RUN npm install
 COPY frontend/ .
 
 # Build the app
-RUN npm run build
+#RUN npm run build
 
 # Expose $PORT on container.
 # We use a varibale here as the port is something that can differ on the environment.
@@ -44,5 +41,8 @@ ENV PROXY_API=$PROXY_API
 # Set the browser base url
 ENV PROXY_LOGIN=$PROXY_LOGIN
 
+EXPOSE 3000
+EXPOSE 8080
+
 # Start the app
-CMD [ "npm", "start" ]
+#CMD [ "pwd;", "ls;", "npm", "start" ]
