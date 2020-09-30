@@ -6,7 +6,7 @@ Group Members (GitLab ID, EID):
 - Samantha Tuapen: samantha3pen, svt324
 - Uma Sethuraman: uma-sethuraman, us2382
 
-Git SHA: 
+Git SHA: 26a81242fc871e7188b1a6f5b9b1bc611b8eb9b8
 
 Project Leader: Caitlin Lien
 
