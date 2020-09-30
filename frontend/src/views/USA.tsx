@@ -19,18 +19,34 @@ function USA() {
                 <h1>United States of America</h1> 
                 <br />
                 <Table striped bordered hover size="sm" variant="dark">
-                    <tbody>
+                <tbody>
                         <tr>
-                        <td>Population: </td>
-                        <td>328.2 million</td>
+                        <td>Income Level</td>
+                        <td>High income</td>
                         </tr>
                         <tr>
-                        <td>Time Zone: </td>
-                        <td>Eastern Daylight Time</td>
+                        <td>Longtitude</td>
+                        <td>-77.032</td>
                         </tr>
                         <tr>
-                        <td>Elevation: </td>
-                        <td>20310ft</td>
+                        <td>Latitude</td>
+                        <td>38.8895</td>
+                        </tr>
+                        <tr>
+                        <td>Region</td>
+                        <td>North America</td>
+                        </tr>
+                        <tr>
+                        <td>Capital City</td>
+                        <td>Washington D.C</td>
+                        </tr>
+                        <tr>
+                        <td>Averge Temperature</td>
+                        <td>4.45</td>
+                        </tr>
+                        <tr>
+                        <td>pm2.5</td>
+                        <td>-4.2</td>
                         </tr>
                     </tbody>
                     </Table>
