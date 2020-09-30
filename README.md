@@ -1,6 +1,6 @@
 Caitlin Lien: caitlinlien, cl43686
 Caitlin O'Callaghan:
-Cherry Sun:
+Cherry Sun: cherrysun9, cs56738
 Lauren Mangibin: lauren.mangibin, lgm977
 Samantha Tuapen: samantha3pen, svt324
 Uma Sethuraman: uma-sethuraman, us2382
