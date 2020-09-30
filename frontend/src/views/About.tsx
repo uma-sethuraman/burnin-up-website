@@ -1,9 +1,10 @@
 import React from "react";
-import "./App.css";
+import "./About.css";
 import Button from "react-bootstrap/Button";
 import Navbar from "./components/OurNavbar";
 import axios from "axios";
 import { useState } from "react";
+import Image from "react-bootstrap/Image";
 
 function About() {
 
@@ -69,7 +70,7 @@ function About() {
             changeCommitsCL(elem.commits);
           if (elem.name === "Caitlin O'Callaghan")
             changeCommitsCO(elem.commits);
-          if (elem.name === "cherrysun9")
+          if (elem.name === "Cherry Sun")
             changeCommitsCS(elem.commits);
           if (elem.name === "Lauren Mangibin")
             changeCommitsLM(elem.commits);
@@ -85,44 +86,61 @@ function About() {
   };
 
   return (
-    <div className="App">
+    <div className="About">
       {commitsApiRequest()}
       {issuesApiRequest()}
       <Navbar />
-      <header className="App-header">
-        <h1> About Us </h1>
-        <br></br>
-        <h4><b>Caitlin Lien</b></h4>
-        <p>Issues: {statsCL}</p>
-        <p>Commits: {commitsCL}</p>
-        <p>Unit Tests: 0</p>
-        <br></br>
-        <h4><b>Caitlin O'Callaghan</b></h4>
-        <p>Issues: {statsCO}</p>
-        <p>Commits: {commitsCO}</p>
-        <p>Unit Tests: 0</p>
-        <br></br>
-        <h4><b>Cherry Sun</b></h4>
-        <p>Issues: {statsCS}</p>
-        <p>Commits: {commitsCS}</p>
-        <p>Unit Tests: 0</p>
-        <br></br>
-        <h4><b>Lauren Mangibin</b></h4>
-        <p>Issues: {statsLM}</p>
-        <p>Commits: {commitsLM}</p>
-        <p>Unit Tests: 0</p>
-        <br></br>
-        <h4><b>Samantha Tuapen</b></h4>
-        <p>Issues: {statsST}</p>
-        <p>Commits: {commitsST}</p>
-        <p>Unit Tests: 0</p>
-        <br></br>
-        <h4><b>Uma Sethuraman</b></h4>
-        <p>Issues: {statsUS}</p>
-        <p>Commits: {commitsUS}</p>
-        <p>Unit Tests: 0</p>
-        <br></br>
-      </header>
+      <body className="About-body">
+        <div className = "h3_about">
+          <h3>About Us</h3>
+        </div>
+        <div className="row">
+          <div className="h2_about">
+            <div className="column">
+              <Image src={require("../assets/CaitlinLien.JPG")} height="250" roundedCircle/>
+              <h2><b>Caitlin Lien</b></h2>
+              <p>Issues: {statsCL}</p>
+              <p>Commits: {commitsCL}</p>
+              <p>Unit Tests: 0</p>
+            </div>
+            <div className="column">
+              <Image src={require("../assets/caitlin-o-headshot.jpeg")} height="250" roundedCircle/>
+              <h2><b>Caitlin O'Callaghan</b></h2>
+              <p>Issues: {statsCO}</p>
+              <p>Commits: {commitsCO}</p>
+              <p>Unit Tests: 0</p>
+            </div>
+            <div className="column">
+              <Image src={require("../assets/cherry.jpeg")} height="250" roundedCircle/>
+              <h2><b>Cherry Sun</b></h2>
+              <p>Issues: {statsCS}</p>
+              <p>Commits: {commitsCS}</p>
+              <p>Unit Tests: 0</p>
+            </div>
+            <div className="column">
+              <Image src={require("../assets/LaurenMangibin-headshot.jpg")} height="250" roundedCircle/>
+              <h2><b>Lauren Mangibin</b></h2>
+              <p>Issues: {statsLM}</p>
+              <p>Commits: {commitsLM}</p>
+              <p>Unit Tests: 0</p>
+            </div>
+            <div className="column">
+              <Image src={require("../assets/samantha-headshot.jpg")} height="250" roundedCircle/>
+              <h2><b>Samantha Tuapen</b></h2>
+              <p>Issues: {statsST}</p>
+              <p>Commits: {commitsST}</p>
+              <p>Unit Tests: 0</p>
+            </div>
+            <div className="column">
+              <Image src={require("../assets/uma-headshot.jpg")} height="250" roundedCircle/>
+              <h2><b>Uma Sethuraman</b></h2>
+              <p>Issues: {statsUS}</p>
+              <p>Commits: {commitsUS}</p>
+              <p>Unit Tests: 0</p>
+            </div>
+          </div>
+        </div>
+      </body>
     </div>
   );
 }
