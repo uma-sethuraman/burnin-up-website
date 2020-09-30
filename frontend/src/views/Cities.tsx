@@ -70,17 +70,17 @@ function Cities() {
           <tbody>
             <tr>
               <td><Link to="/cities/austin">Austin</Link></td>
-              <td><Link to="/country/USA">United States</Link></td>
+              <td><Link to="/countries/USA">United States</Link></td>
               <td>2</td>
             </tr>
             <tr>
               <td><Link to="/cities/beijing">Beijing</Link></td>
-              <td><Link to="/country/China">China</Link></td>
+              <td><Link to="/countries/China">China</Link></td>
               <td>3</td>
             </tr>
             <tr>
               <td><Link to="/cities/paris">Paris</Link></td>
-              <td><Link to="/country/France">France</Link></td>
+              <td><Link to="/countries/France">France</Link></td>
               <td>4</td>
             </tr>
           </tbody>
