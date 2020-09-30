@@ -14,16 +14,32 @@ function China() {
                 <Table striped bordered hover size="sm" variant="dark">
                     <tbody>
                         <tr>
-                        <td>Population: </td>
-                        <td>1.393 billion</td>
+                        <td>Income Level</td>
+                        <td>Upper Middle Income</td>
                         </tr>
                         <tr>
-                        <td>Time Zone: </td>
-                        <td>China Standard Time</td>
+                        <td>Longtitude</td>
+                        <td>116.286</td>
                         </tr>
                         <tr>
-                        <td>Elevation: </td>
-                        <td>29029ft</td>
+                        <td>Latitude</td>
+                        <td>40.0495</td>
+                        </tr>
+                        <tr>
+                        <td>Region</td>
+                        <td>East Asia and Pacific</td>
+                        </tr>
+                        <tr>
+                        <td>Capital City</td>
+                        <td>Beijing</td>
+                        </tr>
+                        <tr>
+                        <td>Averge Temperature</td>
+                        <td>3.45</td>
+                        </tr>
+                        <tr>
+                        <td>pm2.5</td>
+                        <td>400</td>
                         </tr>
                     </tbody>
                     </Table>
