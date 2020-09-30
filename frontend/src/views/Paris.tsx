@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './App.css';
 import Navbar from './components/OurNavbar';
@@ -9,7 +10,7 @@ function Paris() {
         <div className="Paris">
             <Navbar />
             <header className="App-header">
-                <h1>Paris, France</h1> 
+                <h1>Paris, <Link to="/countries/France"> France</Link></h1> 
                 <br />
                 <Image src={require("../assets/paris-skyline.jpg")} fluid />
                 <br />

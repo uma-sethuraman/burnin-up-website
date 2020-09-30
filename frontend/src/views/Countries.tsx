@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from "react";
 import "./App.css";
 import Button from "react-bootstrap/Button";
@@ -68,17 +69,17 @@ function Countries() {
           </thead>
           <tbody>
             <tr>
-              <td>U.S.</td>
+              <td><Link to="/countries/USA"> United States</Link></td>
               <td>North America</td>
               <td>2</td>
             </tr>
             <tr>
-              <td>China</td>
+              <td><Link to="/countries/China"> China</Link></td>
               <td>Asia</td>
               <td>3</td>
             </tr>
             <tr>
-              <td>France</td>
+              <td><Link to="/countries/France"> France</Link></td>
               <td>Europe</td>
               <td>4</td>
             </tr>
