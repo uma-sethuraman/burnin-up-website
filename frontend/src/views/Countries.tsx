@@ -18,7 +18,7 @@ function Countries() {
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <h1>Countries page</h1>
+        <h1>Countries</h1>
         <Image src={require("../assets/world-map.jpeg")} fluid />
         <Form>
           <Form.Group>
