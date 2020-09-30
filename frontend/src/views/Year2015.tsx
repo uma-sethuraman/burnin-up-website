@@ -16,7 +16,7 @@ function Year2015() {
         <p>Methane Levels: 1832.9 ppm</p>
         <p>Nitrous Oxide Levels: 328.0 ppm</p>
         <p>Arctic Sea Ice Extent: 4.62 square kilometers</p>
-        <Image src={require("../assets/temperature-graph.png")}/>
+        <Image src={require("../assets/temperature-graph.jpg")}/>
         <br></br>
       </header>
     </div>

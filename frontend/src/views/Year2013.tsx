@@ -16,7 +16,7 @@ function Year2013() {
         <p>Methane Levels: 1814.1 ppm</p>
         <p>Nitrous Oxide Levels: 325.5 ppm</p>
         <p>Polar Ice Levels: 5.21 square kilometers</p>
-        <Image src={require("../assets/temperature-graph.png")}/>
+        <Image src={require("../assets/temperature-graph.jpg")}/>
         <br></br>
       </header>
     </div>
