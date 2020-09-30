@@ -175,10 +175,6 @@ export interface CommitsInfo {
   deletions: number;
 }
 
-export interface Commits {
-
-}
-
 export interface GITLABHeaders {
   "cache-control": string;
   "content-type": string;
