@@ -86,7 +86,13 @@ function Paris() {
                 <Image src={require("../assets/paris-location.jpg")} fluid />
                 <br />
                 <Image src={require("../assets/paris-AQ.jpeg")} fluid />
+                
+                <div>See more: </div>
+                <p><Link to="/cities/austin">Austin</Link></p>
+                <p><Link to="/cities/beijing">Beijing</Link></p>
+
             </header>
+
         </div>
     );
 }

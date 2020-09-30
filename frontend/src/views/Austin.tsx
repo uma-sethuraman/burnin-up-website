@@ -87,6 +87,11 @@ function Austin() {
                 <Image src={require("../assets/austin-location-map.jpg")} fluid />
                 <br />
                 <Image src={require("../assets/austin-OzoneGraph.jpg")} fluid />
+
+                <div>See more: </div>
+                <p><Link to="/cities/beijing">Beijing</Link></p>
+                <p><Link to="/cities/paris">Paris</Link></p>
+
             </header>
         </div>
     );

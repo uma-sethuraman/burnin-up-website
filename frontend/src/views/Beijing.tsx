@@ -87,7 +87,13 @@ function Beijing() {
                 <Image src={require("../assets/beijing-location.gif")} fluid />
                 <br />
                 <Image src={require("../assets/beijing-AQ.jpg")} fluid />
+
+                <div>See more: </div>
+                <p><Link to="/cities/austin">Austin</Link></p>
+                <p><Link to="/cities/paris">Paris</Link></p>
             </header>
+
+
         </div>
     );
 }
