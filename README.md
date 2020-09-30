@@ -2,7 +2,7 @@ Caitlin Lien:
 Caitlin O'Callaghan:
 Cherry Sun:
 Lauren Mangibin: lauren.mangibin, lgm977
-Samantha Tuapen:
+Samantha Tuapen: samantha3pen, svt324
 Uma Sethuraman: uma-sethuraman, us2382
 
 Git SHA: 
