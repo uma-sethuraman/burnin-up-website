@@ -5,6 +5,7 @@ import Navbar from "./components/OurNavbar";
 import axios from "axios";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
+import { Link } from 'react-router-dom';
 
 function About() {
 
@@ -139,6 +140,13 @@ function About() {
               <p>Unit Tests: 0</p>
             </div>
           </div>
+        </div>
+        <div className = "h2_about"> 
+          <br></br>
+          <h2><a href = "https://documenter.getpostman.com/view/12123261/TVRdAWse">Our Postman API</a></h2>
+          <br></br>
+          <h2><a href = "https://gitlab.com/caitlinlien/cs373-sustainability/">Our GitLab Repository</a></h2>
+          <br></br>
         </div>
       </body>
     </div>
