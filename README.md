@@ -1,6 +1,6 @@
 Group Members (GitLab ID, EID): 
 - Caitlin Lien: caitlinlien, cl43686
-- Caitlin O'Callaghan:
+- Caitlin O'Callaghan: caitlinocallaghan, cmo2227
 - Cherry Sun: cherrysun9, cs56738
 - Lauren Mangibin: lauren.mangibin, lgm977
 - Samantha Tuapen: samantha3pen, svt324
