@@ -10,12 +10,6 @@ function USA() {
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <Container>
-          <Jumbotron>
-            <h1>welcome!</h1>
-            <p> our page is about....</p>
-          </Jumbotron>
-        </Container>
         <h1>United States of America</h1>
         <br />
         <Table striped bordered hover size="sm" variant="dark">

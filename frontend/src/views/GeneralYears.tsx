@@ -25,6 +25,7 @@ function GeneralYears() {
             <Form.Label>Search Bar</Form.Label>
             <Form.Control placeholder="Enter search" />
           </Form.Group>
+          <Button variant="outline-info">Search</Button>
         </Form>
         <>
             <ButtonGroup>
