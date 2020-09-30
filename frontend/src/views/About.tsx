@@ -65,17 +65,17 @@ function About() {
         /* Iterate over all elements in the array and assign
         each person's variable to their number of commits */
         for (let elem of allCommits) {
-          if (elem.name === "Caitlin Lien")
+          if (elem.email === "caitlinlien@utexas.edu")
             changeCommitsCL(elem.commits);
-          if (elem.name === "Caitlin O'Callaghan")
+          if (elem.email === "caitlinocallaghan@Caitlins-MBP.lan")
             changeCommitsCO(elem.commits);
-          if (elem.name === "Cherry Sun")
+          if (elem.email === "cherrysun9@utexas.edu")
             changeCommitsCS(elem.commits);
-          if (elem.name === "Lauren Mangibin")
+          if (elem.email === "lauren.mangibin@gmail.com")
             changeCommitsLM(elem.commits);
-          if (elem.name === "Samantha Tuapen")
+          if (elem.email === "samtuapen@utexas.edu")
             changeCommitsST(elem.commits);
-          if (elem.name === "Uma Sethuraman")
+          if (elem.email === "uma.sethuraman@utexas.edu")
             changeCommitsUS(elem.commits);
         }
       })
