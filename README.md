@@ -14,19 +14,19 @@ GitLab pipelines: https://gitlab.com/caitlinlien/cs373-sustainability/-/pipeline
 Website: https://www.burninup.me
 
 estimated completion time for each member: 
-Caitlin L - 10 hours
-Caitlin O - 10 hours
-Cherry - 10 hours
-Lauren - 10 hours
-Samantha - 10 hours
+Caitlin L - 10 hours,
+Caitlin O - 10 hours,
+Cherry - 10 hours,
+Lauren - 10 hours,
+Samantha - 10 hours,
 Uma - 10 hours
 
 actual completion time for each member:
-Caitlin L - 24 hours
-Caitlin O - 21 hours
-Cherry - 20 hours
-Lauren - 20 hours
-Samantha - 21 hours
+Caitlin L - 24 hours,
+Caitlin O - 21 hours,
+Cherry - 20 hours,
+Lauren - 20 hours,
+Samantha - 21 hours,
 Uma - 25 hours
 
-comments: web dev is hard
+comments: web dev is hard. Thank you Larry and Adam <3 We love yall
