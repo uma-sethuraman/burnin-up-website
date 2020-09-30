@@ -6,68 +6,65 @@ import axios from "axios";
 import { useState } from "react";
 
 function About() {
-  const [stat, changeStat] = useState(-1);
-  function ApiRequest() {
+  const [stat, changeStat] = useState<Array<number>>([-1, -1, -1, -1, -1, -1]);
+
+  function apiRequest(url: string, index: number) {
     axios
-      .get(
-        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinlien"
-      )
+      .get(url)
       .catch(function (error) {
         console.log(error.toJSON());
       })
       .then((r) => {
         const stats: Gitlab = JSON.parse(JSON.stringify(r)) as Gitlab;
-        console.log(stats.data.statistics.counts.all);
-        changeStat(stats.data.statistics.counts.closed);
+        let tempArray = stat;
+        tempArray[index] = stats.data.statistics.counts.all;
+        changeStat(tempArray);
+        console.log(stat);
+        console.log(tempArray);
       });
   }
 
   return (
     <div className="App">
-      {ApiRequest()}
+      {apiRequest(
+        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinlien",
+        0
+      )}
+      {apiRequest(
+        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinocallaghan",
+        1
+      )}
+      {apiRequest(
+        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=cherrysun9",
+        2
+      )}
+      {apiRequest(
+        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=lauren.mangibin",
+        3
+      )}
+      {apiRequest(
+        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=samantha3pen",
+        4
+      )}
+      {apiRequest(
+        "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=uma-sethuraman",
+        5
+      )}
       <Navbar />
       <header className="App-header">
         <h1> THIS IS THE ABOUT PAGE </h1>
         <h4>Caitlin Lien</h4>
-        <h1>{stat}</h1>
-
-        {/* <div>
-          <Get url="https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinlien">
-            {(error, response, isLoading, makeRequest, axios) => {
-              if (error) {
-                return (
-                  <div>
-                    Something bad happened: {error.message}{" "}
-                    <button
-                      onClick={() => makeRequest({ params: { reload: true } })}
-                    >
-                      Retry
-                    </button>
-                  </div>
-                );
-              } else if (isLoading) {
-                return <div>Loading...</div>;
-              } else if (response !== null) {
-                return (
-                  <div>
-                    {response.data.message}{" "}
-                    <button
-                      onClick={() => makeRequest({ params: { refresh: true } })}
-                    >
-                      Refresh
-                    </button>
-                  </div>
-                );
-              }
-              return <div>Default message before request is made.</div>;
-            }}
-          </Get> 
-        </div> */}
+        <h1>{stat[0]}</h1>
         <h4>Caitlin O'Callaghan</h4>
+        <h1>{stat[1]}</h1>
         <h4>Cherry Sun</h4>
+        <h1>{stat[2]}</h1>
         <h4>Lauren Mangibin</h4>
+        <h1>{stat[3]}</h1>
         <h4>Samantha Tuapen</h4>
+        <h1>{stat[4]}</h1>
         <h4>Uma Sethuraman</h4>
+        <h1>{stat[5]}</h1>
       </header>
     </div>
   );
