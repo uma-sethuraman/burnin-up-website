@@ -7,7 +7,15 @@ import { useState } from "react";
 
 function About() {
 
-  /* Statistics for GitLab Issues */
+  /* Commits per contributor from GitLab API */
+  const [commitsCL, changeCommitsCL] = useState(-1);
+  const [commitsCO, changeCommitsCO] = useState(-1);
+  const [commitsCS, changeCommitsCS] = useState(-1);
+  const [commitsLM, changeCommitsLM] = useState(-1);
+  const [commitsST, changeCommitsST] = useState(-1);
+  const [commitsUS, changeCommitsUS] = useState(-1);
+
+  /* Statistics for GitLab Issues from GitLab API */
   const [statsCL, changeStatsCL] = useState(-1);
   const [statsCO, changeStatsCO] = useState(-1);
   const [statsCS, changeStatsCS] = useState(-1);
@@ -45,24 +53,75 @@ function About() {
     })
   }
 
+  /* Retrieves number of commits per contributor from GitLab API */
+  const commitsApiRequest = () => {
+    axios
+      .get(
+        "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
+      )
+      .then((response) => {
+        const allCommits: CommitsInfo[] = response.data;
+
+        /* Iterate over all elements in the array and assign
+        each person's variable to their number of commits */
+        for (let elem of allCommits) {
+          if (elem.name === "Caitlin Lien")
+            changeCommitsCL(elem.commits);
+          if (elem.name === "Caitlin O'Callaghan")
+            changeCommitsCO(elem.commits);
+          if (elem.name === "cherrysun9")
+            changeCommitsCS(elem.commits);
+          if (elem.name === "Lauren Mangibin")
+            changeCommitsLM(elem.commits);
+          if (elem.name === "Samantha Tuapen")
+            changeCommitsST(elem.commits);
+          if (elem.name === "Uma Sethuraman")
+            changeCommitsUS(elem.commits);
+        }
+      })
+      .catch(function (error) {
+        console.log(error.toJSON());
+      })
+  };
+
   return (
     <div className="App">
+      {commitsApiRequest()}
       {issuesApiRequest()}
       <Navbar />
       <header className="App-header">
-        <h1> THIS IS THE ABOUT PAGE </h1>
-        <h4>Caitlin Lien</h4>
-        <p>issues: {statsCL}</p>
-        <h4>Caitlin O'Callaghan</h4>
-        <p>issues: {statsCO}</p>
-        <h4>Cherry Sun</h4>
-        <p>issues: {statsCS}</p>
-        <h4>Lauren Mangibin</h4>
-        <p>issues: {statsLM}</p>
-        <h4>Samantha Tuapen</h4>
-        <p>issues: {statsST}</p>
-        <h4>Uma Sethuraman</h4>
-        <p>issues: {statsUS}</p>
+        <h1> About Us </h1>
+        <br></br>
+        <h4><b>Caitlin Lien</b></h4>
+        <p>Issues: {statsCL}</p>
+        <p>Commits: {commitsCL}</p>
+        <p>Unit Tests: 0</p>
+        <br></br>
+        <h4><b>Caitlin O'Callaghan</b></h4>
+        <p>Issues: {statsCO}</p>
+        <p>Commits: {commitsCO}</p>
+        <p>Unit Tests: 0</p>
+        <br></br>
+        <h4><b>Cherry Sun</b></h4>
+        <p>Issues: {statsCS}</p>
+        <p>Commits: {commitsCS}</p>
+        <p>Unit Tests: 0</p>
+        <br></br>
+        <h4><b>Lauren Mangibin</b></h4>
+        <p>Issues: {statsLM}</p>
+        <p>Commits: {commitsLM}</p>
+        <p>Unit Tests: 0</p>
+        <br></br>
+        <h4><b>Samantha Tuapen</b></h4>
+        <p>Issues: {statsST}</p>
+        <p>Commits: {commitsST}</p>
+        <p>Unit Tests: 0</p>
+        <br></br>
+        <h4><b>Uma Sethuraman</b></h4>
+        <p>Issues: {statsUS}</p>
+        <p>Commits: {commitsUS}</p>
+        <p>Unit Tests: 0</p>
+        <br></br>
       </header>
     </div>
   );
@@ -106,6 +165,18 @@ export interface Counts {
   all: number;
   closed: number;
   opened: number;
+}
+
+export interface CommitsInfo {
+  name:      string;
+  email:     string;
+  commits:   number;
+  additions: number;
+  deletions: number;
+}
+
+export interface Commits {
+
 }
 
 export interface GITLABHeaders {
