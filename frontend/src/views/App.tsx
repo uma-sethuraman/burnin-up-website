@@ -1,20 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Navbar from './components/OurNavbar';
 import Image from "react-bootstrap/Image"; 
 
 function App() {
+
+
   return (
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <h1> Burnin Up </h1>
-        <p>As the Jonas Brothers would say, the world is "burning up, burning up for you baby." </p>
-        <h2>(this meme is how some of y'all be acting, but the world is in fact NOT fine)</h2>
-        <Image src={require("../assets/fire-meme.jpg")} fluid />
+        <div className="hook">
+          <h3> Our world is burning up. </h3>
+          <h2>it's "burning up, burning up for you baby." - Jonas Brothers </h2>
+        </div>
       </header>
+      <body className="App-body">
+        <div className="explore">
+          <h3 style={{ color: 'white' }}>Explore</h3>
+          <div className="row">
+            <div className="column">
+              <Image src={require("../assets/austin-capitol.jpg")} height="250"/>
+              <Button variant="outline-light" href="/cities">Cities</Button>{' '}
+            </div>
+            <div className="column">
+              <Image src={require("../assets/city-landing-photo-singapore.jpg")} height="250"/>
+              <Button variant="outline-light" href="/countries">Countries</Button>{' '}
+            </div>
+            <div className="column">
+              <Image src={require("../assets/landing-bg.jpg")} height="250"/>
+              <Button variant="outline-light" href="/climateChange">Climate Change</Button>{' '}
+            </div>
+          </div>
+        </div>
+      </body>
     </div>
   );
 }
