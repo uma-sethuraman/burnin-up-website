@@ -14,16 +14,32 @@ function France() {
         <Table striped bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
-              <td>Population: </td>
-              <td>x million</td>
+              <td>Income Level</td>
+              <td>High Income</td>
             </tr>
             <tr>
-              <td>Time Zone: </td>
-              <td>x Time</td>
+              <td>Longtitude</td>
+              <td>2.35097</td>
             </tr>
             <tr>
-              <td>Elevation: </td>
-              <td>x ft</td>
+              <td>Latitude</td>
+              <td>48.8566</td>
+            </tr>
+            <tr>
+              <td>Region</td>
+              <td>Europe & Central Asia</td>
+            </tr>
+            <tr>
+              <td>Capital City</td>
+              <td>Paris</td>
+            </tr>
+            <tr>
+              <td>Average Temperature</td>
+              <td>10.05</td>
+            </tr>
+            <tr>
+              <td>pm2.5</td>
+              <td>13077</td>
             </tr>
           </tbody>
         </Table>

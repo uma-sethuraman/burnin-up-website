@@ -11,7 +11,7 @@ function Beijing() {
             <Navbar />
             <header className="App-header">
                 <h1>Beijing,
-                    <Link to="/country/China"> China</Link> </h1> 
+                    <Link to="/countries/China"> China</Link> </h1> 
                 <br />
                 <Image src={require("../assets/beijing-skyline.jpg")} fluid />
                 <br />
