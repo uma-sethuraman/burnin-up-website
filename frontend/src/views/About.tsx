@@ -1,11 +1,9 @@
 import React from "react";
 import "./About.css";
-import Button from "react-bootstrap/Button";
 import Navbar from "./components/OurNavbar";
 import axios from "axios";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
-import { Link } from 'react-router-dom';
 
 function About() {
 
