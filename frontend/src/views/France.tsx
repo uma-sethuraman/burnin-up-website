@@ -44,6 +44,7 @@ function France() {
           </tbody>
         </Table>
         <Image src={require("../assets/France_flag.jpg")} fluid />
+        <Image src={require("../assets/france-gdp.png")} fluid />
         <br />
       </header>
     </div>
