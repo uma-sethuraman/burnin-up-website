@@ -17,7 +17,7 @@ function Cities() {
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <h1>Cities page</h1>
+        <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} fluid />
         <Form>
           <Form.Group>
