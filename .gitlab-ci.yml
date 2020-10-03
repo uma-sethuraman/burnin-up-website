@@ -1,6 +1,6 @@
 image: burninup-frontend:0.1
-services:
-  - docker:dind
+#services:
+#  - docker:dind
 
 test-frontend:
   # only:
