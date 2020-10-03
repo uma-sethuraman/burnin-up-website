@@ -1,7 +1,7 @@
 version: '3'
 services:
   burninup-frontend:
-    image: burninup-frontend:0.1
+    image: caitlinlien/burninup:frontend-0.1
     environment:
       PORT: 3000
     ports:
@@ -11,7 +11,7 @@ services:
     tty: true
 
   burninup-backend:
-    image: burninup-backend:0.1
+    image: caitlinlien/burninup:backend-0.1
     environment:
       PORT: 5000
     ports:
