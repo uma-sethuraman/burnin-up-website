@@ -8,6 +8,7 @@ test-frontend:
   script:
     #- apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make npm
     - pip install docker-compose
-    - docker compose -f frontend/docker-compose.yml up
+    - docker build --file=./frontend/frontend.dockerfile  -t burninup-frontend:0.1 .
+    - docker compose -f ./frontend/docker-compose.yml up
     - exit
     #- make test-frontend
