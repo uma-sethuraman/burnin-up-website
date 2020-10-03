@@ -6,7 +6,7 @@ Group Members (GitLab ID, EID):
 - Samantha Tuapen: samantha3pen, svt324
 - Uma Sethuraman: uma-sethuraman, us2382
 
-Git SHA: 
+Git SHA:c579d98c40ce34f5c9222fce7ae850f34f851de3
 
 Project Leader: Caitlin Lien
 
@@ -15,19 +15,19 @@ GitLab Pipelines: https://gitlab.com/caitlinlien/cs373-sustainability/-/pipeline
 Website: https://www.burninup.me
 
 Estimated completion time for each member: 
-- Caitlin L - 10 hours
-- Caitlin O - 10 hours
-- Cherry - 10 hours
-- Lauren - 10 hours
-- Samantha - 10 hours
-- Uma - 10 hours
+- Caitlin L - 30 hours
+- Caitlin O - 30 hours
+- Cherry - 30 hours
+- Lauren - 30 hours
+- Samantha - 30 hours
+- Uma - 30 hours
 
 Actual completion time for each member:
-- Caitlin L - 24 hours
-- Caitlin O - 21 hours
-- Cherry - 20 hours
-- Lauren - 20 hours
-- Samantha - 21 hours
-- Uma - 25 hours
+- Caitlin L - 
+- Caitlin O - 1.5 hours
+- Cherry - 
+- Lauren - 2 hours
+- Samantha - 
+- Uma - 2 hours
 
 Comments: web dev is hard. Thank you Larry and Adam <3 We love y'all!
