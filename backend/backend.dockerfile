@@ -14,4 +14,4 @@ EXPOSE 5000
 # Runs <python demo.py>
 ENTRYPOINT [ "python" ] 
 
-CMD [ "demo.py" ] 
+CMD [ "./backend/main.py" ] 
