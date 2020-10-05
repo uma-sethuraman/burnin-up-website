@@ -9,12 +9,8 @@ RUN mkdir -p /app
 # The /app directory should act as the main application directory
 WORKDIR /app
 
-
 # Copy the app package and package-lock.json file
 COPY frontend/package*.json ./
-
-# # Remove node modules
-# RUN rm -r node_modules
 
 # Install node packages
 RUN npm install
@@ -22,7 +18,7 @@ RUN npm install
 # Copy or project directory (locally) in the current directory of our docker image (/frontend)
 COPY frontend/ .
 
-# Build the app
+# Build the app (don't actually need this command)
 #RUN npm run build
 
 # Expose $PORT on container.
@@ -42,7 +38,6 @@ ENV PROXY_API=$PROXY_API
 ENV PROXY_LOGIN=$PROXY_LOGIN
 
 EXPOSE 3000
-EXPOSE 8080
 
 # Start the app
-#CMD [ "pwd;", "ls;", "npm", "start" ]
+CMD [ "npm", "start" ]
