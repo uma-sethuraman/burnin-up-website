@@ -23,7 +23,7 @@ print("before db")
 #db = SQLAlchemy(app)
 #ma = Marshmallow(app)
 print("before engine")
-eng = create_engine('postgresql://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com/burninup-db-1')
+eng = create_engine('postgresql://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com')
 q = eng.execute('SHOW TABLES')
 
 print("here")
