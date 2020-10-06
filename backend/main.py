@@ -5,7 +5,7 @@ from flask import request
 import urllib
 import os
 import json
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -22,7 +22,11 @@ print("before db")
 #ma = Marshmallow(app)
 print("before engine")
 eng = create_engine('postgresql://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres')
-q = eng.execute('SHOW TABLES')
+print("after engine")
+inspector = inspect(eng)
+# Get table information
+print(inspector.get_table_names())
+print("after showing tables")
 
 print("here")
 """"
