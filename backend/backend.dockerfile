@@ -14,6 +14,6 @@ RUN pip install psycopg2
 EXPOSE 5000
 
 # Runs <python demo.py>
-#ENTRYPOINT [ "python" ]
-#
-#CMD [ "./backend/main.py" ]
+ENTRYPOINT [ "python" ]
+
+CMD [ "./backend/main.py" ]
