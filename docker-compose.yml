@@ -11,7 +11,7 @@ services:
     tty: true
 
   burninup-backend:
-    image: caitlinlien/burninup:backend-0.1
+    image: caitlinlien/burninup:backend-0.3
     environment:
       PORT: 5000
     ports:

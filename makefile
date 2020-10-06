@@ -116,7 +116,7 @@ check: $(CFILES)
 # 	$(CHECKTESTDATA) -g RunDarwin.ctd RunDarwin.tmp
 
 docker:
-	# docker run -it -v $(PWD):/usr/gcc -w /usr/gcc gpdowning/gcc
+	docker run -it -v $(PWD):/usr/burninup -w /usr/burninup caitlinlien/burninup
 	
 
 docker-images:
