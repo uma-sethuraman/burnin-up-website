@@ -39,5 +39,5 @@ ENV PROXY_LOGIN=$PROXY_LOGIN
 
 EXPOSE 3000
 
-## Start the app
-# CMD [ "npm", "start" ]
+# Start the app
+CMD [ "npm", "start" ]
