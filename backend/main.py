@@ -7,16 +7,27 @@ from flask import request
 import urllib
 import os
 import json
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
+
+app.debug = True
+print("before config")
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com/burninup-db-1'
+
+print("set it to false")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+print("before db")
+#db = SQLAlchemy(app)
+#ma = Marshmallow(app)
+print("before engine")
+eng = create_engine('postgresql://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com/burninup-db-1')
+q = eng.execute('SHOW TABLES')
 
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
-
+print("here")
+""""
 
 class Country(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
@@ -48,7 +59,7 @@ for item in data[1]:
 db.session.add_all(country_list)
 db.session.commit()
 
-""""
+
         country_schema.jsonify(new_country)
 @app.route('/country', methods=['POST'])
 def append_country():
@@ -61,13 +72,13 @@ def append_country():
     db.session.add(new_country)
     db.session.commit()
     return country_schema.jsonify(new_country)
-"""""''
+
 
 @app.route('/country', methods=['GET'])
 def get_country():
     all_country = Country.query.all()
     result = countries_schema.dump(all_country)
     return jsonify(result)
-
+"""""''
 if __name__ == '__main__':
     app.run(debug=True)
