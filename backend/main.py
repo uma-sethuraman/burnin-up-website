@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from sqlalchemy import Column, String, Integer
 from flask import request
 import urllib
@@ -23,7 +21,7 @@ print("before db")
 #db = SQLAlchemy(app)
 #ma = Marshmallow(app)
 print("before engine")
-eng = create_engine('postgresql://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com')
+eng = create_engine('postgresql://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres')
 q = eng.execute('SHOW TABLES')
 
 print("here")
