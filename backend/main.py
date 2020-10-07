@@ -72,7 +72,7 @@ db.session.commit()
 
 
 # Create climate change api request
-manager.create_api(Year, methods=['GET'], results_per_page=10000)
+manager.create_api(Year, methods=['GET'], results_per_page=0)
 
 class YearSchema(ma.Schema):
     class Meta:
