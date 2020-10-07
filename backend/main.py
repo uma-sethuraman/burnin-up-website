@@ -1,13 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
+#from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from sqlalchemy import Column, String, Integer
 from flask import request
 import urllib
 import os
 import json
 from sqlalchemy import create_engine
+import flask_restless
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -34,6 +35,10 @@ class Country(db.Model):
 
 db.create_all()
 
+manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
+
+manager.create_api(Country, methods=['GET'])
+
 class CountrySchema(ma.Schema):
     class Meta:
         fields = ('country_id', 'country_name', 'country_region', 'country_income')
@@ -51,12 +56,13 @@ for item in data[1]:
 db.session.add_all(country_list)
 db.session.commit()
 
+"""
 @app.route('/Countries', methods=['GET'])
 def get_countries():
     all_country = Country.query.all()
     result = countries_schema.dump(all_country)
     return jsonify(result)
-
+"""
 
 @app.route('/Country/<country_id>', methods=['GET'])
 def get_country(country_id):
