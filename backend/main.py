@@ -33,10 +33,24 @@ class Country(db.Model):
         self.country_region = country_region
         self.country_income = country_income
 
+
+class Year(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    temp_anomaly = db.Column(db.Float)
+    co2 = db.Column(db.Float)
+
+    def __init__(self, year_name=0, temp_anomaly="NaN", co2="NaN"):
+        self.year_name = year_name
+        self.temp_anomaly = temp_anomaly
+        self.co2 = co2
+
 db.create_all()
 
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
+
+# Create country api request
 manager.create_api(Country, methods=['GET'])
 
 class CountrySchema(ma.Schema):
@@ -56,19 +70,55 @@ for item in data[1]:
 db.session.add_all(country_list)
 db.session.commit()
 
+
+# Create climate change api request
+manager.create_api(Year, methods=['GET'], results_per_page=10000)
+
+class YearSchema(ma.Schema):
+    class Meta:
+        fields = ('year_id', 'year_name', 'temperature_anomaly', 'carbon_dioxide_level')
+
+year_schema = YearSchema()
+years_schema = YearSchema(many=True)
+
+request_url = 'https://global-warming.org/api/temperature-api'
+r = urllib.request.urlopen(request_url)
+data = json.loads(r.read())
+
+# Stores a dictionary of years with the Year object
+year_dict = dict()
+for item in data["result"]:
+    new_year = Year()
+    new_year.year_name = int(float(item["time"]))
+    new_year.temp_anomaly = float(item["station"])
+    year_dict[int(float(item["time"]))] = new_year
+
+
+request_url = 'https://global-warming.org/api/co2-api'
+r = urllib.request.urlopen(request_url)
+data = json.loads(r.read())
+for item in data["co2"]:
+    year = item["year"]
+    year_dict[int(item["year"])].co2 = float(item["cycle"])
+
+db.session.add_all(year_dict.values())
+db.session.commit()
+
+
+
 """
 @app.route('/Countries', methods=['GET'])
 def get_countries():
     all_country = Country.query.all()
     result = countries_schema.dump(all_country)
     return jsonify(result)
-"""
 
 @app.route('/Country/<country_id>', methods=['GET'])
 def get_country(country_id):
     country = Country.query.get(country_id)
     result = country_schema.dump(country)
     return jsonify(result)
+"""
 
 
 if __name__ == '__main__':
