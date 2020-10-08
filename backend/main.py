@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-"""
+
 @app.route('/Countries', methods=['GET'])
 def get_countries():
     all_country = Country.query.all()
@@ -33,7 +33,7 @@ def get_country(country_id):
     country = Country.query.get(country_id)
     result = country_schema.dump(country)
     return jsonify(result)
-"""
+
 
 
 if __name__ == '__main__':
