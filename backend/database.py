@@ -27,12 +27,17 @@ class Country(db.Model):
     country_name = db.Column(db.String())
     country_region = db.Column(db.String())
     country_income = db.Column(db.String())
+    country_capital_city = db.Column(db.String())
+    country_iso2code = db.Column(db.String())
+    country_iso3code = db.Column(db.String())
 
-    def __init__(self, country_name, country_region, country_income):
+    def __init__(self, country_name="NaN", country_region="NaN", country_income="NaN", capital_city="NaN", iso2code="NaN", iso3code = "NaN"):
         self.country_name = country_name
         self.country_region = country_region
         self.country_income = country_income
-
+        self.country_capital_city = capital_city
+        self.country_iso2code = iso2code
+        self.country_iso3code = iso3code
 
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -55,17 +60,18 @@ manager.create_api(Country, methods=['GET'])
 
 class CountrySchema(ma.Schema):
     class Meta:
-        fields = ('country_id', 'country_name', 'country_region', 'country_income')
+        fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code')
+
 
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
 
-request_url = 'http://api.worldbank.org/v2/country?format=json'
+request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
 r = urllib.request.urlopen(request_url)
 data = json.loads(r.read())
 country_list = []
 for item in data[1]:
-    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"])
+    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"])
     country_list.append(new_country)
 db.session.add_all(country_list)
 db.session.commit()
