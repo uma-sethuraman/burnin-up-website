@@ -10,9 +10,16 @@ import json
 from sqlalchemy import create_engine
 import flask_restless
 
+app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 
+app.debug = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 """
 @app.route('/Countries', methods=['GET'])
