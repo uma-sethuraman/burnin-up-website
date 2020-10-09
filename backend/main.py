@@ -20,6 +20,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+db.create_all()
+
 # Create cities, country, and years model
 class Country(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +40,27 @@ class Country(db.Model):
         self.country_iso2code = iso2code
         self.country_iso3code = iso3code
 
+class CountrySchema(ma.Schema):
+    class Meta:
+        fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code')
 
+country_schema = CountrySchema()
+countries_schema = CountrySchema(many=True)
+
+@app.route('/api/country', methods=['GET'])
+def get_countries():
+    all_country = Country.query.all()
+    result = countries_schema.dump(all_country)
+    return jsonify(result)
+
+@app.route('/api/country/<country_id>', methods=['GET'])
+def get_country(country_id):
+    country = Country.query.get(country_id)
+    result = country_schema.dump(country)
+    return jsonify(result)
+
+
+# Create climate change api request
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
@@ -50,35 +72,6 @@ class Year(db.Model):
         self.temp_anomaly = temp_anomaly
         self.co2 = co2
 
-db.create_all()
-
-manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
-
-
-# Create country api request
-manager.create_api(Country, methods=['GET'])
-
-class CountrySchema(ma.Schema):
-    class Meta:
-        fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code')
-
-country_schema = CountrySchema()
-countries_schema = CountrySchema(many=True)
-
-request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
-r = urllib.request.urlopen(request_url)
-data = json.loads(r.read())
-country_list = []
-for item in data[1]:
-    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"])
-    country_list.append(new_country)
-db.session.add_all(country_list)
-db.session.commit()
-
-
-# Create climate change api request
-manager.create_api(Year, methods=['GET'], results_per_page=0)
-
 class YearSchema(ma.Schema):
     class Meta:
         fields = ('year_id', 'year_name', 'temperature_anomaly', 'carbon_dioxide_level')
@@ -86,40 +79,10 @@ class YearSchema(ma.Schema):
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-request_url = 'https://global-warming.org/api/temperature-api'
-r = urllib.request.urlopen(request_url)
-data = json.loads(r.read())
-
-# Stores a dictionary of years with the Year object
-year_dict = dict()
-for item in data["result"]:
-    new_year = Year()
-    new_year.year_name = int(float(item["time"]))
-    new_year.temp_anomaly = float(item["station"])
-    year_dict[int(float(item["time"]))] = new_year
-
-
-request_url = 'https://global-warming.org/api/co2-api'
-r = urllib.request.urlopen(request_url)
-data = json.loads(r.read())
-for item in data["co2"]:
-    year = item["year"]
-    year_dict[int(item["year"])].co2 = float(item["cycle"])
-
-db.session.add_all(year_dict.values())
-db.session.commit()
-
-
-@app.route('/Countries', methods=['GET'])
+@app.route('/api/years', methods=['GET'])
 def get_countries():
-    all_country = Country.query.all()
-    result = countries_schema.dump(all_country)
-    return jsonify(result)
-
-@app.route('/Country/<country_id>', methods=['GET'])
-def get_country(country_id):
-    country = Country.query.get(country_id)
-    result = country_schema.dump(country)
+    all_years = Year.query.all()
+    result = years_schema.dump(all_years)
     return jsonify(result)
 
 
