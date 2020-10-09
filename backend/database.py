@@ -9,11 +9,11 @@ import os
 import json
 from sqlalchemy import create_engine
 import flask_restless
+import pandas
 
+# Create flask app
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-
-
 app.debug = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-
+# Create cities, country, and years model
 class Country(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
     country_name = db.Column(db.String())
@@ -38,6 +38,7 @@ class Country(db.Model):
         self.country_capital_city = capital_city
         self.country_iso2code = iso2code
         self.country_iso3code = iso3code
+
 
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +62,6 @@ manager.create_api(Country, methods=['GET'])
 class CountrySchema(ma.Schema):
     class Meta:
         fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code')
-
 
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
