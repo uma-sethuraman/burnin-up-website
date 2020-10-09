@@ -55,7 +55,6 @@ for item in data[1]:
 db.session.add_all(country_list)
 db.session.commit()
 
-
 # Create climate change api request
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -88,7 +87,6 @@ for item in data["co2"]:
 
 db.session.add_all(year_dict.values())
 db.session.commit()
-
 
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
