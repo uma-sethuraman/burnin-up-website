@@ -20,7 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-"""
+
 # Create cities, country, and years model
 class Country(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
@@ -79,18 +79,16 @@ year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
 @app.route('/api/years', methods=['GET'])
-def get_countries():
+def get_years():
     all_years = Year.query.all()
     result = years_schema.dump(all_years)
     return jsonify(result)
 
-"""
 
 # just to test connectivity with front end
 @app.route('/test', methods=['GET'])
 def test():
-    return jsonify({'test' : 'does it work now??'})
-
+    return jsonify({'test': 'does it work now??'})
 
 
 if __name__ == '__main__':

@@ -116,6 +116,7 @@ for index, row in sorted_by_year.iterrows():
     new_year.country = row['Entity']
     new_year.code = row['Code']
     new_year.country_co2 = row['Per capita CO2 emissions']
+    country_years_list.append(new_year)
 
 db.session.add_all(country_years_list)
 db.session.commit()
