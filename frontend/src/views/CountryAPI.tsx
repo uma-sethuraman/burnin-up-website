@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 function CountryAPI() {
 
-  const [currentTest, setCurrentTest] = useState("hi");
+  const [currentTest, setCurrentTest] = useState("help");
 
   useEffect(() => {
       fetch('/api/country').then(res => res.json().then(data => {
-        setCurrentTest(data.test)
+        setCurrentTest(data.country_id)
       })
     );
   }, []);
