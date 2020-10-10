@@ -20,6 +20,7 @@ import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
 import France from "./views/France";
+import CountryAPI from "./views/CountryAPI"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -38,6 +39,7 @@ ReactDOM.render(
       <Route path="/climatechange/2015" render={(props) => <Year2015 />} />
       <Route path="/climatechange" render={(props) => <GeneralYears />} />
       <Route path="/countries" render={(props) => <Countries />} />
+      <Route path="/api/country" render={(props) => <CountryAPI />} />
       <Redirect to="/landing" />
     </Switch>
   </BrowserRouter>,

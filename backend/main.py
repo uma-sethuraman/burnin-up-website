@@ -41,7 +41,7 @@ class Country(db.Model):
 
 class CountrySchema(ma.Schema):
     class Meta:
-        fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code')
+        fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code', 'iso3code')
 
 country_schema = CountrySchema()
 countries_schema = CountrySchema(many=True)
