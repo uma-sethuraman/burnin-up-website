@@ -21,9 +21,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+path = "./datasets"
 
-db.create_all()
-
+# Create tables
 class Country(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
     country_name = db.Column(db.String())
@@ -41,13 +41,47 @@ class Country(db.Model):
         self.country_iso2code = iso2code
         self.country_iso3code = iso3code
 
+class Year(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    temp_anomaly = db.Column(db.Float)
+    co2 = db.Column(db.Float)
+    methane = db.Column(db.Float)
+    nitrous_oxide = db.Column(db.Float)
+    polar_ice = db.Column(db.Float)
+    sea_level = db.Column(db.Float)
+    # world_population = db.Column(db.BigInteger)
 
-class CountrySchema(ma.Schema):
-    class Meta:
-        fields = ('country_id', 'country_name', 'country_region', 'country_income', 'capital_city', 'iso2code')
-country_schema = CountrySchema()
-countries_schema = CountrySchema(many=True)
+    def __init__(self, year_name=0, temp_anomaly="NaN", co2="NaN", methane="NaN", nitrous_oxide="NaN", polar_ice="NaN",
+                 sea_level="NaN"):
+        self.year_name = year_name
+        self.temp_anomaly = temp_anomaly
+        self.co2 = co2
+        self.methane = methane
+        self.nitrous_oxide = nitrous_oxide
+        self.polar_ice = polar_ice
+        self.sea_level = sea_level
+        # self.world_population = world_population
 
+# Creates top countries contributing to climate change per year api request
+class CountryEmissionsPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    country = db.Column(db.String())
+    code = db.Column(db.String())
+    country_co2 = db.Column(db.Float)
+
+    def __init__(self, year_name=0, country="NaN", code="NaN", country_co2="NaN"):
+        self.year_name = year_name
+        self.country = country
+        self.code = code
+        self.country_co2 = country_co2
+
+db.create_all()
+
+# Fill in tables
+
+### Table for Country ###
 request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
 r = urllib.request.urlopen(request_url)
 data = json.loads(r.read())
@@ -58,47 +92,10 @@ for item in data[1]:
 db.session.add_all(country_list)
 db.session.commit()
 
-# Create country api request
-manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
-manager.create_api(Country, methods=['GET'], results_per_page=0)
-
-@app.route('/api/country', methods=['GET'])
-def get_countries():
-    all_country = Country.query.all()
-    result = countries_schema.dump(all_country)
-    return jsonify(result)
-
-@app.route('/api/country/<country_id>', methods=['GET'])
-def get_country(country_id):
-    country = Country.query.get(country_id)
-    result = country_schema.dump(country)
-    return jsonify(result)
-
-
-class Year(db.Model):
-    year_id = db.Column(db.Integer, primary_key=True)
-    year_name = db.Column(db.Integer)
-    temp_anomaly = db.Column(db.Float)
-    co2 = db.Column(db.Float)
-
-    def __init__(self, year_name=0, temp_anomaly="NaN", co2="NaN"):
-        self.year_name = year_name
-        self.temp_anomaly = temp_anomaly
-        self.co2 = co2
-
-class YearSchema(ma.Schema):
-    class Meta:
-        fields = ('year_id', 'year_name', 'temperature_anomaly', 'carbon_dioxide_level')
-
-
-year_schema = YearSchema()
-years_schema = YearSchema(many=True)
-
+### Table for Years ###
 request_url = 'https://global-warming.org/api/temperature-api'
 r = urllib.request.urlopen(request_url)
 data = json.loads(r.read())
-
-# Stores a dictionary of years with the Year object
 year_dict = dict()
 for item in data["result"]:
     new_year = Year()
@@ -106,63 +103,48 @@ for item in data["result"]:
     new_year.temp_anomaly = float(item["station"])
     year_dict[int(float(item["time"]))] = new_year
 
+co2_df = pd.read_csv(os.path.join(path, "GlobalCO2.csv"))
+for idx, row in co2_df.iterrows():
+    year_dict[row['Year']].co2 = row['Mean CO2 (ppm)']
 
-request_url = 'https://global-warming.org/api/co2-api'
-r = urllib.request.urlopen(request_url)
-data = json.loads(r.read())
-for item in data["co2"]:
-    year = item["year"]
-    year_dict[int(item["year"])].co2 = float(item["cycle"])
+methane_df = pd.read_csv(os.path.join(path, "Methane.csv"))
+for idx, row in methane_df.iterrows():
+    year_dict[row['year']].methane = row['Methane']
+
+nitrous_oxide_df = pd.read_csv(os.path.join(path, "NitrousOxide.csv"))
+for idx, row in nitrous_oxide_df.iterrows():
+    year_dict[row['Year']].nitrous_oxide = row['Nitrous Oxide Levels (ppb)']
+
+polar_ice_df = pd.read_csv(os.path.join(path, "PolarIceCapsPerYear.csv"))
+for idx, row in polar_ice_df.iterrows():
+    year_dict[row['Year']].polar_ice = row['Ice Extent (km2)']
+
+sea_level_df = pd.read_csv(os.path.join(path, "SeaLevel.csv"))
+for idx, row in sea_level_df.iterrows():
+    year_dict[row['Year']].sea_level = row['Absolute Sea Level Change Since 1880 (inches)']
+
+# world_population_df = pd.read_csv(os.path.join(path, "WorldPopulation.csv"))
+# for idx, row in world_population_df.iterrows():
+#     year_dict[row['Year']].world_population = row['World Population'].item()
 
 db.session.add_all(year_dict.values())
 db.session.commit()
 
-# # Create climate change api request
-# manager.create_api(Year, methods=['GET'], results_per_page=0)
+### Table for Emissions Per Country ###
+co2_per_country = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
+sorted_by_year = co2_per_country.groupby("Year").apply(lambda x: x.nlargest(10, "Per capita CO2 emissions")).reset_index(drop=True)
 
-@app.route('/api/years', methods=['GET'])
-def get_years():
-    all_years = Year.query.all()
-    result = years_schema.dump(all_years)
-    return jsonify(result)
+# Stores a dictionary of years with the CountryEmissionsPerYear object
+country_years_list = []
+for index, row in sorted_by_year.iterrows():
+    new_year = CountryEmissionsPerYear()
+    new_year.year_name = row['Year']
+    new_year.country = row['Entity']
+    new_year.code = row['Code']
+    new_year.country_co2 = row['Per capita CO2 emissions']
+    country_years_list.append(new_year)
 
-# # Creates top countries contributing to climate change per year api request
-# class CountryEmissionsPerYear(db.Model):
-#     year_id = db.Column(db.Integer, primary_key=True)
-#     year_name = db.Column(db.Integer)
-#     country = db.Column(db.String())
-#     code = db.Column(db.String())
-#     country_co2 = db.Column(db.Float)
-#
-#     def __init__(self, year_name=0, country="NaN", code="NaN", country_co2="NaN"):
-#         self.year_name = year_name
-#         self.country = country
-#         self.code = code
-#         self.country_co2 = country_co2
-#
-#
-# # Get data from annual co2 emissions per country
-# path = "./datasets"
-# co2_per_country = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
-# sorted_by_year = co2_per_country.groupby("Year").apply(lambda x: x.nlargest(10, "Per capita CO2 emissions")).reset_index(drop=True)
-#
-# # Stores a dictionary of years with the CountryEmissionsPerYear object
-# country_years_list = []
-# for index, row in sorted_by_year.iterrows():
-#     new_year = CountryEmissionsPerYear()
-#     new_year.year_name = row['Year']
-#     new_year.country = row['Entity']
-#     new_year.code = row['Code']
-#     new_year.country_co2 = row['Per capita CO2 emissions']
-#     country_years_list.append(new_year)
-#
-# db.session.add_all(country_years_list)
-# db.session.commit()
+db.session.add_all(country_years_list)
+db.session.commit()
 
-# just to test connectivity with front end
-@app.route('/test', methods=['GET'])
-def test():
-    return jsonify({'test': 'does it work now??'})
 
-if __name__ == '__main__':
-    app.run(debug=True)
