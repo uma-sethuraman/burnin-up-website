@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
@@ -23,13 +23,16 @@ import France from "./views/France";
 import CountryAPI from "./views/CountryAPI"
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/landing" render={(props) => <App />} />
+  <Router>
+      <Route path="/about" exact component = {About}/>
+      <Route path="/" exact component = {App}/>
+      
+
+
+      {/* { <Route path="/landing" render={(props) => <App />} /> }
       <Route path="/countries/USA" render={(props) => <USA />} />
       <Route path="/countries/China" render={(props) => <China />} />
       <Route path="/countries/France" render={(props) => <France />} />
-      <Route path="/about" render={(props) => <About />} />
       <Route path="/cities/Beijing" render={(props) => <Beijing />} />
       <Route path="/cities/Paris" render={(props) => <Paris />} />
       <Route path="/cities/Austin" render={(props) => <Austin />} />
@@ -39,10 +42,10 @@ ReactDOM.render(
       <Route path="/climatechange/2015" render={(props) => <Year2015 />} />
       <Route path="/climatechange" render={(props) => <GeneralYears />} />
       <Route path="/countries" render={(props) => <Countries />} />
-      <Route path="/api/country" render={(props) => <CountryAPI />} />
-      <Redirect to="/landing" />
-    </Switch>
-  </BrowserRouter>,
+      <Route path="/CountryAPI" render={(props) => <CountryAPI />} /> */} 
+
+      {/* <Redirect to="/landing" /> */}
+  </Router>,
   document.getElementById("root")
 );
 

@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b7943469.chunk.css",
+    "main.js": "/static/js/main.fa60e2a3.chunk.js",
+    "main.js.map": "/static/js/main.fa60e2a3.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a9f6ea9a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a9f6ea9a.js.map",
+    "static/css/2.8aa5a7f8.chunk.css": "/static/css/2.8aa5a7f8.chunk.css",
+    "static/js/2.9f138305.chunk.js": "/static/js/2.9f138305.chunk.js",
+    "static/js/2.9f138305.chunk.js.map": "/static/js/2.9f138305.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.3becda8a166eb368c56f5a375eeb954b.js": "/precache-manifest.3becda8a166eb368c56f5a375eeb954b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.8aa5a7f8.chunk.css.map": "/static/css/2.8aa5a7f8.chunk.css.map",
+    "static/css/main.b7943469.chunk.css.map": "/static/css/main.b7943469.chunk.css.map",
+    "static/js/2.9f138305.chunk.js.LICENSE.txt": "/static/js/2.9f138305.chunk.js.LICENSE.txt",
+    "static/media/CaitlinLien.JPG": "/static/media/CaitlinLien.c5a77c5e.JPG",
+    "static/media/LaurenMangibin-headshot.jpg": "/static/media/LaurenMangibin-headshot.070c9602.jpg",
+    "static/media/austin-capitol.jpg": "/static/media/austin-capitol.04cf081b.jpg",
+    "static/media/beijing-skyline.jpg": "/static/media/beijing-skyline.d7e9ea31.jpg",
+    "static/media/caitlin-o-headshot.jpeg": "/static/media/caitlin-o-headshot.d50ebd94.jpeg",
+    "static/media/cherry.jpeg": "/static/media/cherry.0677d17d.jpeg",
+    "static/media/landing-bg.jpg": "/static/media/landing-bg.dae330c5.jpg",
+    "static/media/samantha-headshot.jpg": "/static/media/samantha-headshot.823dbb57.jpg",
+    "static/media/uma-headshot.jpg": "/static/media/uma-headshot.181cf0ee.jpg",
+    "static/media/world-map.jpeg": "/static/media/world-map.52a20450.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a9f6ea9a.js",
+    "static/css/2.8aa5a7f8.chunk.css",
+    "static/js/2.9f138305.chunk.js",
+    "static/css/main.b7943469.chunk.css",
+    "static/js/main.fa60e2a3.chunk.js"
+  ]
+}

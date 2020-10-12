@@ -4,6 +4,7 @@ import Navbar from "./components/OurNavbar";
 import axios from "axios";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
+import CountryAPI from './CountryAPI'
 
 function About() {
 
@@ -147,6 +148,7 @@ function About() {
           <br></br>
         </div>
       </body>
+      <CountryAPI/> 
     </div>
   );
 }
