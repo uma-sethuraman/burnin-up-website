@@ -18,6 +18,8 @@ RUN npm install
 # Copy or project directory (locally) in the current directory of our docker image (/frontend)
 COPY frontend/ .
 
+ADD . /cs373-sustainability/frontend/
+
 # Build the app (don't actually need this command)
 #RUN npm run build
 

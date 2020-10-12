@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   burninup-frontend:
     image: caitlinlien/burninup:frontend-0.1
@@ -9,6 +9,8 @@ services:
     expose:
       - "3000"
     tty: true
+    volumes:
+      - .:/cs373-sustainability/frontend
 
   burninup-backend:
     image: caitlinlien/burninup:backend-0.3
@@ -19,4 +21,3 @@ services:
     expose:
       - "5000"
     tty: true
-

@@ -7,8 +7,24 @@ import Table from "react-bootstrap/Table";
 import ImageBackground from "react";
 import View from "react";
 import "./CityInstance.css";
+import Carousel from "react-bootstrap/Carousel";
+import OurCarousel from "../OurCarousel";
+import Slide from "../../../Slide";
+
 
 function CityInstance() {
+  let s1 = new Slide(
+    "Austin",
+    require("../../../assets/austin-capitol.jpg")
+  );
+  let s2 = new Slide(
+    "Beijing",
+    require("../../../assets/beijing-skyline.jpg")
+  );
+  let s3 = new Slide(
+    "Paris",
+    require("../../../assets/paris-skyline.jpg")
+  );
   return (
     <div className="City">
       <Navbar />
@@ -104,6 +120,12 @@ function CityInstance() {
         <p>
           <Link to="/cities/paris">Paris</Link>
         </p>
+        {OurCarousel(s1, s2, s3)}
+        {/* <OurCarousel
+          slide1 = {s1}
+          slide2 = {s2}
+          slide3 ={s3}
+        ></OurCarousel> */}
       </header>
     </div>
   );
