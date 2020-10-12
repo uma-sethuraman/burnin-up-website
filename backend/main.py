@@ -65,39 +65,39 @@ years_schema = YearSchema(many=True)
 ###### ENDPOINTS ######
 
 # Retrieve all countries
-@app.route('/api/Countries', methods=['GET'])
+@app.route('/api/countries', methods=['GET'])
 def get_countries():
     all_countries = Country.query.all()
     result = countries_schema.dump(all_countries)
     return jsonify({'countries': result})
 
 # Retrieve single country entry by id
-@app.route('/api/Countries/id=<id>', methods=['GET'])
+@app.route('/api/countries/id=<id>', methods=['GET'])
 def get_country_id(id):
     country = Country.query.get(id)
     return country_schema.jsonify(country)
 
 # Retrieve single country entry by name
-@app.route('/api/Countries/name=<name>', methods=['GET'])
+@app.route('/api/countries/name=<name>', methods=['GET'])
 def get_country_name(name):
     country = db.session.query(Country).filter(Country.country_name==name).first()
     return country_schema.jsonify(country)
 
 # Retrieve all years
-@app.route('/api/Years', methods=['GET'])
+@app.route('/api/years', methods=['GET'])
 def get_years():
     all_years = Year.query.all()
     result = years_schema.dump(all_years)
     return jsonify({'years': result})
 
 # Retrieve single year entry by id
-@app.route('/api/Years/id=<id>', methods=['GET'])
+@app.route('/api/years/id=<id>', methods=['GET'])
 def get_year_id(id):
     year = Year.query.get(id)
     return year_schema.jsonify(year)
 
 # Retrieve single year entry by name
-@app.route('/api/Years/name=<name>', methods=['GET'])
+@app.route('/api/years/name=<name>', methods=['GET'])
 def get_year_name(name):
     year = db.session.query(Year).filter(Year.year_name==name).first()
     return year_schema.jsonify(year)

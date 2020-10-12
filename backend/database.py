@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 import flask_restless
 import pandas as pd
 import numpy as np
+import requests
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -76,6 +77,25 @@ class CountryEmissionsPerYear(db.Model):
         self.country = country
         self.code = code
         self.country_co2 = country_co2
+
+# City model
+class City(db.Model):
+    city_id = db.Column(db.Integer, primary_key=True)
+    city_name = db.Column(db.String())
+    population = db.Column(db.Integer)
+    time_zone = db.Column(db.String())
+    elevation = db.Column(db.Integer)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
+
+    def __init__(self, city_name="NaN", population=0, time_zone="NaN", elevation=0, lat=0.0, long=0.0):
+
+        self.city_name = city_name
+        self.population = population
+        self.time_zone = time_zone
+        self.elevation = elevation
+        self.lat = lat
+        self.long = long
 
 db.create_all()
 
@@ -146,5 +166,27 @@ for index, row in sorted_by_year.iterrows():
 
 db.session.add_all(country_years_list)
 db.session.commit()
+
+### Table for Cities ###
+
+# get list of countries
+url = "https://countries-cities.p.rapidapi.com/location/country/list"
+
+querystring = {"format":"json"}
+
+headers = {
+    'x-rapidapi-host': "countries-cities.p.rapidapi.com",
+    'x-rapidapi-key': "7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188"
+    }
+
+response = requests.request("GET", url, headers=headers, params=querystring)
+data = response.json()
+countries_list = []
+for item in data["countries"]:
+    countries_list.append(item)
+
+# TODO: get city info from each country in countries_list
+
+
 
 
