@@ -7,10 +7,10 @@ WORKDIR /backend
 
 # Installs python packages
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
-RUN pip install -r ./backend/requirements.txt
+RUN pip install -r requirements.txt
 RUN pip install psycopg2
 
-# Exposes port 5001 which Flask app will use to the container so that later it can be mapped with the system’s port
+# Exposes port 5000 which Flask app will use to the container so that later it can be mapped with the system’s port
 EXPOSE 5000
 
 # Runs <python demo.py>

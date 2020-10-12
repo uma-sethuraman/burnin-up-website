@@ -48,6 +48,10 @@ class YearSchema(ma.Schema):
     year_name = fields.Str(required=False)
     temp_anomaly = fields.Float(required=False)
     co2 = fields.Float(required=False)
+    methane = fields.Float(required=False)
+    nitrous_oxide = fields.Float(required=False)
+    polar_ice = fields.Float(required=False)
+    sea_level = fields.Float(required=False)
 
 
 ###### INITIALIZE SCHEMA OBJECTS ######
