@@ -26,7 +26,7 @@ function CityInstance() {
     require("../../../assets/paris-skyline.jpg")
   );
   return (
-    <div className="City">
+    <div className="CityInstance">
       <Navbar />
       <header className="App-header">
         <h1>
