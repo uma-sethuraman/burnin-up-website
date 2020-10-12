@@ -15,6 +15,9 @@ package-lock.json
 
 # misc
 .DS_Store/
+frontend/src/assets/.DS_Store
+frontend/src/.DS_Store
+frontend/.DS_Store
 .idea/
 .env.local
 .env.development.local

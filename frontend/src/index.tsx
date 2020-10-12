@@ -9,6 +9,7 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./views/App";
 import About from "./views/About";
 import Cities from "./views/Cities";
+import CityInstance from "./views/components/City/CityInstance";
 import GeneralYears from "./views/GeneralYears";
 import Year2013 from "./views/Year2013";
 import Year2014 from "./views/Year2014";
@@ -20,7 +21,9 @@ import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
 import France from "./views/France";
-import CountryAPI from "./views/CountryAPI"
+import CountryAPI from "./views/CountryAPI";
+import CountryInstance from "./views/components/Country/CountryInstance";
+import YearInstance from "./views/components/Year/YearInstance";
 
 ReactDOM.render(
   <Router>
@@ -37,10 +40,12 @@ ReactDOM.render(
       <Route path="/cities/Paris" render={(props) => <Paris />} />
       <Route path="/cities/Austin" render={(props) => <Austin />} />
       <Route path="/cities" render={(props) => <Cities />} />
+      <Route path="/city" render={(props) => <CityInstance />} />
       <Route path="/climatechange/2013" render={(props) => <Year2013 />} />
       <Route path="/climatechange/2014" render={(props) => <Year2014 />} />
       <Route path="/climatechange/2015" render={(props) => <Year2015 />} />
       <Route path="/climatechange" render={(props) => <GeneralYears />} />
+      <Route path="/year" render={(props) => <YearInstance />} />
       <Route path="/countries" render={(props) => <Countries />} />
       <Route path="/CountryAPI" render={(props) => <CountryAPI />} /> */} 
 
