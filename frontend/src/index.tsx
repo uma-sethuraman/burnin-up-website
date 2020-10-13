@@ -26,8 +26,8 @@ import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
 import {Countries, Country, CountryIncome, CountryRegion} from "./views/CountryAPI";
 
-const c: Countries = CountryAPI()!; 
-console.log (JSON.stringify(c.countries[0]));
+const c: Country[] = CountryAPI(); 
+console.log (JSON.stringify(c[0]));
 ReactDOM.render(
   <Router>
       <Route path="/about" exact component = {About}/>
@@ -35,7 +35,7 @@ ReactDOM.render(
       <Route path="/cities" exact component = {Cities} />
       {/*<Route path="/countries" exact component = {Countries} />*/}
       
-      <Route path="/country" exact component = {CountryInstance(c.countries[0])} /> 
+{/*<Route path="/country" exact component = {CountryInstance(c.countries[0])} /> */}
  
       {/* <Route path="/landing" exact component = {App}/> */}
       {/* <Route path="/countries/USA" exact component = {USA}/>

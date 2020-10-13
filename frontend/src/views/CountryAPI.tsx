@@ -19,7 +19,9 @@ function CountryAPI() {
       <p> {JSON.stringify(currentTest)} </p>
     </div>
   );*/
-  return currentTest;
+  const dataCopy: Country[] = JSON.parse(JSON.stringify(currentTest!.countries));
+  //return currentTest;
+  return dataCopy;
 }
 
 export interface Countries {
