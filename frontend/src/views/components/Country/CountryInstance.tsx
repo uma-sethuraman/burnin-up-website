@@ -15,7 +15,7 @@ import { Country } from "../../CountryAPI";
 import { CountryIncome } from "../../CountryAPI";
 import { CountryRegion } from "../../CountryAPI";
 
-function CountryInstance(country: Country) {
+function CountryInstance(country: Country | any) {
   let s1 = new Slide(
     "China",
     require("../../../assets/China_flag.jpg")

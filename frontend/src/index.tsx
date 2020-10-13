@@ -17,17 +17,19 @@ import Year2015 from "./views/Year2015";
 import Beijing from "./views/Beijing";
 import Paris from "./views/Paris";
 import Austin from "./views/Austin";
-//import Countries from "./views/Countries";
+// import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
 import France from "./views/France";
-import CountryAPI from "./views/CountryAPI";
+// import CountryAPI from "./views/CountryAPI";
 import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
-import {Countries, Country, CountryIncome, CountryRegion} from "./views/CountryAPI";
+import {Countries, Country, CountryIncome, CountryRegion, getCountries}  from "./views/CountryAPI";
+// import getCountries from "./views/CountryAPI"
+// const c: Country[]= CountryAPI(); 
+// console.log (JSON.stringify(c[0]));
 
-const c: Countries = CountryAPI()!; 
-console.log (JSON.stringify(c.countries[0]));
+let c:Countries = getCountries();
 ReactDOM.render(
   <Router>
       <Route path="/about" exact component = {About}/>
@@ -35,7 +37,11 @@ ReactDOM.render(
       <Route path="/cities" exact component = {Cities} />
       {/*<Route path="/countries" exact component = {Countries} />*/}
       
-      <Route path="/country" exact component = {CountryInstance(c.countries[0])} /> 
+
+      {/* create a function outside to add in all of the countries
+      
+      have to add a unique path for each one*/}
+      <Route path="/country" exact component = {()=><CountryInstance countries={c.countries[1]}/>} /> 
  
       {/* <Route path="/landing" exact component = {App}/> */}
       {/* <Route path="/countries/USA" exact component = {USA}/>

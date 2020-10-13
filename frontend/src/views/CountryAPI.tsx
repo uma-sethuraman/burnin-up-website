@@ -2,25 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Countries from './Countries';
 
-function CountryAPI() {
 
-  const [currentTest, setCurrentTest] = useState<Countries>();
+export function getCountries():Countries{
+  //countries container
+  let countriesContainer:Countries = {countries:[]};
 
-  useEffect(() => {
-    axios
-    .get("/api/countries").then(r => {
-      const countries:Countries = r.data as Countries;
-      setCurrentTest(countries);
-    })
-  }, []);
+  axios.get("/api/countries").then(r => {
+    
+    countriesContainer = r.data as Countries;
+    
+  });
 
-  /*return (
-    <div>
-      <p> {JSON.stringify(currentTest)} </p>
-    </div>
-  );*/
-  return currentTest;
+  return countriesContainer;
 }
+
+//find a better name!!NOT AN API
+
 
 export interface Countries {
   countries: Country[];
@@ -55,4 +52,3 @@ export enum CountryRegion {
   SubSaharanAfrica = "Sub-Saharan Africa ",
 }
 
-export default CountryAPI;
