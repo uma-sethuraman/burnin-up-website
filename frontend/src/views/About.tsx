@@ -16,6 +16,8 @@ interface GroupMember {
 }
 
 function About() {
+
+  
   const [members, changeMembers] = useState<GroupMember[]>([
     {
       name: "Caitlin Lien",
@@ -28,6 +30,7 @@ function About() {
     {
       name: "Caitlin O'Callaghan",
       email: "caitlinocallaghan@Caitlins-MBP.lan",
+      username: "caitlinocallaghan",
       commits: 0,
       issues: 0,
       unittest: 0,
@@ -35,33 +38,64 @@ function About() {
     {
       name: "Cherry Sun",
       email: "cherrysun9@utexas.edu",
+      username: "cherrysun9",
       commits: 0,
       issues: 0,
       unittest: 0,
     },
     {
-      name: "Caitlin O'Callaghan",
+      name: "Lauren Mangibin",
       email: "lauren.mangibin@gmail.com",
+      username: "lauren.mangibin",
       commits: 0,
       issues: 0,
       unittest: 0,
     },
     {
-      name: "Caitlin O'Callaghan",
-      email: "caitlinocallaghan@Caitlins-MBP.lan",
+      name: "Samantha Tuapen",
+      email: "samtuapen@utexas.edu",
+      username: "samantha3pen",
       commits: 0,
       issues: 0,
       unittest: 0,
     },
     {
-      name: "Caitlin O'Callaghan",
-      email: "caitlinocallaghan@Caitlins-MBP.lan",
+      name: "Uma Sethuraman",
+      email: "uma.sethuraman@utexas.edu",
+      username: "uma-sethuraman",
       commits: 0,
       issues: 0,
       unittest: 0,
     },
   ]);
 
+  /* Retrieves data about GitLab issues per contributor */
+  function issuesApiRequest() {
+    const requestURL: string =
+      "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
+    const requestArray = [];
+    for (const member of members) {
+      requestArray.push(axios.get(requestURL + member.username));
+    }
+
+    axios.all([...requestArray]).then(
+      axios.spread((...responses) => {
+        const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
+        for (let i = 0; i < responses.length; i++) {
+          const response: Gitlab = JSON.parse(JSON.stringify(responses[i])) as Gitlab;
+          membersCopy[i].issues = response.data.statistics.counts.all;
+        }
+        
+        changeMembers(old => {
+          return [...membersCopy]
+        });
+      })
+    ).catch(errors => {
+      console.log(errors.toJSON());
+    })
+  }
+
+  
   /* Commits per contributor from GitLab API */
   const [commitsCL, changeCommitsCL] = useState(-1);
   const [commitsCO, changeCommitsCO] = useState(-1);
@@ -69,130 +103,41 @@ function About() {
   const [commitsLM, changeCommitsLM] = useState(-1);
   const [commitsST, changeCommitsST] = useState(-1);
   const [commitsUS, changeCommitsUS] = useState(-1);
+  
+  // /* Retrieves number of commits per contributor from GitLab API */
+  // const commitsApiRequest = () => {
+  //   axios
+  //     .get(
+  //       "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
+  //     )
+  //     .then((response) => {
+  //       const allCommits: CommitsInfo[] = response.data;
 
-  /* Statistics for GitLab Issues from GitLab API */
-  const [statsCL, changeStatsCL] = useState(-1);
-  const [statsCO, changeStatsCO] = useState(-1);
-  const [statsCS, changeStatsCS] = useState(-1);
-  const [statsLM, changeStatsLM] = useState(-1);
-  const [statsST, changeStatsST] = useState(-1);
-  const [statsUS, changeStatsUS] = useState(-1);
-
-  /* Retrieves data about GitLab issues per contributor */
-  function issuesApiRequest() {
-    const larry: string =
-      "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
-    const requestArray = [];
-    for (const member of members) {
-      requestArray.push(larry + member.username);
-    }
-    console.log("going to make request");
-    axios.all([...requestArray]).then(
-      axios.spread((...responses) => {
-        const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
-        for (let i = 0; i < responses.length; i++) {
-          console.log("larry");
-          const response: Gitlab = JSON.parse(
-            JSON.stringify(responses[i])
-          ) as Gitlab;
-          membersCopy[i].issues = response?.data?.statistics?.counts?.all;
-        }
-        //changeMembers(membersCopy);
-        changeMembers(old => {
-          return [...membersCopy]
-        });
-      })
-    );
-    /* Requests for all contributors */
-    // const reqCL = axios.get(
-    //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinlien"
-    // );
-    // const reqCO = axios.get(
-    //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinocallaghan"
-    // );
-    // const reqCS = axios.get(
-    //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=cherrysun9"
-    // );
-    // const reqLM = axios.get(
-    //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=lauren.mangibin"
-    // );
-    // const reqST = axios.get(
-    //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=samantha3pen"
-    // );
-    // const reqUS = axios.get(
-    //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=uma-sethuraman"
-    // );
-
-    /* Change statistics variables for all contributors */
-    // axios
-    //   .all([reqCL, reqCO, reqCS, reqLM, reqST, reqUS])
-    //   .then(
-    //     axios.spread((...responses) => {
-    //       const responseCL: Gitlab = JSON.parse(
-    //         JSON.stringify(responses[0])
-    //       ) as Gitlab;
-    //       changeStatsCL(responseCL.data.statistics.counts.all);
-    //       const responseCO: Gitlab = JSON.parse(
-    //         JSON.stringify(responses[1])
-    //       ) as Gitlab;
-    //       changeStatsCO(responseCO.data.statistics.counts.all);
-    //       const responseCS: Gitlab = JSON.parse(
-    //         JSON.stringify(responses[2])
-    //       ) as Gitlab;
-    //       changeStatsCS(responseCS.data.statistics.counts.all);
-    //       const responseLM: Gitlab = JSON.parse(
-    //         JSON.stringify(responses[3])
-    //       ) as Gitlab;
-    //       changeStatsLM(responseLM.data.statistics.counts.all);
-    //       const responseST: Gitlab = JSON.parse(
-    //         JSON.stringify(responses[4])
-    //       ) as Gitlab;
-    //       changeStatsST(responseST.data.statistics.counts.all);
-    //       const responseUS: Gitlab = JSON.parse(
-    //         JSON.stringify(responses[5])
-    //       ) as Gitlab;
-    //       changeStatsUS(responseUS.data.statistics.counts.all);
-    //     })
-    //   )
-    //   .catch((errors) => {
-    //     console.log(errors.toJSON());
-    //   });
-  }
-
-  /* Retrieves number of commits per contributor from GitLab API */
-  const commitsApiRequest = () => {
-    axios
-      .get(
-        "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
-      )
-      .then((response) => {
-        const allCommits: CommitsInfo[] = response.data;
-
-        /* Iterate over all elements in the array and assign
-        each person's variable to their number of commits */
-        for (let elem of allCommits) {
-          if (elem.email === "caitlinlien@utexas.edu")
-            changeCommitsCL(elem.commits);
-          if (elem.email === "caitlinocallaghan@Caitlins-MBP.lan")
-            changeCommitsCO(elem.commits);
-          if (elem.email === "cherrysun9@utexas.edu")
-            changeCommitsCS(elem.commits);
-          if (elem.email === "lauren.mangibin@gmail.com")
-            changeCommitsLM(elem.commits);
-          if (elem.email === "samtuapen@utexas.edu")
-            changeCommitsST(elem.commits);
-          if (elem.email === "uma.sethuraman@utexas.edu")
-            changeCommitsUS(elem.commits);
-        }
-      })
-      .catch(function (error) {
-        console.log(error.toJSON());
-      });
-  };
+  //       /* Iterate over all elements in the array and assign
+  //       each person's variable to their number of commits */
+  //       for (let elem of allCommits) {
+  //         if (elem.email === "caitlinlien@utexas.edu")
+  //           changeCommitsCL(elem.commits);
+  //         if (elem.email === "caitlinocallaghan@Caitlins-MBP.lan")
+  //           changeCommitsCO(elem.commits);
+  //         if (elem.email === "cherrysun9@utexas.edu")
+  //           changeCommitsCS(elem.commits);
+  //         if (elem.email === "lauren.mangibin@gmail.com")
+  //           changeCommitsLM(elem.commits);
+  //         if (elem.email === "samtuapen@utexas.edu")
+  //           changeCommitsST(elem.commits);
+  //         if (elem.email === "uma.sethuraman@utexas.edu")
+  //           changeCommitsUS(elem.commits);
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error.toJSON());
+  //     });
+  // };
 
   return (
     <div className="About">
-      {commitsApiRequest()}
+      {/* {commitsApiRequest()} */}
       {issuesApiRequest()}
       <Navbar />
       <body className="About-body">
@@ -223,7 +168,7 @@ function About() {
               <h2>
                 <b>Caitlin O'Callaghan</b>
               </h2>
-              <p>Issues: {statsCO}</p>
+              <p>Issues: {members[1].issues}</p>
               <p>Commits: {commitsCO}</p>
               <p>Unit Tests: 0</p>
             </div>
@@ -236,7 +181,7 @@ function About() {
               <h2>
                 <b>Cherry Sun</b>
               </h2>
-              <p>Issues: {statsCS}</p>
+              <p>Issues: {members[2].issues}</p>
               <p>Commits: {commitsCS}</p>
               <p>Unit Tests: 0</p>
             </div>
@@ -249,7 +194,7 @@ function About() {
               <h2>
                 <b>Lauren Mangibin</b>
               </h2>
-              <p>Issues: {statsLM}</p>
+              <p>Issues: {members[3].issues}</p>
               <p>Commits: {commitsLM}</p>
               <p>Unit Tests: 0</p>
             </div>
@@ -262,7 +207,7 @@ function About() {
               <h2>
                 <b>Samantha Tuapen</b>
               </h2>
-              <p>Issues: {statsST}</p>
+              <p>Issues: {members[4].issues}</p>
               <p>Commits: {commitsST}</p>
               <p>Unit Tests: 0</p>
             </div>
@@ -275,7 +220,7 @@ function About() {
               <h2>
                 <b>Uma Sethuraman</b>
               </h2>
-              <p>Issues: {statsUS}</p>
+              <p>Issues: {members[5].issues}</p>
               <p>Commits: {commitsUS}</p>
               <p>Unit Tests: 0</p>
             </div>
