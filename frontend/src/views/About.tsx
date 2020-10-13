@@ -8,60 +8,44 @@ import CountryAPI from "./CountryAPI";
 
 function About() {
 
-  
+  /* Team member information */
   const [members, changeMembers] = useState<GroupMember[]>([
     {
       name: "Caitlin Lien",
       email: "caitlinlien@utexas.edu",
-      username: "caitlinlien",
-      commits: 0,
-      issues: 0,
-      unittest: 0,
+      username: "caitlinlien"
     },
     {
       name: "Caitlin O'Callaghan",
       email: "caitlinocallaghan@Caitlins-MBP.lan",
-      username: "caitlinocallaghan",
-      commits: 0,
-      issues: 0,
-      unittest: 0,
+      username: "caitlinocallaghan"
     },
     {
       name: "Cherry Sun",
       email: "cherrysun9@utexas.edu",
-      username: "cherrysun9",
-      commits: 0,
-      issues: 0,
-      unittest: 0,
+      username: "cherrysun9"
     },
     {
       name: "Lauren Mangibin",
       email: "lauren.mangibin@gmail.com",
-      username: "lauren.mangibin",
-      commits: 0,
-      issues: 0,
-      unittest: 0,
+      username: "lauren.mangibin"
     },
     {
       name: "Samantha Tuapen",
       email: "samtuapen@utexas.edu",
-      username: "samantha3pen",
-      commits: 0,
-      issues: 0,
-      unittest: 0,
+      username: "samantha3pen"
     },
     {
       name: "Uma Sethuraman",
       email: "uma.sethuraman@utexas.edu",
-      username: "uma-sethuraman",
-      commits: 0,
-      issues: 0,
-      unittest: 0,
+      username: "uma-sethuraman"
     },
   ]);
 
   /* Retrieves data about GitLab issues per contributor */
   function issuesApiRequest() {
+
+    /* Populates requestArray with all issues requests */
     const requestURL: string =
       "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
     const requestArray = [];
@@ -69,6 +53,7 @@ function About() {
       requestArray.push(axios.get(requestURL + member.username));
     }
 
+    /* Updates issues number for all people in members */
     axios.all([...requestArray]).then(
       axios.spread((...responses) => {
         const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
@@ -85,50 +70,42 @@ function About() {
       console.log(errors.toJSON());
     })
   }
-
   
-  /* Commits per contributor from GitLab API */
-  const [commitsCL, changeCommitsCL] = useState(-1);
-  const [commitsCO, changeCommitsCO] = useState(-1);
-  const [commitsCS, changeCommitsCS] = useState(-1);
-  const [commitsLM, changeCommitsLM] = useState(-1);
-  const [commitsST, changeCommitsST] = useState(-1);
-  const [commitsUS, changeCommitsUS] = useState(-1);
-  
-  // /* Retrieves number of commits per contributor from GitLab API */
-  // const commitsApiRequest = () => {
-  //   axios
-  //     .get(
-  //       "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
-  //     )
-  //     .then((response) => {
-  //       const allCommits: CommitsInfo[] = response.data;
+  /* Retrieves commit data for all members */
+  function commitsApiRequest() {
+    axios
+      .get(
+        "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
+      )
+      .then((response) => {
+        const allCommits: CommitsInfo[] = response.data;
 
-  //       /* Iterate over all elements in the array and assign
-  //       each person's variable to their number of commits */
-  //       for (let elem of allCommits) {
-  //         if (elem.email === "caitlinlien@utexas.edu")
-  //           changeCommitsCL(elem.commits);
-  //         if (elem.email === "caitlinocallaghan@Caitlins-MBP.lan")
-  //           changeCommitsCO(elem.commits);
-  //         if (elem.email === "cherrysun9@utexas.edu")
-  //           changeCommitsCS(elem.commits);
-  //         if (elem.email === "lauren.mangibin@gmail.com")
-  //           changeCommitsLM(elem.commits);
-  //         if (elem.email === "samtuapen@utexas.edu")
-  //           changeCommitsST(elem.commits);
-  //         if (elem.email === "uma.sethuraman@utexas.edu")
-  //           changeCommitsUS(elem.commits);
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.toJSON());
-  //     });
-  // };
+        const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
+
+        /* Iterate over all elements in the array and assign
+        each member to their number of commits */
+        for (let elem of allCommits) {
+          for (let i = 0; i < membersCopy.length; i++) {
+            if (elem.email === membersCopy[i].email) {
+              membersCopy[i].commits = elem.commits;
+              break;
+            }
+          }
+        }
+
+        /* Update members */
+        changeMembers(old => {
+          return [...membersCopy]
+        });
+      })
+      .catch(function (error) {
+        console.log(error.toJSON());
+      });
+  }
 
   return (
     <div className="About">
-      {/* {commitsApiRequest()} */}
+      {commitsApiRequest()}
       {issuesApiRequest()}
       <Navbar />
       <body className="About-body">
@@ -147,7 +124,7 @@ function About() {
                 <b>Caitlin Lien</b>
               </h2>
               <p>Issues: {members[0].issues}</p>
-              <p>Commits: {commitsCL}</p>
+              <p>Commits: {members[0].commits}</p>
               <p>Unit Tests: 0</p>
             </div>
             <div className="column">
@@ -160,7 +137,7 @@ function About() {
                 <b>Caitlin O'Callaghan</b>
               </h2>
               <p>Issues: {members[1].issues}</p>
-              <p>Commits: {commitsCO}</p>
+              <p>Commits: {members[1].commits}</p>
               <p>Unit Tests: 0</p>
             </div>
             <div className="column">
@@ -173,7 +150,7 @@ function About() {
                 <b>Cherry Sun</b>
               </h2>
               <p>Issues: {members[2].issues}</p>
-              <p>Commits: {commitsCS}</p>
+              <p>Commits: {members[2].commits}</p>
               <p>Unit Tests: 0</p>
             </div>
             <div className="column">
@@ -186,7 +163,7 @@ function About() {
                 <b>Lauren Mangibin</b>
               </h2>
               <p>Issues: {members[3].issues}</p>
-              <p>Commits: {commitsLM}</p>
+              <p>Commits: {members[3].commits}</p>
               <p>Unit Tests: 0</p>
             </div>
             <div className="column">
@@ -199,7 +176,7 @@ function About() {
                 <b>Samantha Tuapen</b>
               </h2>
               <p>Issues: {members[4].issues}</p>
-              <p>Commits: {commitsST}</p>
+              <p>Commits: {members[4].commits}</p>
               <p>Unit Tests: 0</p>
             </div>
             <div className="column">
@@ -212,7 +189,7 @@ function About() {
                 <b>Uma Sethuraman</b>
               </h2>
               <p>Issues: {members[5].issues}</p>
-              <p>Commits: {commitsUS}</p>
+              <p>Commits: {members[5].commits}</p>
               <p>Unit Tests: 0</p>
             </div>
           </div>
@@ -233,7 +210,6 @@ function About() {
           <br></br>
         </div>
       </body>
-      <CountryAPI />
     </div>
   );
 }
@@ -242,9 +218,9 @@ export interface GroupMember {
   name: string;
   email: string;
   username?: string;
-  commits: number;
-  issues: number;
-  unittest: number;
+  commits?: number;
+  issues?: number;
+  unittest?: number;
 }
 
 export interface Gitlab {
