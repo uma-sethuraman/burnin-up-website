@@ -14,12 +14,12 @@ function CountryAPI() {
     })
   }, []);
 
-  return (
-     <div>
+  /*return (
+    <div>
       <p> {JSON.stringify(currentTest)} </p>
     </div>
-  );
-
+  );*/
+  return currentTest;
 }
 
 export interface Countries {

@@ -17,21 +17,25 @@ import Year2015 from "./views/Year2015";
 import Beijing from "./views/Beijing";
 import Paris from "./views/Paris";
 import Austin from "./views/Austin";
-import Countries from "./views/Countries";
+//import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
 import France from "./views/France";
 import CountryAPI from "./views/CountryAPI";
 import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
+import {Countries, Country, CountryIncome, CountryRegion} from "./views/CountryAPI";
 
+const c: Countries = CountryAPI()!; 
+console.log (JSON.stringify(c.countries[0]));
 ReactDOM.render(
   <Router>
       <Route path="/about" exact component = {About}/>
       <Route path="/" exact component = {App}/>
       <Route path="/cities" exact component = {Cities} />
-      <Route path="/countries" exact component = {Countries} />
-
+      {/*<Route path="/countries" exact component = {Countries} />*/}
+      
+      <Route path="/country" exact component = {CountryInstance(c.countries[0])} /> 
  
       {/* <Route path="/landing" exact component = {App}/> */}
       {/* <Route path="/countries/USA" exact component = {USA}/>
@@ -48,7 +52,7 @@ ReactDOM.render(
       <Route path="/climatechange" exact component = {GeneralYears} />
       <Route path="/year" exact component = {YearInstance} />
     
-      <Route path="/CountryAPI" exact component = {CountryAPI} />
+      {/*<Route path="/CountryAPI" exact component = {CountryAPI} />*/}
 
       {/* //add protections later? when removed, all the pages work.. else, all pages
       //redirect to landing page */}

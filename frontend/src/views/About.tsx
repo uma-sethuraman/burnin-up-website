@@ -42,6 +42,10 @@ function About() {
     },
   ]);
 
+  const [issuesSum, changeIssuesSum] = useState(-1);
+  const [commitsSum, changeCommitsSum] = useState(-1);
+  const [unittestsSum, changeUnittestsSum] = useState(0);
+
   /* Retrieves data about GitLab issues per contributor */
   function issuesApiRequest() {
 
@@ -57,11 +61,16 @@ function About() {
     axios.all([...requestArray]).then(
       axios.spread((...responses) => {
         const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
+        let totalIssues = 0;
         for (let i = 0; i < responses.length; i++) {
           const response: Gitlab = JSON.parse(JSON.stringify(responses[i])) as Gitlab;
           membersCopy[i].issues = response.data.statistics.counts.all;
+          totalIssues += response.data.statistics.counts.all;
         }
         
+        /* Update total number of issues */
+        changeIssuesSum(totalIssues);
+
         changeMembers(old => {
           return [...membersCopy]
         });
@@ -82,16 +91,22 @@ function About() {
 
         const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
 
+        let totalCommits = 0;
+
         /* Iterate over all elements in the array and assign
         each member to their number of commits */
         for (let elem of allCommits) {
           for (let i = 0; i < membersCopy.length; i++) {
             if (elem.email === membersCopy[i].email) {
               membersCopy[i].commits = elem.commits;
+              totalCommits += elem.commits;
               break;
             }
           }
         }
+
+        /* Update total number of commits */
+        changeCommitsSum(totalCommits);
 
         /* Update members */
         changeMembers(old => {
@@ -111,6 +126,11 @@ function About() {
       <body className="About-body">
         <div className="h3_about">
           <h3>About Us</h3>
+        </div>
+        <div className="h2_about">
+          <h2>Total Commits: {commitsSum}</h2>
+          <h2>Total Issues: {issuesSum}</h2>
+          <h2>Total Unit Tests: {unittestsSum}</h2>
         </div>
         <div className="row">
           <div className="h2_about">
@@ -218,6 +238,7 @@ export interface GroupMember {
   name: string;
   email: string;
   username?: string;
+  bio?: string;
   commits?: number;
   issues?: number;
   unittest?: number;

@@ -11,9 +11,11 @@ import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import Slide from "../../../Slide";
 import { useState, useEffect } from 'react';
+import { Country } from "../../CountryAPI";
+import { CountryIncome } from "../../CountryAPI";
+import { CountryRegion } from "../../CountryAPI";
 
-
-function CountryInstance() {
+function CountryInstance(country: Country) {
   let s1 = new Slide(
     "China",
     require("../../../assets/China_flag.jpg")
@@ -27,27 +29,16 @@ function CountryInstance() {
     require("../../../assets/USA_flag.jpg")
   );
 
-  const [countries, setCountries] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/country').then(response =>
-        response.json().then(data => {
-            setCountries(data);
-        })
-    );
-  },[]);
-  console.log(countries);
-
   return (
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
         <h1>
-          United States
+          {country.country_name}
         </h1>
         <header className="Country-header">
           <div className="image-text">
-            <h3> United States </h3>
+            <h3> {country.country_name} </h3>
           </div>
         </header>
         <br />
@@ -55,40 +46,19 @@ function CountryInstance() {
           <tbody>
             <tr>
               <td>Income Level</td>
-              <td>High income</td>
-            </tr>
-            <tr>
-              <td>Longtitude</td>
-              <td>-77.032</td>
-            </tr>
-            <tr>
-              <td>Latitude</td>
-              <td>38.8895</td>
+              <td>{country.country_income}</td>
             </tr>
             <tr>
               <td>Region</td>
-              <td>North America</td>
+              <td>{country.country_region}</td>
             </tr>
             <tr>
               <td>Capital City</td>
-              <td>Washington D.C</td>
-            </tr>
-            <tr>
-              <td>Average Temperature</td>
-              <td>4.45</td>
-            </tr>
-            <tr>
-              <td>pm2.5</td>
-              <td>-4.2</td>
+              <td>{country.country_capital_city}</td>
             </tr>
           </tbody>
         </Table>
-        {/* <Image src={require("../assets/austin-capitol.jpg")} fluid />
-        <br />
-        <Image src={require("../assets/austin-location-map.jpg")} fluid />
-        <br />
-        <Image src={require("../assets/austin-OzoneGraph.jpg")} fluid /> */}
-
+  
         <div>See more: </div>
         <p>
           <Link to="/countries/China">China</Link>
@@ -97,11 +67,6 @@ function CountryInstance() {
           <Link to="/countries/France">France</Link>
         </p>
         {OurCarousel(s1, s2, s3)}
-        {/* <OurCarousel
-          slide1 = {s1}
-          slide2 = {s2}
-          slide3 ={s3}
-        ></OurCarousel> */}
       </header>
     </div>
   );
