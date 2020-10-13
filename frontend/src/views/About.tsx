@@ -12,7 +12,7 @@ interface GroupMember {
   username?: string;
   commits: number;
   issues: number;
-  unittests: number;
+  unittest: number;
 }
 
 function About() {
@@ -86,20 +86,23 @@ function About() {
     for (const member of members) {
       requestArray.push(larry + member.username);
     }
+    console.log("going to make request");
     axios.all([...requestArray]).then(
       axios.spread((...responses) => {
         const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
         for (let i = 0; i < responses.length; i++) {
+          console.log("larry");
           const response: Gitlab = JSON.parse(
             JSON.stringify(responses[i])
           ) as Gitlab;
-          membersCopy[i].issues = response.data.statistics.counts.all;
+          membersCopy[i].issues = response?.data?.statistics?.counts?.all;
         }
-        changeMembers(membersCopy);
+        //changeMembers(membersCopy);
+        changeMembers(old => {
+          return [...membersCopy]
+        });
       })
-    ).catch((errors) => {
-      console.log(errors.toJSON());
-    });
+    );
     /* Requests for all contributors */
     // const reqCL = axios.get(
     //   "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=caitlinlien"
