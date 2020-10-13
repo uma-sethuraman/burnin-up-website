@@ -6,15 +6,6 @@ import { useState } from "react";
 import Image from "react-bootstrap/Image";
 import CountryAPI from "./CountryAPI";
 
-interface GroupMember {
-  name: string;
-  email: string;
-  username?: string;
-  commits: number;
-  issues: number;
-  unittest: number;
-}
-
 function About() {
 
   
@@ -245,6 +236,15 @@ function About() {
       <CountryAPI />
     </div>
   );
+}
+
+export interface GroupMember {
+  name: string;
+  email: string;
+  username?: string;
+  commits: number;
+  issues: number;
+  unittest: number;
 }
 
 export interface Gitlab {
