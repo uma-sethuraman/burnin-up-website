@@ -1,19 +1,21 @@
 version: '3'
 services:
 
-  burninup-backend:
-    build: ./backend
-    container_name: burninup-backend
+  burninup:
+    build: ./
+    container_name: burninup-container
     ports:
       - 5000:5000
+    expose:
+      - 5000
 
-  burninup-frontend:
-    build: ./frontend
-    container_name: burninup-frontend
-    ports:
-      - 3000:3000
-    links:
-      - burninup-backend
+#  burninup-frontend:
+#    build: ./frontend
+#    container_name: burninup-frontend
+#    ports:
+#      - 3000:3000
+#    links:
+#      - burninup-backend
 
   
 

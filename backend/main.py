@@ -1,13 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
+import psycopg2
+from flask_cors import CORS
 
 # Create flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../frontend/build/static", template_folder="../frontend/build")
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.debug = True
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -53,7 +55,6 @@ class YearSchema(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
 
-
 ###### INITIALIZE SCHEMA OBJECTS ######
 
 country_schema = CountrySchema()
@@ -62,45 +63,50 @@ countries_schema = CountrySchema(many=True)
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-###### ENDPOINTS ######
-
+###### ENDPOINTS #####
 # Retrieve all countries
-@app.route('/api/Countries', methods=['GET'])
+@app.route('/', defaults={'path': ""})
+@app.route('/<path:path>')
+def get_index(path):
+    return render_template("index.html")
+
+@app.route('/api/countries')
 def get_countries():
     all_countries = Country.query.all()
     result = countries_schema.dump(all_countries)
     return jsonify({'countries': result})
 
 # Retrieve single country entry by id
-@app.route('/api/Countries/id=<id>', methods=['GET'])
+@app.route('/api/countries/id=<id>')
 def get_country_id(id):
     country = Country.query.get(id)
     return country_schema.jsonify(country)
 
 # Retrieve single country entry by name
-@app.route('/api/Countries/name=<name>', methods=['GET'])
+@app.route('/api/countries/name=<name>')
 def get_country_name(name):
     country = db.session.query(Country).filter(Country.country_name==name).first()
     return country_schema.jsonify(country)
 
 # Retrieve all years
-@app.route('/api/Years', methods=['GET'])
+@app.route('/api/years')
 def get_years():
     all_years = Year.query.all()
     result = years_schema.dump(all_years)
     return jsonify({'years': result})
 
 # Retrieve single year entry by id
-@app.route('/api/Years/id=<id>', methods=['GET'])
+@app.route('/api/years/id=<id>')
 def get_year_id(id):
     year = Year.query.get(id)
     return year_schema.jsonify(year)
 
 # Retrieve single year entry by name
-@app.route('/api/Years/name=<name>', methods=['GET'])
+@app.route('/api/years/name=<name>')
 def get_year_name(name):
-    year = db.session.query(Year).filter(Year.year_name==name).first()
+    year = db.session.query(Year).filter(Year.year_name == name).first()
     return year_schema.jsonify(year)
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
