@@ -17,32 +17,24 @@ import Year2015 from "./views/Year2015";
 import Beijing from "./views/Beijing";
 import Paris from "./views/Paris";
 import Austin from "./views/Austin";
-// import Countries from "./views/Countries";
+import Countries from "./views/Countries";
 import USA from "./views/USA";
 import China from "./views/China";
 import France from "./views/France";
-// import CountryAPI from "./views/CountryAPI";
 import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
-import {Countries, Country, CountryIncome, CountryRegion, getCountries}  from "./views/CountryAPI";
-// import getCountries from "./views/CountryAPI"
-// const c: Country[]= CountryAPI(); 
-// console.log (JSON.stringify(c[0]));
 
-let c:Countries = getCountries();
 ReactDOM.render(
   <Router>
       <Route path="/about" exact component = {About}/>
       <Route path="/" exact component = {App}/>
       <Route path="/cities" exact component = {Cities} />
-      {/*<Route path="/countries" exact component = {Countries} />*/}
-      
+      <Route path="/city" exact component = {CityInstance } />
+      <Route path="/countries" exact component = {Countries} />
+      <Route path="/countries/:name" render = {(props) => (<CountryInstance name={props.match.params.name}/>)} /> 
+      <Route path="/climatechange" exact component = {GeneralYears} />
+      <Route path="/year" exact component = {YearInstance} />
 
-      {/* create a function outside to add in all of the countries
-      
-      have to add a unique path for each one*/}
-      <Route path="/country" exact component = {()=><CountryInstance countries={c.countries[1]}/>} /> 
- 
       {/* <Route path="/landing" exact component = {App}/> */}
       {/* <Route path="/countries/USA" exact component = {USA}/>
       <Route path="/countries/China" exact component = {China} />
@@ -50,15 +42,9 @@ ReactDOM.render(
       <Route path="/cities/Beijing" exact component = {Beijing />} />
       <Route path="/cities/Paris" exact component = {Paris />} /> */}
       <Route path="/cities/Austin" exact component = {Austin} />
-      
-      <Route path="/city" exact component = {CityInstance } />
       {/* <Route path="/climatechange/2013" exact component = {Year2013 />} />
       <Route path="/climatechange/2014" exact component = {Year2014 />} />
       <Route path="/climatechange/2015" exact component = {Year2015 />} /> */}
-      <Route path="/climatechange" exact component = {GeneralYears} />
-      <Route path="/year" exact component = {YearInstance} />
-    
-      {/*<Route path="/CountryAPI" exact component = {CountryAPI} />*/}
 
       {/* //add protections later? when removed, all the pages work.. else, all pages
       //redirect to landing page */}
