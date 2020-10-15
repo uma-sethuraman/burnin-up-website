@@ -1,7 +1,7 @@
 version: "3"
 services:
 
-  burninup-backend:
+  burninup:
     build: ./
     container_name: burninup-container
     ports:

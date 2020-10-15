@@ -64,6 +64,7 @@ years_schema = YearSchema(many=True)
 
 ###### ENDPOINTS ######
 
+
 # Retrieve all countries
 @app.route('/api/countries', methods=['GET'])
 def get_countries():
