@@ -1,4 +1,8 @@
-### want to copy the entire cs373-sustainability folder ###
+# Sets up a python and linux environment
+#FROM python:alpine3.11
+FROM nikolaik/python-nodejs
+
+# Creates the docker directory
 COPY . /app
 RUN ls
 WORKDIR /app
