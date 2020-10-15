@@ -108,4 +108,4 @@ def get_year_name(name):
     return year_schema.jsonify(year)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
