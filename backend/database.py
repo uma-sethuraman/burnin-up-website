@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 import flask_restless
 import pandas as pd
 import numpy as np
+import requests
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -77,10 +78,34 @@ class CountryEmissionsPerYear(db.Model):
         self.code = code
         self.country_co2 = country_co2
 
+# City model
+class City(db.Model):
+    city_id = db.Column(db.Integer, primary_key=True)
+    city_name = db.Column(db.String())
+    population = db.Column(db.Integer)
+    time_zone = db.Column(db.String())
+    elevation = db.Column(db.Integer)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
+    pm25 = db.Column(db.Float)
+    co2 = db.Column(db.Float)
+    so2 = db.Column(db.Float)
+
+    def __init__(self, city_name="NaN", population=0, time_zone="NaN", elevation=0, lat=0.0, long=0.0, pm25=0.0, co2=0.0, so2 = 0.0):
+
+        self.city_name = city_name
+        self.population = population
+        self.time_zone = time_zone
+        self.elevation = elevation
+        self.lat = lat
+        self.long = long
+        self.pm25 = pm25
+        self.co2 = co2
+        self.so2 = so2
+
 db.create_all()
 
 # Fill in tables
-
 ### Table for Country ###
 request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
 r = urllib.request.urlopen(request_url)
@@ -147,4 +172,37 @@ for index, row in sorted_by_year.iterrows():
 db.session.add_all(country_years_list)
 db.session.commit()
 
+### Table for Cities ###
 
+# get list of countries
+url = "https://countries-cities.p.rapidapi.com/location/country/list"
+
+querystring = {"format": "json"}
+
+headers = {
+    'x-rapidapi-host': "countries-cities.p.rapidapi.com",
+    'x-rapidapi-key': "7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188"
+    }
+
+response = requests.request("GET", url, headers=headers, params=querystring)
+data = response.json()
+countries_list = []
+for item in data["countries"]:
+    countries_list.append(item)
+
+# TODO: get city info from each country in countries_list
+
+
+request_url = "https://api.climacell.co/v3/weather/historical/climacell?lat=48.8566&lon=2.3522&unit_system=si&start_time=2020-10-13T14%3A09%3A50Z&end_time=now&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
+
+my_headers = {
+    'apikey': 'HZhAxtPoFuqDNCrrR1mE5Np7i9FAj92O'
+}
+response = requests.request("GET", request_url, headers=my_headers)
+data = response.json()
+cities_list = []
+for item in data:
+    new_city = City(lat=item['lat'], long=item['lon'], pm25=item['pm25']['value'],co2=item['co']['value'], so2=item['so2']['value'])
+    cities_list.append(new_city)
+db.session.add_all(cities_list)
+db.session.commit()
