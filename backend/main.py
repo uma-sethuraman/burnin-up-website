@@ -63,7 +63,11 @@ year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
 ###### ENDPOINTS ######
-
+# Root routing
+@app.route('/', defaults={'path': ""})
+@app.route('/<path:path>')
+def get_index(path):
+    return render_template("index.html")
 
 # Retrieve all countries
 @app.route('/api/countries', methods=['GET'])
