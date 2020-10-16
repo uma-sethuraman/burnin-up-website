@@ -12,8 +12,40 @@ import Navbar from "./components/OurNavbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import {CountriesObject, Country, CountryRegion, CountryIncome } from "./components/Country/CountryInstance";
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
-function Countries() {
+const Countries = () => {
+  let [countriesObj, setCountriesObj] = React.useState<CountriesObject>();
+
+  // gets data from API
+  const getData = () => {
+    axios.get("/api/countries")
+    .then((response)=>{
+        setCountriesObj(JSON.parse(JSON.stringify(response.data)) as CountriesObject);
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+  };
+
+  function setTableData(currCountry: Country, index: any) {
+    return (
+      <tr key={index}>
+        <td>
+          <Link to={"/countries/id="+currCountry.country_id}>
+            {currCountry.country_name}
+          </Link>
+        </td>
+        <td>{currCountry.country_income}</td>
+        <td>{currCountry.country_region}</td>
+        <td>{currCountry.country_capital_city}</td>
+      </tr>
+    )
+  }
+
+  getData();
   return (
     <div className="App">
       <Navbar />
@@ -73,51 +105,14 @@ function Countries() {
             <tr>
               <th>Country</th>
               <th>Income Level</th>
-              <th>Longitude</th>
-              <th>Latitude</th>
               <th>Region</th>
               <th>Capital City</th>
-              <th>Average Temperature</th>
-              <th>pm2.5</th>
+              {/* <th>Average Temperature</th> */}
+              {/* <th>pm2.5</th> */}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <Link to="/countries/USA"> United States</Link>
-              </td>
-              <td>High income</td>
-              <td>-77.032</td>
-              <td>38.8895</td>
-              <td>North America</td>
-              <td>Washington D.C</td>
-              <td>4.45</td>
-              <td>-4.2</td>
-            </tr>
-            <tr>
-              <td>
-                <Link to="/countries/China"> China</Link>
-              </td>
-              <td>Upper Middle Income</td>
-              <td>116.286</td>
-              <td>40.0495</td>
-              <td>East Asia and Pacific</td>
-              <td>Beijing</td>
-              <td>3.45</td>
-              <td>400</td>
-            </tr>
-            <tr>
-              <td>
-                <Link to="/countries/France"> France</Link>
-              </td>
-              <td>High Income</td>
-              <td>2.35097</td>
-              <td>48.8566</td>
-              <td>Europe & Central Asia</td>
-              <td>Paris</td>
-              <td>10.05</td>
-              <td>13077</td>
-            </tr>
+            {countriesObj?.countries.map(setTableData)}
           </tbody>
         </Table>
       </header>

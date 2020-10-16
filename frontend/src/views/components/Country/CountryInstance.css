@@ -19,7 +19,7 @@
 
   .Country-header {
     background: rgba(70, 72, 82, 0.3);
-    background-image: url("../../../assets/austin-capitol.jpg"); /* The image used */
+    /* background-image: url("../../../assets/austin-capitol.jpg"); */ /* The image used */
     height: 100%; /* You must set a specified height */
     width: 100%;
     background-position: center; /* Center the image */

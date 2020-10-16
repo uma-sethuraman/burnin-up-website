@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import "../../App.css";
 import Navbar from "../OurNavbar";
-import Image from "react-bootstrap/Image";
 import Table from "react-bootstrap/Table";
 import ImageBackground from "react";
 import View from "react";
@@ -12,11 +11,12 @@ import OurCarousel from "../OurCarousel";
 import Slide from "../../../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import Image from "react-bootstrap/Image";
 
 
 const CountryInstance = (id: any) => {
 
-  let [country, setCountry] = React.useState<Country>()
+  let [country, setCountry] = React.useState<Country>();
     
   // gets data from API
   const getData = () => {
@@ -47,10 +47,13 @@ const CountryInstance = (id: any) => {
   );
 
   getData();
+  let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
+  
   return (
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
+        <Image src={flagLink} alt="Flag"/>
         <header className="Country-header">
           <div className="image-text">
             <h3> {country?.country_name} </h3>
