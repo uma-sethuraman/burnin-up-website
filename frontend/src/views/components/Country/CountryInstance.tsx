@@ -33,17 +33,17 @@ const CountryInstance = (id: any) => {
   let s1 = new Slide(
     "China",
     require("../../../assets/China_flag.jpg"),
-    "/countries/50"
+    "/countries/id=50"
   );
   let s2 = new Slide(
     "France",
     require("../../../assets/France_flag.jpg"),
-    "/countries/405"
+    "/countries/id=405"
   );
   let s3 = new Slide(
     "India",
     require("../../../assets/USA_flag.jpg"),
-    "/countries/439"
+    "/countries/id=439"
   );
 
   getData();
