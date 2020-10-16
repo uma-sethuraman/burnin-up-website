@@ -55,6 +55,7 @@ class City(db.Model):
     pm25 = db.Column(db.Float)
     co2 = db.Column(db.Float)
     so2 = db.Column(db.Float)
+    country_iso2code = db.Column(db.String())
 
 ###### SCHEMAS ######
 
@@ -99,6 +100,7 @@ class CitySchema(db.Model):
     pm25 = fields.Float(required=False)
     co2 = fields.Float(required=False)
     so2 = fields.Float(required=False)
+    country_iso2code = fields.Str(required=False)
 
 
 ###### INITIALIZE SCHEMA OBJECTS ######
@@ -139,6 +141,12 @@ def get_country_id(id):
 def get_country_name(name):
     country = db.session.query(Country).filter(Country.country_name==name).first()
     return country_schema.jsonify(country)
+
+@app.route('/api/countries/code=<country_code>/cities')
+def get_country_cities(country_code):
+    country_cities = db.session.query(City).filter(City.country_iso2code==country_code).all()
+    return cities_schema.jsonify(country_cities)
+
 
 # Retrieve all years
 @app.route('/api/years', methods=['GET'])
