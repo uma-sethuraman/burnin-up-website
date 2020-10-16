@@ -24,8 +24,8 @@ frontend:
         - cd ./frontend
         - npm install
         - npm run build
-        - cd ../backend
-        - python main.py
+        #- cd ../backend
+        #- python main.py
 
   artifacts:
     # IMPORTANT - Please verify your build output directory
