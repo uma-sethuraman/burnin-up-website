@@ -18,7 +18,9 @@ frontend:
         #   $(lsb_release -cs) \
         #   stable"
         # - sudo apt-get install docker-ce docker-ce-cli containerd.io
-        - docker-compose up --build --force-recreate
+        #- docker pull caitlinlien/burninup:latest
+        #- docker-compose up --build --force-recreate
+        - docker run caitlinlien/burninup:latest
 
   artifacts:
     # IMPORTANT - Please verify your build output directory
