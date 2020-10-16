@@ -35,6 +35,27 @@ class Year(db.Model):
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
 
+# Country C02 Emissions Per Year Model
+class CountryEmissionsPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    country = db.Column(db.String())
+    code = db.Column(db.String())
+    country_co2 = db.Column(db.Float)
+
+# City Model
+class City(db.Model):
+    city_id = db.Column(db.Integer, primary_key=True)
+    city_name = db.Column(db.String())
+    population = db.Column(db.Integer)
+    time_zone = db.Column(db.String())
+    elevation = db.Column(db.Integer)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
+    pm25 = db.Column(db.Float)
+    co2 = db.Column(db.Float)
+    so2 = db.Column(db.Float)
+
 ###### SCHEMAS ######
 
 # Country Schema
@@ -47,6 +68,7 @@ class CountrySchema(ma.Schema):
     country_iso2code = fields.Str(required=False)
     country_iso3code = fields.Str(required=False)
 
+# Year Schema
 class YearSchema(ma.Schema):
     year_id = fields.Int(required=True)
     year_name = fields.Str(required=False)
@@ -57,6 +79,27 @@ class YearSchema(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
 
+# Country C02 Emissions Per Year Schema
+class CountryEmissionsPerYearSchema(ma.Schema):
+    year_id = fields.Int(required=True)
+    year_name = fields.Str(required=False)
+    country = fields.Str(required=False)
+    code = fields.Str(required=False)
+    country_co2 = fields.Str(required=False)
+
+# City Schema
+class CitySchema(db.Model):
+    city_id = fields.Int(required=True)
+    city_name = fields.Str(required=False)
+    population = fields.Int(required=True)
+    time_zone = fields.Str(required=False)
+    elevation = fields.Int(required=True)
+    lat = fields.Float(required=False)
+    long = fields.Float(required=False)
+    pm25 = fields.Float(required=False)
+    co2 = fields.Float(required=False)
+    so2 = fields.Float(required=False)
+
 
 ###### INITIALIZE SCHEMA OBJECTS ######
 
@@ -65,6 +108,11 @@ countries_schema = CountrySchema(many=True)
 
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
+
+countryemissionsperyear_schema = CountryEmissionsPerYear(many=True)
+
+city_schema = CitySchema()
+cities_schema = CitySchema(many=True)
 
 ###### ENDPOINTS ######
 # Root routing
@@ -110,6 +158,32 @@ def get_year_id(id):
 def get_year_name(name):
     year = db.session.query(Year).filter(Year.year_name==name).first()
     return year_schema.jsonify(year)
+
+# Retrieve country carbon emissions per year
+@app.route('/api/country_emissions')
+def get_country_emissions():
+    all_country_years = CountryEmissionsPerYear.query.all()
+    result = countryemissionsperyear_schema.dump(all_country_years)
+    return jsonify({'country_emissions_years': result})
+
+# Retrieve all cities
+@app.route('/api/cities', methods=['GET'])
+def get_cities():
+    all_cities = City.query.all()
+    result = cities_schema.dump(all_cities)
+    return jsonify({'cities': result})
+
+# Retrieve single city entry by id
+@app.route('/api/cities/id=<id>', methods=['GET'])
+def get_city_id(id):
+    city = City.query.get(id)
+    return city_schema.jsonify(city)
+
+# Retrieve single city  entry by name
+@app.route('/api/cities/name=<name>', methods=['GET'])
+def get_city_name(name):
+    city = db.session.query(City).filter(City.city_name==name).first()
+    return city_schema.jsonify(city)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
