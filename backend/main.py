@@ -111,10 +111,10 @@ countries_schema = CountrySchema(many=True)
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-countryemissionsperyear_schema = CountryEmissionsPerYear(many=True)
-
 city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
+
+countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
 
 ###### ENDPOINTS ######
 # Root routing
@@ -147,7 +147,6 @@ def get_country_cities(country_code):
     country_cities = db.session.query(City).filter(City.country_iso2code==country_code).all()
     return cities_schema.jsonify(country_cities)
 
-
 # Retrieve all years
 @app.route('/api/years', methods=['GET'])
 def get_years():
@@ -171,7 +170,7 @@ def get_year_name(name):
 @app.route('/api/country_emissions')
 def get_country_emissions():
     all_country_years = CountryEmissionsPerYear.query.all()
-    result = countryemissionsperyear_schema.dump(all_country_years)
+    result = countries_emissions_schema.dump(all_country_years)
     return jsonify({'country_emissions_years': result})
 
 # Retrieve all cities

@@ -9,13 +9,6 @@ services:
     expose:
       - 5000
 
-  # burninup-frontend:
-  #   build: ./frontend
-  #   container_name: burninup-frontend
-  #   ports:
-  #     - 3000:3000
-  #   links:
-  #     - burninup-backend
 
   
 

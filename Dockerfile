@@ -10,11 +10,6 @@ WORKDIR /app
 # Installs python packages
 RUN pip install -r ./backend/requirements.txt
 RUN pip3 install psycopg2
-RUN pip3 install flask
-RUN pip3 install flask-restful
-RUN pip3 install SQLAlchemy
-RUN pip3 install requests
-RUN pip3 install flask-cors
 
 #### Need to write npm run build ####
 RUN cd ./frontend && npm install && npm run build
