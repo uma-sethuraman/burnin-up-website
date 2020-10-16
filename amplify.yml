@@ -3,7 +3,7 @@ frontend:
   phases:
     # IMPORTANT - Please verify your build commands
     build:
-      commands: [docker-compose up --build --force-recreate]
+      commands: [docker-compose up]
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: .
