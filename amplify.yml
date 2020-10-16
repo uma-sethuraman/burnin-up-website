@@ -21,14 +21,14 @@ frontend:
         #- docker pull caitlinlien/burninup:latest
         #- docker-compose up --build --force-recreate
         #- docker run caitlinlien/burninup:latest
-        - cd ./frontend
+        - cd ..
         - npm install
         - npm run build
         - python ../backend/main.py
 
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: .
+    baseDirectory: ./frontend/build
     files:
       - '**/*'
   cache:
