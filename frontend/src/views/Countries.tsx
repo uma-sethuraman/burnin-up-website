@@ -15,16 +15,24 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {CountriesObject, Country, CountryRegion, CountryIncome } from "./components/Country/CountryInstance";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import Posts from "./components/Posts";
+import Pagination from "./components/Pagination";
 
 const Countries = () => {
   let [countriesObj, setCountriesObj] = React.useState<CountriesObject>();
+  const [posts, setPosts] = useState<Country[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(20);
+
 
   // gets data from API
   const getData = () => {
     axios.get("/api/countries")
     .then((response)=>{
-        setCountriesObj(JSON.parse(JSON.stringify(response.data)) as CountriesObject);
-    })
+        const countryObj:CountriesObject = JSON.parse(JSON.stringify(response.data)) as CountriesObject;
+        setCountriesObj(countryObj);
+        setPosts(countryObj.countries);
+      })
     .catch((error) => {
         console.log(error);
     })
@@ -46,6 +54,12 @@ const Countries = () => {
   }
 
   getData();
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  
   return (
     <div className="App">
       <Navbar />
@@ -100,21 +114,8 @@ const Countries = () => {
           </Form.Group>
         </Form>
         <Form></Form>
-        <Table striped bordered hover size="sm" variant="dark">
-          <thead>
-            <tr>
-              <th>Country</th>
-              <th>Income Level</th>
-              <th>Region</th>
-              <th>Capital City</th>
-              {/* <th>Average Temperature</th> */}
-              {/* <th>pm2.5</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {countriesObj?.countries.map(setTableData)}
-          </tbody>
-        </Table>
+        {Posts(currentPosts)}
+        {Pagination(postsPerPage, posts.length)}
       </header>
     </div>
   );
