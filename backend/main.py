@@ -30,6 +30,10 @@ class Year(db.Model):
     year_name = db.Column(db.Integer)
     temp_anomaly = db.Column(db.Float)
     co2 = db.Column(db.Float)
+    methane = db.Column(db.Float)
+    nitrous_oxide = db.Column(db.Float)
+    polar_ice = db.Column(db.Float)
+    sea_level = db.Column(db.Float)
 
 ###### SCHEMAS ######
 
