@@ -3,6 +3,7 @@
   width: 600px;
   height: 500px;
   object-fit: cover;
+  filter: brightness(70%); 
 }
 
 .text {

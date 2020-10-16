@@ -3,6 +3,7 @@
     text-align: center;
     color: white;
   }
+  
   .img-text-wrapper {
     position: absolute;
     top: 0;
@@ -17,6 +18,7 @@
   }
 
   .Country-header {
+    background: rgba(70, 72, 82, 0.3);
     background-image: url("../../../assets/austin-capitol.jpg"); /* The image used */
     height: 100%; /* You must set a specified height */
     width: 100%;
@@ -37,5 +39,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .image_container {
+    background: rgba(70, 72, 82, 0.3);
+    filter: brightness(50%);
   }
   

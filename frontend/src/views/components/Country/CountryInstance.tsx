@@ -14,13 +14,13 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 
 
-const CountryInstance = (name: any) => {
+const CountryInstance = (id: any) => {
 
   let [country, setCountry] = React.useState<Country>()
     
   // gets data from API
   const getData = () => {
-    axios.get("/api/countries/name="+name.name)
+    axios.get("/api/countries/id="+id.id)
     .then((response)=>{
         setCountry(JSON.parse(JSON.stringify(response.data)) as Country);
     })
@@ -32,15 +32,18 @@ const CountryInstance = (name: any) => {
   // initializing carousel slides
   let s1 = new Slide(
     "China",
-    require("../../../assets/China_flag.jpg")
+    require("../../../assets/China_flag.jpg"),
+    "/countries/50"
   );
   let s2 = new Slide(
     "France",
-    require("../../../assets/France_flag.jpg")
+    require("../../../assets/France_flag.jpg"),
+    "/countries/405"
   );
   let s3 = new Slide(
-    "USA",
-    require("../../../assets/USA_flag.jpg")
+    "India",
+    require("../../../assets/USA_flag.jpg"),
+    "/countries/439"
   );
 
   getData();
@@ -48,9 +51,6 @@ const CountryInstance = (name: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-        <h1>
-          {country?.country_name}
-        </h1>
         <header className="Country-header">
           <div className="image-text">
             <h3> {country?.country_name} </h3>
@@ -75,12 +75,6 @@ const CountryInstance = (name: any) => {
         </Table>
   
         <div>See more: </div>
-        <p>
-          <Link to="/countries/China">China</Link>
-        </p>
-        <p>
-          <Link to="/countries/France">France</Link>
-        </p>
         {OurCarousel(s1, s2, s3)}
       </header>
     </div>

@@ -15,15 +15,18 @@ import Slide from "../../../Slide";
 function CityInstance() {
   let s1 = new Slide(
     "Austin",
-    require("../../../assets/austin-capitol.jpg")
+    require("../../../assets/austin-capitol.jpg"),
+    "cities/Austin"
   );
   let s2 = new Slide(
     "Beijing",
-    require("../../../assets/beijing-skyline.jpg")
+    require("../../../assets/beijing-skyline.jpg"),
+    "cities/Beijing"
   );
   let s3 = new Slide(
     "Paris",
-    require("../../../assets/paris-skyline.jpg")
+    require("../../../assets/paris-skyline.jpg"),
+    "cities/Paris"
   );
   return (
     <div className="CityInstance">
