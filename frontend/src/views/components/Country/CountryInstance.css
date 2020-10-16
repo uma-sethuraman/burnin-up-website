@@ -1,0 +1,48 @@
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+  .img-text-wrapper {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .Country-header {
+    background: rgba(70, 72, 82, 0.3);
+    /* background-image: url("../../../assets/austin-capitol.jpg"); */ /* The image used */
+    height: 100%; /* You must set a specified height */
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */ /* Resize the background image to cover the entire container */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  /* Centered text */
+  .carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .image_container {
+    background: rgba(70, 72, 82, 0.3);
+    filter: brightness(50%);
+  }
+  

@@ -1,22 +1,14 @@
-version: '3'
+version: "3"
 services:
-  burninup-frontend:
-    image: caitlinlien/burninup:frontend-0.1
-    environment:
-      PORT: 3000
-    ports:
-      - 3000:3000
-    expose:
-      - "3000"
-    tty: true
 
-  burninup-backend:
-    image: caitlinlien/burninup:backend-0.3
-    environment:
-      PORT: 5000
+  burninup:
+    build: ./
+    container_name: burninup-container
     ports:
       - 5000:5000
     expose:
-      - "5000"
-    tty: true
+      - 5000
+
+
+  
 

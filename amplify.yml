@@ -3,10 +3,10 @@ frontend:
   phases:
     # IMPORTANT - Please verify your build commands
     build:
-      commands: [cd ./frontend && npm install && npm run build]
+      commands: [docker-compose up --build --force-recreate]
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: ./frontend/build
+    baseDirectory: .
     files:
       - '**/*'
   cache:
