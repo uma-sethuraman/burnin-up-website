@@ -59,7 +59,7 @@ const Countries = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  
+  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
   return (
     <div className="App">
       <Navbar />
@@ -115,7 +115,7 @@ const Countries = () => {
         </Form>
         <Form></Form>
         {Posts(currentPosts)}
-        {Pagination(postsPerPage, posts.length)}
+        {Pagination(postsPerPage, posts.length, paginate)}
       </header>
     </div>
   );
