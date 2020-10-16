@@ -33,7 +33,11 @@ const Countries = () => {
   function setTableData(currCountry: Country, index: any) {
     return (
       <tr key={index}>
-        <td>{currCountry.country_name}</td>
+        <td>
+          <Link to={"/countries/id="+currCountry.country_id}>
+            {currCountry.country_name}
+          </Link>
+        </td>
         <td>{currCountry.country_income}</td>
         <td>{currCountry.country_region}</td>
         <td>{currCountry.country_capital_city}</td>
