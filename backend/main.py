@@ -4,7 +4,8 @@ from flask_marshmallow import Marshmallow
 from marshmallow import fields
 
 # Create flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../frontend/build/static", template_folder="../frontend/build")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.debug = True
@@ -89,7 +90,7 @@ class CountryEmissionsPerYearSchema(ma.Schema):
     country_co2 = fields.Str(required=False)
 
 # City Schema
-class CitySchema(db.Model):
+""" class CitySchema(db.Model):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
     population = fields.Int(required=True)
@@ -100,7 +101,7 @@ class CitySchema(db.Model):
     pm25 = fields.Float(required=False)
     co2 = fields.Float(required=False)
     so2 = fields.Float(required=False)
-    country_iso2code = fields.Str(required=False)
+    country_iso2code = fields.Str(required=False) """
 
 
 ###### INITIALIZE SCHEMA OBJECTS ######
@@ -111,8 +112,8 @@ countries_schema = CountrySchema(many=True)
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-city_schema = CitySchema()
-cities_schema = CitySchema(many=True)
+""" city_schema = CitySchema()
+cities_schema = CitySchema(many=True) """
 
 countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
 
@@ -174,23 +175,23 @@ def get_country_emissions():
     return jsonify({'country_emissions_years': result})
 
 # Retrieve all cities
-@app.route('/api/cities', methods=['GET'])
-def get_cities():
-    all_cities = City.query.all()
-    result = cities_schema.dump(all_cities)
-    return jsonify({'cities': result})
+# @app.route('/api/cities', methods=['GET'])
+# def get_cities():
+#     all_cities = City.query.all()
+#     result = cities_schema.dump(all_cities)
+#     return jsonify({'cities': result})
 
-# Retrieve single city entry by id
-@app.route('/api/cities/id=<id>', methods=['GET'])
-def get_city_id(id):
-    city = City.query.get(id)
-    return city_schema.jsonify(city)
+# # Retrieve single city entry by id
+# @app.route('/api/cities/id=<id>', methods=['GET'])
+# def get_city_id(id):
+#     city = City.query.get(id)
+#     return city_schema.jsonify(city)
 
-# Retrieve single city  entry by name
-@app.route('/api/cities/name=<name>', methods=['GET'])
-def get_city_name(name):
-    city = db.session.query(City).filter(City.city_name==name).first()
-    return city_schema.jsonify(city)
+# # Retrieve single city  entry by name
+# @app.route('/api/cities/name=<name>', methods=['GET'])
+# def get_city_name(name):
+#     city = db.session.query(City).filter(City.city_name==name).first()
+#     return city_schema.jsonify(city)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
