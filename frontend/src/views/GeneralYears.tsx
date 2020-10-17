@@ -19,6 +19,7 @@ import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
 import YearTable from "./components/YearTable";
 
+// credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const GeneralYears = () => {
   const [yearsObj, setYearsObj] = React.useState<YearsObject>();
   const [posts, setPosts] = useState<Year[]>([]);
@@ -27,11 +28,13 @@ const GeneralYears = () => {
 
   // gets data from API
   const getData = () => {
-    axios.get("/api/countries")
+    axios.get("/api/years")
     .then((response)=>{
-        const countryObj:CountriesObject = JSON.parse(JSON.stringify(response.data)) as CountriesObject;
-        setCountriesObj(countryObj);
-        setPosts(countryObj.countries);
+        const yearsObj:YearsObject = response.data as YearsObject;
+        setYearsObj(yearsObj);
+        setPosts(yearsObj.years as Year[]);
+        console.log(posts);
+        console.log(yearsObj);
     })
     .catch((error) => {
         console.log(error);
@@ -39,7 +42,6 @@ const GeneralYears = () => {
   };
 
   getData();
-
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

@@ -18,6 +18,7 @@ import axios from "axios";
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
 
+// credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const Countries = () => {
   const [countriesObj, setCountriesObj] = React.useState<CountriesObject>();
   const [posts, setPosts] = useState<Country[]>([]);
@@ -45,7 +46,7 @@ const Countries = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
-  
+
   return (
     <div className="App">
       <Navbar />
