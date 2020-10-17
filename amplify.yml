@@ -7,9 +7,10 @@ frontend:
         - yum install -y sudo
         - sudo amazon-linux-extras install docker
         - sudo systemctl enable docker
-        - sudo systemctl start docker
+        #- sudo systemctl start docker
         #- sudo usermod -a -G docker ec2-user
         - sudo chkconfig docker on
+        - sudo usermod -aG docker user
         - sudo yum install -y git
         #- sudo reboot -f
         - sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
