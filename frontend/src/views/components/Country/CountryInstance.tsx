@@ -54,7 +54,7 @@ const CountryInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-        <OurMap></OurMap>
+        {OurMap(country?.country_lat, country?.country_long, country?.country_name)}
         <Image src={flagLink} alt="Flag"/>
         <header className="Country-header">
           <div className="image-text">
@@ -98,6 +98,8 @@ export interface Country {
   country_iso3code:     string;
   country_name:         string;
   country_region:       CountryRegion;
+  country_lat:          number;
+  country_long:         number;
 }
 
 export enum CountryIncome {
