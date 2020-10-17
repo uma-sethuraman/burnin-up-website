@@ -6,18 +6,18 @@ frontend:
       commands: 
         - yum install -y sudo
         - sudo amazon-linux-extras install docker
-        - sudo systemctl enable docker
+        - sudo systemctl enable docker.service
+        - sudo systemctl start docker.service
         #- sudo systemctl start docker
         #- sudo usermod -a -G docker ec2-user
         - sudo chkconfig docker on
         - sudo usermod -aG docker $USER
         - sudo yum install -y git
-        #- sudo reboot -f
         - sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
         - sudo chmod +x /usr/local/bin/docker-compose
         - sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-        - sudo systemctl start docker.service
         - docker-compose version
+        - sudo ls -la /var/run/docker.sock
         # - dockerd
         - docker-compose up --build --force-recreate
         # - apk add python python-dev py-pip build-base curl
