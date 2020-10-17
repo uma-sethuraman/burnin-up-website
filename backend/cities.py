@@ -123,23 +123,24 @@ db.session.commit()
 
 
 city_headers = {
-    'token': 'HZhAxtPoFuqDNCrrR1mE5Np7i9FAj92O'
+    'token': 'QoymB49aQieHSpy8rsfrTEP7j8MoILV3'
 }
 
 
 how = 0
 times = 0
 city_table = City.query.all()
-for item in city_table:
-    if times > 1000:
-        break
-    times += 1
-    str_lat = str(item.lat)
-    str_long = str(item.long)
-    request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=" + str_lat + "&lon=" + str_long + "&unit_system=si&start_time=2020-10-16T14%3A09%3A50Z&end_time=2020-10-16T20%3A09%3A50Z&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
-    print(request_city_climate)
-    response = requests.request("GET", request_city_climate,headers=city_headers)
-    print(response.json())
-    if(response.status_code == 200):
-        how += 1
-print(how)
+
+cp = db.session.query(Country.country_capital_city).all()
+for each_country_capital in cp:
+    if each_country_capital is not None:
+        obj = db.session.query(City).filter(City.city_name == each_country_capital).first()
+        if obj is not None:
+            str_lat = str(obj.lat)
+            str_long = str(obj.long)
+            request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=" + str_lat + "&lon=" + str_long + "&unit_system=si&start_time=2020-10-16T14%3A09%3A50Z&end_time=2020-10-16T20%3A09%3A50Z&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
+            response = requests.request("GET", request_city_climate, headers=city_headers)
+            print(response.status_code)
+            if (response.status_code == 200):
+                pass
+               
