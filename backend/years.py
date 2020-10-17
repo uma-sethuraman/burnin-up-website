@@ -12,6 +12,7 @@ import flask_restless
 import pandas as pd
 import numpy as np
 import requests
+from time import sleep
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -23,24 +24,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 path = "./datasets"
-
-# Create tables
-class Country(db.Model):
-    country_id = db.Column(db.Integer, primary_key=True)
-    country_name = db.Column(db.String())
-    country_region = db.Column(db.String())
-    country_income = db.Column(db.String())
-    country_capital_city = db.Column(db.String())
-    country_iso2code = db.Column(db.String())
-    country_iso3code = db.Column(db.String())
-
-    def __init__(self, country_name="NaN", country_region="NaN", country_income="NaN", capital_city="NaN", iso2code="NaN", iso3code = "NaN"):
-        self.country_name = country_name
-        self.country_region = country_region
-        self.country_income = country_income
-        self.country_capital_city = capital_city
-        self.country_iso2code = iso2code
-        self.country_iso3code = iso3code
 
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -78,44 +61,7 @@ class CountryEmissionsPerYear(db.Model):
         self.code = code
         self.country_co2 = country_co2
 
-# City model
-class City(db.Model):
-    city_id = db.Column(db.Integer, primary_key=True)
-    city_name = db.Column(db.String())
-    population = db.Column(db.Integer)
-    time_zone = db.Column(db.String())
-    elevation = db.Column(db.Integer)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
-    pm25 = db.Column(db.Float)
-    co2 = db.Column(db.Float)
-    so2 = db.Column(db.Float)
-
-    def __init__(self, city_name="NaN", population=0, time_zone="NaN", elevation=0, lat=0.0, long=0.0, pm25=0.0, co2=0.0, so2 = 0.0):
-
-        self.city_name = city_name
-        self.population = population
-        self.time_zone = time_zone
-        self.elevation = elevation
-        self.lat = lat
-        self.long = long
-        self.pm25 = pm25
-        self.co2 = co2
-        self.so2 = so2
-
 db.create_all()
-
-# Fill in tables
-### Table for Country ###
-request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
-r = urllib.request.urlopen(request_url)
-data = json.loads(r.read())
-country_list = []
-for item in data[1]:
-    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"])
-    country_list.append(new_country)
-db.session.add_all(country_list)
-db.session.commit()
 
 ### Table for Years ###
 request_url = 'https://global-warming.org/api/temperature-api'
@@ -170,39 +116,4 @@ for index, row in sorted_by_year.iterrows():
     country_years_list.append(new_year)
 
 db.session.add_all(country_years_list)
-db.session.commit()
-
-### Table for Cities ###
-
-# get list of countries
-url = "https://countries-cities.p.rapidapi.com/location/country/list"
-
-querystring = {"format": "json"}
-
-headers = {
-    'x-rapidapi-host': "countries-cities.p.rapidapi.com",
-    'x-rapidapi-key': "7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188"
-    }
-
-response = requests.request("GET", url, headers=headers, params=querystring)
-data = response.json()
-countries_list = []
-for item in data["countries"]:
-    countries_list.append(item)
-
-# TODO: get city info from each country in countries_list
-
-
-request_url = "https://api.climacell.co/v3/weather/historical/climacell?lat=48.8566&lon=2.3522&unit_system=si&start_time=2020-10-13T14%3A09%3A50Z&end_time=now&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
-
-my_headers = {
-    'apikey': 'HZhAxtPoFuqDNCrrR1mE5Np7i9FAj92O'
-}
-response = requests.request("GET", request_url, headers=my_headers)
-data = response.json()
-cities_list = []
-for item in data:
-    new_city = City(lat=item['lat'], long=item['lon'], pm25=item['pm25']['value'],co2=item['co']['value'], so2=item['so2']['value'])
-    cities_list.append(new_city)
-db.session.add_all(cities_list)
 db.session.commit()

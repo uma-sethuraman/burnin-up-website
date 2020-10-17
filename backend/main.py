@@ -5,7 +5,6 @@ from marshmallow import fields
 
 # Create flask app
 app = Flask(__name__, static_folder="../frontend/build/static", template_folder="../frontend/build")
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.debug = True
@@ -24,6 +23,8 @@ class Country(db.Model):
     country_capital_city = db.Column(db.String())
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
+    country_lat = db.Column(db.String())
+    country_long = db.Column(db.String()) 
 
 # Year Model
 class Year(db.Model):
@@ -56,8 +57,9 @@ class City(db.Model):
     pm25 = db.Column(db.Float)
     co2 = db.Column(db.Float)
     so2 = db.Column(db.Float)
+    """
     country_iso2code = db.Column(db.String())
-
+    """
 ###### SCHEMAS ######
 
 # Country Schema
@@ -69,6 +71,8 @@ class CountrySchema(ma.Schema):
     country_capital_city = fields.Str(required=False)
     country_iso2code = fields.Str(required=False)
     country_iso3code = fields.Str(required=False)
+    country_lat = fields.Str(required=False)
+    country_long = fields.Str(required=False)
 
 # Year Schema
 class YearSchema(ma.Schema):
@@ -90,19 +94,20 @@ class CountryEmissionsPerYearSchema(ma.Schema):
     country_co2 = fields.Str(required=False)
 
 # City Schema
-""" class CitySchema(db.Model):
-    city_id = fields.Int(required=True)
-    city_name = fields.Str(required=False)
-    population = fields.Int(required=True)
-    time_zone = fields.Str(required=False)
-    elevation = fields.Int(required=True)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
-    pm25 = fields.Float(required=False)
-    co2 = fields.Float(required=False)
-    so2 = fields.Float(required=False)
-    country_iso2code = fields.Str(required=False) """
-
+# class CitySchema(db.Model):
+#     city_id = fields.Int(required=True)
+#     city_name = fields.Str(required=False)
+#     population = fields.Int(required=True)
+#     time_zone = fields.Str(required=False)
+#     elevation = fields.Int(required=True)
+#     lat = fields.Float(required=False)
+#     long = fields.Float(required=False)
+#     pm25 = fields.Float(required=False)
+#     co2 = fields.Float(required=False)
+#     so2 = fields.Float(required=False)
+    """
+    country_iso2code = fields.Str(required=False)
+    """
 
 ###### INITIALIZE SCHEMA OBJECTS ######
 
@@ -112,8 +117,8 @@ countries_schema = CountrySchema(many=True)
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-""" city_schema = CitySchema()
-cities_schema = CitySchema(many=True) """
+# city_schema = CitySchema()
+# cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
 
@@ -174,7 +179,7 @@ def get_country_emissions():
     result = countries_emissions_schema.dump(all_country_years)
     return jsonify({'country_emissions_years': result})
 
-# Retrieve all cities
+# # Retrieve all cities
 # @app.route('/api/cities', methods=['GET'])
 # def get_cities():
 #     all_cities = City.query.all()

@@ -3,10 +3,8 @@ import React from 'react';
 import Table from "react-bootstrap/Table";
 import { Country } from "./Country/CountryInstance";
 
+// credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const Posts = (posts: Country[]) => {
-//   if (loading) {
-//     return <h2>Loading...</h2>;
-//   }
 
   return (
     <Table striped bordered hover size="sm" variant="dark">

@@ -18,8 +18,9 @@ import axios from "axios";
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
 
+// credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const Countries = () => {
-  let [countriesObj, setCountriesObj] = React.useState<CountriesObject>();
+  const [countriesObj, setCountriesObj] = React.useState<CountriesObject>();
   const [posts, setPosts] = useState<Country[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(20);
@@ -38,28 +39,14 @@ const Countries = () => {
     })
   };
 
-  function setTableData(currCountry: Country, index: any) {
-    return (
-      <tr key={index}>
-        <td>
-          <Link to={"/countries/id="+currCountry.country_id}>
-            {currCountry.country_name}
-          </Link>
-        </td>
-        <td>{currCountry.country_income}</td>
-        <td>{currCountry.country_region}</td>
-        <td>{currCountry.country_capital_city}</td>
-      </tr>
-    )
-  }
-
   getData();
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  
+  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+
   return (
     <div className="App">
       <Navbar />
@@ -115,7 +102,7 @@ const Countries = () => {
         </Form>
         <Form></Form>
         {Posts(currentPosts)}
-        {Pagination(postsPerPage, posts.length)}
+        {Pagination(postsPerPage, posts.length, paginate)}
       </header>
     </div>
   );

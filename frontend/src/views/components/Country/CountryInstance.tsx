@@ -8,6 +8,7 @@ import View from "react";
 import "./CountryInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
+import OurMap from "../Map/OurMap";
 import Slide from "../../../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
@@ -53,6 +54,7 @@ const CountryInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
+        {OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)}
         <Image src={flagLink} alt="Flag"/>
         <header className="Country-header">
           <div className="image-text">
@@ -96,6 +98,8 @@ export interface Country {
   country_iso3code:     string;
   country_name:         string;
   country_region:       CountryRegion;
+  country_lat:          number;
+  country_long:         number;
 }
 
 export enum CountryIncome {
