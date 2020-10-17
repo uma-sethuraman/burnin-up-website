@@ -1,15 +1,10 @@
 # Sets up a python and linux environment
 FROM nikolaik/python-nodejs
-FROM amazonlinux:2
 
-# Install Curl, Git, OpenSSL (AWS Amplify requirements) and tar
-RUN touch ~/.bashrc
-RUN yum -y install
-RUN yum install curl 
-RUN yum install git 
-RUN yum install openssl 
-RUN yum clean all 
-RUN rm -rf /var/cache/yum
+# Install Curl, Git, OpenSSL (AWS Amplify requirements) 
+RUN apt-get install curl 
+RUN apt-get install git 
+RUN apt-get install openssl 
 
 # Creates the docker directory
 COPY . /app
