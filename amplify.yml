@@ -6,6 +6,7 @@ frontend:
       commands: 
         - yum install -y sudo
         - sudo amazon-linux-extras install docker
+        - sudo systemctl enable docker
         - sudo systemctl start docker
         - sudo usermod -a -G docker ec2-user
         - sudo chkconfig docker on
