@@ -2,6 +2,9 @@
 #FROM python:alpine3.11
 FROM nikolaik/python-nodejs
 
+RUN apt-get update
+RUN apt-get install curl
+
 # Creates the docker directory
 COPY . /app
 RUN ls
