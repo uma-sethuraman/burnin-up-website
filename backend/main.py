@@ -45,6 +45,20 @@ class CountryEmissionsPerYear(db.Model):
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
 
+# Avg City Temp Per Year Model
+class CityTempPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    city = db.Column(db.String())
+    country = db.Column(db.String())
+    city_temp = db.Column(db.Float)
+
+    def __init__(self, year_name=0, country="NaN", city="NaN", city_temp="NaN"):
+        self.year_name = year_name
+        self.city = city
+        self.country = country
+        self.city_temp = city_temp
+
 # City Model
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
@@ -91,7 +105,16 @@ class CountryEmissionsPerYearSchema(ma.Schema):
     year_name = fields.Str(required=False)
     country = fields.Str(required=False)
     code = fields.Str(required=False)
-    country_co2 = fields.Str(required=False)
+    country_co2 = fields.Float(required=False)
+
+# Avg City Temp Per Year Schema
+class CityTempPerYearSchema(ma.Schema):
+    year_id = fields.Int(required=True)
+    year_name = fields.Str(required=False)
+    city = fields.Str(required=False)
+    country = fields.Str(required=False)
+    city_temp = fields.Float(required=False)
+
 
 # City Schema
 # class CitySchema(db.Model):
@@ -121,6 +144,7 @@ years_schema = YearSchema(many=True)
 # cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
+cities_temp_schema = CityTempPerYearSchema(many=True)
 
 ###### ENDPOINTS ######
 # Root routing
@@ -178,6 +202,13 @@ def get_country_emissions():
     all_country_years = CountryEmissionsPerYear.query.all()
     result = countries_emissions_schema.dump(all_country_years)
     return jsonify({'country_emissions_years': result})
+
+# Retrieve avg city temps per year
+@app.route('/api/city_temperatures')
+def get_city_temperatures():
+    all_cities_temps = CityTempPerYear.query.all()
+    result = cities_temp_schema.dump(all_cities_temps)
+    return jsonify({'city_temperatures_years': result})
 
 # # Retrieve all cities
 # @app.route('/api/cities', methods=['GET'])

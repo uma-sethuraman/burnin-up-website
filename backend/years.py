@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 #from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, BigInteger
 from flask import request
 import urllib
 import os
@@ -34,10 +34,10 @@ class Year(db.Model):
     nitrous_oxide = db.Column(db.Float)
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
-    # world_population = db.Column(db.BigInteger)
+    world_population = db.Column(db.BigInteger)
 
-    def __init__(self, year_name=0, temp_anomaly="NaN", co2="NaN", methane="NaN", nitrous_oxide="NaN", polar_ice="NaN",
-                 sea_level="NaN"):
+    def __init__(self, year_name=0, temp_anomaly=-1, co2=-1, methane=-1, nitrous_oxide=-1, polar_ice=-1,
+                 sea_level=-1, world_population=-1):
         self.year_name = year_name
         self.temp_anomaly = temp_anomaly
         self.co2 = co2
@@ -45,7 +45,7 @@ class Year(db.Model):
         self.nitrous_oxide = nitrous_oxide
         self.polar_ice = polar_ice
         self.sea_level = sea_level
-        # self.world_population = world_population
+        self.world_population = world_population
 
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
@@ -60,6 +60,21 @@ class CountryEmissionsPerYear(db.Model):
         self.country = country
         self.code = code
         self.country_co2 = country_co2
+
+
+class CityTempPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    city = db.Column(db.String())
+    country = db.Column(db.String())
+    city_temp = db.Column(db.Float)
+
+    def __init__(self, year_name=0, country="NaN", city="NaN", city_temp="NaN"):
+        self.year_name = year_name
+        self.city = city
+        self.country = country
+        self.city_temp = city_temp
+
 
 db.create_all()
 
@@ -94,9 +109,9 @@ sea_level_df = pd.read_csv(os.path.join(path, "SeaLevel.csv"))
 for idx, row in sea_level_df.iterrows():
     year_dict[row['Year']].sea_level = row['Absolute Sea Level Change Since 1880 (inches)']
 
-# world_population_df = pd.read_csv(os.path.join(path, "WorldPopulation.csv"))
-# for idx, row in world_population_df.iterrows():
-#     year_dict[row['Year']].world_population = row['World Population'].item()
+world_population_df = pd.read_csv(os.path.join(path, "WorldPopulation.csv"))
+for idx, row in world_population_df.iterrows():
+    year_dict[row['Year']].world_population = row['World Population'].item()
 
 db.session.add_all(year_dict.values())
 db.session.commit()
@@ -116,4 +131,20 @@ for index, row in sorted_by_year.iterrows():
     country_years_list.append(new_year)
 
 db.session.add_all(country_years_list)
+db.session.commit()
+
+### Table for Avg City Temps Per Year ###
+city_temp_per_year = pd.read_csv(os.path.join(path, "AvgTempCity.csv"))
+sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
+# Stores a dictionary of years with the CityTempPerYear object
+city_years_list = []
+for index, row in sorted_by_year.iterrows():
+    new_year = CityTempPerYear()
+    new_year.year_name = row['Year']
+    new_year.city = row['City']
+    new_year.country = row['Country']
+    new_year.city_temp = row['AvgTemperature']
+    city_years_list.append(new_year)
+
+db.session.add_all(city_years_list)
 db.session.commit()
