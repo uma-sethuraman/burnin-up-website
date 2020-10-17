@@ -35,15 +35,18 @@ class Country(db.Model):
     country_capital_city = db.Column(db.String())
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
+    country_lat = db.Column(db.Float)
+    country_long = db.Column(db.Float) 
 
-    def __init__(self, country_name="NaN", country_region="NaN", country_income="NaN", capital_city="NaN", iso2code="NaN", iso3code = "NaN"):
+    def __init__(self, country_name="NaN", country_region="NaN", country_income="NaN", capital_city="NaN", iso2code="NaN", iso3code = "NaN", country_lat = 0.0, country_long = 0.0):
         self.country_name = country_name
         self.country_region = country_region
         self.country_income = country_income
         self.country_capital_city = capital_city
         self.country_iso2code = iso2code
         self.country_iso3code = iso3code
-
+        self.country_lat = country_lat
+        self.country_long = country_long
 
 db.create_all()
 
@@ -53,7 +56,7 @@ r = urllib.request.urlopen(request_url)
 data = json.loads(r.read())
 country_list = []
 for item in data[1]:
-    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"])
+    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"], country_lat= item["latitude"], country_long = item["longitude"])
     country_list.append(new_country)
 db.session.add_all(country_list)
 db.session.commit()
