@@ -23,6 +23,8 @@ class Country(db.Model):
     country_capital_city = db.Column(db.String())
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
+    country_lat = db.Column(db.String())
+    country_long = db.Column(db.String()) 
 
 # Year Model
 class Year(db.Model):
@@ -69,8 +71,8 @@ class CountrySchema(ma.Schema):
     country_capital_city = fields.Str(required=False)
     country_iso2code = fields.Str(required=False)
     country_iso3code = fields.Str(required=False)
-    country_lat = fields.Float(required=False)
-    country_long = fields.Float(required=False)
+    country_lat = fields.Str(required=False)
+    country_long = fields.Str(required=False)
 
 # Year Schema
 class YearSchema(ma.Schema):
