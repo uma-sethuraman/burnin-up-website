@@ -54,7 +54,7 @@ const CountryInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-        {OurMap(country?.country_lat, country?.country_long, country?.country_name)}
+        {OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)}
         <Image src={flagLink} alt="Flag"/>
         <header className="Country-header">
           <div className="image-text">
