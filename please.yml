@@ -10,13 +10,8 @@ frontend:
         # - pip install docker-compose
         # - docker-compose up --build --force-recreate
 
-        - apt-get install \
-          apt-transport-https \
-          ca-certificates \
-          curl \
-          gnupg-agent \
-          software-properties-common
-
+        - sudo yum update -y
+        - sudo yum install docker -y
         # - yum install -y yum-utils
         # - yum-config-manager \
         #   --add-repo \
