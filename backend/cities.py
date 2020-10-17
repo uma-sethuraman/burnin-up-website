@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-#from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
+# from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from sqlalchemy import Column, String, Integer
 from flask import request
 import urllib
@@ -18,12 +18,14 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.debug = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 path = "./datasets"
+
 
 # Country Model
 class Country(db.Model):
@@ -35,8 +37,9 @@ class Country(db.Model):
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
     country_lat = db.Column(db.String())
-    country_long = db.Column(db.String()) 
-    
+    country_long = db.Column(db.String())
+
+
 # City model
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
@@ -51,7 +54,8 @@ class City(db.Model):
     so2 = db.Column(db.Float)
     country_iso2code = db.Column(db.String())
 
-    def __init__(self, city_name="NaN", population=0, time_zone="NaN", elevation=0, lat=0.0, long=0.0, pm25=0.0, co2=0.0, so2 = 0.0, country_iso2code = "NaN"):
+    def __init__(self, city_name="NaN", population=0, time_zone="NaN", elevation=0, lat=0.0, long=0.0, pm25=0.0,
+                 co2=0.0, so2=0.0, country_iso2code="NaN"):
         self.city_name = city_name
         self.population = population
         self.time_zone = time_zone
@@ -62,6 +66,7 @@ class City(db.Model):
         self.co2 = co2
         self.so2 = so2
         self.country_iso2code = country_iso2code
+
 
 db.create_all()
 
@@ -74,7 +79,7 @@ querystring = {"format": "json"}
 headers = {
     'x-rapidapi-host': "countries-cities.p.rapidapi.com",
     'x-rapidapi-key': "7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188"
-    }
+}
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 data = response.json()
@@ -96,7 +101,6 @@ countries_list = [item for item in data["countries"]]
 #     cities_list.append(new_city)
 # db.session.add_all(cities_list)
 # db.session.commit()
-
 
 
 # city_headers = {
@@ -132,15 +136,8 @@ countries_list = [item for item in data["countries"]]
 # db.session.commit()
 
 
-city_headers = {
-    'token': 'YGHZTfGyPknK1RFU9QH4p2OHlyV2QoKh',
-    'content-type': 'application/json'
-}
 
-how = 0
-times = 0
 city_table = City.query.all()
-
 cp = db.session.query(Country.country_capital_city).all()
 for each_country_capital in cp:
     if each_country_capital is not None:
@@ -148,10 +145,15 @@ for each_country_capital in cp:
         if obj is not None:
             str_lat = str(obj.lat)
             str_long = str(obj.long)
-            request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=12.56596&lon=-70.03198&unit_system=si&start_time=2020-10-17T14%3A09%3A50Z&end_time=2020-10-17T20%3A09%3A50Z&fields=no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
-            # request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=" + str_lat + "&lon=" + str_long + "&unit_system=si&start_time=2020-10-16T14%3A09%3A50Z&end_time=2020-10-16T20%3A09%3A50Z&fields=pollen_tree,pollen_grass,pollen_weed,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
-            response = requests.request("GET", request_city_climate, headers=city_headers)
-            print(response.status_code)
+            request_city_climate = "https://api.waqi.info/feed/geo:" + str_lat + ";" + str_long + "/?token=1cbf10be27bc7aa662b54f38d9c0d0a592eba24c"
+            response = requests.request("GET", request_city_climate)
             if (response.status_code == 200):
-                pass
-               
+                cities_climate_data = response.json()
+                if len(cities_climate_data["data"]["forecast"]) == 0:
+                    pass
+                else:
+                    obj.pm25 = cities_climate_data["data"]["forecast"]["daily"]["pm25"][0]["avg"]
+                    obj.co2 = cities_climate_data["data"]["forecast"]["daily"]["pm10"][0]["avg"]
+                    obj.so2 = cities_climate_data["data"]["forecast"]["daily"]["o3"][0]["avg"]
+
+db.session.commit()
