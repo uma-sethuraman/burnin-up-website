@@ -16,7 +16,7 @@ frontend:
         - sudo chmod +x /usr/local/bin/docker-compose
         - docker-compose version
         - dockerd
-        - docker-compose up --build --force-recreate
+        #- docker-compose up --build --force-recreate
         # - apk add python python-dev py-pip build-base curl
         # - curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
         # - chmod +x /usr/local/bin/docker-compose
