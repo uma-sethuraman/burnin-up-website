@@ -193,5 +193,6 @@ def get_country_emissions():
 #     city = db.session.query(City).filter(City.city_name==name).first()
 #     return city_schema.jsonify(city)
 
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
