@@ -30,8 +30,8 @@ EXPOSE 5000
 COPY . /app
 
 # Runs <python main.py> when we start our terminal
-# ENTRYPOINT [ "flask" ]
-# CMD [ "./backend/main.py" ]
+ENTRYPOINT [ "python" ]
+CMD [ "./backend/main.py" ]
 
-ENTRYPOINT ["flask"]
-CMD ["run", '--host=0.0.0.0', '--port=5000']
+#ENTRYPOINT ["flask"]
+#CMD ["run", '--host=0.0.0.0', '--port=5000']
