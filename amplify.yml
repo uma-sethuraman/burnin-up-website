@@ -14,7 +14,7 @@ frontend:
         - yum-config-manager \
           --add-repo \
           https://download.docker.com/linux/centos/docker-ce.repo
-        - yum install docker-ce docker-ce-cli containerd.io
+        # - yum install docker-ce docker-ce-cli containerd.io
         - curl -fsSL https://get.docker.com/ | sh
         # - yum install docker
         - systemctl start docker
