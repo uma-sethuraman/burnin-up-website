@@ -9,8 +9,8 @@ import os
 import json
 from sqlalchemy import create_engine
 import flask_restless
-import pandas as pd
-import numpy as np
+# import pandas as pd
+# import numpy as np
 import requests
 from time import sleep
 
@@ -25,6 +25,18 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 path = "./datasets"
 
+# Country Model
+class Country(db.Model):
+    country_id = db.Column(db.Integer, primary_key=True)
+    country_name = db.Column(db.String())
+    country_region = db.Column(db.String())
+    country_income = db.Column(db.String())
+    country_capital_city = db.Column(db.String())
+    country_iso2code = db.Column(db.String())
+    country_iso3code = db.Column(db.String())
+    country_lat = db.Column(db.String())
+    country_long = db.Column(db.String()) 
+    
 # City model
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
@@ -66,66 +78,64 @@ headers = {
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 data = response.json()
-countries_list = []
-for item in data["countries"]:
-    countries_list.append(item)
+countries_list = [item for item in data["countries"]]
 
 # TODO: get city info from each country in countries_list
 
 
-request_url = "https://api.climacell.co/v3/weather/historical/climacell?lat=48.8566&lon=2.3522&unit_system=si&start_time=2020-10-13T14%3A09%3A50Z&end_time=now&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
+# request_url = "https://api.climacell.co/v3/weather/historical/climacell?lat=48.8566&lon=2.3522&unit_system=si&start_time=2020-10-13T14%3A09%3A50Z&end_time=now&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
 
-my_headers = {
-    'apikey': 'HZhAxtPoFuqDNCrrR1mE5Np7i9FAj92O'
-}
-response = requests.request("GET", request_url, headers=my_headers)
-data = response.json()
-cities_list = []
-for item in data:
-    new_city = City(lat=item['lat'], long=item['lon'], pm25=item['pm25']['value'],co2=item['co']['value'], so2=item['so2']['value'])
-    cities_list.append(new_city)
-db.session.add_all(cities_list)
-db.session.commit()
+# my_headers = {
+#     'apikey': 'HZhAxtPoFuqDNCrrR1mE5Np7i9FAj92O'
+# }
+# response = requests.request("GET", request_url, headers=my_headers)
+# data = response.json()
+# cities_list = []
+# for item in data:
+#     new_city = City(lat=item['lat'], long=item['lon'], pm25=item['pm25']['value'],co2=item['co']['value'], so2=item['so2']['value'])
+#     cities_list.append(new_city)
+# db.session.add_all(cities_list)
+# db.session.commit()
 
+
+
+# city_headers = {
+#     'x-rapidapi-key': '7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188'
+# }
+
+# count = 0
+# city_list = []
+# p = iter(country_list)
+# while True:
+#     x = next(p)
+#     if(x.country_iso2code == 'PS'):
+#         break
+# next(p)
+
+# for item in p:
+#     if(count > 80):
+#         break
+#     str = item.country_iso2code
+#     request_url = "https://countries-cities.p.rapidapi.com/location/country/" + str + "/city/list"
+#     response = requests.request("GET", request_url, headers=city_headers)
+#     print(response.json())
+#     sleep(1)
+#     if response.status_code == 200:
+#         count += 1
+#         cities_data = response.json()
+#         for each_city in cities_data["cities"]:
+#             new_city = City(lat = each_city['latitude'], long=each_city['longitude'], city_name=each_city['name'], population=each_city['population'], country_iso2code=str)
+#             city_list += [new_city]
+
+
+# db.session.add_all(city_list)
+# db.session.commit()
 
 
 city_headers = {
-    'x-rapidapi-key': '7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188'
+    'token': 'YGHZTfGyPknK1RFU9QH4p2OHlyV2QoKh',
+    'content-type': 'application/json'
 }
-
-count = 0
-city_list = []
-p = iter(country_list)
-while True:
-    x = next(p)
-    if(x.country_iso2code == 'PS'):
-        break
-next(p)
-
-for item in p:
-    if(count > 80):
-        break
-    str = item.country_iso2code
-    request_url = "https://countries-cities.p.rapidapi.com/location/country/" + str + "/city/list"
-    response = requests.request("GET", request_url, headers=city_headers)
-    print(response.json())
-    sleep(1)
-    if response.status_code == 200:
-        count += 1
-        cities_data = response.json()
-        for each_city in cities_data["cities"]:
-            new_city = City(lat = each_city['latitude'], long=each_city['longitude'], city_name=each_city['name'], population=each_city['population'], country_iso2code=str)
-            city_list += [new_city]
-
-
-db.session.add_all(city_list)
-db.session.commit()
-
-
-city_headers = {
-    'token': 'QoymB49aQieHSpy8rsfrTEP7j8MoILV3'
-}
-
 
 how = 0
 times = 0
@@ -138,7 +148,8 @@ for each_country_capital in cp:
         if obj is not None:
             str_lat = str(obj.lat)
             str_long = str(obj.long)
-            request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=" + str_lat + "&lon=" + str_long + "&unit_system=si&start_time=2020-10-16T14%3A09%3A50Z&end_time=2020-10-16T20%3A09%3A50Z&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
+            request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=12.56596&lon=-70.03198&unit_system=si&start_time=2020-10-17T14%3A09%3A50Z&end_time=2020-10-17T20%3A09%3A50Z&fields=no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
+            # request_city_climate = "https://api.climacell.co/v3/weather/historical/climacell?lat=" + str_lat + "&lon=" + str_long + "&unit_system=si&start_time=2020-10-16T14%3A09%3A50Z&end_time=2020-10-16T20%3A09%3A50Z&fields=pollen_tree,pollen_grass,pollen_weed,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
             response = requests.request("GET", request_city_climate, headers=city_headers)
             print(response.status_code)
             if (response.status_code == 200):
