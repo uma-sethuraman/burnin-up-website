@@ -20,8 +20,8 @@ frontend:
         - amazon-linux-extras install docker
         - usermod -aG docker $USER
         # - su - $USER
-        - systemctl start httpd.service
-        - systemctl start docker 
+        # - systemctl start httpd.service
+        # - systemctl start docker 
         - docker pull caitlinlien/burninup:latest
         - docker run --privileged -p 5000:5000 caitlinlien/burninup:latest
 
