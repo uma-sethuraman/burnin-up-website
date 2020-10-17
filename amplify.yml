@@ -9,8 +9,8 @@ frontend:
         # - chmod +x /usr/local/bin/docker-compose
         # - pip install docker-compose
         # - docker-compose up --build --force-recreate
-
         - yum update -y
+        - yum install systemd-sysv
         - amazon-linux-extras install docker
         # - groupadd docker
         # - gpasswd -a ${USER} docker
