@@ -4,15 +4,17 @@ frontend:
     # IMPORTANT - Please verify your build commands
     build:
       commands: 
-        # - apk update
-        # - apk upgrade
+        - wget http://us.archive.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.9.3_amd64.deb
+        - pkexec dpkg -i apt_1.9.3_amd64.deb
+        # - apt-get update
+        # - apt-get install curl
         # - apk add python python-dev py-pip build-base curl
         # - curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
         # - chmod +x /usr/local/bin/docker-compose
         # - pip install docker-compose
         # - docker-compose up --build --force-recreate
-        - docker pull caitlinlien/burninup:latest
-        - docker run -p 5000:5000 caitlinlien/burninup:latest
+        # - docker pull caitlinlien/burninup:latest
+        # - docker run -p 5000:5000 caitlinlien/burninup:latest
 
   artifacts:
     # IMPORTANT - Please verify your build output directory
