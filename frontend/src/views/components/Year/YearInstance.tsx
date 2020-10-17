@@ -5,7 +5,7 @@ import Navbar from "../OurNavbar";
 import Table from "react-bootstrap/Table";
 import ImageBackground from "react";
 import View from "react";
-import "./CountryInstance.css";
+import "./YearInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import OurMap from "../Map/OurMap";
@@ -36,27 +36,35 @@ const YearInstance = (name: any) => {
     <div className="YearInstance">
       <Navbar />
       <header className="App-header">
-        <OurMap></OurMap>
-        {/* <Image src={flagLink} alt="Flag"/> */}
         <header className="Year-header">
-          <div className="image-text">
             <h3> {year?.year_name} </h3>
-          </div>
         </header>
         <br />
         <Table bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
-              <td>Income Level</td>
-              <td>{year?.yearName}</td>
+              <td>Global Mean Surface Temperature Anomaly</td>
+              <td>{year?.temp_anomaly}</td>
             </tr>
             <tr>
-              <td>Region</td>
-              <td>{country?.country_region}</td>
+              <td>Mean Carbon Dioxide Level (ppm)</td>
+              <td>{year?.co2}</td>
             </tr>
             <tr>
-              <td>Capital City</td>
-              <td>{country?.country_capital_city}</td>
+              <td>Methane Level (ppb)</td>
+              <td>{year?.methane}</td>
+            </tr>
+            <tr>
+              <td>Nitrous Oxide Level (ppb)</td>
+              <td>{year?.nitrous_oxide}</td>
+            </tr>
+            <tr>
+              <td>Ice Extent (km<sup>2</sup>)</td>
+              <td>{year?.polar_ice}</td>
+            </tr>
+            <tr>
+              <td>Absolute Sea Level Change Since 1880 (inches)</td>
+              <td>{year?.sea_level}</td>
             </tr>
           </tbody>
         </Table>
@@ -72,12 +80,12 @@ export interface YearsObject {
 export interface Year {
     co2:          number;
     methane:      number;
-    nitrousOxide: number;
-    polarIce:     number;
-    seaLevel:     number;
-    tempAnomaly:  number;
-    yearID:       number;
-    yearName:     string;
+    nitrous_oxide: number;
+    polar_ice:     number;
+    sea_level:     number;
+    temp_anomaly:  number;
+    year_id:       number;
+    year_name:     string;
 }
 
 export default YearInstance;
