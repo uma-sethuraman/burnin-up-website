@@ -5,8 +5,8 @@ import Marker from '../Marker/Marker';
 
 const AnyReactComponent = ({text}: any) => <div>{text}</div>;
 
-const OurMap = (props: any) => {
-    const [center, setCenter] = useState({lat: 11.0168, lng: 76.9558 });
+const OurMap = (latitude: number, longitude: number, locationName: string) => {
+    const [center, setCenter] = useState({lat: latitude, lng: longitude });
     const [zoom, setZoom] = useState(11);
     return (
         <div style={{ height: '100vh', width: '100%' }}>
@@ -16,12 +16,11 @@ const OurMap = (props: any) => {
           defaultZoom={zoom}
         >
         <Marker
-        lat={11.0168}
-        lng={76.9558}
-        name="My Marker"
-        color="blue"
-          />
-          <Marker
+        lat={latitude}
+        lng={longitude}
+        name={locationName}
+        color="blue"/>
+        {/*   <Marker
         lat={50}
         lng={4}
         name="My Marker"
@@ -32,7 +31,7 @@ const OurMap = (props: any) => {
         lng={25}
         name="My Marker"
         color="blue"
-          />
+          /> */}
           
         </GoogleMapReact>
       </div>
