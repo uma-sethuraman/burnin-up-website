@@ -8,6 +8,7 @@ import View from "react";
 import "./CountryInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
+import OurMap from "../Map/OurMap";
 import Slide from "../../../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
@@ -53,6 +54,7 @@ const CountryInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
+        <OurMap></OurMap>
         <Image src={flagLink} alt="Flag"/>
         <header className="Country-header">
           <div className="image-text">
