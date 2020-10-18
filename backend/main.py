@@ -54,12 +54,9 @@ class CityTempPerYear(db.Model):
     city = db.Column(db.String())
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
 
-    def __init__(self, year_name=0, country="NaN", city="NaN", city_temp="NaN"):
-        self.year_name = year_name
-        self.city = city
-        self.country = country
-        self.city_temp = city_temp
 
 # City Model
 class City(db.Model):
@@ -115,7 +112,8 @@ class CityTempPerYearSchema(ma.Schema):
     city = fields.Str(required=False)
     country = fields.Str(required=False)
     city_temp = fields.Float(required=False)
-
+    lat = fields.Float(required=False)
+    long = fields.Float(required=False)
 
 # City Schema
 class CitySchema(ma.Schema):
