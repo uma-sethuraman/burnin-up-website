@@ -58,7 +58,7 @@ const CountryInstance = (id: any) => {
       {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
         {OurMap(Number(country?.country_lat! === undefined ? 0: Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0: Number(country?.country_long!)), "Aruba")}
         <Image src={flagLink} alt="Flag"/>
-        {LocationPhoto("Manila")}
+        {LocationPhoto(encodeURI(country?.country_name!))}
         <header className="Country-header">
           <div className="image-text">
             <h3> {country?.country_name} </h3>
