@@ -23,7 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-path = "./datasets"
+path = "./backend/datasets"
 
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -150,29 +150,43 @@ db.create_all()
 # db.session.add_all(country_years_list)
 # db.session.commit()
 
-### Table for Avg City Temps Per Year ###
-city_temp_per_year = pd.read_csv(os.path.join(path, "AvgTempCity.csv"))
-sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
-# Stores a dictionary of years with the CityTempPerYear object
-city_years_list = []
-for index, row in sorted_by_year.iterrows():
-    new_year = CityTempPerYear()
-    new_year.year_name = row['Year']
-    new_year.city = row['City']
-    new_year.country = row['Country']
-    new_year.city_temp = row['AvgTemperature']
-    city_years_list.append(new_year)
+# ### Table for Avg City Temps Per Year ###
+# city_temp_per_year = pd.read_csv(os.path.join(path, "AvgTempCity.csv"))
+# sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
+# # Stores a dictionary of years with the CityTempPerYear object
+# city_years_list = []
+# for index, row in sorted_by_year.iterrows():
+#     new_year = CityTempPerYear()
+#     new_year.year_name = row['Year']
+#     new_year.city = row['City']
+#     new_year.country = row['Country']
+#     new_year.city_temp = row['AvgTemperature']
+#     city_years_list.append(new_year)
 
-db.session.add_all(city_years_list)
-db.session.commit()
+# db.session.add_all(city_years_list)
+# db.session.commit()
 
-cities = db.session.query(CityTempPerYear.city).all()
-for city in cities:
-        obj = db.session.query(City).filter(City.city_name == city).first()
-        fix_city = db.session.query(CityTempPerYear).filter(CityTempPerYear.city == city)
-        # Able to find the city we need to fix in city
-        if obj is not None:
-            fix_city.lat = obj.lat
-            fix_city.long = obj.long
+# cities = CityTempPerYear.query.all()
+# for city in cities:
+#         # Fill in empty ones
+#         if (city.lat == 0) & (city.long == 0) & (" " in city.city):
+#             print("City: " + city.city + " Lat: " + str(city.lat) + " Long: " + str(city.long))
+#             words = city.city.split()
+#             if "(" in words[1] or ")" in words[1]:
+#                 request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + city.city + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+#                 response = requests.request("GET", request_city_location)
+#                 city_location_data = response.json()
+#                 city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+#                 city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+#             else:
+#                 request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + words[0] + \
+#                                         "%20" + words[1] + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+#                 response = requests.request("GET", request_city_location)
+#                 city_location_data = response.json()
+#                 city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+#                 city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+# db.session.commit()
 
-db.session.commit()
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
