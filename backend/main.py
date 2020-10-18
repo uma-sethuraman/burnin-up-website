@@ -24,7 +24,7 @@ class Country(db.Model):
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
     country_lat = db.Column(db.String())
-    country_long = db.Column(db.String()) 
+    country_long = db.Column(db.String())
 
 # Year Model
 class Year(db.Model):
@@ -117,20 +117,18 @@ class CityTempPerYearSchema(ma.Schema):
 
 
 # City Schema
-# class CitySchema(db.Model):
-#     city_id = fields.Int(required=True)
-#     city_name = fields.Str(required=False)
-#     population = fields.Int(required=True)
-#     time_zone = fields.Str(required=False)
-#     elevation = fields.Int(required=True)
-#     lat = fields.Float(required=False)
-#     long = fields.Float(required=False)
-#     pm25 = fields.Float(required=False)
-#     co2 = fields.Float(required=False)
-#     so2 = fields.Float(required=False)
-    """
+class CitySchema(ma.Schema):
+    city_id = fields.Int(required=True)
+    city_name = fields.Str(required=False)
+    population = fields.Int(required=False)
+    time_zone = fields.Str(required=False)
+    elevation = fields.Int(required=False)
+    lat = fields.Float(required=False)
+    long = fields.Float(required=False)
+    pm25 = fields.Float(required=False)
+    co2 = fields.Float(required=False)
+    so2 = fields.Float(required=False)
     country_iso2code = fields.Str(required=False)
-    """
 
 ###### INITIALIZE SCHEMA OBJECTS ######
 
@@ -140,8 +138,8 @@ countries_schema = CountrySchema(many=True)
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-# city_schema = CitySchema()
-# cities_schema = CitySchema(many=True)
+citys_schema = CitySchema()
+cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
 cities_temp_schema = CityTempPerYearSchema(many=True)
@@ -211,23 +209,23 @@ def get_city_temperatures():
     return jsonify({'city_temperatures_years': result})
 
 # # Retrieve all cities
-# @app.route('/api/cities', methods=['GET'])
-# def get_cities():
-#     all_cities = City.query.all()
-#     result = cities_schema.dump(all_cities)
-#     return jsonify({'cities': result})
+@app.route('/api/cities', methods=['GET'])
+def get_cities():
+    all_cities = City.query.all()
+    result = cities_schema.dump(all_cities)
+    return jsonify({'cities': result})
 
 # # Retrieve single city entry by id
-# @app.route('/api/cities/id=<id>', methods=['GET'])
-# def get_city_id(id):
-#     city = City.query.get(id)
-#     return city_schema.jsonify(city)
+@app.route('/api/cities/id=<id>', methods=['GET'])
+def get_city_id(id):
+    city = City.query.get(id)
+    return citys_schema.jsonify(city)
 
 # # Retrieve single city  entry by name
-# @app.route('/api/cities/name=<name>', methods=['GET'])
-# def get_city_name(name):
-#     city = db.session.query(City).filter(City.city_name==name).first()
-#     return city_schema.jsonify(city)
+@app.route('/api/cities/name=<name>', methods=['GET'])
+def get_city_name(name):
+    city = db.session.query(City).filter(City.city_name==name).first()
+    return citys_schema.jsonify(city)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
