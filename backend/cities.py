@@ -50,12 +50,13 @@ class City(db.Model):
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
     pm25 = db.Column(db.Float)
-    co2 = db.Column(db.Float)
-    so2 = db.Column(db.Float)
+    pm10 = db.Column(db.Float)
+    o3 = db.Column(db.Float)
     country_iso2code = db.Column(db.String())
+    co = db.Column(db.Float)
 
     def __init__(self, city_name="NaN", population=0, time_zone="NaN", elevation=0, lat=0.0, long=0.0, pm25=0.0,
-                 co2=0.0, so2=0.0, country_iso2code="NaN"):
+                 pm10=0.0, o3=0.0, country_iso2code="NaN", co=0.0):
         self.city_name = city_name
         self.population = population
         self.time_zone = time_zone
@@ -63,9 +64,10 @@ class City(db.Model):
         self.lat = lat
         self.long = long
         self.pm25 = pm25
-        self.co2 = co2
-        self.so2 = so2
+        self.pm10 = pm10
+        self.o3 = o3
         self.country_iso2code = country_iso2code
+        self.co = co
 
 
 db.create_all()
@@ -85,7 +87,6 @@ response = requests.request("GET", url, headers=headers, params=querystring)
 data = response.json()
 countries_list = [item for item in data["countries"]]
 
-# TODO: get city info from each country in countries_list
 
 
 # request_url = "https://api.climacell.co/v3/weather/historical/climacell?lat=48.8566&lon=2.3522&unit_system=si&start_time=2020-10-13T14%3A09%3A50Z&end_time=now&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
@@ -136,13 +137,16 @@ countries_list = [item for item in data["countries"]]
 # db.session.commit()
 
 
-
+count = 0
+counter = 0
 city_table = City.query.all()
 cp = db.session.query(Country.country_capital_city).all()
 for each_country_capital in cp:
     if each_country_capital is not None:
         obj = db.session.query(City).filter(City.city_name == each_country_capital).first()
         if obj is not None:
+            obj.co = 0.0
+            counter += 1
             str_lat = str(obj.lat)
             str_long = str(obj.long)
             request_city_climate = "https://api.waqi.info/feed/geo:" + str_lat + ";" + str_long + "/?token=1cbf10be27bc7aa662b54f38d9c0d0a592eba24c"
@@ -150,10 +154,14 @@ for each_country_capital in cp:
             if (response.status_code == 200):
                 cities_climate_data = response.json()
                 if len(cities_climate_data["data"]["forecast"]) == 0:
-                    pass
+                    obj.pm25 = -1
+                    obj.o3 = -1
+                    obj.pm10 = -1
                 else:
+                    if "iaqi" in cities_climate_data["data"]:
+                        if "co" in  cities_climate_data["data"]["iaqi"]:
+                            obj.co = cities_climate_data["data"]["iaqi"]["co"]["v"]
                     obj.pm25 = cities_climate_data["data"]["forecast"]["daily"]["pm25"][0]["avg"]
-                    obj.co2 = cities_climate_data["data"]["forecast"]["daily"]["pm10"][0]["avg"]
-                    obj.so2 = cities_climate_data["data"]["forecast"]["daily"]["o3"][0]["avg"]
+                    obj.pm10 = cities_climate_data["data"]["forecast"]["daily"]["pm10"][0]["avg"]
+                    obj.o3 = cities_climate_data["data"]["forecast"]["daily"]["o3"][0]["avg"]
 
-db.session.commit()
