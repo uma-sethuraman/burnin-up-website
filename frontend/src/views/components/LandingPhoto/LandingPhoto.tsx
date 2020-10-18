@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Image from "react-bootstrap/Image";
 
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 const LocationPhoto = (cityName:string) => {
     // const [photoRef, setPhotoRef] = useState(null);
     const [photoRef, setPhotoRef] = useState("");
@@ -37,9 +39,12 @@ const LocationPhoto = (cityName:string) => {
     console.log("UPDATED OUTSIDE??");
     console.log(photoRef);
 
-    const actualPhoto = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&"+
-    "photoreference"+photoRef+ "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc"
+    const actualPhoto = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&"+
+    "photoreference="+photoRef+ "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc"
     
+    console.log("actual photosssss")
+    console.log(actualPhoto);
+
     return (
         <Image src={actualPhoto} fluid/>
     );
