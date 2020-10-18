@@ -1,0 +1,13 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "170263725750.dkr.ecr.us-east-1.amazonaws.com/burninup-backend",
+      "Update": "true"
+    },
+    "Ports": [
+      {
+        "ContainerPort": 5000,
+        "HostPort": 5000
+      }
+    ]
+  }
