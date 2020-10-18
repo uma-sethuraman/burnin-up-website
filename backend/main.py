@@ -71,11 +71,10 @@ class City(db.Model):
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
     pm25 = db.Column(db.Float)
-    co2 = db.Column(db.Float)
-    so2 = db.Column(db.Float)
-    """
+    pm10 = db.Column(db.Float)
+    o3 = db.Column(db.Float)
     country_iso2code = db.Column(db.String())
-    """
+    co = db.Column(db.Float)
 ###### SCHEMAS ######
 
 # Country Schema
@@ -128,9 +127,10 @@ class CitySchema(ma.Schema):
     lat = fields.Float(required=False)
     long = fields.Float(required=False)
     pm25 = fields.Float(required=False)
-    co2 = fields.Float(required=False)
-    so2 = fields.Float(required=False)
+    pm10 = fields.Float(required=False)
+    o3 = fields.Float(required=False)
     country_iso2code = fields.Str(required=False)
+    co = fields.Float(required=False)
 
 ###### INITIALIZE SCHEMA OBJECTS ######
 
