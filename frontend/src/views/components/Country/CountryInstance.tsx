@@ -54,7 +54,8 @@ const CountryInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-        {OurMap(country?.country_lat, country?.country_long, country?.country_name)}
+      {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
+        {OurMap(Number(country?.country_lat! === undefined ? 0: Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0: Number(country?.country_long!)), "Aruba")}
         <Image src={flagLink} alt="Flag"/>
         <header className="Country-header">
           <div className="image-text">

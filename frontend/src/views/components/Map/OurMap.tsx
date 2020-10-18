@@ -12,6 +12,7 @@ const OurMap = (latitude: number, longitude: number, locationName: string) => {
         <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBhcWoY9R1YI__bc0fC8vHRN8eEMVYoLKM' }}
+          /* how to change center?? */
           defaultCenter={center}
           defaultZoom={zoom}
         >
@@ -20,18 +21,7 @@ const OurMap = (latitude: number, longitude: number, locationName: string) => {
         lng={longitude}
         name={locationName}
         color="blue"/>
-        {/*   <Marker
-        lat={50}
-        lng={4}
-        name="My Marker"
-        color="blue"
-          />
-          <Marker
-        lat={25}
-        lng={25}
-        name="My Marker"
-        color="blue"
-          /> */}
+
           
         </GoogleMapReact>
       </div>
