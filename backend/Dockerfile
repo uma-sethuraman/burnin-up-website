@@ -12,27 +12,12 @@ RUN ls
 WORKDIR /app
 
 # Installs python packages
-RUN pip install -r ./backend/requirements.txt
+RUN pip install -r requirements.txt
 RUN pip3 install psycopg2
-
-#### Need to write npm run build ####
-#RUN cd ./frontend && npm install && npm run build
-
-# # Configure environment
-# RUN echo export PATH="\
-#     /root/.nvm/versions/node/${VERSION_NODE}/bin:\
-#     $PATH" >> ~/.bashrc && \
-#     echo "nvm use ${VERSION_NODE} 1> /dev/null" >> ~/.bashrc
 
 # Exposes port 5000 which Flask app will use to the container so that later it can be mapped with the system’s port
 EXPOSE 5000
 
 COPY . /app
 
-# Runs <python main.py> when we start our terminal
-# ENTRYPOINT [ "python" ]
-# CMD [ "./backend/main.py" ]
 CMD ["gunicorn", "wsgi:app", "-w 2", "-b 0.0.0.0:5000", "-t 30"]
-
-#ENTRYPOINT ["flask"]
-#CMD ["run", '--host=0.0.0.0', '--port=5000']
