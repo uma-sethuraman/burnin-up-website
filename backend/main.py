@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
+import flask
+import json
 
 # Create flask app
 app = Flask(__name__, static_folder="../frontend/build/static", template_folder="../frontend/build")
@@ -162,18 +164,11 @@ def get_countries():
 @app.route('/api/countries/id=<id>', methods=['GET'])
 def get_country_id(id):
     country = Country.query.get(id)
+    if country is None:
+        response = flask.Response(json.dumps({"error": id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
     return country_schema.jsonify(country)
-
-# Retrieve single country entry by name
-@app.route('/api/countries/name=<name>', methods=['GET'])
-def get_country_name(name):
-    country = db.session.query(Country).filter(Country.country_name==name).first()
-    return country_schema.jsonify(country)
-
-@app.route('/api/countries/code=<country_code>/cities')
-def get_country_cities(country_code):
-    country_cities = db.session.query(City).filter(City.country_iso2code==country_code).all()
-    return cities_schema.jsonify(country_cities)
 
 # Retrieve all years
 @app.route('/api/years', methods=['GET'])
@@ -182,16 +177,14 @@ def get_years():
     result = years_schema.dump(all_years)
     return jsonify({'years': result})
 
-# Retrieve single year entry by id
-@app.route('/api/years/id=<id>', methods=['GET'])
-def get_year_id(id):
-    year = Year.query.get(id)
-    return year_schema.jsonify(year)
-
 # Retrieve single year entry by name
 @app.route('/api/years/name=<name>', methods=['GET'])
 def get_year_name(name):
     year = db.session.query(Year).filter(Year.year_name==name).first()
+    if year is None:
+        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
     return year_schema.jsonify(year)
 
 # Retrieve country carbon emissions per year
