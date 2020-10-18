@@ -13,6 +13,7 @@ import Slide from "../../../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
+import LocationPhoto from "../LandingPhoto/LandingPhoto";
 
 
 const CountryInstance = (id: any) => {
@@ -57,6 +58,7 @@ const CountryInstance = (id: any) => {
       {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
         {OurMap(Number(country?.country_lat! === undefined ? 0: Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0: Number(country?.country_long!)), "Aruba")}
         <Image src={flagLink} alt="Flag"/>
+        {LocationPhoto("Manila")}
         <header className="Country-header">
           <div className="image-text">
             <h3> {country?.country_name} </h3>
