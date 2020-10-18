@@ -212,12 +212,20 @@ def get_cities():
 @app.route('/api/cities/id=<id>', methods=['GET'])
 def get_city_id(id):
     city = City.query.get(id)
+    if city is None:
+        response = flask.Response(json.dumps({"error": id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
     return citys_schema.jsonify(city)
 
 # # Retrieve single city  entry by name
 @app.route('/api/cities/name=<name>', methods=['GET'])
 def get_city_name(name):
     city = db.session.query(City).filter(City.city_name==name).first()
+    if city is None:
+        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
     return citys_schema.jsonify(city)
 
 if __name__ == '__main__':
