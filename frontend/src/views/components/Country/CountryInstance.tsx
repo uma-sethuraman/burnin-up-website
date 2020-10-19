@@ -17,7 +17,7 @@ import LocationPhoto from "../LandingPhoto/LandingPhoto";
 
 
 const CountryInstance = (id: any) => {
-
+  
   let [country, setCountry] = React.useState<Country>();
     
   // gets data from API
