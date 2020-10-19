@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
 import YearMap from '../Map/YearMap';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, Label} from 'recharts';
 
 /* add in a get request for the 10 countries corresponding to this year*/
 
@@ -57,10 +57,36 @@ const YearInstance = (name: any) => {
         console.log(error);
     })
   };
+
+  const [topCities, setTopCities] = React.useState<CityTemperaturesYear[]>([]);
+
+  const getTopCities = (yearName: string) => {
+    axios.get("/api/city_temperatures")
+    .then((response) => {
+      //console.log(response.data);
+      const tempArray: CityTemperaturesYear[] = JSON.parse(JSON.stringify(response.data.city_temperatures_years)) as CityTemperaturesYear[];
+      //console.log(tempArray);
+      const starting_index = 10 * (parseInt(yearName) - FIRST_YEAR);
+      let copyArray: CityTemperaturesYear[] = [];
+      let i;
+      for (i = starting_index; i < starting_index + 10; i++) {
+        copyArray.push(tempArray[i]);
+      }
+      
+      setTopCities(old => {
+        return [...copyArray]
+      });
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+  };
   
 
   getData();
   getTopCountries(year?.year_name!);
+  getTopCities(year?.year_name!);
+  //console.log(JSON.stringify(topCities));
 
   return (
     <div className="YearInstance">
@@ -78,6 +104,7 @@ const YearInstance = (name: any) => {
             <h3> {year?.year_name} </h3>
         </header>
         <br />
+        {YearMap(topCities)}
         <Table bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
@@ -136,6 +163,50 @@ export interface CountryEmissionsYear {
   country_co2: number;
   year_id:     number;
   year_name:   string;
+}
+
+export interface CityTempsObject {
+  city_temperatures_years: CityTemperaturesYear[];
+}
+
+export interface CityTemperaturesYear {
+  city:     string;
+  city_temp: number;
+  country:  Country;
+  lat:      number;
+  long:     number;
+  year_id:   number;
+  year_name: number;
+}
+
+export enum Country {
+  Bahrain = "Bahrain",
+  Benin = "Benin",
+  Brazil = "Brazil",
+  BurkinaFaso = "Burkina Faso",
+  Cameroon = "Cameroon",
+  Colombia = "Colombia",
+  Djibouti = "Djibouti",
+  Ecuador = "Ecuador",
+  Haiti = "Haiti",
+  India = "India",
+  Indonesia = "Indonesia",
+  IvoryCoast = "Ivory Coast",
+  Malaysia = "Malaysia",
+  Mali = "Mali",
+  Nicaragua = "Nicaragua",
+  Niger = "Niger",
+  Nigeria = "Nigeria",
+  Philippines = "Philippines",
+  Qatar = "Qatar",
+  SaudiArabia = "Saudi Arabia",
+  Senegal = "Senegal",
+  Singapore = "Singapore",
+  SriLanka = "Sri Lanka",
+  Sudan = "Sudan",
+  Togo = "Togo",
+  UnitedArabEmirates = "United Arab Emirates",
+  Venezuela = "Venezuela",
 }
 
 export default YearInstance;

@@ -9,7 +9,7 @@ function OurNavbar() {
     return (
         <div className="OurNavbar">
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/landing">Burnin Up</Navbar.Brand>
+                <Navbar.Brand href="/">Burnin Up</Navbar.Brand>
                 <Nav className="mr-auto">
                 <Nav.Link href="/about">About Us</Nav.Link>
                 <Nav.Link href="/cities">Cities</Nav.Link>

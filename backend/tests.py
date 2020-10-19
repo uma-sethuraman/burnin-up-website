@@ -254,5 +254,95 @@ class Tests(TestCase):
             "year_name": "1800"
         }
 
+    # ---------------
+    # Capital Cities
+    # ---------------
+
+    def test_capital_cities_num_results(self):
+        # r = requests.get("https://burninup.me/api/cities/capital_ciites")
+        # assert r.status_code == 200
+        # d = r.json()
+        # assert len(d["capital_city"]) == ???
+        pass
+
+    def test_capital_cities_list(self):
+        # r = requests.get("https://burninup.me/api/cities/capital_cities")
+        # assert r.status_code == 200
+        # d = r.json()
+        # assert len(d["capital_city"]) > 0
+        # assert d["capital_city"][0] == {
+        #     ???
+        # }
+        pass
+
+    # ------------
+    # City Years
+    # ------------
+
+    def test_city_years_results(self):
+        r = requests.get("https://burninup.me/api/city_year")
+        assert r.status_code == 200
+        d = r.json()
+        assert len(d["city_years"]) == 147
+
+    def test_city_years_list(self):
+        r = requests.get("https://burninup.me/api/city_year")
+        assert r.status_code == 200
+        d = r.json()
+        assert len(d["city_years"]) > 0
+        assert d["city_years"][0] == {
+            "city": "Kabul",
+            "temp": 21.02927272727273,
+            "year": 1880,
+            "year_id": 1
+        }
+
+    def test_city_year_name_instance(self):
+        r = requests.get("https://burninup.me/api/city_year/name=Vienna")
+        assert r.status_code == 200
+        d = r.json()
+        assert d == {
+            "city": "Vienna",
+            "temp": 52.93561643835609,
+            "year": 2014,
+            "year_id": 7
+        }
+
+    # def test_city_year_name_error_result(self):
+    #     r = requests.get("https://burninup.me/api/city_year/name=Austin")
+    #     assert r.status_code == 404
+    #     d = r.json()
+    #     assert d == {
+    #         "error": "Austin not found"
+    #     }
+
+    # def test_cities_name_instance(self):
+    #     r = requests.get("https://burninup.me/api/cities/name=Noord")
+    #     assert r.status_code == 200
+    #     d = r.json()
+    #     assert d == {
+    #         "city_id": 1,
+    #         "city_name": "Noord",
+    #         "co": null,
+    #         "country_iso2code": "AW",
+    #         "elevation": 0,
+    #         "lat": 12.56596,
+    #         "long": -70.03198,
+    #         "o3": 0.0,
+    #         "pm10": 0.0,
+    #         "pm25": 0.0,
+    #         "population": 0,
+    #         "time_zone": "NaN"
+    #     }
+
+    # def test_cities_name_error_result(self):
+    #     r = requests.get("https://burninup.me/api/cities/name=nooo")
+    #     assert r.status_code == 404
+    #     d = r.json()
+    #     assert d == {
+    #         "error": "nooo not found"
+    #     }
+
+
 if __name__ == "__main__":  # pragma: no cover
     main()
