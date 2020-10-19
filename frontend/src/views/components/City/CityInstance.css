@@ -19,6 +19,13 @@
 .image-text {
 }
 
+.image_holder{
+  object-fit: scale-down;
+  overflow:hidden;
+  width: 360px;
+  height: 240px;
+}
+
 .City-header {
   background-image: url("../../../assets/austin-capitol.jpg"); /* The image used */
   height: 100%; /* You must set a specified height */

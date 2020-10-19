@@ -64,15 +64,12 @@ const CityInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-      {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
-        {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), "Aruba")}
-        {/*<Image src={flagLink} alt="Flag" />*/}
+      <div className="image-text">
+        <h3> {city?.city_name} </h3>
+        </div> 
+        <div className="image_holder">
         {LocationPhoto(encodeURI(city?.city_name!))}
-        <header className="Country-header">
-          <div className="image-text">
-            <h3> {city?.city_name} </h3>
-          </div>
-        </header>
+        </div>
         <br />
         <Table bordered hover size="sm" variant="dark">
           <tbody>
@@ -117,8 +114,7 @@ const CityInstance = (id: any) => {
           </tbody>
         </Table>
   
-        <div>See more: </div>
-        {OurCarousel(s1, s2, s3)}
+        {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), "Aruba")}
       </header>
     </div>
   );
