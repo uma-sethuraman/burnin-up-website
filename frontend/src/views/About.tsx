@@ -4,6 +4,7 @@ import Navbar from "./components/OurNavbar";
 import axios from "axios";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
+import { Link } from "react-router-dom";
 
 function About() {
 
@@ -118,13 +119,25 @@ function About() {
   }
 
   return (
+
     <div className="About">
       {commitsApiRequest()}
       {issuesApiRequest()}
       <Navbar />
+
       <body className="About-body">
         <div className="h3_about">
           <h3>About Us</h3>
+        </div>
+        <div className="purpose">
+        Burnin’ Up aims to educate people on the climate crisis of our planet, and make them aware of how quickly our home is changing. 
+        This website will allow you to navigate from city to city, or country to country, to see how each city or country is contributing to, 
+        or has been affected by climate change. You can also see how climate change has been affecting the world on a year by year basis. 
+        We encourage you to take action by making small changes in your life to decrease your individual carbon footprint, such as turning off lights 
+        you aren’t using, or carpooling with others when you can. By understanding the history of our Earth, we can understand where we will be in the future. 
+        <p> </p>
+
+        With the datasets we've compiled together, we've been able to find 
         </div>
         <div className="h2_about">
           <h2>Total Commits: {commitsSum}</h2>
@@ -145,6 +158,11 @@ function About() {
               <p>Issues: {members[0].issues}</p>
               <p>Commits: {members[0].commits}</p>
               <p>Unit Tests: 0</p>
+
+              <p>Caitlin is a junior from Round Rock, TX. She works on backend development for the site 
+                and enjoys Data Science and Machine Learning. Her hobbies 
+                include stanning BTS and stretching while working.
+                Her computer is currently resting in peace.</p>
             </div>
             <div className="column">
               <Image
@@ -158,6 +176,10 @@ function About() {
               <p>Issues: {members[1].issues}</p>
               <p>Commits: {members[1].commits}</p>
               <p>Unit Tests: 0</p>
+              <p>Caitlin is a junior from Dallas, TX. Some of her technical interests are 
+                front end web and app development and NLP. Her hobbies include painting 
+                and drawing, playing oboe, listening to classical music, and drinking tea.</p>
+
             </div>
             <div className="column">
               <Image
@@ -171,6 +193,10 @@ function About() {
               <p>Issues: {members[2].issues}</p>
               <p>Commits: {members[2].commits}</p>
               <p>Unit Tests: 0</p>
+
+              <p>Cherry aged at least 5 years from doing this project. She’s working on backend and has
+                 interest in overall full stack app development. She likes 
+                working out, swimming, getting a massage, going to spa and just enjoying life. </p>
             </div>
             <div className="column">
               <Image
@@ -184,6 +210,9 @@ function About() {
               <p>Issues: {members[3].issues}</p>
               <p>Commits: {members[3].commits}</p>
               <p>Unit Tests: 0</p>
+              <p>Lauren is Junior from Austin, TX whose eyebags got much bigger from sleeping late. She is working on the front end of the site and loves working with people. 
+                She is a hip-hop dancer and choreographer for UT dance teams and loves to explore and hike.</p>
+
             </div>
             <div className="column">
               <Image
@@ -197,6 +226,9 @@ function About() {
               <p>Issues: {members[4].issues}</p>
               <p>Commits: {members[4].commits}</p>
               <p>Unit Tests: 0</p>
+              <p>Samantha is a junior from Dallas, TX. She’s working on the backend development of 
+                this site and has an interest in overall full stack app development. Outside of the CS world, she enjoys journaling,
+                 kickboxing, playing musical instruments, and eating good food.</p>
             </div>
             <div className="column">
               <Image
@@ -210,6 +242,9 @@ function About() {
               <p>Issues: {members[5].issues}</p>
               <p>Commits: {members[5].commits}</p>
               <p>Unit Tests: 0</p>
+              <p>Uma is a junior from Houston, TX. She is working on the frontend development for this project. Some of her other technical 
+                interests include mobile development and machine learning. 
+                She also enjoys dancing and cooking.</p>
             </div>
           </div>
         </div>
@@ -218,15 +253,53 @@ function About() {
           <h2>
             <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
               Our Postman API
+              <Image className="ToolImage"src={require("../assets/PostmanLogo.png")}/>      
             </a>
           </h2>
           <br></br>
           <h2>
             <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
               Our GitLab Repository
+              <Image className="ToolImage"src={require("../assets/GitlabLogo.jpg")}/>      
             </a>
           </h2>
           <br></br>
+          <div className="Tools">
+          Tools:
+            <a href="https://reactjs.org/" >
+              <Image className="ToolImage"src={require("../assets/ReactLogo.jpg")}/>      
+            </a>
+            <a href="https://react-bootstrap.github.io/" >
+              <Image className="ToolImage"src={require("../assets/ReactBootstrap.png")}/>      
+            </a>
+            <a href="https://aws.amazon.com/elasticbeanstalk/" >
+              <Image className="ToolImage"src={require("../assets/ElasticBeanstalk.png")}/>      
+            </a>
+            <a href="https://www.postman.com/" >
+              <Image className="ToolImage"src={require("../assets/PostmanLogo.png")}/>      
+            </a>
+            <a href="https://www.gitlab.com/" >
+              <Image className="ToolImage"src={require("../assets/GitlabLogo.jpg")}/>      
+            </a>
+            <a href="https://www.namecheap.com/" >
+              <Image className="ToolImage"src={require("../assets/NameCheapLogo.png")}/>      
+            </a>
+            <a href="https://www.discord.com/" >
+              <Image className="ToolImage"src={require("../assets/DiscordLogo.png")}/>      
+            </a>
+            
+          </div>
+          <div className="purpose"> 
+          Different API and data sources: 
+          <li>https://ipstack.com/documentation </li>
+          <li> https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries</li> 
+          <li> https://docs.openaq.org/  </li>
+          <li>https://developer.climacell.co/v3/reference    </li>
+          <li>http://geodb-cities-api.wirefreethought.com/   </li>
+          <li> https://global-warming.org/  </li>
+          <li> https://www.jpl.nasa.gov/edu/teach/activity/graphing-sea-level-trends/  </li>
+          <li>https://ourworldindata.org/world-population-growth</li>
+          </div>
         </div>
       </body>
     </div>
