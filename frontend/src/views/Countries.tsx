@@ -39,6 +39,9 @@ const Countries = () => {
     })
   };
 
+  function filterPosts(country: Country) {
+    return country.country_income.toString() !== "Aggregates";
+  }
   getData();
 
   // Get current posts
@@ -47,6 +50,7 @@ const Countries = () => {
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
+  console.log(currentPosts);
   return (
     <div className="App">
       <Navbar />

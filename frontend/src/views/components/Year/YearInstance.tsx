@@ -81,6 +81,10 @@ const YearInstance = (name: any) => {
         console.log(error);
     })
   };
+
+  function barOnClick(barName: any) {
+    alert(barName);
+  }
   
 
   getData();
@@ -98,7 +102,7 @@ const YearInstance = (name: any) => {
           <YAxis stroke="#FFFFFF"/>
           <Tooltip />
           <Legend />
-          <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)"/>
+          <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)" onClick={barOnClick}/>
         </BarChart>
         <header className="Year-header">
             <h3> {year?.year_name} </h3>

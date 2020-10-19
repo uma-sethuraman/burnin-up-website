@@ -14,21 +14,19 @@ const Posts = (posts: Country[]) => {
               <th>Income Level</th>
               <th>Region</th>
               <th>Capital City</th>
-              {/* <th>Average Temperature</th> */}
-              {/* <th>pm2.5</th> */}
             </tr>
           </thead>
           <tbody>
-          {posts.map(post => (
-            <tr key={post.country_id}>
+          {posts.filter(post => post.country_income.toString() !== "Aggregates").map(filteredPost => (
+            <tr key={filteredPost.country_id}>
                 <td>
-                    <Link to={"/countries/id="+post.country_id}>
-                        {post.country_name}
+                    <Link to={"/countries/id="+filteredPost.country_id}>
+                        {filteredPost.country_name}
                     </Link>
                 </td>
-                <td>{post.country_income}</td>
-                <td>{post.country_region}</td>
-                <td>{post.country_capital_city}</td>
+                <td>{filteredPost.country_income}</td>
+                <td>{filteredPost.country_region}</td>
+                <td>{filteredPost.country_capital_city}</td>
             </tr>
           ))}
           </tbody>
