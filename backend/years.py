@@ -211,45 +211,45 @@ class Country(db.Model):
 #         print("In temp or capital: " + city.city_name)
 
 
-# Finds the cities we need info on in the Cities Table
-cities_we_need = []
-cities = CityTempPerYear.query.all()
-count = 0
-for city in cities:
-    exist_temp = db.session.query(db.session.query(City).filter_by(city_name=city.city).exists()).scalar()
-    if exist_temp:
-        print("HAVE: " + city.city)
-        count += 1
-    else:
-        print("DONT HAVE: " + city.city)
-        cities_we_need.append(city.city)
-print("We have :" + str(count / len(cities)))
-# Save it to a csv
-print("#########################")
-
-count = 0
-total = 0
-country_capitals = db.session.query(Country.country_capital_city).all()
-for country_capital in country_capitals:
-    if country_capital is not None:
-        # Checks for empty country_capitals
-        if len(country_capital[0]) != 0:
-            capital = country_capital[0]
-            exist_capital = db.session.query(db.session.query(City).filter_by(city_name=capital).exists()).scalar()
-            if exist_capital:
-                print("HAVE: " + capital)
-                count += 1
-                total += 1
-            else:
-                print("DONT HAVE: " + capital)
-                total += 1
-                cities_we_need.append(capital)
-
-print("We have :" + str(count / total))
-
-# Export the cities we need to a csv
-need_df = pd.DataFrame(cities_we_need, columns=["Cities"])
-need_df.to_csv("Cities We Need.csv", index=False)
+# # Finds the cities we need info on in the Cities Table
+# cities_we_need = []
+# cities = CityTempPerYear.query.all()
+# count = 0
+# for city in cities:
+#     exist_temp = db.session.query(db.session.query(City).filter_by(city_name=city.city).exists()).scalar()
+#     if exist_temp:
+#         print("HAVE: " + city.city)
+#         count += 1
+#     else:
+#         print("DONT HAVE: " + city.city)
+#         cities_we_need.append(city.city)
+# print("We have :" + str(count / len(cities)))
+# # Save it to a csv
+# print("#########################")
+#
+# count = 0
+# total = 0
+# country_capitals = db.session.query(Country.country_capital_city).all()
+# for country_capital in country_capitals:
+#     if country_capital is not None:
+#         # Checks for empty country_capitals
+#         if len(country_capital[0]) != 0:
+#             capital = country_capital[0]
+#             exist_capital = db.session.query(db.session.query(City).filter_by(city_name=capital).exists()).scalar()
+#             if exist_capital:
+#                 print("HAVE: " + capital)
+#                 count += 1
+#                 total += 1
+#             else:
+#                 print("DONT HAVE: " + capital)
+#                 total += 1
+#                 cities_we_need.append(capital)
+#
+# print("We have :" + str(count / total))
+#
+# # Export the cities we need to a csv
+# need_df = pd.DataFrame(cities_we_need, columns=["Cities"])
+# need_df.to_csv("Cities We Need.csv", index=False)
 
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
