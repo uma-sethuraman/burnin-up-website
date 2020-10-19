@@ -223,7 +223,7 @@ def get_year_name(name):
 # Retrieve country carbon emissions per year
 @app.route('/api/country_emissions')
 def get_country_emissions():
-    all_country_years = CountryEmissionsPerYear.query.all()
+    all_country_years = CountryEmissionsPerYear.query.order_by(CountryEmissionsPerYear.year_id).all()
     result = countries_emissions_schema.dump(all_country_years)
     return jsonify({'country_emissions_years': result})
 
