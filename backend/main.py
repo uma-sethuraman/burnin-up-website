@@ -108,7 +108,7 @@ class CountryEmissionsPerYearSchema(ma.Schema):
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema(ma.Schema):
     year_id = fields.Int(required=True)
-    year_name = fields.Str(required=False)
+    year_name = fields.Int(required=False)
     city = fields.Str(required=False)
     country = fields.Str(required=False)
     city_temp = fields.Float(required=False)
@@ -195,7 +195,7 @@ def get_country_emissions():
 # Retrieve avg city temps per year
 @app.route('/api/city_temperatures')
 def get_city_temperatures():
-    all_cities_temps = CityTempPerYear.query.all()
+    all_cities_temps = CityTempPerYear.query.order_by(CityTempPerYear.year_name).all()
     result = cities_temp_schema.dump(all_cities_temps)
     return jsonify({'city_temperatures_years': result})
 
