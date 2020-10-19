@@ -28,7 +28,8 @@ ReactDOM.render(
   <Router>
       <Route path="/about" exact component = {About}/>
       <Route path="/" exact component = {App}/>
-      <Route path="/cities" exact component = {Cities} />
+    <Route path="/cities" exact component={Cities} />
+    <Route path="/cities/id=:id" render = {(props) => (<CityInstance id={props.match.params.id}/>)} />
       <Route path="/city" exact component = {CityInstance } />
       <Route path="/countries" exact component = {Countries} />
       <Route path="/countries/id=:id" render = {(props) => (<CountryInstance id={props.match.params.id}/>)} />
