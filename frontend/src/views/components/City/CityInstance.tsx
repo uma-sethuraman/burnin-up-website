@@ -19,6 +19,7 @@ import LocationPhoto from "../LandingPhoto/LandingPhoto";
 const CityInstance = (id: any) => {
 
   let [city, setCity] = React.useState<City>();
+  let [cityYear, setCityYear] = React.useState<CityYear>();
     
   // gets data from API
   const getData = () => {
@@ -29,7 +30,15 @@ const CityInstance = (id: any) => {
     .catch((error) => {
         console.log(error);
     })
+    axios.get("/api/city_year/name="+city?.city_name)
+    .then((response)=>{
+        setCityYear(JSON.parse(JSON.stringify(response.data)) as CityYear);
+    })
+    .catch((error) => {
+        console.log(error);
+    })
   };
+
 
   // initializing carousel slides
   let s1 = new Slide(
@@ -62,6 +71,12 @@ const CityInstance = (id: any) => {
         <header className="Country-header">
           <div className="image-text">
             <h3> {city?.city_name} </h3>
+          </div>
+          <div className="row">
+            <h2> Year with the highest temperature:</h2>
+          <Link to={"/years/name="+cityYear?.year}>
+            { cityYear?.year}
+          </Link>
           </div>
         </header>
         <br />
@@ -122,6 +137,13 @@ export interface City {
   pm25:             number;
   population:       number;
   time_zone:        string;
+}
+
+export interface CityYear {
+  city:    string;
+  temp:    number;
+  year:    number;
+  year_id: number;
 }
 
 
