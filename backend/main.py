@@ -307,6 +307,30 @@ def country_year(name):
         response.status_code = 404
         return response
     return countryYear_schema.jsonify(country_year)
+#getting the capital city id by country id
+@app.route('/api/<country_id>/capital_city_id', methods=['GET'])
+def get_capital_city_id(country_id):
+    country = Country.query.get(country_id)
+    str2 = str(country.country_capital_city)
+    city = db.session.query(City).filter(City.city_name == str2).first()
+    if city is None:
+        response = flask.Response(json.dumps({"error": country_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    return jsonify({'capital_city_id': city.city_id})
+
+#getting the country code and name by city id
+@app.route('/api/<city_id>/country_code', methods=['GET'])
+def get_country_id_by_city(city_id):
+    city = City.query.get(city_id)
+    city_country = city.country_iso2code
+    country = db.session.query(Country).filter(Country.country_iso2code == city_country).first()
+    if country is None:
+        response = flask.Response(json.dumps({"error": city_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    result = {country.country_id: country.country_name}
+    return jsonify({'capital_city_id': result})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
