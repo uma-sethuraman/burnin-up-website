@@ -56,9 +56,15 @@ r = urllib.request.urlopen(request_url)
 data = json.loads(r.read())
 country_list = []
 for item in data[1]:
-    new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"], country_lat= item["latitude"], country_long = item["longitude"])
-    country_list.append(new_country)
+    if item["region"]["value"] != "Aggregates":
+        new_country = Country(country_name=item["name"], country_region=item["region"]["value"], country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'], iso2code=item['iso2Code'], iso3code=item["id"], country_lat= item["latitude"], country_long = item["longitude"])
+        country_list.append(new_country)
+    else:
+        print(item["name"])
+
 db.session.add_all(country_list)
 db.session.commit()
+
+
 
 
