@@ -5,48 +5,17 @@ import Marker from '../Marker/Marker';
 import { CountryEmissionsYear } from '../Year/YearInstance';
 import { Country, CountryIncome, CountryRegion } from '../Country/CountryInstance';
 import axios from "axios";
+import { CityTemperaturesYear } from "../Year/YearInstance";
 
 const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 
 
 
-const YearMap = (countries: CountryEmissionsYear[]) => {
+const YearMap = (cities: CityTemperaturesYear[]) => {
 
-  const [countryLocations, setCountryLocations] = React.useState<Country[]>([]);
-  const [latAvg, setLatAvg] = React.useState(0);
-  const [longAvg, setLongAvg] = React.useState(0);
-  const getData = () => {
-    let localLatSum = 0;
-    let localLongSum = 0;
-    let copyArray: Country[] = [];
-    console.log("COUNTRIES ARRAY" + JSON.stringify(countries));
-    for (let country of countries) {
-      axios.get("/api/countries/name=" + country.country)
-        .then((response) => {
-          let localCountry: Country = JSON.parse(JSON.stringify(response.data)) as Country;
-          copyArray.push(localCountry);
-          localLatSum += localCountry.country_lat;
-          localLongSum += localCountry.country_long;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    }
-    setCountryLocations(old => {
-      return [...copyArray]
-    });
-    
-    setLatAvg(localLatSum / countries.length);
-    setLongAvg(localLongSum / countries.length);
-
-  }
-    
-
-
-  const [center, setCenter] = useState({lat: latAvg, lng: longAvg});
-  const [zoom, setZoom] = useState(11);
-  getData();
-  // console.log(JSON.stringify(countryLocations));
+  const [cityLocations, setCityLocations] = React.useState<CityTemperaturesYear[]>([]);
+    const [center, setCenter] = useState({lat: 0, lng: 0 });
+    const [zoom, setZoom] = useState(1);
     return (
         <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
@@ -55,17 +24,23 @@ const YearMap = (countries: CountryEmissionsYear[]) => {
           defaultCenter={center}
           defaultZoom={zoom}
         >
+        {cities.map(city => (
         <Marker
-        lat={countryLocations[0].country_lat}
-        lng={countryLocations[0].country_long}
-        name={countryLocations[0].country_name}
+        lat={city.lat}
+        lng={city.long}
+        name={city.city}
         color="blue"/>
-
+        ))}
           
         </GoogleMapReact>
       </div>
     );
-}
+
+  }
+    
+
+
+  
 
 export default YearMap;
 

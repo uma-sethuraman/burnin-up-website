@@ -47,6 +47,7 @@ const Countries = () => {
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
+  console.log(currentPosts);
   return (
     <div className="App">
       <Navbar />

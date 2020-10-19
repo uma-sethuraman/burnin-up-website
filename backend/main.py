@@ -57,7 +57,6 @@ class CityTempPerYear(db.Model):
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
 
-
 # City Model
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
@@ -72,6 +71,21 @@ class City(db.Model):
     o3 = db.Column(db.Float)
     country_iso2code = db.Column(db.String())
     co = db.Column(db.Float)
+
+# City Year Model
+class CityYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String())
+    year = db.Column(db.Integer)
+    temp = db.Column(db.Float)
+
+# Country Year Model
+class CountryYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    country = db.Column(db.String())
+    year = db.Column(db.Integer)
+    co2 = db.Column(db.Float)
+
 ###### SCHEMAS ######
 
 # Country Schema
@@ -130,6 +144,20 @@ class CitySchema(ma.Schema):
     country_iso2code = fields.Str(required=False)
     co = fields.Float(required=False)
 
+# City Year Schema
+class CityYearSchema(ma.Schema):
+    year_id = fields.Int(required=True)
+    city = fields.Str(required=False)
+    year = fields.Int(required=False)
+    temp = fields.Float(required=False)
+
+# Country Year Schema
+class CountryYearSchema(ma.Schema):
+    year_id = fields.Int(required=True)
+    country = fields.Str(required=False)
+    year = fields.Int(required=False)
+    co2 = fields.Float(required=False)
+
 ###### INITIALIZE SCHEMA OBJECTS ######
 
 country_schema = CountrySchema()
@@ -143,6 +171,12 @@ cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
 cities_temp_schema = CityTempPerYearSchema(many=True)
+
+city_years_schema = CityYearSchema(many=True)
+city_year_schema = CityYearSchema()
+
+countriesYear_schema = CountryYearSchema(many=True)
+countryYear_schema = CountryYearSchema()
 
 ###### ENDPOINTS ######
 # Root routing
@@ -239,6 +273,40 @@ def get_capital():
     for item in topcities:
         cities_list += [item.city]
     return jsonify({"captial_city": cities_list})
+
+# Retrieve city years
+@app.route('/api/city_year', methods=['GET'])
+def get_city_years():
+    all_city_years = CityYear.query.all()
+    result = city_years_schema.dump(all_city_years)
+    return jsonify({'city_years': result})
+
+# Retrieve single city year entry by name
+@app.route('/api/city_year/name=<name>', methods=['GET'])
+def get_city_years_name(name):
+    city_year = db.session.query(CityYear).filter(CityYear.city==name).first()
+    if city_year is None:
+        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    return city_year_schema.jsonify(city_year)
+
+# Retrieve country years
+@app.route('/api/country_year', methods=['GET'])
+def country_years():
+    country_year = CountryYear.query.all()
+    result = countriesYear_schema.dump(country_year)
+    return jsonify({'country_year': result})
+
+# Retrieve single country year entry by name
+@app.route('/api/country_year/name=<name>', methods=['GET'])
+def country_year(name):
+    country_year = db.session.query(CountryYear).filter(CountryYear.country == name).first()
+    if country_year is None:
+        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    return countryYear_schema.jsonify(country_year)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)

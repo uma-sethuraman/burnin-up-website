@@ -11,6 +11,13 @@ h2 {
 .hook {
   background-color: #556875;
 }
+.story{
+  font-size: 24px;
+  color:white;
+  padding-right: 2vw;
+  padding-left: 2vw;
+  text-align:left;
+}
 
 .Landing-body {
   text-align: center;

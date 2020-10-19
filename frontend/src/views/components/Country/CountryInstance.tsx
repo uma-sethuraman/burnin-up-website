@@ -14,12 +14,14 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LandingPhoto/LandingPhoto";
+import { cpuUsage } from "process";
 
 
 const CountryInstance = (id: any) => {
-
+  
   let [country, setCountry] = React.useState<Country>();
-    
+  let [countryYear, setCountryYear] = React.useState<CountryYearElement>();
+ 
   // gets data from API
   const getData = () => {
     axios.get("/api/countries/id="+id.id)
@@ -29,6 +31,19 @@ const CountryInstance = (id: any) => {
     .catch((error) => {
         console.log(error);
     })
+
+    axios.get("/api/country_year/name="+country?.country_name)
+    .then((response)=>{
+        setCountryYear(JSON.parse(JSON.stringify(response.data)) as CountryYearElement)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+  };
+
+  // gets country CO2 Emissions data from API
+  const getCountryEmissions = () => {
+
   };
 
   // initializing carousel slides
@@ -40,12 +55,12 @@ const CountryInstance = (id: any) => {
   let s2 = new Slide(
     "France",
     require("../../../assets/France_flag.jpg"),
-    "/countries/id=405"
+    "/countries/id=101"
   );
   let s3 = new Slide(
     "India",
     require("../../../assets/USA_flag.jpg"),
-    "/countries/id=439"
+    "/countries/id=135"
   );
 
   getData();
@@ -58,7 +73,7 @@ const CountryInstance = (id: any) => {
       {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
         {OurMap(Number(country?.country_lat! === undefined ? 0: Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0: Number(country?.country_long!)), "Aruba")}
         <Image src={flagLink} alt="Flag"/>
-        {LocationPhoto(encodeURI(country?.country_name!))}
+        {/* {LocationPhoto(encodeURI(country?.country_name!))} */}
         <header className="Country-header">
           <div className="image-text">
             <h3> {country?.country_name} </h3>
@@ -79,6 +94,15 @@ const CountryInstance = (id: any) => {
               <td>Capital City</td>
               <td>{country?.country_capital_city}</td>
             </tr>
+            <tr>
+              <td>Highest Annual CO2 Emission</td>
+              <td>{countryYear?.co2}</td>
+            </tr>
+            <tr>
+              <td>Year with Highest Annual CO2 Emission</td>
+              <td><Link to={"/years/name="+countryYear?.year}> {countryYear?.year} </Link></td>
+            </tr>
+            
           </tbody>
         </Table>
   
@@ -88,6 +112,7 @@ const CountryInstance = (id: any) => {
     </div>
   );
 }
+
 
 export interface CountriesObject {
   countries: Country[];
@@ -123,5 +148,17 @@ export enum CountryRegion {
   SouthAsia = "South Asia",
   SubSaharanAfrica = "Sub-Saharan Africa ",
 }
+
+export interface CountryYear {
+  country_year: CountryYearElement[];
+}
+
+export interface CountryYearElement {
+  co2:     number;
+  country: string;
+  year:    number;
+  year_id: number;
+}
+
 
 export default CountryInstance;
