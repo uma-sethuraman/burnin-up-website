@@ -101,6 +101,8 @@ class CountrySchema(ma.Schema):
     country_iso3code = fields.Str(required=False)
     country_lat = fields.Str(required=False)
     country_long = fields.Str(required=False)
+    recent_emissions_year = fields.Int(required=False)
+    recent_emissions = fields.Float(required=False)
 
 # Year Schema
 class YearSchema(ma.Schema):
