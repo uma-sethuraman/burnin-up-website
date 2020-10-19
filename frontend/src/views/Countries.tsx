@@ -39,9 +39,6 @@ const Countries = () => {
     })
   };
 
-  function filterPosts(country: Country) {
-    return country.country_income.toString() !== "Aggregates";
-  }
   getData();
 
   // Get current posts
