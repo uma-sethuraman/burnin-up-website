@@ -14,8 +14,6 @@ const Posts = (posts: Country[]) => {
               <th>Income Level</th>
               <th>Region</th>
               <th>Capital City</th>
-              {/* <th>Average Temperature</th> */}
-              {/* <th>pm2.5</th> */}
             </tr>
           </thead>
           <tbody>

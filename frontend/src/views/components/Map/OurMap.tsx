@@ -6,32 +6,23 @@ import Marker from '../Marker/Marker';
 const AnyReactComponent = ({text}: any) => <div>{text}</div>;
 
 const OurMap = (latitude: number, longitude: number, locationName: string) => {
-    const [center, setCenter] = useState({lat: latitude, lng: longitude });
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  //setCenter({ lat: latitude, lng: longitude });
     const [zoom, setZoom] = useState(11);
     return (
         <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBhcWoY9R1YI__bc0fC8vHRN8eEMVYoLKM' }}
+          /* how to change center?? */
           defaultCenter={center}
-          defaultZoom={zoom}
+          defaultZoom={1}
         >
         <Marker
         lat={latitude}
         lng={longitude}
         name={locationName}
         color="blue"/>
-        {/*   <Marker
-        lat={50}
-        lng={4}
-        name="My Marker"
-        color="blue"
-          />
-          <Marker
-        lat={25}
-        lng={25}
-        name="My Marker"
-        color="blue"
-          /> */}
+
           
         </GoogleMapReact>
       </div>
