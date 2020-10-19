@@ -90,25 +90,23 @@ const YearInstance = (name: any) => {
   getData();
   getTopCountries(year?.year_name!);
   getTopCities(year?.year_name!);
-  //console.log(JSON.stringify(topCities));
 
   return (
     <div className="YearInstance">
       <Navbar />
       <header className="App-header">
-        <BarChart width={730} height={250} data={topCountries}>
+        <h3> {year?.year_name} </h3>
+        <br />
+        <h1>Top 10 Countries with Highest CO2 Emissions This Year</h1>
+        <BarChart width={1200} height={500} data={topCountries}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 9}} interval = {0}/>
+          <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 12}} interval = {0}/>
           <YAxis stroke="#FFFFFF"/>
           <Tooltip />
           <Legend />
           <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)" onClick={barOnClick}/>
         </BarChart>
-        <header className="Year-header">
-            <h3> {year?.year_name} </h3>
-        </header>
         <br />
-        {YearMap(topCities)}
         <Table bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
@@ -137,6 +135,9 @@ const YearInstance = (name: any) => {
             </tr>
           </tbody>
         </Table>
+        <br />
+        <h1> Top 10 Cities with Highest Average Temperatures This Year</h1>
+        {YearMap(topCities)}
       </header>
     </div>
   );
