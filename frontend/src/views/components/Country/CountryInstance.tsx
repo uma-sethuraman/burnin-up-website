@@ -18,33 +18,30 @@ import { cpuUsage } from "process";
 
 
 const CountryInstance = (id: any) => {
-  
+
   let [country, setCountry] = React.useState<Country>();
   let [countryYear, setCountryYear] = React.useState<CountryYearElement>();
- 
+
   // gets data from API
   const getData = () => {
-    axios.get("/api/countries/id="+id.id)
-    .then((response)=>{
+    axios.get("/api/countries/id=" + id.id)
+      .then((response) => {
         setCountry(JSON.parse(JSON.stringify(response.data)) as Country);
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
-    })
+      })
 
-    axios.get("/api/country_year/name="+country?.country_name)
-    .then((response)=>{
+    // gets country CO2 Emissions data from API
+    axios.get("/api/country_year/name=" + country?.country_name)
+      .then((response) => {
         setCountryYear(JSON.parse(JSON.stringify(response.data)) as CountryYearElement)
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
-    })
+      })
   };
 
-  // gets country CO2 Emissions data from API
-  const getCountryEmissions = () => {
-
-  };
 
   // initializing carousel slides
   let s1 = new Slide(
@@ -65,20 +62,30 @@ const CountryInstance = (id: any) => {
 
   getData();
   let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
-  
+
   return (
     <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-      {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
-        {OurMap(Number(country?.country_lat! === undefined ? 0: Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0: Number(country?.country_long!)), "Aruba")}
-        <Image src={flagLink} alt="Flag"/>
-        {/* {LocationPhoto(encodeURI(country?.country_name!))} */}
-        <header className="Country-header">
+        <h3> {country?.country_name} </h3>
+        {/* <header className="Country-header">
           <div className="image-text">
-            <h3> {country?.country_name} </h3>
+           
           </div>
-        </header>
+        </header> */}
+        <div className="row">
+          <div className="column">
+            <div className="image_holder">
+              {LocationPhoto(encodeURI(country?.country_name!))}
+            </div>
+          </div>
+          <div className="column">
+            <div className="image_holder">
+              <Image src={flagLink} alt="Flag" />
+            </div>
+          </div>
+        </div>
+
         <br />
         <Table bordered hover size="sm" variant="dark">
           <tbody>
@@ -95,17 +102,19 @@ const CountryInstance = (id: any) => {
               <td>{country?.country_capital_city}</td>
             </tr>
             <tr>
-              <td>Highest Annual CO2 Emission</td>
+              <td>Highest Annual CO2 Emission (ppm)</td>
               <td>{countryYear?.co2}</td>
             </tr>
             <tr>
-              <td>Year with Highest Annual CO2 Emission</td>
-              <td><Link to={"/years/name="+countryYear?.year}> {countryYear?.year} </Link></td>
+              <td>Year of Highest Annual CO2 Emission</td>
+              <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>
             </tr>
-            
+
           </tbody>
         </Table>
-  
+        {OurMap(Number(country?.country_lat! === undefined ? 0 : Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0 : Number(country?.country_long!)), "Aruba")}
+
+
         <div>See more: </div>
         {OurCarousel(s1, s2, s3)}
       </header>
@@ -120,14 +129,14 @@ export interface CountriesObject {
 
 export interface Country {
   country_capital_city: string;
-  country_id:           number;
-  country_income:       CountryIncome;
-  country_iso2code:     string;
-  country_iso3code:     string;
-  country_name:         string;
-  country_region:       CountryRegion;
-  country_lat:          number;
-  country_long:         number;
+  country_id: number;
+  country_income: CountryIncome;
+  country_iso2code: string;
+  country_iso3code: string;
+  country_name: string;
+  country_region: CountryRegion;
+  country_lat: number;
+  country_long: number;
 }
 
 export enum CountryIncome {
@@ -154,9 +163,9 @@ export interface CountryYear {
 }
 
 export interface CountryYearElement {
-  co2:     number;
+  co2: number;
   country: string;
-  year:    number;
+  year: number;
   year_id: number;
 }
 
