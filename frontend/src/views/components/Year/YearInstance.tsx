@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
 import YearMap from '../Map/YearMap';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend} from 'recharts';
 
 /* add in a get request for the 10 countries corresponding to this year*/
 
@@ -26,16 +27,13 @@ const YearInstance = (name: any) => {
     
   // gets data from API
   const getData = () => {
-    console.log("name= " + name.name);
     axios.get("/api/years/name="+name.name)
     .then((response)=>{
       setYear(JSON.parse(JSON.stringify(response.data)) as Year);
-      console.log("year should be" + JSON.stringify(year));
     })
     .catch((error) => {
         console.log(error);
     })
-    console.log("year is " + JSON.stringify(year));
   };
 
   const [topCountries, setTopCountries] = React.useState<CountryEmissionsYear[]>([]);
@@ -43,12 +41,10 @@ const YearInstance = (name: any) => {
   const getTopCountries = (yearName: string) => {
     axios.get("/api/country_emissions")
       .then((response) => {
-        const tempArray: CountryEmissionsYear[] = JSON.parse(JSON.stringify(response.data.country_emissions_years)) as CountryEmissionsYear[]
-        console.log("year = " + yearName);
+        const tempArray: CountryEmissionsYear[] = JSON.parse(JSON.stringify(response.data.country_emissions_years)) as CountryEmissionsYear[];
         const starting_index = START_INDEX + 10 * (parseInt(yearName) - FIRST_YEAR);
         let copyArray: CountryEmissionsYear[] = [];
         let i;
-        console.log(starting_index);
         for (i = starting_index; i < starting_index + 10; i++) {
           copyArray.push(tempArray[i]);
         }
@@ -60,19 +56,24 @@ const YearInstance = (name: any) => {
     .catch((error) => {
         console.log(error);
     })
-    console.log("TOP COUNTRIES IN METHOD" + JSON.stringify(topCountries))
   };
   
 
   getData();
-  console.log("year name= " + year?.year_name!);
-  //getTopCountries(year?.year_name!);
-  console.log("TOP COUNTRIES" + JSON.stringify(topCountries));
+  getTopCountries(year?.year_name!);
+
   return (
     <div className="YearInstance">
       <Navbar />
       <header className="App-header">
-        {/*YearMap(topCountries)*/}
+        <BarChart width={730} height={250} data={topCountries}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 9}} interval = {0}/>
+          <YAxis stroke="#FFFFFF"/>
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)"/>
+        </BarChart>
         <header className="Year-header">
             <h3> {year?.year_name} </h3>
         </header>
