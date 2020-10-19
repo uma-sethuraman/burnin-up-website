@@ -45,4 +45,23 @@
     background: rgba(70, 72, 82, 0.3);
     filter: brightness(50%);
   }
+
+  .column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+  }
+  
+  .image_holder{
+    object-fit: scale-down;
+    overflow:hidden;
+    width: 360px;
+    height: 240px;
+  }
+  /* Clear floats after image containers */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
   
