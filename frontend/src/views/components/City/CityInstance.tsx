@@ -72,12 +72,6 @@ const CityInstance = (id: any) => {
           <div className="image-text">
             <h3> {city?.city_name} </h3>
           </div>
-          <div className="row">
-            <h2> Year with the highest temperature:</h2>
-          <Link to={"/years/name="+cityYear?.year}>
-            { cityYear?.year}
-          </Link>
-          </div>
         </header>
         <br />
         <Table bordered hover size="sm" variant="dark">
@@ -101,6 +95,16 @@ const CityInstance = (id: any) => {
             <tr>
               <td>PM2.5</td>
               <td>{city?.pm25}</td>
+            </tr>
+            <tr>
+              <td>Highest annual temp</td>
+              <td>{cityYear?.temp}</td>
+            </tr>
+            <tr>
+              <td>Year with highest annual temp</td>
+              <Link to={"/years/name="+cityYear?.year}>
+            { cityYear?.year}
+          </Link>
             </tr>
             <tr>
               <td>Population</td>
