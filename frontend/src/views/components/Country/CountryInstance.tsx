@@ -102,11 +102,11 @@ const CountryInstance = (id: any) => {
               <td>{country?.country_capital_city}</td>
             </tr>
             <tr>
-              <td>Highest Annual CO2 Emission</td>
+              <td>Highest Annual CO2 Emission (ppm)</td>
               <td>{countryYear?.co2}</td>
             </tr>
             <tr>
-              <td>Year with Highest Annual CO2 Emission</td>
+              <td>Year of Highest Annual CO2 Emission</td>
               <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>
             </tr>
 

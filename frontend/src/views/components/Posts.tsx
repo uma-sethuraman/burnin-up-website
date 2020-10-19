@@ -14,6 +14,8 @@ const Posts = (posts: Country[]) => {
               <th>Income Level</th>
               <th>Region</th>
               <th>Capital City</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
             </tr>
           </thead>
           <tbody>
@@ -27,6 +29,8 @@ const Posts = (posts: Country[]) => {
                 <td>{post.country_income}</td>
                 <td>{post.country_region}</td>
                 <td>{post.country_capital_city}</td>
+                <td>{post.country_lat}</td>
+                <td>{post.country_long}</td>
             </tr>
           ))}
           </tbody>
