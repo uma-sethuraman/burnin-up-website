@@ -233,11 +233,11 @@ def get_capital():
     cp = db.session.query(Country.country_capital_city).all()
     cities_list = []
     for each in cp:
-        if each is not None:
+        if len(each[0]) != 0:
             cities_list += each
     topcities = CityTempPerYear.query.all()
-    cities_list += topcities
-
+    for item in topcities:
+        cities_list += [item.city]
     return jsonify({"captial_city": cities_list})
 
 if __name__ == '__main__':
