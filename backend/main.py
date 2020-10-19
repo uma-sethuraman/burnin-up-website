@@ -163,6 +163,7 @@ def get_countries():
 def get_country_id(id):
     country = Country.query.get(id)
     if country is None:
+        print("here")
         response = flask.Response(json.dumps({"error": id + " not found"}), mimetype='application/json')
         response.status_code = 404
         return response
@@ -225,6 +226,19 @@ def get_city_name(name):
         response.status_code = 404
         return response
     return citys_schema.jsonify(city)
+
+@app.route('/api/cities/capital_city', methods=['GET'])
+def get_capital():
+    city_table = City.query.all()
+    cp = db.session.query(Country.country_capital_city).all()
+    cities_list = []
+    for each in cp:
+        if each is not None:
+            cities_list += each
+    topcities = CityTempPerYear.query.all()
+    cities_list += topcities
+
+    return jsonify({"captial_city": cities_list})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
