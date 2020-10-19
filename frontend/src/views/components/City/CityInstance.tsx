@@ -10,128 +10,119 @@ import "./CityInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import Slide from "../../../Slide";
+import CityPosts from "../CityPosts";
+import axios from "axios";
+import OurMap from "../Map/OurMap";
+import LocationPhoto from "../LandingPhoto/LandingPhoto";
 
 
-function CityInstance() {
+const CityInstance = (id: any) => {
+
+  let [city, setCity] = React.useState<City>();
+    
+  // gets data from API
+  const getData = () => {
+    axios.get("/api/cities/id="+id.id)
+    .then((response)=>{
+        setCity(JSON.parse(JSON.stringify(response.data)) as City);
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+  };
+
+  // initializing carousel slides
   let s1 = new Slide(
-    "Austin",
-    require("../../../assets/austin-capitol.jpg"),
-    "cities/Austin"
+    "China",
+    require("../../../assets/China_flag.jpg"),
+    "/countries/id=50"
   );
   let s2 = new Slide(
-    "Beijing",
-    require("../../../assets/beijing-skyline.jpg"),
-    "cities/Beijing"
+    "France",
+    require("../../../assets/France_flag.jpg"),
+    "/countries/id=405"
   );
   let s3 = new Slide(
-    "Paris",
-    require("../../../assets/paris-skyline.jpg"),
-    "cities/Paris"
+    "India",
+    require("../../../assets/USA_flag.jpg"),
+    "/countries/id=439"
   );
+
+  getData();
+  //let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
+  
   return (
-    <div className="CityInstance">
+    <div className="CountryInstance">
       <Navbar />
       <header className="App-header">
-        <h1>
-          Austin, Texas,
-          <Link to="/countries/USA"> United States</Link>
-        </h1>
-        <header className="City-header">
+      {/*OurMap(country?.country_lat!, country?.country_long!, country?.country_name!)*/}
+        {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), "Aruba")}
+        {/*<Image src={flagLink} alt="Flag" />*/}
+        {LocationPhoto(encodeURI(city?.city_name!))}
+        <header className="Country-header">
           <div className="image-text">
-            <h3> AUSTIN</h3>
+            <h3> {city?.city_name} </h3>
           </div>
         </header>
         <br />
         <Table bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
-              <td>Population: </td>
-              <td>964,254</td>
+              <td>Country iso2 Code</td>
+              <td>{city?.country_iso2code}</td>
             </tr>
             <tr>
-              <td>Time Zone: </td>
-              <td>Central Daylight Time (GMT -5)</td>
+              <td>Elevation</td>
+              <td>{city?.elevation}</td>
             </tr>
             <tr>
-              <td>Elevation: </td>
-              <td>425ft</td>
+              <td>O3</td>
+              <td>{city?.o3}</td>
             </tr>
             <tr>
-              <td>Latitude: </td>
-              <td>39.9042</td>
+              <td>PM10</td>
+              <td>{city?.pm10}</td>
             </tr>
             <tr>
-              <td>Longitude: </td>
-              <td>116.4074</td>
+              <td>PM2.5</td>
+              <td>{city?.pm25}</td>
             </tr>
             <tr>
-              <td>Fire Hazard Index: </td>
-              <td>5.375</td>
-            </tr>
+              <td>Population</td>
+              <td>{city?.population}</td></tr>
             <tr>
-              <td>Air Quality Index per US EPA Standard: </td>
-              <td>41.3125</td>
+              <td>Time Zone</td>
+              <td>{city?.time_zone}</td>
             </tr>
-            <tr>
-              <td>Particulate Matter: </td>
-              <td>13.3125 μg/m3</td>
-            </tr>
-            <tr>
-              <td>Ozone: </td>
-              <td>1.1875 ppb</td>
-            </tr>
-            <tr>
-              <td>Nitrogen Dioxide: </td>
-              <td>19.0625 ppb</td>
-            </tr>
-            <tr>
-              <td>Carbon Monoxide: </td>
-              <td>5.1875 ppm</td>
-            </tr>
-            <tr>
-              <td>Sulfur Dioxide: </td>
-              <td>5.875 ppb</td>
-            </tr>
-            <tr>
-              <td>Health Concern Level Based On EPA Standard: </td>
-              <td>Good</td>
-            </tr>
-            <tr>
-              <td>ClimaCell Pollen Index for Trees: </td>
-              <td>0 Climacell Pollen Index</td>
-            </tr>
-            <tr>
-              <td>ClimaCell Pollen Index for Weeds: </td>
-              <td>0 Climacell Pollen Index</td>
-            </tr>
-            <tr>
-              <td>ClimaCell Pollen Index for Grass: </td>
-              <td>0 Climacell Pollen Index</td>
-            </tr>
+              
           </tbody>
         </Table>
-        {/* <Image src={require("../assets/austin-capitol.jpg")} fluid />
-        <br />
-        <Image src={require("../assets/austin-location-map.jpg")} fluid />
-        <br />
-        <Image src={require("../assets/austin-OzoneGraph.jpg")} fluid /> */}
-
+  
         <div>See more: </div>
-        <p>
-          <Link to="/cities/beijing">Beijing</Link>
-        </p>
-        <p>
-          <Link to="/cities/paris">Paris</Link>
-        </p>
         {OurCarousel(s1, s2, s3)}
-        {/* <OurCarousel
-          slide1 = {s1}
-          slide2 = {s2}
-          slide3 ={s3}
-        ></OurCarousel> */}
       </header>
     </div>
   );
 }
+
+export interface CityObject {
+  cities: City[];
+}
+
+export interface City {
+  city_id:          number;
+  city_name:        string;
+  co:               null;
+  country_iso2code: string;
+  elevation:        number;
+  lat:              number;
+  long:             number;
+  o3:               number;
+  pm10:             number;
+  pm25:             number;
+  population:       number;
+  time_zone:        string;
+}
+
 
 export default CityInstance;

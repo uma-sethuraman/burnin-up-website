@@ -10,9 +10,40 @@ import Navbar from "./components/OurNavbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import axios from "axios";
+import { CityObject, City } from "./components/City/CityInstance";
+import { useState, useEffect } from 'react';
+import CityPosts from "./components/CityPosts";
+import Pagination from "./components/Pagination";
+
+const Cities = () => {
+  const [cityObj, setCityObj] = React.useState<CityObject>();
+  const [posts, setPosts] = useState<City[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(50);
 
 
-function Cities() {
+const getData = () => {
+  axios.get("/api/cities")
+  .then((response)=>{
+      const cityObj:CityObject = JSON.parse(JSON.stringify(response.data)) as CityObject;
+      setCityObj(cityObj);
+      setPosts(cityObj.cities);
+    })
+  .catch((error) => {
+      console.log(error);
+  })
+};
+
+getData();
+
+  
+const indexOfLastPost = currentPage * postsPerPage;
+const indexOfFirstPost = indexOfLastPost - postsPerPage;
+const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+
+
   return (
     <div className="App">
       <Navbar />
@@ -31,85 +62,44 @@ function Cities() {
             </Form>
             <>
             <ButtonGroup>
-            <DropdownButton
-              title= {"Zip Code"} >
+            <DropdownButton title= {"Zip Code"} >
                   <Dropdown.Item eventKey="1">78739</Dropdown.Item>
                   <Dropdown.Item eventKey="2">20134 </Dropdown.Item>
                   <Dropdown.Item eventKey="3"> 410 </Dropdown.Item>
 
             </DropdownButton>
-            <DropdownButton
-              title= {"Elevation"} >
+            <DropdownButton title= {"Elevation"} >
                   <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Less than 5000 </Dropdown.Item>
                   <Dropdown.Item eventKey="3">Less than 10,000</Dropdown.Item>
             </DropdownButton>
 
-            <DropdownButton
-              title= {"Time Zone"} >
+            <DropdownButton title= {"Population"} >
+                  <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Less than 5 million </Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Less than 50 million</Dropdown.Item>
+            </DropdownButton>
+                
+            <DropdownButton title= {"Time Zone"} >
                   <Dropdown.Item eventKey="1">China Standard Time</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Central Standard Time </Dropdown.Item>
                   <Dropdown.Item eventKey="3">Central European Summer Time </Dropdown.Item>
             </DropdownButton>
 
-            <DropdownButton
-              title= {"Location"} >
+            <DropdownButton title= {"Location"} >
                   <Dropdown.Item eventKey="1">Asia</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Europe </Dropdown.Item>
                   <Dropdown.Item eventKey="3">North America</Dropdown.Item>
             </DropdownButton>
             
-            <DropdownButton
-              title= {"Population"} >
-                  <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Less than 5 million </Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Less than 50 million</Dropdown.Item>
-            </DropdownButton>
+            
             </ButtonGroup>
             </>
           </Form.Group>
         </Form>
-        <Form></Form>
-        <Table striped bordered hover size="sm" variant="dark">
-          <thead>
-            <tr>
-              <th>City</th>
-              <th>Country</th>
-              <th>Air Quality</th>
-              <th>Population</th>
-              <th>Time Zone</th>
-              <th>Elevation</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><Link to="/cities/austin">Austin</Link></td>
-              <td><Link to="/countries/USA">United States</Link></td>
-              <td>41.3125</td>
-              <td>964,254</td>
-              <td>Central Daylight Time (GMT -5)</td>
-              <td>425ft</td>
-            </tr>
-            <tr>
-              <td><Link to="/cities/beijing">Beijing</Link></td>
-              <td><Link to="/countries/China">China</Link></td>
-              <td>56.6875</td>
-              <td>21.54 million</td>
-              <td>China Standard Time (GMT + 8)</td>
-              <td>144ft</td>
-                    
-            </tr>
-            <tr>
-              <td><Link to="/cities/paris">Paris</Link></td>
-              <td><Link to="/countries/France">France</Link></td>
-              <td>57</td>
-              <td>2.148 million</td>
-              <td>Central European Summer Time (GMT +2)</td>
-              <td>115ft</td>
-            </tr>
-          </tbody>
-        </Table>
+        
+        {CityPosts(currentPosts)}
+        {Pagination(postsPerPage, posts.length, paginate)}
       </header>
     </div>
   );
