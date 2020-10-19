@@ -89,11 +89,23 @@ class City(db.Model):
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
     pm25 = db.Column(db.Float)
-    co2 = db.Column(db.Float)
-    so2 = db.Column(db.Float)
+    pm10 = db.Column(db.Float)
+    o3 = db.Column(db.Float)
     country_iso2code = db.Column(db.String())
+    co = db.Column(db.Float)
 
-db.create_all()
+class Country(db.Model):
+    country_id = db.Column(db.Integer, primary_key=True)
+    country_name = db.Column(db.String())
+    country_region = db.Column(db.String())
+    country_income = db.Column(db.String())
+    country_capital_city = db.Column(db.String())
+    country_iso2code = db.Column(db.String())
+    country_iso3code = db.Column(db.String())
+    country_lat = db.Column(db.Float)
+    country_long = db.Column(db.Float)
+
+# db.create_all()
 
 # ### Table for Years ###
 # request_url = 'https://global-warming.org/api/temperature-api'
@@ -166,6 +178,7 @@ db.create_all()
 # db.session.add_all(city_years_list)
 # db.session.commit()
 
+# Adds latitude and longitude of each city in city temps
 # cities = CityTempPerYear.query.all()
 # for city in cities:
 #         # Fill in empty ones
@@ -187,6 +200,56 @@ db.create_all()
 #                 city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
 # db.session.commit()
 
+# Removes cities from city_temps that don't have a record in the cities table
+# cities = City.query.all()
+# for city in cities:
+#     exist_temp = db.session.query(db.session.query(CityTempPerYear).filter_by(city=city.city_name).exists()).scalar()
+#     exist_capital = db.session.query(db.session.query(Country).filter_by(country_capital_city=city.city_name).exists()).scalar()
+#     if not (exist_temp & exist_capital):
+#         print("DELETE: " + city.city_name)
+#     else:
+#         print("In temp or capital: " + city.city_name)
+
+
+# Finds the cities we need info on in the Cities Table
+cities_we_need = []
+cities = CityTempPerYear.query.all()
+count = 0
+for city in cities:
+    exist_temp = db.session.query(db.session.query(City).filter_by(city_name=city.city).exists()).scalar()
+    if exist_temp:
+        print("HAVE: " + city.city)
+        count += 1
+    else:
+        print("DONT HAVE: " + city.city)
+        cities_we_need.append(city.city)
+print("We have :" + str(count / len(cities)))
+# Save it to a csv
+print("#########################")
+
+count = 0
+total = 0
+country_capitals = db.session.query(Country.country_capital_city).all()
+for country_capital in country_capitals:
+    if country_capital is not None:
+        # Checks for empty country_capitals
+        if len(country_capital[0]) != 0:
+            capital = country_capital[0]
+            exist_capital = db.session.query(db.session.query(City).filter_by(city_name=capital).exists()).scalar()
+            if exist_capital:
+                print("HAVE: " + capital)
+                count += 1
+                total += 1
+            else:
+                print("DONT HAVE: " + capital)
+                total += 1
+                cities_we_need.append(capital)
+
+print("We have :" + str(count / total))
+
+# Export the cities we need to a csv
+need_df = pd.DataFrame(cities_we_need, columns=["Cities"])
+need_df.to_csv("Cities We Need.csv", index=False)
 
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
