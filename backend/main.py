@@ -27,6 +27,8 @@ class Country(db.Model):
     country_iso3code = db.Column(db.String())
     country_lat = db.Column(db.String())
     country_long = db.Column(db.String())
+    recent_emissions_year = db.Column(db.Integer)
+    recent_emissions = db.Column(db.Float)
 
 # Year Model
 class Year(db.Model):
