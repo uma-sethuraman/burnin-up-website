@@ -321,6 +321,10 @@ def country_year(name):
 @app.route('/api/<country_id>/capital_city_id', methods=['GET'])
 def get_capital_city_id(country_id):
     country = Country.query.get(country_id)
+    if country is None:
+        response = flask.Response(json.dumps({"error": "country id " + country_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
     str2 = str(country.country_capital_city)
     city = db.session.query(City).filter(City.city_name == str2).first()
     if city is None:
@@ -333,6 +337,10 @@ def get_capital_city_id(country_id):
 @app.route('/api/<city_id>/country_code', methods=['GET'])
 def get_country_id_by_city(city_id):
     city = City.query.get(city_id)
+    if city is None:
+        response = flask.Response(json.dumps({"error": "city id " + city_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
     city_country = city.country_iso2code
     country = db.session.query(Country).filter(Country.country_iso2code == city_country).first()
     if country is None:
