@@ -18,9 +18,11 @@ import LocationPhoto from "../LandingPhoto/LandingPhoto";
 
 const CityInstance = (id: any) => {
 
-  let [city, setCity] = React.useState<City>();
-  let [cityYear, setCityYear] = React.useState<CityYear>();
-    
+  const [city, setCity] = React.useState<City>();
+  const [cityYear, setCityYear] = React.useState<CityYear>();
+  const [countryName, setCountryName] = React.useState("");
+  const [countryID, setCountryID] = React.useState(0);
+
   // gets data from API
   const getData = () => {
     axios.get("/api/cities/id="+id.id)
@@ -37,25 +39,16 @@ const CityInstance = (id: any) => {
     .catch((error) => {
         console.log(error);
     })
+    axios.get("/api/"+city?.city_id+"/country_code")
+    .then((response)=>{
+      const responseData: CountryCode = JSON.parse(JSON.stringify(response.data.country_code)) as CountryCode;
+      setCountryName(responseData.name);
+      setCountryID(responseData.id);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   };
-
-
-  // initializing carousel slides
-  /*let s1 = new Slide(
-    "China",
-    require("../../../assets/China_flag.jpg"),
-    "/countries/id=50"
-  );
-  let s2 = new Slide(
-    "France",
-    require("../../../assets/France_flag.jpg"),
-    "/countries/id=405"
-  );
-  let s3 = new Slide(
-    "India",
-    require("../../../assets/USA_flag.jpg"),
-    "/countries/id=439"
-  );*/
 
   getData();
   
@@ -73,12 +66,16 @@ const CityInstance = (id: any) => {
         <Table bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
-              <td>Country iso2 Code</td>
-              <td>{city?.country_iso2code}</td>
+              <td>Country</td>
+              <td>
+                <Link to={"/countries/id="+countryID}>
+                  {countryName}
+                </Link>
+              </td>
             </tr>
             <tr>
-              <td>Elevation (ft)</td>
-              <td>{city?.elevation + " ft"}</td>
+              <td>Country ISO2 Code</td>
+              <td>{city?.country_iso2code}</td>
             </tr>
             <tr>
               <td>O3 (Dobson Units)</td>
@@ -92,30 +89,33 @@ const CityInstance = (id: any) => {
               <td>PM2.5 (ug/m3)</td>
               <td>{city?.pm25 + " "}</td>
             </tr>
+            {cityYear?.temp !== undefined?
             <tr>
               <td>Highest Annual Temp</td>
-              <td>{cityYear?.temp + (cityYear?.temp! > 35 ? " °F": " °C") }</td>
-            </tr>
+              <td>{cityYear?.temp + (cityYear?.temp! > 40 ? " °F": " °C") }</td>
+            </tr> : null}
+            {cityYear?.year !== undefined?
             <tr>
               <td>Year of Highest Annual Temp</td>
-              <Link to={"/years/name="+cityYear?.year}>
-            { cityYear?.year}
-          </Link>
-            </tr>
+              <td><Link to={"/years/name="+cityYear?.year}>
+              { cityYear?.year}
+              </Link></td>
+            </tr>: 
+            <tr>
+            <td>Year of Highest Annual Temp</td>
+            <td><Link to={"/years/name="+2018}>
+              {2018}
+            </Link></td>
+            </tr>}
             <tr>
               <td>Population</td>
-              <td>{city?.population}</td></tr>
-            <tr>
-              <td>Time Zone</td>
-              <td>{city?.time_zone}</td>
+              {city?.population !== 0? 
+              <td>{city?.population}</td> : <td>-</td>}
             </tr>
-              
           </tbody>
         </Table>
   
         {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), city?.city_name!)}
-        {/* <div>See more: </div> */}
-        {/* {OurCarousel(s1, s2, s3)} */}
       </header>
     </div>
   );
@@ -147,5 +147,13 @@ export interface CityYear {
   year_id: number;
 }
 
+export interface CountryIdentification {
+  country_code: CountryCode;
+}
+
+export interface CountryCode {
+  id:   number;
+  name: string;
+}
 
 export default CityInstance;

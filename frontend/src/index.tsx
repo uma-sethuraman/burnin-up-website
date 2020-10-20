@@ -36,20 +36,6 @@ ReactDOM.render(
       <Route path="/years/name=:name" render = {(props) => (<YearInstance name={props.match.params.name}/>)} />  
       <Route path="/years" exact component = {GeneralYears} />
 
-      {/* <Route path="/landing" exact component = {App}/> */}
-      {/* <Route path="/countries/USA" exact component = {USA}/>
-      <Route path="/countries/China" exact component = {China} />
-      <Route path="/countries/France" exact component = {France} />
-      <Route path="/cities/Beijing" exact component = {Beijing />} />
-      <Route path="/cities/Paris" exact component = {Paris />} /> */}
-      <Route path="/cities/Austin" exact component = {Austin} />
-      {/* <Route path="/climatechange/2013" exact component = {Year2013 />} />
-      <Route path="/climatechange/2014" exact component = {Year2014 />} />
-      <Route path="/climatechange/2015" exact component = {Year2015 />} /> */}
-
-      {/* //add protections later? when removed, all the pages work.. else, all pages
-      //redirect to landing page */}
-      {/* <Redirect to="/" /> */}
       
   </Router>,
   document.getElementById("root")

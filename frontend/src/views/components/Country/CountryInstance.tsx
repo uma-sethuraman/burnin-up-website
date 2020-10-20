@@ -52,23 +52,6 @@ const CountryInstance = (id: any) => {
     })
   };
 
-  // initializing carousel slides
-  /*let s1 = new Slide(
-    "China",
-    require("../../../assets/China_flag.jpg"),
-    "/countries/id=50"
-  );
-  let s2 = new Slide(
-    "France",
-    require("../../../assets/France_flag.jpg"),
-    "/countries/id=101"
-  );
-  let s3 = new Slide(
-    "India",
-    require("../../../assets/USA_flag.jpg"),
-    "/countries/id=135"
-  );*/
-
   getData();
   let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
 
@@ -132,8 +115,6 @@ const CountryInstance = (id: any) => {
           </tbody>
         </Table>
         {OurMap(Number(country?.country_lat! === undefined ? 0 : Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0 : Number(country?.country_long!)), country?.country_name!)}
-
-        {/* {OurCarousel(s1, s2, s3)} */}
       </header>
     </div>
   );

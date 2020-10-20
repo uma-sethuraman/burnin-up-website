@@ -63,9 +63,7 @@ const YearInstance = (name: any) => {
   const getTopCities = (yearName: string) => {
     axios.get("/api/city_temperatures")
     .then((response) => {
-      //console.log(response.data);
       const tempArray: CityTemperaturesYear[] = JSON.parse(JSON.stringify(response.data.city_temperatures_years)) as CityTemperaturesYear[];
-      //console.log(tempArray);
       const starting_index = 10 * (parseInt(yearName) - FIRST_YEAR);
       let copyArray: CityTemperaturesYear[] = [];
       let i;
@@ -81,15 +79,12 @@ const YearInstance = (name: any) => {
         console.log(error);
     })
   };
-
-  function barOnClick(barName: any) {
-    alert(barName);
-  }
   
 
   getData();
   getTopCountries(year?.year_name!);
   getTopCities(year?.year_name!);
+
 
   return (
     <div className="YearInstance">
@@ -98,14 +93,28 @@ const YearInstance = (name: any) => {
         <h3> {year?.year_name} </h3>
         <br />
         <h1>Top 10 Countries with Highest CO2 Emissions This Year</h1>
-        <BarChart width={1200} height={500} data={topCountries}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 12}} interval = {0}/>
-          <YAxis stroke="#FFFFFF"/>
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)" onClick={barOnClick}/>
-        </BarChart>
+        <div className = "side-by-side">
+          <BarChart width={1000} height={500} data={topCountries}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 12}} interval = {0}/>
+            <YAxis stroke="#FFFFFF"/>
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)"/>
+          </BarChart>
+          <Table bordered hover size="sm">
+            {topCountries.map(topCountry => (
+              <tr>
+                  <td>
+                    {topCountry.countryid !== null?
+                      <Link to={"/countries/id="+topCountry.countryid}>{topCountry.country}</Link>:
+                      <Link to={"/countries"}>{topCountry.country}</Link>
+                    }
+                  </td>
+              </tr>
+          ))}
+          </Table>
+        </div>
         <br />
         <Table bordered hover size="sm" variant="dark">
           <tbody>
@@ -137,6 +146,28 @@ const YearInstance = (name: any) => {
         </Table>
         <br />
         <h1> Top 10 Cities with Highest Average Temperatures This Year</h1>
+        <Table bordered hover size="sm" variant="dark">
+            <thead>
+              <tr>
+                <th>City</th>
+                <th>Highest Temperature</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topCities.map(city => (
+                <tr>
+                  <td>
+                    <Link to={"/cities/id="+city.city}>
+                      {city.city}
+                    </Link>
+                  </td>
+                  <td>
+                      {city.city_temp + (city.city_temp > 40 ? " °F": " °C")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+        </Table>
         {YearMap(topCities)}
       </header>
     </div>
@@ -166,6 +197,7 @@ export interface CountryEmissionsYear {
   code:        string;
   country:     string;
   country_co2: number;
+  countryid: number;
   year_id:     number;
   year_name:   string;
 }

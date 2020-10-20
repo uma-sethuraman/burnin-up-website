@@ -11,30 +11,27 @@ const CityPosts = (posts: City[]) => {
          <thead>
             <tr>
               <th>City</th>
-              <th>Country iso2 Code</th>
-              <th>Elevation (ft)</th>
+              <th>Country ISO2 Code</th>
               <th>O3 (Dobson Units)</th>
               <th>PM10 (ug/m3)</th>
               <th>PM2.5 (ug/m3)</th>
               <th>Population</th>
-              <th>Time Zone</th>
             </tr>
           </thead>
           <tbody>
-          {posts.map(post => (
-            <tr key={post.city_id}>
-                <td>
-                    <Link to={"/cities/id="+post.city_id}>
-                        {post.city_name}
+          {posts.filter(post => post.o3 !== -1).map(filteredPost => (
+            <tr key={filteredPost.city_id}>
+              <td>
+                    <Link to={"/cities/id="+filteredPost.city_id}>
+                        {filteredPost.city_name}
                     </Link>
-                </td>
-                <td>{post.country_iso2code}</td>
-                <td>{post.elevation}</td>
-              <td>{post.o3}</td>
-              <td>{post.pm10}</td>
-              <td>{post.pm25}</td>
-              <td>{post.population}</td>
-              <td>{post.time_zone}</td>
+              </td>
+              <td>{filteredPost.country_iso2code}</td>
+              <td>{filteredPost.o3}</td>
+              <td>{filteredPost.pm10}</td>
+              <td>{filteredPost.pm25}</td>
+              {filteredPost.population !== 0? 
+              <td>{filteredPost.population}</td> : <td>-</td>}
             </tr>
           ))}
           </tbody>

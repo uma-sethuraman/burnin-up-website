@@ -20,7 +20,7 @@ const YearTable = (years: Year[]) => {
             </tr>
           </thead>
           <tbody>
-          {years.map(year => (
+          {years.filter(currYear => parseInt(currYear.year_name) <= 2018).map(year => (
             <tr key={year.year_id}>
                 <td>
                     <Link to={"/years/name="+year.year_name}>

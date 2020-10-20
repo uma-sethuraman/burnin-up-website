@@ -23,7 +23,7 @@ const Posts = (posts: Country[]) => {
             </tr>
           </thead>
           <tbody>
-          {posts.map(post => (
+          {posts.filter(orig => orig.recent_emissions_year !== -1).map(post => (
             <tr key={post.country_id}>
                 <td>
                     <Link to={"/countries/id="+post.country_id}>

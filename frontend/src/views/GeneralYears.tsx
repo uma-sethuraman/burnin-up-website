@@ -24,7 +24,7 @@ const GeneralYears = () => {
   const [yearsObj, setYearsObj] = React.useState<YearsObject>();
   const [posts, setPosts] = useState<Year[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(20);
+  const [postsPerPage] = useState(22);
 
   // gets data from API
   const getData = () => {
