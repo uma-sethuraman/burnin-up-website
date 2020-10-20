@@ -13,9 +13,34 @@ class tests(unittest.TestCase):
         print(self.driver.title)
         assert(self.driver.title == "Burnin' Up")
 
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[2]/body/div[2]/div/div[1]/a")[0].click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[2]/body/div[2]/div/div[2]/a")[0].click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[2]/body/div[2]/div/div[3]/a")[0].click()
+
     def test_navBar(self):
-        self.driver.find_element(By.CSS_CLASS, "OurNavbar").click()
-        self.driver.find_element(By.LINK_TEXT, "Cities").click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "//*[@id='root']/div/div[1]/nav/a")[0].click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[1]/nav/div/a[1]")[0].click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[1]/nav/div/a[2]")[0].click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[1]/nav/div/a[3]")[0].click()
+        self.driver.get("https://burninup.me")
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[1]/nav/div/a[4]")[0].click()
+
+    def test_about(self):
+        pass
 
     # def test_cities(self):
     #     pass
@@ -24,9 +49,6 @@ class tests(unittest.TestCase):
     #     pass
 
     # def test_years(self):
-    #     pass
-
-    # def test_about(self):
     #     pass
 
     def tearDown(self):

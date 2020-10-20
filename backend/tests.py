@@ -26,10 +26,10 @@ class Tests(TestCase):
     # ---------
 
     def test_countries_num_results(self):
-        r = requests.get("https://api.parkprotection.me/api/plants")
+        r = requests.get("https://burninup.me/api/countries")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["countries"]) == 304
+        assert len(d["countries"]) == 211
 
 
     def test_countries_all(self):
@@ -46,7 +46,9 @@ class Tests(TestCase):
             "country_lat": "12.5167",
             "country_long": "-70.0167",
             "country_name": "Aruba",
-            "country_region": "Latin America & Caribbean "
+            "country_region": "Latin America & Caribbean ",
+            "recent_emissions": 8.463651329197651,
+            "recent_emissions_year": 2018
         }
 
     def test_countries_instance(self):
@@ -54,15 +56,17 @@ class Tests(TestCase):
         assert r.status_code == 200
         d = r.json()
         assert d == {
-            "country_capital_city": "",
+            "country_capital_city": "Luanda",
             "country_id": 3,
-            "country_income": "Aggregates",
-            "country_iso2code": "A9",
-            "country_iso3code": "AFR",
-            "country_lat": "",
-            "country_long": "",
-            "country_name": "Africa",
-            "country_region": "Aggregates"
+            "country_income": "Lower middle income",
+            "country_iso2code": "AO",
+            "country_iso3code": "AGO",
+            "country_lat": "-8.81155",
+            "country_long": "13.242",
+            "country_name": "Angola",
+            "country_region": "Sub-Saharan Africa ",
+            "recent_emissions": 1.1209737471599153,
+            "recent_emissions_year": 2018
         }
 
     def test_countries_error_result(self):
@@ -250,6 +254,7 @@ class Tests(TestCase):
             "code": "GBR",
             "country": "United Kingdom",
             "country_co2": 2.160510197310624,
+            "countryid": 67,
             "year_id": 1,
             "year_name": "1800"
         }
@@ -258,20 +263,13 @@ class Tests(TestCase):
     # Capital Cities
     # ---------------
 
-    def test_capital_cities_num_results(self):
-        # r = requests.get("https://burninup.me/api/cities/capital_ciites")
-        # assert r.status_code == 200
-        # d = r.json()
-        # assert len(d["capital_city"]) == ???
-        pass
-
     def test_capital_cities_list(self):
         # r = requests.get("https://burninup.me/api/cities/capital_cities")
         # assert r.status_code == 200
         # d = r.json()
         # assert len(d["capital_city"]) > 0
         # assert d["capital_city"][0] == {
-        #     ???
+        #     "Oranjestad",
         # }
         pass
 
