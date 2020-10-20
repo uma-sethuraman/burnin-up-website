@@ -72,7 +72,7 @@ for country_capital in db.session.query(Country.country_capital_city).all():
         if len(country_capital[0]) != 0:
             new_city_year = CityYear()
             capital = country_capital[0]
-            new_city_year.city = capital
+            new_cilty_year.city = capital
             # Checks if we can find the capital city in the city temp table
             if len(temp_df.loc[temp_df['City'] == capital]) != 0:
                 new_city_year.temp = float(temp_df.loc[temp_df['City'] == capital]['AvgTemperature'].max())
