@@ -9,3 +9,4 @@ flask-restless
 marshmallow-sqlalchemy
 gunicorn
 black
+selenium

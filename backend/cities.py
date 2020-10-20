@@ -136,7 +136,7 @@ countries_list = [item for item in data["countries"]]
 # db.session.add_all(city_list)
 # db.session.commit()
 
-
+# Adds climate data to cities
 count = 0
 counter = 0
 city_table = City.query.all()

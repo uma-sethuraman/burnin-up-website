@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import Slide from "../../Slide";
+import Slide from "./Slide";
 import Image from "react-bootstrap/Image";
 import "./OurCarousel.css";
 import { Link } from "react-router-dom";

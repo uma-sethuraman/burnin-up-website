@@ -14,7 +14,7 @@ function OurNavbar() {
                 <Nav.Link href="/about">About Us</Nav.Link>
                 <Nav.Link href="/cities">Cities</Nav.Link>
                 <Nav.Link href="/countries">Countries</Nav.Link>
-                <Nav.Link href="/years">Climate Change</Nav.Link>
+                <Nav.Link href="/years">Annual Global Climate Change</Nav.Link>
                 </Nav>
             </Navbar>
         </div>
