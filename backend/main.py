@@ -48,6 +48,7 @@ class CountryEmissionsPerYear(db.Model):
     country = db.Column(db.String())
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
+    countryid = db.Column(db.String())
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -122,6 +123,7 @@ class CountryEmissionsPerYearSchema(ma.Schema):
     country = fields.Str(required=False)
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
+    countryid = fields.Int(required=False)
 
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema(ma.Schema):
