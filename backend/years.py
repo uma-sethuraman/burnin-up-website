@@ -200,15 +200,9 @@ class Country(db.Model):
 #                 city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
 # db.session.commit()
 
-# Removes cities from cities table that don't have a record in the city temps or capital cities
-# cities = City.query.all()
-# for city in cities:
-#     exist_temp = db.session.query(db.session.query(CityTempPerYear).filter_by(city=city.city_name).exists()).scalar()
-#     exist_capital = db.session.query(db.session.query(Country).filter_by(country_capital_city=city.city_name).exists()).scalar()
-#     if (not exist_temp) | (not exist_capital):
-#         print("DELETE: " + city.city_name)
-#     else:
-#         print("In temp or capital: " + city.city_name)
+# Delete cities without climate data because if the city doesn't have climate data, it isn't needed
+# db.session.query(City).filter(City.pm10 == 0).delete()
+# db.session.commit()
 
 
 # # Finds the cities we need info on in the Cities Table
