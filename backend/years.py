@@ -25,60 +25,63 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 path = "./backend/datasets"
 
-class Year(db.Model):
-    year_id = db.Column(db.Integer, primary_key=True)
-    year_name = db.Column(db.Integer)
-    temp_anomaly = db.Column(db.Float)
-    co2 = db.Column(db.Float)
-    methane = db.Column(db.Float)
-    nitrous_oxide = db.Column(db.Float)
-    polar_ice = db.Column(db.Float)
-    sea_level = db.Column(db.Float)
-    world_population = db.Column(db.BigInteger)
+# class Year(db.Model):
+#     year_id = db.Column(db.Integer, primary_key=True)
+#     year_name = db.Column(db.Integer)
+#     temp_anomaly = db.Column(db.Float)
+#     co2 = db.Column(db.Float)
+#     methane = db.Column(db.Float)
+#     nitrous_oxide = db.Column(db.Float)
+#     polar_ice = db.Column(db.Float)
+#     sea_level = db.Column(db.Float)
+#     world_population = db.Column(db.BigInteger)
 
-    def __init__(self, year_name=0, temp_anomaly=-1, co2=-1, methane=-1, nitrous_oxide=-1, polar_ice=-1,
-                 sea_level=-1, world_population=-1):
-        self.year_name = year_name
-        self.temp_anomaly = temp_anomaly
-        self.co2 = co2
-        self.methane = methane
-        self.nitrous_oxide = nitrous_oxide
-        self.polar_ice = polar_ice
-        self.sea_level = sea_level
-        self.world_population = world_population
+#     def __init__(self, year_name=0, temp_anomaly=-1, co2=-1, methane=-1, nitrous_oxide=-1, polar_ice=-1,
+#                  sea_level=-1, world_population=-1):
+#         self.year_name = year_name
+#         self.temp_anomaly = temp_anomaly
+#         self.co2 = co2
+#         self.methane = methane
+#         self.nitrous_oxide = nitrous_oxide
+#         self.polar_ice = polar_ice
+#         self.sea_level = sea_level
+#         self.world_population = world_population
 
-# Creates top countries contributing to climate change per year api request
-class CountryEmissionsPerYear(db.Model):
-    year_id = db.Column(db.Integer, primary_key=True)
-    year_name = db.Column(db.Integer)
-    country = db.Column(db.String())
-    code = db.Column(db.String())
-    country_co2 = db.Column(db.Float)
+# # Creates top countries contributing to climate change per year api request
+# class CountryEmissionsPerYear(db.Model):
+#     year_id = db.Column(db.Integer, primary_key=True)
+#     year_name = db.Column(db.Integer)
+#     country = db.Column(db.String())
+#     code = db.Column(db.String())
+#     country_co2 = db.Column(db.Float)
 
-    def __init__(self, year_name=0, country="NaN", code="NaN", country_co2="NaN"):
-        self.year_name = year_name
-        self.country = country
-        self.code = code
-        self.country_co2 = country_co2
+#     def __init__(self, year_name=0, country="NaN", code="NaN", country_co2="NaN"):
+#         self.year_name = year_name
+#         self.country = country
+#         self.code = code
+#         self.country_co2 = country_co2
 
 
 class CityTempPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
     city = db.Column(db.String())
+    city_id = db.Column(db.Integer)
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
 
-    def __init__(self, year_name=0, country="NaN", city="NaN", city_temp="NaN", lat=0.0, long=0.0):
+    def __init__(self, year_name=0, country="NaN", city="NaN", city_temp="NaN", lat=0.0, long=0.0, city_id=0):
         self.year_name = year_name
         self.city = city
         self.country = country
         self.city_temp = city_temp
         self.lat = lat
         self.long = long
+        self.city_id = city_id
 
+#db.create_all()
 
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
@@ -94,16 +97,16 @@ class City(db.Model):
     country_iso2code = db.Column(db.String())
     co = db.Column(db.Float)
 
-class Country(db.Model):
-    country_id = db.Column(db.Integer, primary_key=True)
-    country_name = db.Column(db.String())
-    country_region = db.Column(db.String())
-    country_income = db.Column(db.String())
-    country_capital_city = db.Column(db.String())
-    country_iso2code = db.Column(db.String())
-    country_iso3code = db.Column(db.String())
-    country_lat = db.Column(db.Float)
-    country_long = db.Column(db.Float)
+# class Country(db.Model):
+#     country_id = db.Column(db.Integer, primary_key=True)
+#     country_name = db.Column(db.String())
+#     country_region = db.Column(db.String())
+#     country_income = db.Column(db.String())
+#     country_capital_city = db.Column(db.String())
+#     country_iso2code = db.Column(db.String())
+#     country_iso3code = db.Column(db.String())
+#     country_lat = db.Column(db.Float)
+#     country_long = db.Column(db.Float)
 
 # db.create_all()
 
@@ -162,21 +165,23 @@ class Country(db.Model):
 # db.session.add_all(country_years_list)
 # db.session.commit()
 
-# ### Table for Avg City Temps Per Year ###
-# city_temp_per_year = pd.read_csv(os.path.join(path, "AvgTempCity.csv"))
-# sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
-# # Stores a dictionary of years with the CityTempPerYear object
-# city_years_list = []
-# for index, row in sorted_by_year.iterrows():
-#     new_year = CityTempPerYear()
-#     new_year.year_name = row['Year']
-#     new_year.city = row['City']
-#     new_year.country = row['Country']
-#     new_year.city_temp = row['AvgTemperature']
-#     city_years_list.append(new_year)
+## Table for Avg City Temps Per Year ###
+city_temp_per_year = pd.read_csv("./datasets/AvgTempCity.csv")
+sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
+# Stores a dictionary of years with the CityTempPerYear object
+city_years_list = []
+for index, row in sorted_by_year.iterrows():
+    new_year = CityTempPerYear()
+    new_year.year_name = row['Year']
+    new_year.city = row['City']
+    if db.session.query(City).filter(City.city_name==row['City']).first():
+        new_year.city_id = db.session.query(City).filter(City.city_name==row['City']).first().city_id
+    new_year.country = row['Country']
+    new_year.city_temp = row['AvgTemperature']
+    city_years_list.append(new_year)
 
-# db.session.add_all(city_years_list)
-# db.session.commit()
+db.session.add_all(city_years_list)
+db.session.commit()
 
 # Adds latitude and longitude of each city in city temps
 # cities = CityTempPerYear.query.all()
