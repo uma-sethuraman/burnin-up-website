@@ -35,6 +35,7 @@
     "react-thermometer-component": "^1.0.1",
     "react-thermometer-ecotropy": "^1.0.3",
     "recharts": "^1.8.5",
+    "selenium": "^2.20.0",
     "typescript": "^3.7.5"
   },
   "scripts": {
