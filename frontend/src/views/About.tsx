@@ -137,7 +137,7 @@ function About() {
           We encourage you to take action by making small changes in your life to decrease your individual carbon footprint, such as turning off lights
           you aren’t using, or carpooling with others when you can. By understanding the history of our Earth, we can understand where we will be in the future.
 
-          <br></br>
+          <br> </br>
 
           The compilation of our data allows us to expand our views on climate change to other areas of the world. 
           We often only hear about the state of our environment within our own countries or regions. The visualizations and graphs 

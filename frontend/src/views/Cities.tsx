@@ -54,7 +54,7 @@ const Cities = () => {
         <br />
         <Form>
           <Form.Group>
-          <Form>
+            <Form>
               <FormControl
                 type="text"
                 placeholder="Search"
@@ -63,37 +63,32 @@ const Cities = () => {
               <Button variant="outline-info">Search</Button>
             </Form>
             <ButtonGroup>
-              <DropdownButton className="mr-2" title={"Elevation"} >
-                <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Less than 5000 </Dropdown.Item>
-                <Dropdown.Item eventKey="3">Less than 10,000</Dropdown.Item>
+              <DropdownButton className="mr-2" title={"Name"} >
+                <Dropdown.Item eventKey="1">A-Z</Dropdown.Item>
+                <Dropdown.Item eventKey="2">Z-A </Dropdown.Item>
+              </DropdownButton>
+              <DropdownButton className="mr-2" title={"O3"}>
+                <Dropdown.Item eventKey="1">Greater than 10</Dropdown.Item>
+                <Dropdown.Item eventKey="2">Greater than 20 </Dropdown.Item>
+                <Dropdown.Item eventKey="3"> Greater than 30 </Dropdown.Item>
+              </DropdownButton>
+
+              <DropdownButton className="mr-2" title={"PM10"} >
+                <Dropdown.Item eventKey="1">Less than 20</Dropdown.Item>
+                <Dropdown.Item eventKey="2"> 20 - 60</Dropdown.Item>
+                <Dropdown.Item eventKey="3">Greater than 60</Dropdown.Item>
+              </DropdownButton>
+
+              <DropdownButton className="mr-2" title={"PM2.5"} >
+                <Dropdown.Item eventKey="1">Less than 50</Dropdown.Item>
+                <Dropdown.Item eventKey="2">500-100</Dropdown.Item>
+                <Dropdown.Item eventKey="3">Greater than 100</Dropdown.Item>
               </DropdownButton>
               <DropdownButton className="mr-2" title={"Population"} >
                 <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
                 <Dropdown.Item eventKey="2">Less than 5 million </Dropdown.Item>
                 <Dropdown.Item eventKey="3">Less than 50 million</Dropdown.Item>
               </DropdownButton>
-              <DropdownButton className="mr-2" title={"Time Zone"} >
-                <Dropdown.Item eventKey="3">Australia Central Time</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Central African Time</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Central Standard Time</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Eastern European Time	</Dropdown.Item>
-                <Dropdown.Item eventKey="1">European Central Time	</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Greenwich Mean Time</Dropdown.Item>
-                <Dropdown.Item eventKey="2">India Standard Time	 </Dropdown.Item>
-                <Dropdown.Item eventKey="3">Mountain Standard Time	</Dropdown.Item>
-              </DropdownButton>
-              <DropdownButton className="mr-2" title={"PM10 "} >
-                <Dropdown.Item eventKey="1">Less than 4</Dropdown.Item>
-                <Dropdown.Item eventKey="2">4-8 </Dropdown.Item>
-                <Dropdown.Item eventKey="3">Greater than 10</Dropdown.Item>
-              </DropdownButton>
-              <DropdownButton className="mr-2" title={"O3"}>
-                <Dropdown.Item eventKey="1">Greater than 5</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Greater than 10 </Dropdown.Item>
-                <Dropdown.Item eventKey="3"> Greater than 15 </Dropdown.Item>
-              </DropdownButton>
-
             </ButtonGroup>
 
           </Form.Group>

@@ -41,7 +41,7 @@
     "start": "react-scripts start",
     "start-api": "cd .. && cd backend && flask run --no-debugger",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "test-api": "cd .. && cd backend && flask test",
     "eject": "react-scripts eject"
   },
@@ -60,5 +60,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1"
+  }
 }
