@@ -337,7 +337,10 @@ def get_country_id_by_city(city_id):
         response = flask.Response(json.dumps({"error": city_id + " not found"}), mimetype='application/json')
         response.status_code = 404
         return response
-    result = {country.country_id: country.country_name}
+    result = {
+        "id": country.country_id,
+        "name": country.country_name
+    }
     return jsonify({'country_code': result})
 
 if __name__ == '__main__':
