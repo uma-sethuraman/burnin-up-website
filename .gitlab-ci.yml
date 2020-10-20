@@ -16,7 +16,7 @@ cs373-sustainability_mocha:
         name: mcgenius/pp_mocha
         entrypoint: [""]
     script:
-		- cd frontend
+        - cd frontend
         - npm install
         - npm run mochatest
 
@@ -25,12 +25,12 @@ cs373-sustainability_python:
         name: mcgenius/pp_python
         entrypoint: [""]
     script:
-		- cd backend
+        - cd backend
         - python test/tests.py
 
 cs373-sustainability_selenium:
 	image: python:3.7
 	script:
-		- pip install selenium
-		- pip install requests
-		- pip install pytest
+        - pip install selenium
+        - pip install requests
+        - pip install pytest
