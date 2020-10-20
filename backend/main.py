@@ -267,8 +267,8 @@ def get_city_name(name):
         return response
     return citys_schema.jsonify(city)
 
-# Retrieve list of capital cities
-@app.route('/api/cities/capital_city', methods=['GET'])
+# Retrieve list of relevant city names (capitals and top temp per year cities)
+@app.route('/api/cities/city_names', methods=['GET'])
 def get_capital():
     city_table = City.query.all()
     cp = db.session.query(Country.country_capital_city).all()
@@ -279,7 +279,7 @@ def get_capital():
     topcities = CityTempPerYear.query.all()
     for item in topcities:
         cities_list += [item.city]
-    return jsonify({"captial_city": cities_list})
+    return jsonify({"city_names": cities_list})
 
 # Retrieve city years (hottest year for each city)
 @app.route('/api/city_year', methods=['GET'])
@@ -338,7 +338,7 @@ def get_country_id_by_city(city_id):
         response.status_code = 404
         return response
     result = {country.country_id: country.country_name}
-    return jsonify({'capital_city_id': result})
+    return jsonify({'country_code': result})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
