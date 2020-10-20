@@ -114,7 +114,7 @@ const CountryInstance = (id: any) => {
 
           </tbody>
         </Table>
-        {OurMap(Number(country?.country_lat! === undefined ? 0 : Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0 : Number(country?.country_long!)), country?.country_name!)}
+        {OurMap(country?.country_lat! === undefined ? 0 : country?.country_lat!, country?.country_long! === undefined ? 0 : country?.country_long!, country?.country_name!)}
       </header>
     </div>
   );
