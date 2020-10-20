@@ -240,14 +240,14 @@ def get_city_temperatures():
     result = cities_temp_schema.dump(all_cities_temps)
     return jsonify({'city_temperatures_years': result})
 
-# # Retrieve all cities
+# Retrieve all cities
 @app.route('/api/cities', methods=['GET'])
 def get_cities():
     all_cities = City.query.all()
     result = cities_schema.dump(all_cities)
     return jsonify({'cities': result})
 
-# # Retrieve single city entry by id
+# Retrieve single city entry by id
 @app.route('/api/cities/id=<id>', methods=['GET'])
 def get_city_id(id):
     city = City.query.get(id)
