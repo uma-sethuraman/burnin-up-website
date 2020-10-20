@@ -214,7 +214,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/cities/city_names")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["city_names"]) == 1618
+        assert len(d["city_names"]) == 258
 
     def test_relevant_cities_list(self):
         r = requests.get("https://burninup.me/api/cities/city_names")

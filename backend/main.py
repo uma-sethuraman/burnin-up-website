@@ -276,11 +276,12 @@ def get_capital():
     cp = db.session.query(Country.country_capital_city).all()
     cities_list = []
     for each in cp:
-        if len(each[0]) != 0:
+        if each[0] not in cities_list:
             cities_list += each
     topcities = CityTempPerYear.query.all()
     for item in topcities:
-        cities_list += [item.city]
+        if item.city not in cities_list:
+            cities_list += [item.city]
     return jsonify({"city_names": cities_list})
 
 # Retrieve city years (hottest year for each city)
