@@ -99,6 +99,7 @@ class Tests(TestCase):
             "polar_ice": 27254250.0625,
             "sea_level": 0.0,
             "temp_anomaly": -0.23,
+            "world_population": 1474528887,
             "year_id": 1,
             "year_name": "1880"
         }
@@ -114,6 +115,7 @@ class Tests(TestCase):
             "polar_ice": 24487155.60916667,
             "sea_level": 6.92772163,
             "temp_anomaly": 0.49,
+            "world_population": 6049205203,
             "year_id": 120,
             "year_name": "1999"
         }

@@ -116,7 +116,7 @@ class YearSchema(ma.Schema):
     nitrous_oxide = fields.Float(required=False)
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
-    world_population = fields.BigInteger(required=False)
+    world_population = fields.Int(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema(ma.Schema):
