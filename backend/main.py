@@ -49,6 +49,7 @@ class CountryEmissionsPerYear(db.Model):
     country = db.Column(db.String())
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
+    countryid = db.Column(db.Integer)
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -319,7 +320,7 @@ def country_year(name):
         return response
     return countryYear_schema.jsonify(country_year)
 
-# Getting the capital city id by country id 
+# Getting the capital city id by country id
 @app.route('/api/<country_id>/capital_city_id', methods=['GET'])
 def get_capital_city_id(country_id):
     country = Country.query.get(country_id)
