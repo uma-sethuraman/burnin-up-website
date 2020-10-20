@@ -9,8 +9,8 @@ import os
 import json
 from sqlalchemy import create_engine
 import flask_restless
-import pandas as pd
-import numpy as np
+# import pandas as pd
+# import numpy as np
 import requests
 from time import sleep
 
@@ -54,36 +54,55 @@ class Country(db.Model):
         self.recent_emissions_year = recent_emissions_years
         self.recent_emissions = recent_emissions
 
-db.create_all()
+# Country C02 Emissions Per Year Model
+class CountryEmissionsPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    country = db.Column(db.String())
+    code = db.Column(db.String())
+    country_co2 = db.Column(db.Float)
+    countryid = db.Column(db.String())
+
+# db.create_all()
 
 ### Table for Country ###
-request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
-r = urllib.request.urlopen(request_url)
-data = json.loads(r.read())
-country_list = []
-for item in data[1]:
-    if item["region"]["value"] != "Aggregates":
-        # Account for case where there is not lat or lon
-        if item['latitude'] != '':
-            new_country = Country(country_name=item["name"], country_region=item["region"]["value"],
-                                  country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'],
-                                  iso2code=item['iso2Code'], iso3code=item["id"], country_lat=item["latitude"],
-                                  country_long=item["longitude"])
-        country_list.append(new_country)
+# request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
+# r = urllib.request.urlopen(request_url)
+# data = json.loads(r.read())
+# country_list = []
+# for item in data[1]:
+#     if item["region"]["value"] != "Aggregates":
+#         # Account for case where there is not lat or lon
+#         if item['latitude'] != '':
+#             new_country = Country(country_name=item["name"], country_region=item["region"]["value"],
+#                                   country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'],
+#                                   iso2code=item['iso2Code'], iso3code=item["id"], country_lat=item["latitude"],
+#                                   country_long=item["longitude"])
+#         country_list.append(new_country)
 
-country_emissions_df = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
-not_found = []
-for country in country_list:
-    years = country_emissions_df.loc[country_emissions_df['Entity'] == country.country_name]
-    if len(years) != 0:
-        recent_emissions_idx = years['Year'].idxmax()
-        country.recent_emissions_year = int(country_emissions_df['Year'].iloc[recent_emissions_idx])
-        country.recent_emissions = float(country_emissions_df['Per capita CO2 emissions'].iloc[recent_emissions_idx])
-    else:
-        not_found.append(country.country_name)
+# country_emissions_df = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
+# not_found = []
+# for country in country_list:
+#     years = country_emissions_df.loc[country_emissions_df['Entity'] == country.country_name]
+#     if len(years) != 0:
+#         recent_emissions_idx = years['Year'].idxmax()
+#         country.recent_emissions_year = int(country_emissions_df['Year'].iloc[recent_emissions_idx])
+#         country.recent_emissions = float(country_emissions_df['Per capita CO2 emissions'].iloc[recent_emissions_idx])
+#     else:
+#         not_found.append(country.country_name)
 
-db.session.add_all(country_list)
-db.session.commit()
+# db.session.add_all(country_list)
+# db.session.commit()
+
+general_countries = {item.country_name for item in Country.query.all()}
+country_emissions = {item.country for item in CountryEmissionsPerYear.query.all()}
+missing = []
+
+for country in country_emissions:
+    if country not in general_countries:
+        missing += [country]
+
+print(missing)
 
 
 
