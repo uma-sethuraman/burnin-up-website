@@ -12,10 +12,12 @@ class tests(unittest.TestCase):
         self.driver.get("https://burninup.me")
         print(self.driver.title)
         assert(self.driver.title == "Burnin' Up")
-
-    def test_navBar(self):
-        self.driver.find_element(By.CSS_CLASS, "OurNavbar").click()
+        self.driver.find_element_by_class_name("OurNavbar").click()
         self.driver.find_element(By.LINK_TEXT, "Cities").click()
+
+    # def test_navBar(self):
+    #     self.driver.find_element_by_class_name("OurNavbar").click()
+    #     self.driver.find_element(By.LINK_TEXT, "Cities").click()
 
     # def test_cities(self):
     #     pass
