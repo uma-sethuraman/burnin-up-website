@@ -9,7 +9,7 @@ import "./CountryInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import OurMap from "../Map/OurMap";
-import Slide from "../../../Slide";
+import Slide from "../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
@@ -86,7 +86,10 @@ const CountryInstance = (id: any) => {
             </tr>
             <tr>
               <td>Capital City</td>
-              <td><Link to={"/cities/id="+capitalId}>{country?.country_capital_city}</Link></td>
+              {capitalId !== 0?
+                <td><Link to={"/cities/id="+capitalId}>{country?.country_capital_city}</Link></td>:
+                <td><Link to={"/cities"}>{country?.country_capital_city}</Link></td>
+              }
             </tr>
             <tr>
               <td>Latitude</td>
@@ -96,25 +99,26 @@ const CountryInstance = (id: any) => {
               <td>Longitude</td>
               <td>{country?.country_long}</td>
             </tr>
-            {countryYear !== undefined?
             <tr>
               <td>Highest Annual CO2 Emissions (ppm)</td>
-              <td>{countryYear?.co2}</td>
-            </tr> : null}
-            {countryYear !== undefined?
+              {countryYear?.co2 !== undefined?
+              <td>{countryYear?.co2}</td>: <td>-</td>}
+            </tr> 
             <tr>
               <td>Year of Highest Annual CO2 Emissions</td>
-              <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>
-            </tr> : null}
-            {country?.recent_emissions_year !== -1?
+              {countryYear?.year !== undefined?
+              <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>:
+              <td><Link to={"/years/name=2018"}>2018</Link></td> }
+            </tr>
             <tr>
               <td>Most Recent CO2 Emissions (ppm)</td>
-              <td>{country?.recent_emissions}</td>
-            </tr> : null}
+              {country?.recent_emissions_year !== -1?
+              <td>{country?.recent_emissions}</td> : <td>-</td>}
+            </tr>
 
           </tbody>
         </Table>
-        {OurMap(Number(country?.country_lat! === undefined ? 0 : Number(country?.country_lat!)), Number(country?.country_long! === undefined ? 0 : Number(country?.country_long!)), country?.country_name!)}
+        {OurMap(country?.country_lat! === undefined ? 0 : country?.country_lat!,country?.country_long! === undefined ? 0 : country?.country_long!, country?.country_name!)}
       </header>
     </div>
   );

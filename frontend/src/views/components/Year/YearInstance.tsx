@@ -9,7 +9,7 @@ import "./YearInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import OurMap from "../Map/OurMap";
-import Slide from "../../../Slide";
+import Slide from "../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
@@ -157,7 +157,7 @@ const YearInstance = (name: any) => {
               {topCities.map(city => (
                 <tr>
                   <td>
-                    <Link to={"/cities/id="+city.city}>
+                    <Link to={"/cities/id="+city.city_id}>
                       {city.city}
                     </Link>
                   </td>
@@ -208,6 +208,7 @@ export interface CityTempsObject {
 
 export interface CityTemperaturesYear {
   city:     string;
+  city_id: string;
   city_temp: number;
   country:  Country;
   lat:      number;

@@ -11,16 +11,7 @@ import About from "./views/About";
 import Cities from "./views/Cities";
 import CityInstance from "./views/components/City/CityInstance";
 import GeneralYears from "./views/GeneralYears";
-import Year2013 from "./views/Year2013";
-import Year2014 from "./views/Year2014";
-import Year2015 from "./views/Year2015";
-import Beijing from "./views/Beijing";
-import Paris from "./views/Paris";
-import Austin from "./views/Austin";
 import Countries from "./views/Countries";
-import USA from "./views/USA";
-import China from "./views/China";
-import France from "./views/France";
 import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
 
@@ -28,8 +19,8 @@ ReactDOM.render(
   <Router>
       <Route path="/about" exact component = {About}/>
       <Route path="/" exact component = {App}/>
-    <Route path="/cities" exact component={Cities} />
-    <Route path="/cities/id=:id" render = {(props) => (<CityInstance id={props.match.params.id}/>)} />
+      <Route path="/cities" exact component={Cities} />
+      <Route path="/cities/id=:id" render = {(props) => (<CityInstance id={props.match.params.id}/>)} />
       <Route path="/city" exact component = {CityInstance } />
       <Route path="/countries" exact component = {Countries} />
       <Route path="/countries/id=:id" render = {(props) => (<CountryInstance id={props.match.params.id}/>)} />

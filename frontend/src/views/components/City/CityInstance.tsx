@@ -9,7 +9,7 @@ import View from "react";
 import "./CityInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
-import Slide from "../../../Slide";
+import Slide from "../Slide";
 import CityPosts from "../CityPosts";
 import axios from "axios";
 import OurMap from "../Map/OurMap";
@@ -89,24 +89,17 @@ const CityInstance = (id: any) => {
               <td>PM2.5 (ug/m3)</td>
               <td>{city?.pm25 + " "}</td>
             </tr>
-            {cityYear?.temp !== undefined?
             <tr>
               <td>Highest Annual Temp</td>
-              <td>{cityYear?.temp + (cityYear?.temp! > 40 ? " °F": " °C") }</td>
-            </tr> : null}
-            {cityYear?.year !== undefined?
+              {cityYear?.temp !== undefined?
+              <td>{cityYear?.temp + (cityYear?.temp! > 40 ? " °F": " °C") }</td> : <td>-</td> }
+            </tr>
             <tr>
               <td>Year of Highest Annual Temp</td>
-              <td><Link to={"/years/name="+cityYear?.year}>
-              { cityYear?.year}
-              </Link></td>
-            </tr>: 
-            <tr>
-            <td>Year of Highest Annual Temp</td>
-            <td><Link to={"/years/name="+2018}>
-              {2018}
-            </Link></td>
-            </tr>}
+              {cityYear?.year !== undefined?
+              <td><Link to={"/years/name="+cityYear?.year}>{cityYear?.year}</Link></td>:
+              <td><Link to={"/years/name=2018"}>2018</Link></td>}
+            </tr>
             <tr>
               <td>Population</td>
               {city?.population !== 0? 
