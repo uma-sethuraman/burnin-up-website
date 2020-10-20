@@ -15,6 +15,7 @@ import { CityObject, City } from "./components/City/CityInstance";
 import { useState, useEffect } from 'react';
 import CityPosts from "./components/CityPosts";
 import Pagination from "./components/Pagination";
+import { ButtonToolbar } from 'react-bootstrap';
 
 const Cities = () => {
   const [cityObj, setCityObj] = React.useState<CityObject>();
@@ -52,49 +53,45 @@ const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} fluid />
         <Form>
           <Form.Group>
-            <Form>
+            <Form >
+              
+            <div className="row">
               <FormControl
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
               />
-              <Button variant="outline-info">Search</Button>
+              <Button variant="outline-info" className="form-control">Search</Button>
+              </div>
             </Form>
-            <>
-            <ButtonGroup>
-            <DropdownButton title= {"Zip Code"} >
+              <ButtonGroup>
+            <DropdownButton className="mr-2" title= {"Zip Code"}>
                   <Dropdown.Item eventKey="1">78739</Dropdown.Item>
                   <Dropdown.Item eventKey="2">20134 </Dropdown.Item>
                   <Dropdown.Item eventKey="3"> 410 </Dropdown.Item>
-
-            </DropdownButton>
-            <DropdownButton title= {"Elevation"} >
+                </DropdownButton>
+            <DropdownButton className="mr-2" title= {"Elevation"} >
                   <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Less than 5000 </Dropdown.Item>
                   <Dropdown.Item eventKey="3">Less than 10,000</Dropdown.Item>
             </DropdownButton>
-
-            <DropdownButton title= {"Population"} >
+            <DropdownButton className="mr-2" title= {"Population"} >
                   <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Less than 5 million </Dropdown.Item>
                   <Dropdown.Item eventKey="3">Less than 50 million</Dropdown.Item>
             </DropdownButton>
-                
-            <DropdownButton title= {"Time Zone"} >
+            <DropdownButton className="mr-2" title= {"Time Zone"} >
                   <Dropdown.Item eventKey="1">China Standard Time</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Central Standard Time </Dropdown.Item>
                   <Dropdown.Item eventKey="3">Central European Summer Time </Dropdown.Item>
             </DropdownButton>
-
-            <DropdownButton title= {"Location"} >
+            <DropdownButton className="mr-2" title= {"Location"} >
                   <Dropdown.Item eventKey="1">Asia</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Europe </Dropdown.Item>
                   <Dropdown.Item eventKey="3">North America</Dropdown.Item>
             </DropdownButton>
-            
-            
             </ButtonGroup>
-            </>
+            
           </Form.Group>
         </Form>
         

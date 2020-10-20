@@ -79,23 +79,23 @@ const CityInstance = (id: any) => {
             </tr>
             <tr>
               <td>Elevation</td>
-              <td>{city?.elevation}</td>
+              <td>{city?.elevation + " ft"}</td>
             </tr>
             <tr>
               <td>O3</td>
-              <td>{city?.o3}</td>
+              <td>{city?.o3 + " "}</td>
             </tr>
             <tr>
               <td>PM10</td>
-              <td>{city?.pm10}</td>
+              <td>{city?.pm10 + " "}</td>
             </tr>
             <tr>
               <td>PM2.5</td>
-              <td>{city?.pm25}</td>
+              <td>{city?.pm25 + " "}</td>
             </tr>
             <tr>
               <td>Highest annual temp</td>
-              <td>{cityYear?.temp}</td>
+              <td>{cityYear?.temp + (cityYear?.temp! > 35 ? " °F": " °C") }</td>
             </tr>
             <tr>
               <td>Year with highest annual temp</td>
