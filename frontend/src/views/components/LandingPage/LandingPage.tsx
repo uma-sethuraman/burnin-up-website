@@ -48,7 +48,7 @@ function LandingPage() {
               src={require("../../../assets/landing-bg.jpg")}
               height="250"
             />
-            <Button variant="outline-light" href="/">
+            <Button variant="outline-light" href="/years">
               Climate Change
               </Button>{" "}
           </div>
