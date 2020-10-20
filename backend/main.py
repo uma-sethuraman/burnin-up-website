@@ -25,8 +25,8 @@ class Country(db.Model):
     country_capital_city = db.Column(db.String())
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
-    country_lat = db.Column(db.String())
-    country_long = db.Column(db.String())
+    country_lat = db.Column(db.Float)
+    country_long = db.Column(db.Float)
     recent_emissions_year = db.Column(db.Integer)
     recent_emissions = db.Column(db.Float)
 
@@ -40,6 +40,7 @@ class Year(db.Model):
     nitrous_oxide = db.Column(db.Float)
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
+    world_population = db.Column(db.BigInteger)
 
 # Country C02 Emissions Per Year Model
 class CountryEmissionsPerYear(db.Model):
@@ -48,7 +49,6 @@ class CountryEmissionsPerYear(db.Model):
     country = db.Column(db.String())
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
-    countryid = db.Column(db.String())
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -116,6 +116,7 @@ class YearSchema(ma.Schema):
     nitrous_oxide = fields.Float(required=False)
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
+    world_population = fields.BigInteger(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema(ma.Schema):
