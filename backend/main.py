@@ -216,7 +216,7 @@ def get_years():
     result = years_schema.dump(all_years)
     return jsonify({'years': result})
 
-# Retrieve single year entry by name
+# Retrieve single year entry by year name
 @app.route('/api/years/name=<name>', methods=['GET'])
 def get_year_name(name):
     year = db.session.query(Year).filter(Year.year_name==name).first()
@@ -257,7 +257,7 @@ def get_city_id(id):
         return response
     return citys_schema.jsonify(city)
 
-# # Retrieve single city  entry by name
+# # Retrieve single city entry by city name
 @app.route('/api/cities/name=<name>', methods=['GET'])
 def get_city_name(name):
     city = db.session.query(City).filter(City.city_name==name).first()
@@ -267,6 +267,7 @@ def get_city_name(name):
         return response
     return citys_schema.jsonify(city)
 
+# Retrieve list of capital cities
 @app.route('/api/cities/capital_city', methods=['GET'])
 def get_capital():
     city_table = City.query.all()
@@ -280,14 +281,14 @@ def get_capital():
         cities_list += [item.city]
     return jsonify({"captial_city": cities_list})
 
-# Retrieve city years
+# Retrieve city years (hottest year for each city)
 @app.route('/api/city_year', methods=['GET'])
 def get_city_years():
     all_city_years = CityYear.query.all()
     result = city_years_schema.dump(all_city_years)
     return jsonify({'city_years': result})
 
-# Retrieve single city year entry by name
+# Retrieve single city year entry by city name (hottest year for each city)
 @app.route('/api/city_year/name=<name>', methods=['GET'])
 def get_city_years_name(name):
     city_year = db.session.query(CityYear).filter(CityYear.city==name).first()
@@ -297,14 +298,14 @@ def get_city_years_name(name):
         return response
     return city_year_schema.jsonify(city_year)
 
-# Retrieve country years
+# Retrieve country years (highest carbon emissions for each country)
 @app.route('/api/country_year', methods=['GET'])
 def country_years():
     country_year = CountryYear.query.all()
     result = countriesYear_schema.dump(country_year)
     return jsonify({'country_year': result})
 
-# Retrieve single country year entry by name
+# Retrieve single country year entry by country name (highest carbon emissions for each country)
 @app.route('/api/country_year/name=<name>', methods=['GET'])
 def country_year(name):
     country_year = db.session.query(CountryYear).filter(CountryYear.country == name).first()
@@ -313,7 +314,8 @@ def country_year(name):
         response.status_code = 404
         return response
     return countryYear_schema.jsonify(country_year)
-#getting the capital city id by country id
+
+# Getting the capital city id by country id 
 @app.route('/api/<country_id>/capital_city_id', methods=['GET'])
 def get_capital_city_id(country_id):
     country = Country.query.get(country_id)
@@ -325,7 +327,7 @@ def get_capital_city_id(country_id):
         return response
     return jsonify({'capital_city_id': city.city_id})
 
-#getting the country code and name by city id
+# Getting the country code and name by city id
 @app.route('/api/<city_id>/country_code', methods=['GET'])
 def get_country_id_by_city(city_id):
     city = City.query.get(city_id)
