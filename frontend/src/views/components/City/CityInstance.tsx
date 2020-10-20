@@ -41,7 +41,7 @@ const CityInstance = (id: any) => {
 
 
   // initializing carousel slides
-  let s1 = new Slide(
+  /*let s1 = new Slide(
     "China",
     require("../../../assets/China_flag.jpg"),
     "/countries/id=50"
@@ -55,10 +55,9 @@ const CityInstance = (id: any) => {
     "India",
     require("../../../assets/USA_flag.jpg"),
     "/countries/id=439"
-  );
+  );*/
 
   getData();
-  //let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
   
   return (
     <div className="CountryInstance">
@@ -114,7 +113,9 @@ const CityInstance = (id: any) => {
           </tbody>
         </Table>
   
-        {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), "Aruba")}
+        {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), city?.city_name!)}
+        {/* <div>See more: </div> */}
+        {/* {OurCarousel(s1, s2, s3)} */}
       </header>
     </div>
   );
