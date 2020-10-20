@@ -9,7 +9,7 @@ import "./YearInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import OurMap from "../Map/OurMap";
-import Slide from "../../../Slide";
+import Slide from "../Slide";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Image from "react-bootstrap/Image";
@@ -63,9 +63,7 @@ const YearInstance = (name: any) => {
   const getTopCities = (yearName: string) => {
     axios.get("/api/city_temperatures")
     .then((response) => {
-      //console.log(response.data);
       const tempArray: CityTemperaturesYear[] = JSON.parse(JSON.stringify(response.data.city_temperatures_years)) as CityTemperaturesYear[];
-      //console.log(tempArray);
       const starting_index = 10 * (parseInt(yearName) - FIRST_YEAR);
       let copyArray: CityTemperaturesYear[] = [];
       let i;
@@ -81,34 +79,43 @@ const YearInstance = (name: any) => {
         console.log(error);
     })
   };
-
-  function barOnClick(barName: any) {
-    alert(barName);
-  }
   
 
   getData();
   getTopCountries(year?.year_name!);
   getTopCities(year?.year_name!);
-  //console.log(JSON.stringify(topCities));
+
 
   return (
     <div className="YearInstance">
       <Navbar />
       <header className="App-header">
-        <BarChart width={730} height={250} data={topCountries}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 9}} interval = {0}/>
-          <YAxis stroke="#FFFFFF"/>
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)" onClick={barOnClick}/>
-        </BarChart>
-        <header className="Year-header">
-            <h3> {year?.year_name} </h3>
-        </header>
+        <h3> {year?.year_name} </h3>
         <br />
-        {YearMap(topCities)}
+        <h1>Top 10 Countries with Highest CO2 Emissions This Year</h1>
+        <div className = "side-by-side">
+          <BarChart width={1000} height={500} data={topCountries}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="country" stroke="#FFFFFF" tick={{fontSize: 12}} interval = {0}/>
+            <YAxis stroke="#FFFFFF"/>
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="country_co2" fill="#8884d8" name = "CO2 Level (ppm)"/>
+          </BarChart>
+          <Table bordered hover size="sm">
+            {topCountries.map(topCountry => (
+              <tr>
+                  <td>
+                    {topCountry.countryid !== null?
+                      <Link to={"/countries/id="+topCountry.countryid}>{topCountry.country}</Link>:
+                      <Link to={"/countries"}>{topCountry.country}</Link>
+                    }
+                  </td>
+              </tr>
+          ))}
+          </Table>
+        </div>
+        <br />
         <Table bordered hover size="sm" variant="dark">
           <tbody>
             <tr>
@@ -137,6 +144,31 @@ const YearInstance = (name: any) => {
             </tr>
           </tbody>
         </Table>
+        <br />
+        <h1> Top 10 Cities with Highest Average Temperatures This Year</h1>
+        <Table bordered hover size="sm" variant="dark">
+            <thead>
+              <tr>
+                <th>City</th>
+                <th>Highest Temperature</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topCities.map(city => (
+                <tr>
+                  <td>
+                    <Link to={"/cities/id="+city.city_id}>
+                      {city.city}
+                    </Link>
+                  </td>
+                  <td>
+                      {city.city_temp + (city.city_temp > 40 ? " °F": " °C")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+        </Table>
+        {YearMap(topCities)}
       </header>
     </div>
   );
@@ -165,6 +197,7 @@ export interface CountryEmissionsYear {
   code:        string;
   country:     string;
   country_co2: number;
+  countryid: number;
   year_id:     number;
   year_name:   string;
 }
@@ -175,6 +208,7 @@ export interface CityTempsObject {
 
 export interface CityTemperaturesYear {
   city:     string;
+  city_id: string;
   city_temp: number;
   country:  Country;
   lat:      number;

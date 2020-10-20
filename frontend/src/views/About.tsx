@@ -138,7 +138,7 @@ function About() {
           you aren’t using, or carpooling with others when you can. By understanding the history of our Earth, we can understand where we will be in the future.
 
           <br></br>
-
+          
           The compilation of our data allows us to expand our views on climate change to other areas of the world. 
           We often only hear about the state of our environment within our own countries or regions. The visualizations and graphs 
           we show help us understand how drastic the changes are throughout history.
@@ -153,7 +153,7 @@ function About() {
 
         <div className="row">
           <div className="h2_about">
-            <div className="column">
+            <div className="columnsAbout">
               <Image
                 src={require("../assets/CaitlinLien.JPG")}
                 height="250"
@@ -170,7 +170,7 @@ function About() {
               and enjoys Data Science and Machine Learning. Her hobbies includes baking, playing video games,
                  and taking group stretch breaks.</p>
             </div>
-            <div className="column">
+            <div className="columnsAbout">
               <Image
                 src={require("../assets/caitlin-o-headshot.jpeg")}
                 height="250"
@@ -187,7 +187,7 @@ function About() {
                 and drawing, playing oboe, listening to classical music, and drinking tea.</p>
 
             </div>
-            <div className="column">
+            <div className="columnsAbout">
               <Image
                 src={require("../assets/cherry.jpeg")}
                 height="250"
@@ -204,7 +204,7 @@ function About() {
               interest in overall full stack app development. She likes
                 working out, swimming, getting a massage, going to spa and just enjoying life. </p>
             </div>
-            <div className="column">
+            <div className="columnsAbout">
               <Image
                 src={require("../assets/LaurenMangibin-headshot.jpg")}
                 height="250"
@@ -220,7 +220,7 @@ function About() {
                 She is a hip-hop dancer and choreographer for UT dance teams and loves to explore and hike.</p>
 
             </div>
-            <div className="column">
+            <div className="columnsAbout">
               <Image
                 src={require("../assets/samantha-headshot.jpg")}
                 height="250"
@@ -236,7 +236,7 @@ function About() {
               this site and has an interest in overall full stack app development. Outside of the CS world, she enjoys journaling,
                  kickboxing, playing musical instruments, and eating good food.</p>
             </div>
-            <div className="column">
+            <div className="columnsAbout">
               <Image
                 src={require("../assets/uma-headshot.jpg")}
                 height="250"

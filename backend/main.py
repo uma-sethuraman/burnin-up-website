@@ -25,8 +25,10 @@ class Country(db.Model):
     country_capital_city = db.Column(db.String())
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
-    country_lat = db.Column(db.String())
-    country_long = db.Column(db.String())
+    country_lat = db.Column(db.Float)
+    country_long = db.Column(db.Float)
+    recent_emissions_year = db.Column(db.Integer)
+    recent_emissions = db.Column(db.Float)
 
 # Year Model
 class Year(db.Model):
@@ -38,6 +40,7 @@ class Year(db.Model):
     nitrous_oxide = db.Column(db.Float)
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
+    world_population = db.Column(db.BigInteger)
 
 # Country C02 Emissions Per Year Model
 class CountryEmissionsPerYear(db.Model):
@@ -52,6 +55,7 @@ class CityTempPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
     city = db.Column(db.String())
+    city_id = db.Column(db.Integer)
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
     lat = db.Column(db.Float)
@@ -99,6 +103,8 @@ class CountrySchema(ma.Schema):
     country_iso3code = fields.Str(required=False)
     country_lat = fields.Str(required=False)
     country_long = fields.Str(required=False)
+    recent_emissions_year = fields.Int(required=False)
+    recent_emissions = fields.Float(required=False)
 
 # Year Schema
 class YearSchema(ma.Schema):
@@ -110,6 +116,7 @@ class YearSchema(ma.Schema):
     nitrous_oxide = fields.Float(required=False)
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
+    world_population = fields.Int(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema(ma.Schema):
@@ -118,12 +125,14 @@ class CountryEmissionsPerYearSchema(ma.Schema):
     country = fields.Str(required=False)
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
+    countryid = fields.Int(required=False)
 
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema(ma.Schema):
     year_id = fields.Int(required=True)
     year_name = fields.Int(required=False)
     city = fields.Str(required=False)
+    city_id = fields.Int(required=False)
     country = fields.Str(required=False)
     city_temp = fields.Float(required=False)
     lat = fields.Float(required=False)
@@ -210,7 +219,7 @@ def get_years():
     result = years_schema.dump(all_years)
     return jsonify({'years': result})
 
-# Retrieve single year entry by name
+# Retrieve single year entry by year name
 @app.route('/api/years/name=<name>', methods=['GET'])
 def get_year_name(name):
     year = db.session.query(Year).filter(Year.year_name==name).first()
@@ -223,7 +232,7 @@ def get_year_name(name):
 # Retrieve country carbon emissions per year
 @app.route('/api/country_emissions')
 def get_country_emissions():
-    all_country_years = CountryEmissionsPerYear.query.all()
+    all_country_years = CountryEmissionsPerYear.query.order_by(CountryEmissionsPerYear.year_id).all()
     result = countries_emissions_schema.dump(all_country_years)
     return jsonify({'country_emissions_years': result})
 
@@ -234,14 +243,14 @@ def get_city_temperatures():
     result = cities_temp_schema.dump(all_cities_temps)
     return jsonify({'city_temperatures_years': result})
 
-# # Retrieve all cities
+# Retrieve all cities
 @app.route('/api/cities', methods=['GET'])
 def get_cities():
     all_cities = City.query.all()
     result = cities_schema.dump(all_cities)
     return jsonify({'cities': result})
 
-# # Retrieve single city entry by id
+# Retrieve single city entry by id
 @app.route('/api/cities/id=<id>', methods=['GET'])
 def get_city_id(id):
     city = City.query.get(id)
@@ -251,7 +260,7 @@ def get_city_id(id):
         return response
     return citys_schema.jsonify(city)
 
-# # Retrieve single city  entry by name
+# # Retrieve single city entry by city name
 @app.route('/api/cities/name=<name>', methods=['GET'])
 def get_city_name(name):
     city = db.session.query(City).filter(City.city_name==name).first()
@@ -261,27 +270,29 @@ def get_city_name(name):
         return response
     return citys_schema.jsonify(city)
 
-@app.route('/api/cities/capital_city', methods=['GET'])
+# Retrieve list of relevant city names (capitals and top temp per year cities)
+@app.route('/api/cities/city_names', methods=['GET'])
 def get_capital():
     city_table = City.query.all()
     cp = db.session.query(Country.country_capital_city).all()
     cities_list = []
     for each in cp:
-        if each is not None:
+        if each[0] not in cities_list:
             cities_list += each
     topcities = CityTempPerYear.query.all()
-    cities_list += topcities
+    for item in topcities:
+        if item.city not in cities_list:
+            cities_list += [item.city]
+    return jsonify({"city_names": cities_list})
 
-    return jsonify({"captial_city": cities_list})
-
-# Retrieve city years
+# Retrieve city years (hottest year for each city)
 @app.route('/api/city_year', methods=['GET'])
 def get_city_years():
     all_city_years = CityYear.query.all()
     result = city_years_schema.dump(all_city_years)
     return jsonify({'city_years': result})
 
-# Retrieve single city year entry by name
+# Retrieve single city year entry by city name (hottest year for each city)
 @app.route('/api/city_year/name=<name>', methods=['GET'])
 def get_city_years_name(name):
     city_year = db.session.query(CityYear).filter(CityYear.city==name).first()
@@ -291,14 +302,14 @@ def get_city_years_name(name):
         return response
     return city_year_schema.jsonify(city_year)
 
-# Retrieve country years
+# Retrieve country years (highest carbon emissions for each country)
 @app.route('/api/country_year', methods=['GET'])
 def country_years():
     country_year = CountryYear.query.all()
     result = countriesYear_schema.dump(country_year)
     return jsonify({'country_year': result})
 
-# Retrieve single country year entry by name
+# Retrieve single country year entry by country name (highest carbon emissions for each country)
 @app.route('/api/country_year/name=<name>', methods=['GET'])
 def country_year(name):
     country_year = db.session.query(CountryYear).filter(CountryYear.country == name).first()
@@ -308,6 +319,41 @@ def country_year(name):
         return response
     return countryYear_schema.jsonify(country_year)
 
+# Getting the capital city id by country id 
+@app.route('/api/<country_id>/capital_city_id', methods=['GET'])
+def get_capital_city_id(country_id):
+    country = Country.query.get(country_id)
+    if country is None:
+        response = flask.Response(json.dumps({"error": "country id " + country_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    str2 = str(country.country_capital_city)
+    city = db.session.query(City).filter(City.city_name == str2).first()
+    if city is None:
+        response = flask.Response(json.dumps({"error": country_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    return jsonify({'capital_city_id': city.city_id})
+
+# Getting the country code and name by city id
+@app.route('/api/<city_id>/country_code', methods=['GET'])
+def get_country_id_by_city(city_id):
+    city = City.query.get(city_id)
+    if city is None:
+        response = flask.Response(json.dumps({"error": "city id " + city_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    city_country = city.country_iso2code
+    country = db.session.query(Country).filter(Country.country_iso2code == city_country).first()
+    if country is None:
+        response = flask.Response(json.dumps({"error": city_id + " not found"}), mimetype='application/json')
+        response.status_code = 404
+        return response
+    result = {
+        "id": country.country_id,
+        "name": country.country_name
+    }
+    return jsonify({'country_code': result})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
