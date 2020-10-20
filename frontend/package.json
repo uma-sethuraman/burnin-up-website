@@ -34,18 +34,9 @@
     "react-scripts": "3.4.3",
     "react-thermometer-component": "^1.0.1",
     "react-thermometer-ecotropy": "^1.0.3",
-    "recharts": "^1.8.5"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    },
-    "transform": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js"
-    },
-    "snapshotSerializers": [
-      "enzyme-to-json"
-    ]
+    "recharts": "^1.8.5",
+    "selenium": "^2.20.0",
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -88,5 +79,16 @@
     "jest": "^26.6.0",
     "ts-jest": "^26.4.1",
     "typescript": "^3.9.7"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js"
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json"
+    ]
   }
 }
