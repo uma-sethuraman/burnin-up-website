@@ -29,8 +29,8 @@ cs373-sustainability_python:
         - python test/tests.py
 
 cs373-sustainability_selenium:
-	image: python:3.7
-	script:
+    image: python:3.7
+    script:
         - pip install selenium
         - pip install requests
         - pip install pytest
