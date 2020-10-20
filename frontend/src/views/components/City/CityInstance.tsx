@@ -77,27 +77,27 @@ const CityInstance = (id: any) => {
               <td>{city?.country_iso2code}</td>
             </tr>
             <tr>
-              <td>Elevation</td>
+              <td>Elevation (ft)</td>
               <td>{city?.elevation + " ft"}</td>
             </tr>
             <tr>
-              <td>O3</td>
+              <td>O3 (Dobson Units)</td>
               <td>{city?.o3 + " "}</td>
             </tr>
             <tr>
-              <td>PM10</td>
+              <td>PM10 (ug/m3)</td>
               <td>{city?.pm10 + " "}</td>
             </tr>
             <tr>
-              <td>PM2.5</td>
+              <td>PM2.5 (ug/m3)</td>
               <td>{city?.pm25 + " "}</td>
             </tr>
             <tr>
-              <td>Highest annual temp</td>
+              <td>Highest Annual Temp</td>
               <td>{cityYear?.temp + (cityYear?.temp! > 35 ? " °F": " °C") }</td>
             </tr>
             <tr>
-              <td>Year with highest annual temp</td>
+              <td>Year of Highest Annual Temp</td>
               <Link to={"/years/name="+cityYear?.year}>
             { cityYear?.year}
           </Link>
