@@ -29,16 +29,16 @@ const GeneralYears = () => {
   // gets data from API
   const getData = () => {
     axios.get("/api/years")
-    .then((response)=>{
-        const yearsObj:YearsObject = response.data as YearsObject;
+      .then((response) => {
+        const yearsObj: YearsObject = response.data as YearsObject;
         setYearsObj(yearsObj);
         setPosts(yearsObj.years as Year[]);
         console.log(posts);
         console.log(yearsObj);
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
-    })
+      })
   };
 
   getData();
@@ -46,53 +46,65 @@ const GeneralYears = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <h1>Global Climate Change</h1>
-        <Image src={require("../assets/fire.jpg")} fluid />
+        <h1> Annual Global Climate Change</h1>
+        <Image src={require("../assets/fire.jpg")} width="600px" fluid />
+        <br />
         <Form>
           <Form.Group>
-            <Form.Label>Search Bar</Form.Label>
-            <Form.Control placeholder="Enter search" />
-          </Form.Group>
-          <Button variant="outline-info">Search</Button>
-        </Form>
-        <>
+          <Form>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+              />
+              <Button variant="outline-info">Search</Button>
+            </Form>
             <ButtonGroup>
             <DropdownButton
-              title= {"Decade"} >
-                  <Dropdown.Item eventKey="1">1990s</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">2000s </Dropdown.Item>
-                  <Dropdown.Item eventKey="3">2010s </Dropdown.Item>
-
+              title={"Decade"} className="mr-2">
+              <Dropdown.Item eventKey="1">1980s</Dropdown.Item>
+              <Dropdown.Item eventKey="1">1990s</Dropdown.Item>
+              <Dropdown.Item eventKey="2">2000s </Dropdown.Item>
+              <Dropdown.Item eventKey="3">2010s </Dropdown.Item>
             </DropdownButton>
             <DropdownButton
-              title= {"Temperature Anomaly"} >
-                  <Dropdown.Item eventKey="1">Less than 1</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Between 1 and 2 </Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Between 2 and 3</Dropdown.Item>
+              title={"Methane Level"} className="mr-2">
+              <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
+              <Dropdown.Item eventKey="1">1000-1500</Dropdown.Item>
+              <Dropdown.Item eventKey="2">Greater than 1500 </Dropdown.Item>
+            </DropdownButton>
+            <DropdownButton
+              title={"Temperature Anomaly"} className="mr-2" >
+              <Dropdown.Item eventKey="1">Less than 1</Dropdown.Item>
+              <Dropdown.Item eventKey="2">Between 1 and 2 </Dropdown.Item>
+              <Dropdown.Item eventKey="3">Between 2 and 3</Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton
-              title= {"Carbon Dioxide Level"} >
-                  <Dropdown.Item eventKey="1">Less than 300</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">300-400 </Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Greater than 400 </Dropdown.Item>
+              title={"Carbon Dioxide Level"} className="mr-2">
+              <Dropdown.Item eventKey="1">Less than 300</Dropdown.Item>
+              <Dropdown.Item eventKey="2">300-400 </Dropdown.Item>
+              <Dropdown.Item eventKey="3">Greater than 400 </Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton
-              title= {"Ice Extent"} >
-                  <Dropdown.Item eventKey="1">Less than 4</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Between 4-5 </Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Greater than 4</Dropdown.Item>
+              title={"Ice Extent"} className="mr-2">
+              <Dropdown.Item eventKey="1">Greater than 20M</Dropdown.Item>
+              <Dropdown.Item eventKey="2">Greater than 25M</Dropdown.Item>
+              <Dropdown.Item eventKey="3">Greater than 30M</Dropdown.Item>
             </DropdownButton>
-            </ButtonGroup>
-            </>
-        <Form></Form>
+          </ButtonGroup>
+    
+          </Form.Group>
+        </Form>
+        
+        <br></br>
         {YearTable(currentPosts)}
         {Pagination(postsPerPage, posts.length, paginate)}
       </header>

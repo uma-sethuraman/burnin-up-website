@@ -12,10 +12,10 @@ const CityPosts = (posts: City[]) => {
             <tr>
               <th>City</th>
               <th>Country iso2 Code</th>
-              <th>Elevation</th>
-              <th>O3</th>
-              <th>PM10</th>
-              <th>PM2.5</th>
+              <th>Elevation (ft)</th>
+              <th>O3 (Dobson Units)</th>
+              <th>PM10 (ug/m3)</th>
+              <th>PM2.5 (ug/m3)</th>
               <th>Population</th>
               <th>Time Zone</th>
             </tr>
