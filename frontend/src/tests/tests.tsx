@@ -31,13 +31,6 @@ it('get City General Page', async () => {
 	expect(copy.find("div")).to.have.length(1);
 });
 
-// it('get Country General Page', async () => {
-// 	const copy = shallow(<Countries />);
-// 	expect(copy).to.not.be.undefined;
-// 	expect(copy).to.have.length(1);
-// 	expect(copy.find("div")).to.have.length(7);
-// });
-
 it('get GeneralYears page', async () => {
 	const copy = shallow(<GeneralYears />);
 	expect(copy).to.not.be.undefined;
