@@ -18,7 +18,7 @@ cs373-sustainability_mocha:
     script:
         - cd frontend
         - npm install
-        - npm run mochatest
+        - npm run test
 
 cs373-sustainability_python:
     image:
@@ -35,3 +35,4 @@ cs373-sustainability_selenium:
         - pip install selenium
         - pip install requests
         - pip install pytest
+        - python3 guitests.py
