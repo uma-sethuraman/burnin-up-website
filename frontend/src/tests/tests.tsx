@@ -4,6 +4,7 @@ import { expect, use } from 'chai';
 import * as Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import { mount, shallow, configure } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { render } from '@testing-library/react';
 
@@ -48,21 +49,21 @@ it('should get GeneralYears', async () => {
 // 	expect(copy.find("div")).to.have.length(42);
 // });
 
-// it('should get CityInstance', async () => {
-// 	const component = mount(<CityInstance />);
-// 	expect(component).to.not.be.undefined;
-// 	expect(component).to.have.length(1);
-// });
+it('should get CityInstance', async () => {
+	const component = mount(<Router><CityInstance /> </Router>);
+	expect(component).to.not.be.undefined;
+	expect(component).to.have.length(1);
+});
 
-// it('should get CountryInstance', async () => {
-// 	const component = mount(<CountryInstance />);
-// 	expect(component).to.not.be.undefined;
-// 	expect(component).to.have.length(1);
-// });
+it('should get CountryInstance', async () => {
+	const component = mount(<Router><CountryInstance /></Router>);
+	expect(component).to.not.be.undefined;
+	expect(component).to.have.length(1);
+});
 
-// it('should get WorldviewInstance', async () => {
-// 	const component = mount(<YearInstance />);
-// 	expect(component).to.not.be.undefined;
-// 	expect(component).to.have.length(1);
-// });
+it('should get YearInstance', async () => {
+	const component = mount(<Router><YearInstance /></Router>);
+	expect(component).to.not.be.undefined;
+	expect(component).to.have.length(1);
+});
 
