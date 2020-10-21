@@ -26,7 +26,7 @@ cs373-sustainability_python:
         entrypoint: [""]
     script:
         - cd backend
-        - python test/tests.py
+        - python tests.py
 
 cs373-sustainability_selenium:
     image: python:3.7
