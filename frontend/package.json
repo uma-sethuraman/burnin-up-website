@@ -71,12 +71,10 @@
     "@types/enzyme": "^3.10.7",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^24.9.1",
-    "babel-jest": "^26.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.6.0",
     "ts-jest": "^26.4.1",
     "typescript": "^3.9.7"
   },

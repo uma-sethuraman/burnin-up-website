@@ -165,3 +165,7 @@ for each_country_capital in cp:
                     obj.pm10 = cities_climate_data["data"]["forecast"]["daily"]["pm10"][0]["avg"]
                     obj.o3 = cities_climate_data["data"]["forecast"]["daily"]["o3"][0]["avg"]
 
+# Delete cities without climate data because if the city doesn't have climate data, it isn't needed
+# db.session.query(City).filter(City.pm10 == 0).delete()
+# db.session.commit()
+
