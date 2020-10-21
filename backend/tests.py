@@ -31,7 +31,6 @@ class Tests(TestCase):
         d = r.json()
         assert len(d["countries"]) == 211
 
-
     def test_countries_all(self):
         r = requests.get("https://burninup.me/api/countries")
         assert r.status_code == 200
@@ -48,7 +47,7 @@ class Tests(TestCase):
             "country_name": "Aruba",
             "country_region": "Latin America & Caribbean ",
             "recent_emissions": 8.463651329197651,
-            "recent_emissions_year": 2018
+            "recent_emissions_year": 2018,
         }
 
     def test_countries_instance(self):
@@ -66,16 +65,14 @@ class Tests(TestCase):
             "country_name": "Angola",
             "country_region": "Sub-Saharan Africa ",
             "recent_emissions": 1.1209737471599153,
-            "recent_emissions_year": 2018
+            "recent_emissions_year": 2018,
         }
 
     def test_countries_error_result(self):
         r = requests.get("https://burninup.me/api/countries/id=-1")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "-1 not found"
-        }
+        assert d == {"error": "-1 not found"}
 
     # -------
     # Years
@@ -101,7 +98,7 @@ class Tests(TestCase):
             "temp_anomaly": -0.23,
             "world_population": 1474528887,
             "year_id": 1,
-            "year_name": "1880"
+            "year_name": "1880",
         }
 
     def test_years_instance(self):
@@ -117,16 +114,14 @@ class Tests(TestCase):
             "temp_anomaly": 0.49,
             "world_population": 6049205203,
             "year_id": 120,
-            "year_name": "1999"
+            "year_name": "1999",
         }
-    
+
     def test_years_error_result(self):
         r = requests.get("https://burninup.me/api/years/name=-188")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "-188 not found"
-        }
+        assert d == {"error": "-188 not found"}
 
     # -------
     # Cities
@@ -155,7 +150,7 @@ class Tests(TestCase):
             "pm10": -1.0,
             "pm25": -1.0,
             "population": 2776168,
-            "time_zone": "NaN"
+            "time_zone": "NaN",
         }
 
     def test_cities_id_instance(self):
@@ -174,16 +169,14 @@ class Tests(TestCase):
             "pm10": 9.0,
             "pm25": 16.0,
             "population": 6596,
-            "time_zone": "NaN"
+            "time_zone": "NaN",
         }
 
     def test_cities_id_error_result(self):
         r = requests.get("https://burninup.me/api/cities/id=-1")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "-1 not found"
-        }
+        assert d == {"error": "-1 not found"}
 
     def test_cities_name_instance(self):
         r = requests.get("https://burninup.me/api/cities/name=Kabul")
@@ -201,16 +194,14 @@ class Tests(TestCase):
             "pm10": 1.0,
             "pm25": 14.0,
             "population": 3043532,
-            "time_zone": "NaN"
+            "time_zone": "NaN",
         }
 
     def test_cities_name_error_result(self):
         r = requests.get("https://burninup.me/api/cities/name=nooo")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "nooo not found"
-        }
+        assert d == {"error": "nooo not found"}
 
     def test_relevant_cities_num_results(self):
         r = requests.get("https://burninup.me/api/cities/city_names")
@@ -223,9 +214,7 @@ class Tests(TestCase):
         assert r.status_code == 200
         d = r.json()
         assert len(d["city_names"]) > 0
-        assert d["city_names"][0] == {
-            "Oranjestad"
-        }
+        assert d["city_names"][0] == {"Oranjestad"}
         pass
 
     # ------------------
@@ -251,7 +240,7 @@ class Tests(TestCase):
             "lat": 0.0,
             "long": 0.0,
             "year_id": 1,
-            "year_name": 1880
+            "year_name": 1880,
         }
 
     # ------------------
@@ -275,7 +264,7 @@ class Tests(TestCase):
             "country_co2": 2.160510197310624,
             "countryid": 67,
             "year_id": 1,
-            "year_name": "1800"
+            "year_name": "1800",
         }
 
     # ------------
@@ -297,7 +286,7 @@ class Tests(TestCase):
             "city": "Kabul",
             "temp": 21.02927272727273,
             "year": 1880,
-            "year_id": 1
+            "year_id": 1,
         }
 
     def test_city_year_name_instance(self):
@@ -308,16 +297,14 @@ class Tests(TestCase):
             "city": "Vienna",
             "temp": 52.93561643835609,
             "year": 2014,
-            "year_id": 7
+            "year_id": 7,
         }
 
     def test_city_year_name_error_result(self):
         r = requests.get("https://burninup.me/api/city_year/name=Austin")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "Austin not found"
-        }
+        assert d == {"error": "Austin not found"}
 
     # ----------------------
     # Carbon Emission Years
@@ -338,7 +325,7 @@ class Tests(TestCase):
             "co2": 27.933465346534657,
             "country": "Aruba",
             "year": 2007,
-            "year_id": 1
+            "year_id": 1,
         }
 
     def test_carbon_emission_year_name_instance(self):
@@ -349,16 +336,14 @@ class Tests(TestCase):
             "co2": 2.884633181126332,
             "country": "Albania",
             "year": 1979,
-            "year_id": 4
+            "year_id": 4,
         }
 
     def test_carbon_emission_year_name_error_result(self):
         r = requests.get("https://burninup.me/api/country_year/name=nooo")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "nooo not found"
-        }
+        assert d == {"error": "nooo not found"}
 
     # ---------------
     # Capital Cities
@@ -368,17 +353,13 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/1/capital_city_id")
         assert r.status_code == 200
         d = r.json()
-        assert d == {
-            "capital_city_id": 2
-        }
+        assert d == {"capital_city_id": 2}
 
     def test_capital_city_country_id_error_result(self):
         r = requests.get("https://burninup.me/api/-1/capital_city_id")
         assert r.status_code == 404
         d = r.json()
-        assert d == {
-            "error": "country id -1 not found"
-        }
+        assert d == {"error": "country id -1 not found"}
 
     # ---------------
     # Country Code
@@ -388,18 +369,14 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/138/country_code")
         assert r.status_code == 404
         d = r.json()
-        assert d["country_code"] == {
-            "id": 3,
-            "name": "Angola"
-        }
+        assert d["country_code"] == {"id": 3, "name": "Angola"}
 
     def test_country_code_city_id_error_result(self):
         r = requests.get("https://burninup.me/api/-1/country_code")
         assert r.status_code == 404
         d = r.json()
-        assert d["country_code"] == {
-            "error": "city id -1 not found"
-        }
+        assert d["country_code"] == {"error": "city id -1 not found"}
+
 
 if __name__ == "__main__":  # pragma: no cover
     main()
