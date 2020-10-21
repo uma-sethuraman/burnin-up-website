@@ -10,7 +10,7 @@ docker:
 
 # run docker-compose
 docker-compose:
-    docker-compose up --force-recreate
+	docker-compose up --build --force-recreate
 
 all:
 
