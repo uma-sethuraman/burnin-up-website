@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-#from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
+
+# from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from sqlalchemy import Column, String, Integer
 from flask import request
 import urllib
@@ -19,8 +20,10 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.debug = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -40,9 +43,19 @@ class Country(db.Model):
     recent_emissions_year = db.Column(db.Integer)
     recent_emissions = db.Column(db.Float)
 
-    def __init__(self, country_name="NaN", country_region="NaN", country_income="NaN", capital_city="NaN",
-                 iso2code="NaN", iso3code="NaN", country_lat=0.0, country_long=0.0, recent_emissions_years=-1,
-                 recent_emissions=0.0):
+    def __init__(
+        self,
+        country_name="NaN",
+        country_region="NaN",
+        country_income="NaN",
+        capital_city="NaN",
+        iso2code="NaN",
+        iso3code="NaN",
+        country_lat=0.0,
+        country_long=0.0,
+        recent_emissions_years=-1,
+        recent_emissions=0.0,
+    ):
         self.country_name = country_name
         self.country_region = country_region
         self.country_income = country_income
@@ -54,39 +67,46 @@ class Country(db.Model):
         self.recent_emissions_year = recent_emissions_years
         self.recent_emissions = recent_emissions
 
+
 db.create_all()
 
 ### Table for Country ###
-request_url = 'http://api.worldbank.org/v2/countries?format=json&&per_page=400'
+request_url = "http://api.worldbank.org/v2/countries?format=json&&per_page=400"
 r = urllib.request.urlopen(request_url)
 data = json.loads(r.read())
 country_list = []
 for item in data[1]:
     if item["region"]["value"] != "Aggregates":
         # Account for case where there is not lat or lon
-        if item['latitude'] != '':
-            new_country = Country(country_name=item["name"], country_region=item["region"]["value"],
-                                  country_income=item["incomeLevel"]["value"], capital_city=item['capitalCity'],
-                                  iso2code=item['iso2Code'], iso3code=item["id"], country_lat=item["latitude"],
-                                  country_long=item["longitude"])
+        if item["latitude"] != "":
+            new_country = Country(
+                country_name=item["name"],
+                country_region=item["region"]["value"],
+                country_income=item["incomeLevel"]["value"],
+                capital_city=item["capitalCity"],
+                iso2code=item["iso2Code"],
+                iso3code=item["id"],
+                country_lat=item["latitude"],
+                country_long=item["longitude"],
+            )
         country_list.append(new_country)
 
 country_emissions_df = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
 not_found = []
 for country in country_list:
-    years = country_emissions_df.loc[country_emissions_df['Entity'] == country.country_name]
+    years = country_emissions_df.loc[
+        country_emissions_df["Entity"] == country.country_name
+    ]
     if len(years) != 0:
-        recent_emissions_idx = years['Year'].idxmax()
-        country.recent_emissions_year = int(country_emissions_df['Year'].iloc[recent_emissions_idx])
-        country.recent_emissions = float(country_emissions_df['Per capita CO2 emissions'].iloc[recent_emissions_idx])
+        recent_emissions_idx = years["Year"].idxmax()
+        country.recent_emissions_year = int(
+            country_emissions_df["Year"].iloc[recent_emissions_idx]
+        )
+        country.recent_emissions = float(
+            country_emissions_df["Per capita CO2 emissions"].iloc[recent_emissions_idx]
+        )
     else:
         not_found.append(country.country_name)
 
 db.session.add_all(country_list)
 db.session.commit()
-
-
-
-
-
-

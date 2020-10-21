@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-#from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
+
+# from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from sqlalchemy import Column, String, Integer, BigInteger
 from flask import request
 import urllib
@@ -18,8 +19,10 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.debug = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -72,7 +75,16 @@ class CityTempPerYear(db.Model):
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
 
-    def __init__(self, year_name=0, country="NaN", city="NaN", city_temp="NaN", lat=0.0, long=0.0, city_id=0):
+    def __init__(
+        self,
+        year_name=0,
+        country="NaN",
+        city="NaN",
+        city_temp="NaN",
+        lat=0.0,
+        long=0.0,
+        city_id=0,
+    ):
         self.year_name = year_name
         self.city = city
         self.country = country
@@ -84,6 +96,7 @@ class CityTempPerYear(db.Model):
     def setLatLon(self, lat, lon):
         self.lat = lat
         self.long = lon
+
 
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
@@ -195,28 +208,41 @@ for city in cities:
         words = city.city.split()
         if "(" in words[1] or ")" in words[1]:
             print("Has parentheses: " + city.city + " Fix: " + words[0])
-            request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + words[0] + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            request_city_location = (
+                "https://maps.googleapis.com/maps/api/geocode/json?&address="
+                + words[0]
+                + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            )
             response = requests.request("GET", request_city_location)
             city_location_data = response.json()
             city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
             city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
         else:
             print("Has two words: " + words[0] + " " + words[1])
-            request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + words[0] + "%20" + words[1] + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            request_city_location = (
+                "https://maps.googleapis.com/maps/api/geocode/json?&address="
+                + words[0]
+                + "%20"
+                + words[1]
+                + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            )
             response = requests.request("GET", request_city_location)
             city_location_data = response.json()
             city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
             city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
     else:
-            print("Has one word: " + city.city)
-            request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + city.city + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
-            response = requests.request("GET", request_city_location)
-            city_location_data = response.json()
-            city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
-            city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+        print("Has one word: " + city.city)
+        request_city_location = (
+            "https://maps.googleapis.com/maps/api/geocode/json?&address="
+            + city.city
+            + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+        )
+        response = requests.request("GET", request_city_location)
+        city_location_data = response.json()
+        city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+        city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
 
 db.session.commit()
-
 
 
 # # Finds the cities we need info on in the Cities Table
