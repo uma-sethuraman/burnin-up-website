@@ -155,7 +155,7 @@ function About() {
           <div className="h2_about">
             <div className="columnsAbout">
               <Image
-                src={require("../assets/CaitlinLien.JPG")}
+                src="../assets/CaitlinLien.JPG"
                 height="250"
                 roundedCircle
               />
@@ -172,7 +172,7 @@ function About() {
             </div>
             <div className="columnsAbout">
               <Image
-                src={require("../assets/caitlin-o-headshot.jpeg")}
+                src="../assets/caitlin-o-headshot.jpeg"
                 height="250"
                 roundedCircle
               />
@@ -189,7 +189,7 @@ function About() {
             </div>
             <div className="columnsAbout">
               <Image
-                src={require("../assets/cherry.jpeg")}
+                src="../assets/cherry.jpeg"
                 height="250"
                 roundedCircle
               />
@@ -206,7 +206,7 @@ function About() {
             </div>
             <div className="columnsAbout">
               <Image
-                src={require("../assets/LaurenMangibin-headshot.jpg")}
+                src="../assets/LaurenMangibin-headshot.jpg"
                 height="250"
                 roundedCircle
               />
@@ -222,7 +222,7 @@ function About() {
             </div>
             <div className="columnsAbout">
               <Image
-                src={require("../assets/samantha-headshot.jpg")}
+                src="../assets/samantha-headshot.jpg"
                 height="250"
                 roundedCircle
               />
@@ -238,7 +238,7 @@ function About() {
             </div>
             <div className="columnsAbout">
               <Image
-                src={require("../assets/uma-headshot.jpg")}
+                src="../assets/uma-headshot.jpg"
                 height="250"
                 roundedCircle
               />
@@ -260,14 +260,14 @@ function About() {
           <h2>
             <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
               Our Postman API<br></br>
-              <Image className="ToolImage" src={require("../assets/PostmanLogo.png")} />
+              <Image className="ToolImage" src="../assets/PostmanLogo.png" />
             </a>
           </h2>
           <br></br>
           <h2>
             <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
               Our GitLab Repository<br></br>
-              <Image className="ToolImage" src={require("../assets/GitlabLogo.jpg")} />
+              <Image className="ToolImage" src="../assets/GitlabLogo.jpg"/>
             </a>
           </h2>
           <br></br>
@@ -295,50 +295,50 @@ function About() {
         <h2>Tools</h2>
         <div className="Toolcolumn">
           <a href="https://reactjs.org/" >
-            <Image className="ToolImage" src={require("../assets/ReactLogo.jpg")} />
+            <Image className="ToolImage" src="../assets/ReactLogo.jpg" />
           </a>
           <figcaption className="caption">React: renders website and connects user-interface to backend </figcaption>
         </div>
 
         <div className="Toolcolumn">
           <a href="https://react-bootstrap.github.io/" >
-            <Image className="ToolImage" src={require("../assets/ReactBootstrap.png")} />
+            <Image className="ToolImage" src="../assets/ReactBootstrap.png"/>
           </a>
           <figcaption className="caption">ReactBootstrap: CSS framework for website </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://aws.amazon.com/elasticbeanstalk/" >
-            <Image className="ToolImage" src={require("../assets/ElasticBeanstalk.png")} />
+            <Image className="ToolImage" src="../assets/ElasticBeanstalk.png" />
           </a>
           <figcaption className="caption">AWS Elastic Beanstalk: hosts website from Git Repository </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.postman.com/" >
-            <Image className="ToolImage" src={require("../assets/PostmanLogo.png")} />
+            <Image className="ToolImage" src="../assets/PostmanLogo.png" />
           </a>
           <figcaption className="caption">Postman: create Burnin' Up API </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.gitlab.com/" >
-            <Image className="ToolImage" src={require("../assets/GitlabLogo.jpg")} />
+            <Image className="ToolImage" src="../assets/GitlabLogo.jpg"/>
           </a>
           <figcaption className="caption">GitLab: holds repository</figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.namecheap.com/" >
-            <Image className="ToolImage" src={require("../assets/NameCheapLogo.png")} />
+            <Image className="ToolImage" src="../assets/NameCheapLogo.png" />
           </a>
           <figcaption className="caption">NameCheap: website name </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.discord.com/" >
-            <Image className="ToolImage" src={require("../assets/DiscordLogo.png")} />
+            <Image className="ToolImage" src="../assets/DiscordLogo.png"/>
           </a>
           <figcaption className="caption">Discord: group communication </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://jupyter.org/" >
-            <Image className="ToolImage" src={require("../assets/JupyterNotebook.svg")} />
+            <Image className="ToolImage" src="../assets/JupyterNotebook.svg" />
           </a>
           <figcaption className="caption">Jupyter Notebook: used to parse data</figcaption>
         </div>
