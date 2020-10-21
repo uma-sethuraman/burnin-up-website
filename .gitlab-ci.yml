@@ -27,7 +27,7 @@ cs373-sustainability_python:
     script:
         - cd backend
         - pip install -r requirements.txt
-        - python backend/tests.py
+        - python tests.py
 
 cs373-sustainability_selenium:
     image: python:3.7

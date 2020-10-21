@@ -14,9 +14,9 @@ import sys, os
 import requests
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../scraped_data"))
-from cities import *
-from countries import *
-from years import *
+# from cities import *
+# from countries import *
+# from years import *
 
 
 class Tests(TestCase):
@@ -29,7 +29,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/countries")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["countries"]) == 211
+        assert len(d["countries"]) == 217
 
     def test_countries_all(self):
         r = requests.get("https://burninup.me/api/countries")
@@ -131,7 +131,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/cities")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["cities"]) == 260
+        assert len(d["cities"]) == 244
 
     def test_cities_list(self):
         r = requests.get("https://burninup.me/api/cities")
@@ -214,7 +214,7 @@ class Tests(TestCase):
         assert r.status_code == 200
         d = r.json()
         assert len(d["city_names"]) > 0
-        assert d["city_names"][0] == {"Oranjestad"}
+        assert d["city_names"][0] == "Oranjestad"
         pass
 
     # ------------------
@@ -225,7 +225,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/city_temperatures")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["city_temperatures_years"]) == 1410
+        assert len(d["city_temperatures_years"]) == 2820
 
     def test_city_temps_list(self):
         r = requests.get("https://burninup.me/api/city_temperatures")
@@ -233,14 +233,14 @@ class Tests(TestCase):
         d = r.json()
         assert len(d["city_temperatures_years"]) > 0
         assert d["city_temperatures_years"][0] == {
-            "city": "Jibuti",
-            "city_id": 7127,
-            "city_temp": 29.9397,
-            "country": "Djibouti",
-            "lat": 0.0,
-            "long": 0.0,
-            "year_id": 1,
-            "year_name": 1880,
+            "city": "Tirunelveli",
+            "city_id": 7086,
+            "city_temp": 29.00336363636364,
+            "country": "India",
+            "lat": 8.713912600000002,
+            "long": 77.7566523,
+            "year_id": 10,
+            "year_name": 1880
         }
 
     # ------------------
@@ -314,7 +314,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/country_year")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["country_year"]) == 179
+        assert len(d["country_year"]) == 185
 
     def test_carbon_emission_years_list(self):
         r = requests.get("https://burninup.me/api/country_year")
@@ -367,7 +367,7 @@ class Tests(TestCase):
 
     def test_country_code_city_id_instance(self):
         r = requests.get("https://burninup.me/api/138/country_code")
-        assert r.status_code == 404
+        assert r.status_code == 200
         d = r.json()
         assert d["country_code"] == {"id": 3, "name": "Angola"}
 
@@ -375,7 +375,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/-1/country_code")
         assert r.status_code == 404
         d = r.json()
-        assert d["country_code"] == {"error": "city id -1 not found"}
+        assert d == {"error": "city id -1 not found"}
 
 
 if __name__ == "__main__":  # pragma: no cover
