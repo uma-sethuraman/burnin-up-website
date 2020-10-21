@@ -30,6 +30,7 @@ it('get City General Page', async () => {
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(1);
 });
+
 // it('get Country General Page', async () => {
 // 	const copy = shallow(<Countries />);
 // 	expect(copy).to.not.be.undefined;
@@ -48,7 +49,7 @@ it('should get About', async () => {
 	const copy = shallow(<About />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
-	expect(copy.find("div")).to.have.length(42);
+	expect(copy.find("div")).to.have.length(23);
 });
 
 it('Get a CityInstance', async () => {
