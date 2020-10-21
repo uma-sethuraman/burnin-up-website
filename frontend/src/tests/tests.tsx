@@ -16,9 +16,11 @@ import GeneralYears from "../views/GeneralYears";
 import Countries from "../views/Countries";
 import CountryInstance from "../views/components/Country/CountryInstance";
 import YearInstance from "../views/components/Year/YearInstance";
+
 Enzyme.configure({
   adapter: new Adapter(),
 })
+
 
 var assert = require('assert')
 
@@ -35,33 +37,33 @@ it('get City General Page', async () => {
 // 	expect(copy.find("div")).to.have.length(7);
 // });
 
-it('should get GeneralYears', async () => {
+it('get GeneralYears page', async () => {
 	const copy = shallow(<GeneralYears />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(1);
 });
 
-// it('should get About', async () => {
-// 	const copy = shallow(<About />);
-// 	expect(copy).to.not.be.undefined;
-// 	expect(copy).to.have.length(1);
-// 	expect(copy.find("div")).to.have.length(42);
-// });
+it('should get About', async () => {
+	const copy = shallow(<About />);
+	expect(copy).to.not.be.undefined;
+	expect(copy).to.have.length(1);
+	expect(copy.find("div")).to.have.length(42);
+});
 
-it('should get CityInstance', async () => {
+it('Get a CityInstance', async () => {
 	const component = mount(<Router><CityInstance /> </Router>);
 	expect(component).to.not.be.undefined;
 	expect(component).to.have.length(1);
 });
 
-it('should get CountryInstance', async () => {
+it('Get a CountryInstance', async () => {
 	const component = mount(<Router><CountryInstance /></Router>);
 	expect(component).to.not.be.undefined;
 	expect(component).to.have.length(1);
 });
 
-it('should get YearInstance', async () => {
+it('Get a YearInstance', async () => {
 	const component = mount(<Router><YearInstance /></Router>);
 	expect(component).to.not.be.undefined;
 	expect(component).to.have.length(1);
