@@ -6,9 +6,15 @@ import flask
 import json
 
 # Create flask app
-app = Flask(__name__, static_folder="../frontend/build/static", template_folder="../frontend/build")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app = Flask(
+    __name__,
+    static_folder="../frontend/build/static",
+    template_folder="../frontend/build",
+)
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://supremeleader:steven04@burninup-db-1.cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.debug = True
 
 db = SQLAlchemy(app)
@@ -30,6 +36,7 @@ class Country(db.Model):
     recent_emissions_year = db.Column(db.Integer)
     recent_emissions = db.Column(db.Float)
 
+
 # Year Model
 class Year(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -42,6 +49,7 @@ class Year(db.Model):
     sea_level = db.Column(db.Float)
     world_population = db.Column(db.BigInteger)
 
+
 # Country C02 Emissions Per Year Model
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -50,6 +58,7 @@ class CountryEmissionsPerYear(db.Model):
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
     countryid = db.Column(db.Integer)
+
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -61,6 +70,7 @@ class CityTempPerYear(db.Model):
     city_temp = db.Column(db.Float)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
+
 
 # City Model
 class City(db.Model):
@@ -77,6 +87,7 @@ class City(db.Model):
     country_iso2code = db.Column(db.String())
     co = db.Column(db.Float)
 
+
 # City Year Model
 class CityYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -84,12 +95,14 @@ class CityYear(db.Model):
     year = db.Column(db.Integer)
     temp = db.Column(db.Float)
 
+
 # Country Year Model
 class CountryYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String())
     year = db.Column(db.Integer)
     co2 = db.Column(db.Float)
+
 
 ###### SCHEMAS ######
 
@@ -107,6 +120,7 @@ class CountrySchema(ma.Schema):
     recent_emissions_year = fields.Int(required=False)
     recent_emissions = fields.Float(required=False)
 
+
 # Year Schema
 class YearSchema(ma.Schema):
     year_id = fields.Int(required=True)
@@ -119,6 +133,7 @@ class YearSchema(ma.Schema):
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
 
+
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema(ma.Schema):
     year_id = fields.Int(required=True)
@@ -127,6 +142,7 @@ class CountryEmissionsPerYearSchema(ma.Schema):
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
     countryid = fields.Int(required=False)
+
 
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema(ma.Schema):
@@ -138,6 +154,7 @@ class CityTempPerYearSchema(ma.Schema):
     city_temp = fields.Float(required=False)
     lat = fields.Float(required=False)
     long = fields.Float(required=False)
+
 
 # City Schema
 class CitySchema(ma.Schema):
@@ -154,6 +171,7 @@ class CitySchema(ma.Schema):
     country_iso2code = fields.Str(required=False)
     co = fields.Float(required=False)
 
+
 # City Year Schema
 class CityYearSchema(ma.Schema):
     year_id = fields.Int(required=True)
@@ -161,12 +179,14 @@ class CityYearSchema(ma.Schema):
     year = fields.Int(required=False)
     temp = fields.Float(required=False)
 
+
 # Country Year Schema
 class CountryYearSchema(ma.Schema):
     year_id = fields.Int(required=True)
     country = fields.Str(required=False)
     year = fields.Int(required=False)
     co2 = fields.Float(required=False)
+
 
 ###### INITIALIZE SCHEMA OBJECTS ######
 
@@ -190,89 +210,109 @@ countryYear_schema = CountryYearSchema()
 
 ###### ENDPOINTS ######
 # Root routing
-@app.route('/', defaults={'path': ""})
-@app.route('/<path:path>')
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def get_index(path):
     return render_template("index.html")
 
+
 # Retrieve all countries
-@app.route('/api/countries', methods=['GET'])
+@app.route("/api/countries", methods=["GET"])
 def get_countries():
     all_countries = Country.query.all()
     result = countries_schema.dump(all_countries)
-    return jsonify({'countries': result})
+    return jsonify({"countries": result})
+
 
 # Retrieve single country entry by id
-@app.route('/api/countries/id=<id>', methods=['GET'])
+@app.route("/api/countries/id=<id>", methods=["GET"])
 def get_country_id(id):
     country = Country.query.get(id)
     if country is None:
         print("here")
-        response = flask.Response(json.dumps({"error": id + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": id + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
     return country_schema.jsonify(country)
 
+
 # Retrieve all years
-@app.route('/api/years', methods=['GET'])
+@app.route("/api/years", methods=["GET"])
 def get_years():
     all_years = Year.query.all()
     result = years_schema.dump(all_years)
-    return jsonify({'years': result})
+    return jsonify({"years": result})
+
 
 # Retrieve single year entry by year name
-@app.route('/api/years/name=<name>', methods=['GET'])
+@app.route("/api/years/name=<name>", methods=["GET"])
 def get_year_name(name):
-    year = db.session.query(Year).filter(Year.year_name==name).first()
+    year = db.session.query(Year).filter(Year.year_name == name).first()
     if year is None:
-        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": name + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
     return year_schema.jsonify(year)
 
+
 # Retrieve country carbon emissions per year
-@app.route('/api/country_emissions')
+@app.route("/api/country_emissions")
 def get_country_emissions():
-    all_country_years = CountryEmissionsPerYear.query.order_by(CountryEmissionsPerYear.year_id).all()
+    all_country_years = CountryEmissionsPerYear.query.order_by(
+        CountryEmissionsPerYear.year_id
+    ).all()
     result = countries_emissions_schema.dump(all_country_years)
-    return jsonify({'country_emissions_years': result})
+    return jsonify({"country_emissions_years": result})
+
 
 # Retrieve avg city temps per year
-@app.route('/api/city_temperatures')
+@app.route("/api/city_temperatures")
 def get_city_temperatures():
     all_cities_temps = CityTempPerYear.query.order_by(CityTempPerYear.year_name).all()
     result = cities_temp_schema.dump(all_cities_temps)
-    return jsonify({'city_temperatures_years': result})
+    return jsonify({"city_temperatures_years": result})
+
 
 # Retrieve all cities
-@app.route('/api/cities', methods=['GET'])
+@app.route("/api/cities", methods=["GET"])
 def get_cities():
     all_cities = City.query.all()
     result = cities_schema.dump(all_cities)
-    return jsonify({'cities': result})
+    return jsonify({"cities": result})
+
 
 # Retrieve single city entry by id
-@app.route('/api/cities/id=<id>', methods=['GET'])
+@app.route("/api/cities/id=<id>", methods=["GET"])
 def get_city_id(id):
     city = City.query.get(id)
     if city is None:
-        response = flask.Response(json.dumps({"error": id + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": id + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
     return citys_schema.jsonify(city)
+
 
 # # Retrieve single city entry by city name
-@app.route('/api/cities/name=<name>', methods=['GET'])
+@app.route("/api/cities/name=<name>", methods=["GET"])
 def get_city_name(name):
-    city = db.session.query(City).filter(City.city_name==name).first()
+    city = db.session.query(City).filter(City.city_name == name).first()
     if city is None:
-        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": name + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
     return citys_schema.jsonify(city)
 
+
 # Retrieve list of relevant city names (capitals and top temp per year cities)
-@app.route('/api/cities/city_names', methods=['GET'])
+@app.route("/api/cities/city_names", methods=["GET"])
 def get_capital():
     city_table = City.query.all()
     cp = db.session.query(Country.country_capital_city).all()
@@ -286,75 +326,100 @@ def get_capital():
             cities_list += [item.city]
     return jsonify({"city_names": cities_list})
 
+
 # Retrieve city years (hottest year for each city)
-@app.route('/api/city_year', methods=['GET'])
+@app.route("/api/city_year", methods=["GET"])
 def get_city_years():
     all_city_years = CityYear.query.all()
     result = city_years_schema.dump(all_city_years)
-    return jsonify({'city_years': result})
+    return jsonify({"city_years": result})
+
 
 # Retrieve single city year entry by city name (hottest year for each city)
-@app.route('/api/city_year/name=<name>', methods=['GET'])
+@app.route("/api/city_year/name=<name>", methods=["GET"])
 def get_city_years_name(name):
-    city_year = db.session.query(CityYear).filter(CityYear.city==name).first()
+    city_year = db.session.query(CityYear).filter(CityYear.city == name).first()
     if city_year is None:
-        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": name + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
     return city_year_schema.jsonify(city_year)
 
+
 # Retrieve country years (highest carbon emissions for each country)
-@app.route('/api/country_year', methods=['GET'])
+@app.route("/api/country_year", methods=["GET"])
 def country_years():
     country_year = CountryYear.query.all()
     result = countriesYear_schema.dump(country_year)
-    return jsonify({'country_year': result})
+    return jsonify({"country_year": result})
+
 
 # Retrieve single country year entry by country name (highest carbon emissions for each country)
-@app.route('/api/country_year/name=<name>', methods=['GET'])
+@app.route("/api/country_year/name=<name>", methods=["GET"])
 def country_year(name):
-    country_year = db.session.query(CountryYear).filter(CountryYear.country == name).first()
+    country_year = (
+        db.session.query(CountryYear).filter(CountryYear.country == name).first()
+    )
     if country_year is None:
-        response = flask.Response(json.dumps({"error": name + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": name + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
     return countryYear_schema.jsonify(country_year)
 
+
 # Getting the capital city id by country id
-@app.route('/api/<country_id>/capital_city_id', methods=['GET'])
+@app.route("/api/<country_id>/capital_city_id", methods=["GET"])
 def get_capital_city_id(country_id):
     country = Country.query.get(country_id)
     if country is None:
-        response = flask.Response(json.dumps({"error": "country id " + country_id + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": "country id " + country_id + " not found"}),
+            mimetype="application/json",
+        )
         response.status_code = 404
         return response
     str2 = str(country.country_capital_city)
     city = db.session.query(City).filter(City.city_name == str2).first()
     if city is None:
-        response = flask.Response(json.dumps({"error": country_id + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": country_id + " not found"}),
+            mimetype="application/json",
+        )
         response.status_code = 404
         return response
-    return jsonify({'capital_city_id': city.city_id})
+    return jsonify({"capital_city_id": city.city_id})
+
 
 # Getting the country code and name by city id
-@app.route('/api/<city_id>/country_code', methods=['GET'])
+@app.route("/api/<city_id>/country_code", methods=["GET"])
 def get_country_id_by_city(city_id):
     city = City.query.get(city_id)
     if city is None:
-        response = flask.Response(json.dumps({"error": "city id " + city_id + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": "city id " + city_id + " not found"}),
+            mimetype="application/json",
+        )
         response.status_code = 404
         return response
     city_country = city.country_iso2code
-    country = db.session.query(Country).filter(Country.country_iso2code == city_country).first()
+    country = (
+        db.session.query(Country)
+        .filter(Country.country_iso2code == city_country)
+        .first()
+    )
     if country is None:
-        response = flask.Response(json.dumps({"error": city_id + " not found"}), mimetype='application/json')
+        response = flask.Response(
+            json.dumps({"error": city_id + " not found"}), mimetype="application/json"
+        )
         response.status_code = 404
         return response
-    result = {
-        "id": country.country_id,
-        "name": country.country_name
-    }
-    return jsonify({'country_code': result})
+    result = {"id": country.country_id, "name": country.country_name}
+    return jsonify({"country_code": result})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)

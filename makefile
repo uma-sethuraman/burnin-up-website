@@ -20,6 +20,9 @@ format:
 	black ./backend/countries.py
 	black ./backend/cities.py
 	black ./backend/years.py
+	black ./backend/cities_updated.py
+	black ./backend/CityCountryYear.py
+	black ./backend/tests.py
 
 install:
 	pip install -r ./backend/requirements.txt
