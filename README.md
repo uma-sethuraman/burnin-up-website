@@ -23,11 +23,11 @@ Estimated completion time for each member:
 - Uma - 30 hours
 
 Actual completion time for each member:
-- Caitlin L - 
-- Caitlin O - 1.5 hours
-- Cherry - 
-- Lauren - 2 hours
-- Samantha - 
-- Uma - 2 hours
+- Caitlin L - 45 hours
+- Caitlin O - 45 hours
+- Cherry - 45 hours
+- Lauren - 45 hours
+- Samantha - 45 hours
+- Uma - 45 hours
 
-Comments: web dev is hard. Thank you Larry and Adam <3 We love y'all!
+Comments: amplify and docker killed us
