@@ -85,8 +85,6 @@ class CityTempPerYear(db.Model):
         self.lat = lat
         self.long = lon
 
-db.create_all()
-
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String())
@@ -101,6 +99,7 @@ class City(db.Model):
     country_iso2code = db.Column(db.String())
     co = db.Column(db.Float)
 
+
 # class Country(db.Model):
 #     country_id = db.Column(db.Integer, primary_key=True)
 #     country_name = db.Column(db.String())
@@ -112,7 +111,7 @@ class City(db.Model):
 #     country_lat = db.Column(db.Float)
 #     country_long = db.Column(db.Float)
 
-# db.create_all()
+db.create_all()
 
 # ### Table for Years ###
 # request_url = 'https://global-warming.org/api/temperature-api'
@@ -170,51 +169,54 @@ class City(db.Model):
 # db.session.commit()
 
 ## Table for Avg City Temps Per Year ###
-city_temp_per_year = pd.read_csv("./datasets/AvgTempCity.csv")
-sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
-# Stores a dictionary of years with the CityTempPerYear object
-city_years_list = []
-for index, row in sorted_by_year.iterrows():
-    new_year = CityTempPerYear()
-    new_year.year_name = row['Year']
-    new_year.city = row['City']
-    if db.session.query(City).filter(City.city_name==row['City']).first():
-        new_year.city_id = db.session.query(City).filter(City.city_name==row['City']).first().city_id
-    new_year.country = row['Country']
-    new_year.city_temp = row['AvgTemperature']
-    city_years_list.append(new_year)
+# city_temp_per_year = pd.read_csv("./datasets/AvgTempCity.csv")
+# sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
+# # Stores a dictionary of years with the CityTempPerYear object
+# city_years_list = []
+# for index, row in sorted_by_year.iterrows():
+#     new_year = CityTempPerYear()
+#     new_year.year_name = row['Year']
+#     new_year.city = row['City']
+#     if db.session.query(City).filter(City.city_name==row['City']).first():
+#         new_year.city_id = db.session.query(City).filter(City.city_name==row['City']).first().city_id
+#     new_year.country = row['Country']
+#     new_year.city_temp = row['AvgTemperature']
+#     city_years_list.append(new_year)
 
-db.session.add_all(city_years_list)
-db.session.commit()
+# db.session.add_all(city_years_list)
+# db.session.commit()
 
 # Adds latitude and longitude of each city in city temps
 cities = CityTempPerYear.query.all()
 for city in cities:
-        # Fill in empty ones
-        if (city.lat == 0) & (city.long == 0) & (" " in city.city):
-            words = city.city.split()
-            if "(" in words[1] or ")" in words[1]:
-                request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + city.city + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
-                response = requests.request("GET", request_city_location)
-                city_location_data = response.json()
-                # city.setLatLon(lat = city_location_data["results"][0]["geometry"]["location"]["lat"], lon = city_location_data["results"][0]["geometry"]["location"]["lng"])
-                city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
-                city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
-            else:
-                request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + words[0] + \
-                                        "%20" + words[1] + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
-                response = requests.request("GET", request_city_location)
-                city_location_data = response.json()
-                # city.setLatLon(lat = city_location_data["results"][0]["geometry"]["location"]["lat"], lon = city_location_data["results"][0]["geometry"]["location"]["lng"])
-                city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
-                city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
-            print("City: " + city.city + " Lat: " + str(city.lat) + " Long: " + str(city.long))
+    # Fill in empty ones
+    if (city.lat == 0) & (city.long == 0) & (" " in city.city):
+        # print("City: " + city.city + " Lat: " + str(city.lat) + " Long: " + str(city.long))
+        words = city.city.split()
+        if "(" in words[1] or ")" in words[1]:
+            print("Has parentheses: " + city.city + " Fix: " + words[0])
+            request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + words[0] + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            response = requests.request("GET", request_city_location)
+            city_location_data = response.json()
+            city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+            city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+        else:
+            print("Has two words: " + words[0] + " " + words[1])
+            request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + words[0] + "%20" + words[1] + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            response = requests.request("GET", request_city_location)
+            city_location_data = response.json()
+            city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+            city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+    else:
+            print("Has one word: " + city.city)
+            request_city_location = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + city.city + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+            response = requests.request("GET", request_city_location)
+            city_location_data = response.json()
+            city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+            city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
 
 db.session.commit()
 
-# Delete cities without climate data because if the city doesn't have climate data, it isn't needed
-# db.session.query(City).filter(City.pm10 == 0).delete()
-# db.session.commit()
 
 
 # # Finds the cities we need info on in the Cities Table
