@@ -106,9 +106,9 @@ const YearInstance = (name: any) => {
             {topCountries.map(topCountry => (
               <tr>
                   <td>
-                    {topCountry.countryid !== null?
-                      <Link to={"/countries/id="+topCountry.countryid}>{topCountry.country}</Link>:
-                      <Link to={"/countries"}>{topCountry.country}</Link>
+                    {topCountry?.countryid! !== undefined ?
+                      <Link to={"/countries/id="+topCountry?.countryid}>{topCountry?.country}</Link> :
+                      <Link to={"/countries"}>{topCountry?.country}</Link>
                     }
                   </td>
               </tr>
