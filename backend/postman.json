@@ -1,0 +1,800 @@
+{
+	"id": "5f1356e3-663b-4902-a3ae-ebe3fa2480b9",
+	"name": "API testing",
+	"timestamp": "2020-10-21T02:27:11.572Z",
+	"collection_id": "7675fe74-e026-42cf-a2b9-42c220f260cc",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 47,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "52872398-f0bb-4ea1-9f60-c41289fde2f8",
+			"name": "GET all countries",
+			"url": "https://burninup.me/api/countries",
+			"time": 383,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all countries should success": true,
+				"should return 217 country": true
+			},
+			"testPassFailCounts": {
+				"get all countries should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 217 country": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				383
+			],
+			"allTests": [
+				{
+					"get all countries should success": true,
+					"should return 217 country": true
+				}
+			]
+		},
+		{
+			"id": "a43593ac-73d3-43ba-bdab-b6322f393332",
+			"name": "GET country by country id",
+			"url": "https://burninup.me/api/countries/id=3",
+			"time": 170,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get country 3 should success": true,
+				"the country 3 country_id should return 3": true,
+				"country should return AGO": true,
+				"country should return Angola": true,
+				"country should return recent emission year 2018": true,
+				"country region sohuld return sub africa": true
+			},
+			"testPassFailCounts": {
+				"get country 3 should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the country 3 country_id should return 3": {
+					"pass": 1,
+					"fail": 0
+				},
+				"country should return AGO": {
+					"pass": 1,
+					"fail": 0
+				},
+				"country should return Angola": {
+					"pass": 1,
+					"fail": 0
+				},
+				"country should return recent emission year 2018": {
+					"pass": 1,
+					"fail": 0
+				},
+				"country region sohuld return sub africa": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				170
+			],
+			"allTests": [
+				{
+					"get country 3 should success": true,
+					"the country 3 country_id should return 3": true,
+					"country should return AGO": true,
+					"country should return Angola": true,
+					"country should return recent emission year 2018": true,
+					"country region sohuld return sub africa": true
+				}
+			]
+		},
+		{
+			"id": "b410fc0b-b76f-4618-bd0a-3d2807152f19",
+			"name": "GET year with the highest carbon emissions for each country",
+			"url": "https://burninup.me/api/country_year",
+			"time": 175,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all country_year data should success": true,
+				"should return 185 country": true
+			},
+			"testPassFailCounts": {
+				"get all country_year data should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 185 country": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				175
+			],
+			"allTests": [
+				{
+					"get all country_year data should success": true,
+					"should return 185 country": true
+				}
+			]
+		},
+		{
+			"id": "799743aa-5db9-4621-9986-271c16045c6f",
+			"name": "GET all cities",
+			"url": "https://burninup.me/api/cities",
+			"time": 186,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all cities should success": true,
+				"should return 244 cities": true
+			},
+			"testPassFailCounts": {
+				"get all cities should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 244 cities": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				186
+			],
+			"allTests": [
+				{
+					"get all cities should success": true,
+					"should return 244 cities": true
+				}
+			]
+		},
+		{
+			"id": "599f1ef8-5790-49c4-aeec-c61a4d3d76d9",
+			"name": "GET first city in the city table(by id)",
+			"url": "https://burninup.me/api/cities/id=2",
+			"time": 118,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get first city should success": true,
+				"the city id should return 1": true,
+				"city lat should return 12.56596": true,
+				"city long should return -70.03198": true
+			},
+			"testPassFailCounts": {
+				"get first city should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the city id should return 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city lat should return 12.56596": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city long should return -70.03198": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				118
+			],
+			"allTests": [
+				{
+					"get first city should success": true,
+					"the city id should return 1": true,
+					"city lat should return 12.56596": true,
+					"city long should return -70.03198": true
+				}
+			]
+		},
+		{
+			"id": "22ff7fe1-1df3-4286-9cc7-673f5d914a8e",
+			"name": "GET a city by it's name (Noord)",
+			"url": "https://burninup.me/api/cities/name=Oranjestad",
+			"time": 163,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get city Noord should success": true,
+				"the city Noord should return 1": true,
+				"city name should return Noord": true,
+				"city lat should return 12.56596": true,
+				"city long should return -70.03198": true
+			},
+			"testPassFailCounts": {
+				"get city Noord should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the city Noord should return 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city name should return Noord": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city lat should return 12.56596": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city long should return -70.03198": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				163
+			],
+			"allTests": [
+				{
+					"get city Noord should success": true,
+					"the city Noord should return 1": true,
+					"city name should return Noord": true,
+					"city lat should return 12.56596": true,
+					"city long should return -70.03198": true
+				}
+			]
+		},
+		{
+			"id": "7a4c5dcb-813d-40c8-963a-f02d0ee9e201",
+			"name": "GET hottest year for each city",
+			"url": "https://burninup.me/api/city_year",
+			"time": 181,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all city year data ": true,
+				"should return 147 country": true
+			},
+			"testPassFailCounts": {
+				"get all city year data ": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 147 country": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				181
+			],
+			"allTests": [
+				{
+					"get all city year data ": true,
+					"should return 147 country": true
+				}
+			]
+		},
+		{
+			"id": "ff88ee7f-2504-4a1f-8d58-ffed2abca9fe",
+			"name": "GET hottest year for each city by city name",
+			"url": "https://burninup.me/api/city_year/name=Baku",
+			"time": 122,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get city Baku should success": true,
+				"the city should return Baku": true,
+				"city year should return 2013": true,
+				"city year id should return 8": true
+			},
+			"testPassFailCounts": {
+				"get city Baku should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the city should return Baku": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city year should return 2013": {
+					"pass": 1,
+					"fail": 0
+				},
+				"city year id should return 8": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				122
+			],
+			"allTests": [
+				{
+					"get city Baku should success": true,
+					"the city should return Baku": true,
+					"city year should return 2013": true,
+					"city year id should return 8": true
+				}
+			]
+		},
+		{
+			"id": "2fd47c6f-60b8-4d19-9b03-dcc011959d2e",
+			"name": "GET country code and name by city id",
+			"url": "https://burninup.me/api/2/country_code",
+			"time": 108,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get country capital city id should not success": true
+			},
+			"testPassFailCounts": {
+				"get country capital city id should not success": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				108
+			],
+			"allTests": [
+				{
+					"get country capital city id should not success": true
+				}
+			]
+		},
+		{
+			"id": "192a863f-cd0f-41ad-92ed-351a81ecb2b2",
+			"name": "GET all Years information",
+			"url": "https://burninup.me/api/years",
+			"time": 265,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all years successfully": true,
+				"should return 141 years": true
+			},
+			"testPassFailCounts": {
+				"get all years successfully": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 141 years": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				265
+			],
+			"allTests": [
+				{
+					"get all years successfully": true,
+					"should return 141 years": true
+				}
+			]
+		},
+		{
+			"id": "35eb5705-24df-421c-9e77-f3514f744b62",
+			"name": "GET information for not existing years",
+			"url": "https://burninup.me/api/years/name=-188",
+			"time": 120,
+			"responseCode": {
+				"code": 404,
+				"name": "NOT FOUND"
+			},
+			"tests": {
+				"get not existing years should failed": true
+			},
+			"testPassFailCounts": {
+				"get not existing years should failed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				120
+			],
+			"allTests": [
+				{
+					"get not existing years should failed": true
+				}
+			]
+		},
+		{
+			"id": "a5e10270-6eac-4ac8-8606-d7f7b926ba8c",
+			"name": "GET years by yeras name( year 1999 )",
+			"url": "https://burninup.me/api/years/name=1999",
+			"time": 115,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get years should success": true,
+				"the year name should return year given": true
+			},
+			"testPassFailCounts": {
+				"get years should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the year name should return year given": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				115
+			],
+			"allTests": [
+				{
+					"get years should success": true,
+					"the year name should return year given": true
+				}
+			]
+		},
+		{
+			"id": "e0798083-9cd2-4510-932f-672ccd9d2a22",
+			"name": "GET country carbon emissions per year",
+			"url": "https://burninup.me/api/country_emissions",
+			"time": 377,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all countries emission should success": true,
+				"should return 2075 emission data": true
+			},
+			"testPassFailCounts": {
+				"get all countries emission should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 2075 emission data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				377
+			],
+			"allTests": [
+				{
+					"get all countries emission should success": true,
+					"should return 2075 emission data": true
+				}
+			]
+		},
+		{
+			"id": "3d948d91-e0a0-4b6c-a117-37a26d22b88a",
+			"name": "GET average city temperature per year",
+			"url": "https://burninup.me/api/city_temperatures",
+			"time": 461,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get all city temperature should success": true,
+				"should return 2820 city info": true
+			},
+			"testPassFailCounts": {
+				"get all city temperature should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"should return 2820 city info": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				461
+			],
+			"allTests": [
+				{
+					"get all city temperature should success": true,
+					"should return 2820 city info": true
+				}
+			]
+		},
+		{
+			"id": "3beaff27-07c6-4fdd-aa6d-97681dad95c5",
+			"name": "GET capital city by country id",
+			"url": "https://burninup.me/api/3/capital_city_id",
+			"time": 101,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get capital city id with country id 3 should success": true,
+				"the city should return 138": true
+			},
+			"testPassFailCounts": {
+				"get capital city id with country id 3 should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the city should return 138": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				101
+			],
+			"allTests": [
+				{
+					"get capital city id with country id 3 should success": true,
+					"the city should return 138": true
+				}
+			]
+		},
+		{
+			"id": "a60d3771-beea-4da9-8b3a-d841936458f3",
+			"name": "GET city names",
+			"url": "https://burninup.me/api/cities/city_names",
+			"time": 187,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get capital city should return 200": true
+			},
+			"testPassFailCounts": {
+				"get capital city should return 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				187
+			],
+			"allTests": [
+				{
+					"get capital city should return 200": true
+				}
+			]
+		},
+		{
+			"id": "68ebf9af-c0db-4a42-aee1-93f20725f365",
+			"name": "GET a not existing country id",
+			"url": "https://burninup.me/api/countries/id=-1",
+			"time": 85,
+			"responseCode": {
+				"code": 404,
+				"name": "NOT FOUND"
+			},
+			"tests": {
+				"get country -1 should failed": true
+			},
+			"testPassFailCounts": {
+				"get country -1 should failed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				85
+			],
+			"allTests": [
+				{
+					"get country -1 should failed": true
+				}
+			]
+		},
+		{
+			"id": "a2745505-7ef2-45e6-8f6d-4378ab37dea9",
+			"name": "GET a not existing cities",
+			"url": "https://burninup.me/api/cities/id=-1",
+			"time": 232,
+			"responseCode": {
+				"code": 404,
+				"name": "NOT FOUND"
+			},
+			"tests": {
+				"get cities -1 should failed": true
+			},
+			"testPassFailCounts": {
+				"get cities -1 should failed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				232
+			],
+			"allTests": [
+				{
+					"get cities -1 should failed": true
+				}
+			]
+		},
+		{
+			"id": "63a8448d-ecd1-4af0-a53f-23e7dd7669f8",
+			"name": "GET a none exisiting city by name",
+			"url": "https://burninup.me/api/cities/name=nooo",
+			"time": 85,
+			"responseCode": {
+				"code": 404,
+				"name": "NOT FOUND"
+			},
+			"tests": {
+				"get none existing city should failed": true
+			},
+			"testPassFailCounts": {
+				"get none existing city should failed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				85
+			],
+			"allTests": [
+				{
+					"get none existing city should failed": true
+				}
+			]
+		},
+		{
+			"id": "960801bd-70e1-4926-b16f-16ebef0d73af",
+			"name": "GET year with the highest carbon emissions for each country by country name",
+			"url": "https://burninup.me/api/country_year/name=Aruba",
+			"time": 145,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get country year should success": true,
+				"the country year id is 1": true,
+				"country should return aruba": true,
+				"country year return should return 2007": true
+			},
+			"testPassFailCounts": {
+				"get country year should success": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the country year id is 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"country should return aruba": {
+					"pass": 1,
+					"fail": 0
+				},
+				"country year return should return 2007": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				145
+			],
+			"allTests": [
+				{
+					"get country year should success": true,
+					"the country year id is 1": true,
+					"country should return aruba": true,
+					"country year return should return 2007": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 3779,
+	"collection": {
+		"requests": [
+			{
+				"id": "52872398-f0bb-4ea1-9f60-c41289fde2f8",
+				"method": "GET"
+			},
+			{
+				"id": "a43593ac-73d3-43ba-bdab-b6322f393332",
+				"method": "GET"
+			},
+			{
+				"id": "b410fc0b-b76f-4618-bd0a-3d2807152f19",
+				"method": "GET"
+			},
+			{
+				"id": "799743aa-5db9-4621-9986-271c16045c6f",
+				"method": "GET"
+			},
+			{
+				"id": "599f1ef8-5790-49c4-aeec-c61a4d3d76d9",
+				"method": "GET"
+			},
+			{
+				"id": "22ff7fe1-1df3-4286-9cc7-673f5d914a8e",
+				"method": "GET"
+			},
+			{
+				"id": "7a4c5dcb-813d-40c8-963a-f02d0ee9e201",
+				"method": "GET"
+			},
+			{
+				"id": "ff88ee7f-2504-4a1f-8d58-ffed2abca9fe",
+				"method": "GET"
+			},
+			{
+				"id": "2fd47c6f-60b8-4d19-9b03-dcc011959d2e",
+				"method": "GET"
+			},
+			{
+				"id": "192a863f-cd0f-41ad-92ed-351a81ecb2b2",
+				"method": "GET"
+			},
+			{
+				"id": "35eb5705-24df-421c-9e77-f3514f744b62",
+				"method": "GET"
+			},
+			{
+				"id": "a5e10270-6eac-4ac8-8606-d7f7b926ba8c",
+				"method": "GET"
+			},
+			{
+				"id": "e0798083-9cd2-4510-932f-672ccd9d2a22",
+				"method": "GET"
+			},
+			{
+				"id": "3d948d91-e0a0-4b6c-a117-37a26d22b88a",
+				"method": "GET"
+			},
+			{
+				"id": "3beaff27-07c6-4fdd-aa6d-97681dad95c5",
+				"method": "GET"
+			},
+			{
+				"id": "a60d3771-beea-4da9-8b3a-d841936458f3",
+				"method": "GET"
+			},
+			{
+				"id": "68ebf9af-c0db-4a42-aee1-93f20725f365",
+				"method": "GET"
+			},
+			{
+				"id": "a2745505-7ef2-45e6-8f6d-4378ab37dea9",
+				"method": "GET"
+			},
+			{
+				"id": "63a8448d-ecd1-4af0-a53f-23e7dd7669f8",
+				"method": "GET"
+			},
+			{
+				"id": "960801bd-70e1-4926-b16f-16ebef0d73af",
+				"method": "GET"
+			}
+		]
+	}
+}
