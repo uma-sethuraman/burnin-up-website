@@ -35,4 +35,5 @@ cs373-sustainability_selenium:
         - pip install selenium
         - pip install requests
         - pip install pytest
+        - cd frontend
         - python3 guitests.py
