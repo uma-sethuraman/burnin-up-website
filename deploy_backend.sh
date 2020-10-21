@@ -5,6 +5,6 @@ docker tag burninup-backend:latest 170263725750.dkr.ecr.us-east-1.amazonaws.com/
 docker push 170263725750.dkr.ecr.us-east-1.amazonaws.com/burninup-backend:latest
 pip3 install awsebcli
 cd aws_deploy
-eb init
-eb deploy
+#eb init
+eb deploy --staged
 
