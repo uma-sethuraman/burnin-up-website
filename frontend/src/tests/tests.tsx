@@ -44,7 +44,12 @@ it('should get About', async () => {
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(23);
 });
-
+// test("renders RiceandBeans page", () => {
+// 	const component = shallow(<About />);
+// 	const element = component.getByText("About");
+// 	expect(element).toBeInTheDocument();
+//   }); 
+  
 it('Get a CityInstance', async () => {
 	const component = mount(<Router><CityInstance /> </Router>);
 	expect(component).to.not.be.undefined;
