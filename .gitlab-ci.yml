@@ -36,6 +36,7 @@ cs373-sustainability_selenium:
     - pip install requests
     - pip install pytest
     - cd frontend
+    - apt-get update
     - apt-get install nodejs npm -y
     - npm install
     - python3 guitests.py
