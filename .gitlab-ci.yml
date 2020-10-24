@@ -1,39 +1,40 @@
 before_script:
-    - date
-    - uname -a
-    - printenv | sort
+  - date
+  - uname -a
+  - printenv | sort
 
 cs373-sustainability_postman:
-    image:
-        name: postman/newman_alpine33
-        entrypoint: [""]
-    script:
-        - cd backend
-        - newman run postman.json
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - cd backend
+    - newman run postman.json
 
 cs373-sustainability_mocha:
-    image:
-        name: mcgenius/pp_mocha
-        entrypoint: [""]
-    script:
-        - cd frontend
-        - npm install
-        - npm run test
+  image:
+    name: mcgenius/pp_mocha
+    entrypoint: [""]
+  script:
+    - cd frontend
+    - npm install
+    - npm run test
 
 cs373-sustainability_python:
-    image:
-        name: mcgenius/pp_python
-        entrypoint: [""]
-    script:
-        - cd backend
-        - pip install -r requirements.txt
-        - python tests.py
+  image:
+    name: mcgenius/pp_python
+    entrypoint: [""]
+  script:
+    - cd backend
+    - pip install -r requirements.txt
+    - python tests.py
 
 cs373-sustainability_selenium:
-    image: python:3.7
-    script:
-        - pip install selenium
-        - pip install requests
-        - pip install pytest
-        - cd frontend
-        - python3 guitests.py
+  image: python:3.7
+  script:
+    - pip install selenium
+    - pip install requests
+    - pip install pytest
+    - cd frontend
+    - npm install
+    - python3 guitests.py
