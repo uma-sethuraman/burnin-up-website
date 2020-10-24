@@ -6,20 +6,22 @@ from selenium.webdriver.common.by import By
 
 class tests(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome("guitests/chromedriver")
+        self.driver = webdriver.Chrome(
+            'node_modules/.bin/chromedriver')
 
     def test_landing(self):
         self.driver.get("https://burninup.me")
         assert(self.driver.title == "Burnin' Up")
 
         self.driver.find_elements_by_xpath(
-            "/html/body/div/div/div[2]/body/div[2]/div/div[1]/a")[0].click()
+            "/html/body/div/div/div[2]/body/div[2]/div[1]/a")[0].click()
+
         self.driver.get("https://burninup.me")
         self.driver.find_elements_by_xpath(
-            "/html/body/div/div/div[2]/body/div[2]/div/div[2]/a")[0].click()
+            "/html/body/div/div/div[2]/body/div[2]/div[2]/a")[0].click()
         self.driver.get("https://burninup.me")
         self.driver.find_elements_by_xpath(
-            "/html/body/div/div/div[2]/body/div[2]/div/div[3]/a")[0].click()
+            "/html/body/div/div/div[2]/body/div[2]/div[3]/a")[0].click()
 
     def test_navBar(self):
         self.driver.get("https://burninup.me")
@@ -48,7 +50,7 @@ class tests(unittest.TestCase):
         assert title == "About Us"
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/body/div[5]/h2[1]/a/img")[0].click()
-        assert "documenter.getpostman.com/view/12123261/TVRdAWse" in self.driver.current_url
+        assert "https://documenter.getpostman.com/view/12123261/TVRdAWse" in self.driver.current_url
         self.driver.get("https://burninup.me/about")
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/body/div[5]/h2[2]/a/img")[0].click()
@@ -73,7 +75,6 @@ class tests(unittest.TestCase):
             "/html/body/div/div/header/form/div/div/div[5]/button")[0].click()
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/nav/ul/li[2]/a")[0].click()
-
 
     def test_countries(self):
         self.driver.get("https://burninup.me")
@@ -121,7 +122,7 @@ class tests(unittest.TestCase):
             "/html/body/div/div/header/table/tbody/tr[1]/td[2]/a")[0].click()
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/table/tbody/tr[7]/td[2]/a")[0].click()
-    
+
     def test_country_instance(self):
         self.driver.get("https://burninup.me/countries/id=1")
         self.driver.find_elements_by_xpath(
@@ -133,9 +134,12 @@ class tests(unittest.TestCase):
 
     def test_year_instance(self):
         self.driver.get("https://burninup.me/years/name=1880")
+        self.driver.implicitly_wait(20)
+        # country link
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/div[1]/table/tr[1]/td/a")[0].click()
         self.driver.get("https://burninup.me/years/name=1880")
+        # city link
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/table[2]/tbody/tr[1]/td[1]/a")[0].click()
         self.driver.get("https://burninup.me/years/name=1880")
