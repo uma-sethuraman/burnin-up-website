@@ -32,6 +32,7 @@ cs373-sustainability_python:
 cs373-sustainability_selenium:
   image: python:3.7
   script:
+    - sudo apt-get install npm
     - pip install selenium
     - pip install requests
     - pip install pytest
