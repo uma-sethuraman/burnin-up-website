@@ -52,9 +52,9 @@ function About() {
   const [issuesSum, changeIssuesSum] = useState(-1);
   const [commitsSum, changeCommitsSum] = useState(-1);
   const [unittestsSum, changeUnittestsSum] = useState(0);
-
+  let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
   /* Retrieves data about GitLab issues per contributor */
-  function issuesApiRequest() {
+  const issuesApiRequest = () => {
 
     /* Populates requestArray with all issues requests */
     const requestURL: string =
@@ -67,7 +67,6 @@ function About() {
     /* Updates issues number for all people in members */
     axios.all([...requestArray]).then(
       axios.spread((...responses) => {
-        const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
         let totalIssues = 0;
         for (let i = 0; i < responses.length; i++) {
           const response: Gitlab = JSON.parse(JSON.stringify(responses[i])) as Gitlab;
@@ -88,15 +87,13 @@ function About() {
   }
 
   /* Retrieves commit data for all members */
-  function commitsApiRequest() {
+  const commitsApiRequest = () => {
     axios
       .get(
         "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
       )
       .then((response) => {
         const allCommits: CommitsInfo[] = response.data;
-
-        const membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
 
         let totalCommits = 0;
 
@@ -115,15 +112,15 @@ function About() {
         /* Update total number of commits */
         changeCommitsSum(totalCommits);
 
-        /* Update members */
-        changeMembers(old => {
-          return [...membersCopy]
-        });
+
       })
       .catch(function (error) {
         console.log(error.toJSON());
       });
   }
+
+  /* Update members */
+  
 
   return (
 
