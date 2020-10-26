@@ -21,34 +21,35 @@ Enzyme.configure({
   adapter: new Adapter(),
 })
 
-
 var assert = require('assert')
 
-it('get City General Page', async () => {
+it('Get City General Page', async () => {
 	const copy = shallow(<Cities />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(1);
 });
 
-it('get GeneralYears page', async () => {
+it('Get Countries General page', async () => {
+	const copy = shallow(<Countries />);
+	expect(copy).to.not.be.undefined;
+	expect(copy).to.have.length(1);
+	expect(copy.find("div")).to.have.length(1);
+});
+
+it('Get Years General page', async () => {
 	const copy = shallow(<GeneralYears />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(1);
 });
 
-it('should get About', async () => {
+it('Get About Page', async () => {
 	const copy = shallow(<About />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(23);
 });
-// test("renders RiceandBeans page", () => {
-// 	const component = shallow(<About />);
-// 	const element = component.getByText("About");
-// 	expect(element).toBeInTheDocument();
-//   }); 
   
 it('Get a CityInstance', async () => {
 	const component = mount(<Router><CityInstance /> </Router>);
@@ -67,4 +68,10 @@ it('Get a YearInstance', async () => {
 	expect(component).to.not.be.undefined;
 	expect(component).to.have.length(1);
 });
+
+// test("renders About page", () => {
+// 	const component = shallow(<About />);
+// 	const element = component.getByText("About");
+// 	expect(element).toBeInTheDocument();
+//   }); 
 

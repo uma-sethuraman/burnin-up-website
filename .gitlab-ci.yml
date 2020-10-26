@@ -11,7 +11,7 @@ cs373-sustainability_postman:
     - cd backend
     - newman run postman.json
 
-cs373-sustainability_mocha:
+cs373-sustainability_jest:
   image:
     name: mcgenius/pp_mocha
     entrypoint: [""]
