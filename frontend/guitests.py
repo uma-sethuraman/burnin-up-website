@@ -2,12 +2,17 @@ import selenium
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 
 class tests(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(
-            'node_modules/.bin/chromedriver')
+        # self.driver = webdriver.Chrome(
+            # 'node_modules/.bin/chromedriver')
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--no-sandbox')
+        self.driver = webdriver.Chrome('node_modules/.bin/chromedriver', options=chrome_options)
 
     def test_landing(self):
         self.driver.get("https://burninup.me")
