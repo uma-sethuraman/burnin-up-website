@@ -123,6 +123,7 @@ class tests(unittest.TestCase):
 
     def test_city_instance(self):
         self.driver.get("https://burninup.me/cities/id=2240")
+        self.driver.implicitly_wait(20)
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/table/tbody/tr[1]/td[2]/a")[0].click()
         self.driver.find_elements_by_xpath(
