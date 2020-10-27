@@ -432,5 +432,22 @@ def get_sorted_years(order, column):
     return jsonify({"years": result})
 
 
+# Retrieve all countries
+@app.route("/api/countriesfiltered", methods=["GET"])
+def get_countries_filter():
+    to_region = request.args.get("region", "") # http://localhost:5000/api/countriesfiltered?region=South%20Asia&incomelevel=Lower%20middle%20income
+    to_income = request.args.get("incomelevel", "")
+
+    all_countries = db.session.query(Country)
+
+    if to_region != "":
+        all_countries = all_countries.filter(Country.country_region == to_region)
+    if to_income != "":
+        all_countries = all_countries.filter(Country.country_income == to_income)
+
+    result = countries_schema.dump(all_countries)
+    return jsonify({"countries": result})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)
