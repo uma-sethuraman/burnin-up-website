@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
 import flask
@@ -419,6 +420,16 @@ def get_country_id_by_city(city_id):
         return response
     result = {"id": country.country_id, "name": country.country_name}
     return jsonify({"country_code": result})
+
+# Retrieve sorted years model
+@app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
+def get_sorted_years(order, column):
+    if order == "descending":
+        sorted_years = Year.query.order_by(getattr(Year, column).desc()).all()
+    if order == "ascending":
+        sorted_years = Year.query.order_by(getattr(Year, column).asc()).all()
+    result = years_schema.dump(sorted_years)
+    return jsonify({"years": result})
 
 
 if __name__ == "__main__":

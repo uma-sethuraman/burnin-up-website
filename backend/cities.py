@@ -11,8 +11,8 @@ import json
 from sqlalchemy import create_engine
 import flask_restless
 
-# import pandas as pd
-# import numpy as np
+import pandas as pd
+import numpy as np
 import requests
 from time import sleep
 
@@ -34,167 +34,170 @@ path = "./datasets"
 class Country(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
     country_name = db.Column(db.String())
-    country_region = db.Column(db.String())
-    country_income = db.Column(db.String())
-    country_capital_city = db.Column(db.String())
+    capital_city_id = db.Column(db.Integer)
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
-    country_lat = db.Column(db.String())
-    country_long = db.Column(db.String())
+    highest_emission = db.Column(db.Float)
+    recent_emissions = db.Column(db.Float)
+    country_population = db.Column(db.Integer)
+    income_level = db.Column(db.String())
+    country_region = db.Column(db.String())
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
+    cities = db.relationship('City', backref = 'country')
 
+# old country class; used for debugging
+# class Country(db.Model):
+#     country_id = db.Column(db.Integer, primary_key=True)
+#     country_name = db.Column(db.String())
+#     country_region = db.Column(db.String())
+#     country_income = db.Column(db.String())
+#     country_capital_city = db.Column(db.String())
+#     country_iso2code = db.Column(db.String())
+#     country_iso3code = db.Column(db.String())
+#     country_lat = db.Column(db.Float)
+#     country_long = db.Column(db.Float)
+#     recent_emissions_year = db.Column(db.Integer)
+#     recent_emissions = db.Column(db.Float)
+
+# Avg City Temp Per Year Model
+class CityTempPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    city = db.Column(db.String())
+    city_id = db.Column(db.Integer)
+    country = db.Column(db.String())
+    city_temp = db.Column(db.Float)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
 
 # City model
 class City(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String())
+    country = db.Column(db.Integer, db.ForeignKey('country.country_id'))
     population = db.Column(db.Integer)
-    time_zone = db.Column(db.String())
-    elevation = db.Column(db.Integer)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
-    pm25 = db.Column(db.Float)
-    pm10 = db.Column(db.Float)
     o3 = db.Column(db.Float)
-    country_iso2code = db.Column(db.String())
-    co = db.Column(db.Float)
+    pm10 = db.Column(db.Float)
+    pm25 = db.Column(db.Float)
+    highest_temp = db.Column(db.Float)
+    year_highest = db.Column(db.Integer)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
     def __init__(
         self,
         city_name="NaN",
+        country=None,
         population=0,
-        time_zone="NaN",
-        elevation=0,
-        lat=0.0,
-        long=0.0,
-        pm25=0.0,
-        pm10=0.0,
         o3=0.0,
-        country_iso2code="NaN",
-        co=0.0,
+        pm10=0.0,
+        pm25=0.0,
+        highest_temp=0.0,
+        year_highest=0.0,
+        latitude=0.0,
+        longitude=0.0,
     ):
         self.city_name = city_name
+        self.country = country
         self.population = population
-        self.time_zone = time_zone
-        self.elevation = elevation
-        self.lat = lat
-        self.long = long
-        self.pm25 = pm25
-        self.pm10 = pm10
         self.o3 = o3
-        self.country_iso2code = country_iso2code
-        self.co = co
+        self.pm10 = pm10
+        self.pm25 = pm25
+        self.highest_temp = highest_temp
+        self.year_highest = year_highest
+        self.latitude = latitude
+        self.longitude = longitude
 
+    def set_environ_data(self, o3=0.0, pm10=0.0, pm25=0.0):
+        self.o3 = o3
+        self.pm10 = pm10
+        self.pm25 = pm25
 
-db.create_all()
+    def set_temp_data(self, highest_temp = 0.0, year_highest = 0):
+        self.highest_temp = highest_temp
+        self.year_highest = year_highest
+
+# db.create_all()
 
 ### Table for Cities ###
-# get list of countries
-url = "https://countries-cities.p.rapidapi.com/location/country/list"
 
-querystring = {"format": "json"}
+# get list of cities with years data
+city_temps_df = pd.read_csv(os.path.join(path, "AvgTempCity.csv"))
+unique_cities_df = city_temps_df[["Country", "City"]].drop_duplicates()
+cities_list = unique_cities_df["City"]
+countries_list = unique_cities_df["Country"]
+indices = cities_list.keys()
 
-headers = {
-    "x-rapidapi-host": "countries-cities.p.rapidapi.com",
-    "x-rapidapi-key": "7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188",
-}
+# debugging
+# print("cities list indices", cities_list.keys())
+# print("countries list", countries_list)
+# print("type of cities list", type(cities_list))
+# print("type of countries list", type(countries_list))
+# print("length of cities list", len(cities_list))
+# print("length of countries list", len(countries_list))
+# country_iso2 = db.session.query(Country).filter(Country.country_name == "France").first().country_iso2code.lower()
+# print(country_iso2)
+# print(cities_list.keys() == countries_list.keys())
 
-response = requests.request("GET", url, headers=headers, params=querystring)
-data = response.json()
-countries_list = [item for item in data["countries"]]
-
-
-# request_url = "https://api.climacell.co/v3/weather/historical/climacell?lat=48.8566&lon=2.3522&unit_system=si&start_time=2020-10-13T14%3A09%3A50Z&end_time=now&fields=pollen_tree,pollen_grass,pollen_weed,fire_index,no2,o3,co,so2,epa_aqi,epa_health_concern,pm25"
-
-# my_headers = {
-#     'apikey': 'HZhAxtPoFuqDNCrrR1mE5Np7i9FAj92O'
-# }
-# response = requests.request("GET", request_url, headers=my_headers)
-# data = response.json()
-# cities_list = []
-# for item in data:
-#     new_city = City(lat=item['lat'], long=item['lon'], pm25=item['pm25']['value'],co2=item['co']['value'], so2=item['so2']['value'])
-#     cities_list.append(new_city)
-# db.session.add_all(cities_list)
-# db.session.commit()
-
-
-# city_headers = {
-#     'x-rapidapi-key': '7340c68080msh75d1462395c3f6cp12f439jsnebb929c1f188'
-# }
-
-# count = 0
-# city_list = []
-# p = iter(country_list)
-# while True:
-#     x = next(p)
-#     if(x.country_iso2code == 'PS'):
-#         break
-# next(p)
-
-# for item in p:
-#     if(count > 80):
-#         break
-#     str = item.country_iso2code
-#     request_url = "https://countries-cities.p.rapidapi.com/location/country/" + str + "/city/list"
-#     response = requests.request("GET", request_url, headers=city_headers)
-#     print(response.json())
-#     sleep(1)
-#     if response.status_code == 200:
-#         count += 1
-#         cities_data = response.json()
-#         for each_city in cities_data["cities"]:
-#             new_city = City(lat = each_city['latitude'], long=each_city['longitude'], city_name=each_city['name'], population=each_city['population'], country_iso2code=str)
-#             city_list += [new_city]
-
-
-# db.session.add_all(city_list)
-# db.session.commit()
-
-# Adds climate data to cities
-count = 0
-counter = 0
-city_table = City.query.all()
-cp = db.session.query(Country.country_capital_city).all()
-for each_country_capital in cp:
-    if each_country_capital is not None:
-        obj = (
-            db.session.query(City)
-            .filter(City.city_name == each_country_capital)
-            .first()
+# use opendatasoft api to get basic info on city (name, country, lat, long, pop)
+add_cities = []
+for i in indices:
+    city = cities_list[i]
+    country = countries_list[i]
+    parent_country = db.session.query(Country).filter(Country.country_name == country).first()
+    if parent_country:
+        country_iso2 = parent_country.country_iso2code.lower()
+        req = (
+            "https://public.opendatasoft.com/api/records/1.0/search/?dataset=worldcitiespop&q="
+            + city
+            + "&sort=population&facet=country"
         )
-        if obj is not None:
-            obj.co = 0.0
-            counter += 1
-            str_lat = str(obj.lat)
-            str_long = str(obj.long)
-            request_city_climate = (
-                "https://api.waqi.info/feed/geo:"
-                + str_lat
-                + ";"
-                + str_long
-                + "/?token=1cbf10be27bc7aa662b54f38d9c0d0a592eba24c"
-            )
-            response = requests.request("GET", request_city_climate)
-            if response.status_code == 200:
-                cities_climate_data = response.json()
-                if len(cities_climate_data["data"]["forecast"]) == 0:
-                    obj.pm25 = -1
-                    obj.o3 = -1
-                    obj.pm10 = -1
-                else:
-                    if "iaqi" in cities_climate_data["data"]:
-                        if "co" in cities_climate_data["data"]["iaqi"]:
-                            obj.co = cities_climate_data["data"]["iaqi"]["co"]["v"]
-                    obj.pm25 = cities_climate_data["data"]["forecast"]["daily"]["pm25"][
-                        0
-                    ]["avg"]
-                    obj.pm10 = cities_climate_data["data"]["forecast"]["daily"]["pm10"][
-                        0
-                    ]["avg"]
-                    obj.o3 = cities_climate_data["data"]["forecast"]["daily"]["o3"][0][
-                        "avg"
-                    ]
+        response = requests.request("GET", req)
+        if response.status_code == 200:
+            response = requests.request("GET", req).json()
+            if len(response["records"]):
+                for record in response["records"]:
+                    fields = record["fields"]
+                    if fields["country"] == country_iso2:
+                        new_city = City(
+                            city_name = fields["city"].capitalize(),
+                            country = parent_country,
+                            population = fields["population"],
+                            latitude = fields["latitude"],
+                            longitude = fields["longitude"],
+                        )
+                        add_cities += [new_city]
+                        break
+print("num cities:", len(add_cities))
 
-# Delete cities without climate data because if the city doesn't have climate data, it isn't needed
-# db.session.query(City).filter(City.pm10 == 0).delete()
+# use sketch viet api to get environment data per city
+add_cities_environ = []
+for city in add_cities:
+    req = (
+        "https://api.waqi.info/feed/geo:"
+        + str(city.latitude)
+        + ";"
+        + str(city.longitude)
+        + "/?token=1cbf10be27bc7aa662b54f38d9c0d0a592eba24c"
+    )
+    response = requests.request("GET", req)
+    if response.status_code == 200:
+        cities_climate_data = response.json()
+        if "data" in cities_climate_data:
+            if "forecast" in cities_climate_data["data"]:
+                if "daily" in cities_climate_data["data"]["forecast"]:
+                    daily = cities_climate_data["data"]["forecast"]["daily"]
+                    city.set_environ_data(o3=daily["o3"][0]["avg"], pm10=daily["pm10"][0]["avg"], pm25=daily["pm25"][0]["avg"])
+                    add_cities_environ += [city]
+
+# uses city_temp_per_year table to get highest temp and year of highest temp per city
+for city in add_cities_environ:
+    country = city.country.country_name
+    ctpy = db.session.query(CityTempPerYear).filter(CityTempPerYear.city == name and CityTempPerYear.country == country).order_by(CityTempPerYear.city_temp).all()
+    highest = ctpy[len(ctpy)-1]
+    city.set_temp_data(highest.city_temp, highest.year_name)
+
+# all of the cities with complete attributes should be in add_cities_environ list!!!
+
 # db.session.commit()

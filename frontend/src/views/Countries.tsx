@@ -13,7 +13,7 @@ import { useState} from 'react';
 import axios from "axios";
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
-import ButtonToolbar from "react-bootstrap/esm/ButtonToolbar";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 // credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const Countries = () => {
@@ -63,7 +63,7 @@ const Countries = () => {
               <Button variant="outline-info">Search</Button>
             </Form>
             <>
-              <ButtonToolbar className="mx-auto">
+              <ButtonGroup>
                 <DropdownButton className="mr-2" title={"Income Level"}>
                   <Dropdown.Item eventKey="1">Low Income</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Middle Income</Dropdown.Item>
@@ -99,7 +99,7 @@ const Countries = () => {
                   <Dropdown.Item eventKey="2">5-15</Dropdown.Item>
                   <Dropdown.Item eventKey="3">More than 15</Dropdown.Item>
                 </DropdownButton>
-              </ButtonToolbar>
+              </ButtonGroup>
             </>
           </Form.Group>
         </Form>

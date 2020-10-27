@@ -5,6 +5,8 @@ import axios from "axios";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
+
+/* Importing images for all group members */
 import UmaSethuraman from "../assets/uma-headshot.jpg";
 import CaitlinOCallaghan from "../assets/caitlin-o-headshot.jpeg";
 import LaurenMangibin from "../assets/LaurenMangibin-headshot.jpg";
@@ -12,6 +14,15 @@ import SamanthaTuapen from "../assets/samantha-headshot.jpg";
 import CatilinLien from "../assets/CaitlinLien.jpeg";
 import CherrySun from "../assets/cherry.jpeg";
 
+/* Importing images for tools and data sections */
+import PostmanLogo from "../assets/PostmanLogo.png";
+import GitlabLogo from "../assets/GitlabLogo.jpg";
+import ReactLogo from "../assets/ReactLogo.jpg";
+import ReactBootstrapLogo from "../assets/ReactBootstrap.png";
+import ElasticBeanstalkLogo from "../assets/ElasticBeanstalk.png";
+import NameCheapLogo from "../assets/NameCheapLogo.png";
+import DiscordLogo from "../assets/DiscordLogo.png";
+import JupyterNotebookLogo from "../assets/JupyterNotebook.svg";
 
 function About() {
 
@@ -49,16 +60,20 @@ function About() {
     },
   ]);
 
+  /* Cumulative totals for about page statistics */
   const [issuesSum, changeIssuesSum] = useState(-1);
   const [commitsSum, changeCommitsSum] = useState(-1);
-  const [unittestsSum, changeUnittestsSum] = useState(0);
+  const [unittestsSum, changeUnittestsSum] = useState(105);
+
+  /* Create a copy of the members array to apply changes to */
   let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
+
   /* Retrieves data about GitLab issues per contributor */
   const issuesApiRequest = () => {
 
     /* Populates requestArray with all issues requests */
     const requestURL: string =
-      "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
+      "https://cors-anywhere.herokuapp.com/https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
     const requestArray = [];
     for (const member of members) {
       requestArray.push(axios.get(requestURL + member.username));
@@ -76,10 +91,6 @@ function About() {
 
         /* Update total number of issues */
         changeIssuesSum(totalIssues);
-
-        changeMembers(old => {
-          return [...membersCopy]
-        });
       })
     ).catch(errors => {
       console.log(errors.toJSON());
@@ -90,7 +101,7 @@ function About() {
   const commitsApiRequest = () => {
     axios
       .get(
-        "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
+        "https://cors-anywhere.herokuapp.com/https://gitlab.com/api/v4/projects/21349576/repository/contributors"
       )
       .then((response) => {
         const allCommits: CommitsInfo[] = response.data;
@@ -112,21 +123,21 @@ function About() {
         /* Update total number of commits */
         changeCommitsSum(totalCommits);
 
-
+        /* Update members array once with all changes */
+        changeMembers(old => {
+          return [...membersCopy]
+        });
       })
       .catch(function (error) {
         console.log(error.toJSON());
       });
   }
-
-  /* Update members */
   
-
   return (
 
     <div className="About">
-      {commitsApiRequest()}
       {issuesApiRequest()}
+      {commitsApiRequest()}
       <Navbar />
 
       <body className="About-body">
@@ -150,8 +161,12 @@ function About() {
 
         <br></br>
         <div className="h2_about">
-          <h2>Total Commits: {commitsSum}</h2>
-          <h2>Total Issues: {issuesSum}</h2>
+          {commitsSum == -1? <h2>Total Commits: </h2> :
+          <h2>Total Commits: {commitsSum}</h2> }
+
+          {issuesSum == -1? <h2>Total Issues: </h2> :
+          <h2>Total Issues: {issuesSum}</h2> }
+
           <h2>Total Unit Tests: {unittestsSum}</h2>
         </div>
 
@@ -168,7 +183,7 @@ function About() {
               </h2>
               <p>Issues: {members[0].issues}</p>
               <p>Commits: {members[0].commits}</p>
-              <p>Unit Tests: 0</p>
+              <p>Unit Tests: 4</p>
 
               <p>Caitlin is a junior from Round Rock, TX. She works on backend development for the site
               and enjoys Data Science and Machine Learning. Her hobbies includes baking, playing video games,
@@ -185,7 +200,7 @@ function About() {
               </h2>
               <p>Issues: {members[1].issues}</p>
               <p>Commits: {members[1].commits}</p>
-              <p>Unit Tests: 0</p>
+              <p>Unit Tests: 10</p>
               <p>Caitlin is a junior from Dallas, TX. Some of her technical interests are
               front end web and app development and NLP. Her hobbies include painting
                 and drawing, playing oboe, listening to classical music, and drinking tea.</p>
@@ -202,7 +217,7 @@ function About() {
               </h2>
               <p>Issues: {members[2].issues}</p>
               <p>Commits: {members[2].commits}</p>
-              <p>Unit Tests: 0</p>
+              <p>Unit Tests: 45</p>
 
               <p>Cherry aged at least 5 years from doing this project. She’s working on backend and has
               interest in overall full stack app development. She likes
@@ -219,7 +234,7 @@ function About() {
               </h2>
               <p>Issues: {members[3].issues}</p>
               <p>Commits: {members[3].commits}</p>
-              <p>Unit Tests: 0</p>
+              <p>Unit Tests: 10</p>
               <p>Lauren is Junior from Austin, TX whose eyebags got much bigger from sleeping late. She is working on the front end of the site and loves working with people.
                 She is a hip-hop dancer and choreographer for UT dance teams and loves to explore and hike.</p>
 
@@ -235,7 +250,7 @@ function About() {
               </h2>
               <p>Issues: {members[4].issues}</p>
               <p>Commits: {members[4].commits}</p>
-              <p>Unit Tests: 0</p>
+              <p>Unit Tests: 32</p>
               <p>Samantha is a junior from Dallas, TX. She’s working on the backend development of
               this site and has an interest in overall full stack app development. Outside of the CS world, she enjoys journaling,
                  kickboxing, playing musical instruments, and eating good food.</p>
@@ -251,7 +266,7 @@ function About() {
               </h2>
               <p>Issues: {members[5].issues}</p>
               <p>Commits: {members[5].commits}</p>
-              <p>Unit Tests: 0</p>
+              <p>Unit Tests: 4</p>
               <p>Uma is a junior from Houston, TX. She is working on the frontend development for this project. Some of her other technical
               interests include mobile development and machine learning.
                 She also enjoys dancing and cooking.</p>
@@ -264,14 +279,14 @@ function About() {
           <h2>
             <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
               Our Postman API<br></br>
-              <Image className="ToolImage" src={"../assets/PostmanLogo.png"} />
+              <Image className="ToolImage" src={PostmanLogo} />
             </a>
           </h2>
           <br></br>
           <h2>
             <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
               Our GitLab Repository<br></br>
-              <Image className="ToolImage" src={"../assets/GitlabLogo.jpg"} />
+              <Image className="ToolImage" src={GitlabLogo} />
             </a>
           </h2>
           <br></br>
@@ -299,50 +314,50 @@ function About() {
         <h2>Tools</h2>
         <div className="Toolcolumn">
           <a href="https://reactjs.org/" >
-            <Image className="ToolImage" src={"../assets/ReactLogo.jpg"} />
+            <Image className="ToolImage" src={ReactLogo} />
           </a>
           <figcaption className="caption">React: renders website and connects user-interface to backend </figcaption>
         </div>
 
         <div className="Toolcolumn">
           <a href="https://react-bootstrap.github.io/" >
-            <Image className="ToolImage" src={"../assets/ReactBootstrap.png"} />
+            <Image className="ToolImage" src={ReactBootstrapLogo} />
           </a>
           <figcaption className="caption">ReactBootstrap: CSS framework for website </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://aws.amazon.com/elasticbeanstalk/" >
-            <Image className="ToolImage" src={"../assets/ElasticBeanstalk.png"} />
+            <Image className="ToolImage" src={ElasticBeanstalkLogo} />
           </a>
           <figcaption className="caption">AWS Elastic Beanstalk: hosts website from Git Repository </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.postman.com/" >
-            <Image className="ToolImage" src={"../assets/PostmanLogo.png"} />
+            <Image className="ToolImage" src={PostmanLogo} />
           </a>
           <figcaption className="caption">Postman: create Burnin' Up API </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.gitlab.com/" >
-            <Image className="ToolImage" src={"../assets/GitlabLogo.jpg"} />
+            <Image className="ToolImage" src={GitlabLogo} />
           </a>
           <figcaption className="caption">GitLab: holds repository</figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.namecheap.com/" >
-            <img className="ToolImage" src={"../assets/NameCheapLogo.png"} />
+            <img className="ToolImage" src={NameCheapLogo} />
           </a>
           <figcaption className="caption">NameCheap: website name </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://www.discord.com/" >
-            <Image className="ToolImage" src={"../assets/DiscordLogo.png"} />
+            <Image className="ToolImage" src={DiscordLogo} />
           </a>
           <figcaption className="caption">Discord: group communication </figcaption>
         </div>
         <div className="Toolcolumn">
           <a href="https://jupyter.org/" >
-            <Image className="ToolImage" src={"../assets/JupyterNotebook.svg"} />
+            <Image className="ToolImage" src={JupyterNotebookLogo} />
           </a>
           <figcaption className="caption">Jupyter Notebook: used to parse data</figcaption>
         </div>
