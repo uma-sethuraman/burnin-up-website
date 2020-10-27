@@ -216,6 +216,9 @@ countryYear_schema = CountryYearSchema()
 def get_index(path):
     return render_template("index.html")
 
+# -------------------
+# Countries Endpoints
+# -------------------
 
 # Retrieve all countries
 @app.route("/api/countries", methods=["GET"])
@@ -238,6 +241,25 @@ def get_country_id(id):
         return response
     return country_schema.jsonify(country)
 
+# Retrieve all countries filtered
+@app.route("/api/countries/filter", methods=["GET"])
+def get_countries_filter():
+    to_region = request.args.get("region", "") # http://localhost:5000/api/countriesfiltered?region=South%20Asia&incomelevel=Lower%20middle%20income
+    to_income = request.args.get("incomelevel", "")
+
+    all_countries = db.session.query(Country)
+
+    if to_region != "":
+        all_countries = all_countries.filter(Country.country_region == to_region)
+    if to_income != "":
+        all_countries = all_countries.filter(Country.country_income == to_income)
+
+    result = countries_schema.dump(all_countries)
+    return jsonify({"countries": result})
+
+# ----------------
+# Years Endpoints
+# ----------------
 
 # Retrieve all years
 @app.route("/api/years", methods=["GET"])
@@ -259,24 +281,19 @@ def get_year_name(name):
         return response
     return year_schema.jsonify(year)
 
+# Retrieve sorted years model
+@app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
+def get_sorted_years(order, column):
+    if order == "descending":
+        sorted_years = Year.query.order_by(getattr(Year, column).desc()).all()
+    if order == "ascending":
+        sorted_years = Year.query.order_by(getattr(Year, column).asc()).all()
+    result = years_schema.dump(sorted_years)
+    return jsonify({"years": result})
 
-# Retrieve country carbon emissions per year
-@app.route("/api/country_emissions")
-def get_country_emissions():
-    all_country_years = CountryEmissionsPerYear.query.order_by(
-        CountryEmissionsPerYear.year_id
-    ).all()
-    result = countries_emissions_schema.dump(all_country_years)
-    return jsonify({"country_emissions_years": result})
-
-
-# Retrieve avg city temps per year
-@app.route("/api/city_temperatures")
-def get_city_temperatures():
-    all_cities_temps = CityTempPerYear.query.order_by(CityTempPerYear.year_name).all()
-    result = cities_temp_schema.dump(all_cities_temps)
-    return jsonify({"city_temperatures_years": result})
-
+# -----------------
+# Cities Endpoints
+# -----------------
 
 # Retrieve all cities
 @app.route("/api/cities", methods=["GET"])
@@ -311,6 +328,26 @@ def get_city_name(name):
         return response
     return citys_schema.jsonify(city)
 
+# -------------------------
+# Endpoints to Remove Later
+# -------------------------
+
+# Retrieve country carbon emissions per year
+@app.route("/api/country_emissions")
+def get_country_emissions():
+    all_country_years = CountryEmissionsPerYear.query.order_by(
+        CountryEmissionsPerYear.year_id
+    ).all()
+    result = countries_emissions_schema.dump(all_country_years)
+    return jsonify({"country_emissions_years": result})
+
+
+# Retrieve avg city temps per year
+@app.route("/api/city_temperatures")
+def get_city_temperatures():
+    all_cities_temps = CityTempPerYear.query.order_by(CityTempPerYear.year_name).all()
+    result = cities_temp_schema.dump(all_cities_temps)
+    return jsonify({"city_temperatures_years": result})
 
 # Retrieve list of relevant city names (capitals and top temp per year cities)
 @app.route("/api/cities/city_names", methods=["GET"])
@@ -421,32 +458,10 @@ def get_country_id_by_city(city_id):
     result = {"id": country.country_id, "name": country.country_name}
     return jsonify({"country_code": result})
 
-# Retrieve sorted years model
-@app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
-def get_sorted_years(order, column):
-    if order == "descending":
-        sorted_years = Year.query.order_by(getattr(Year, column).desc()).all()
-    if order == "ascending":
-        sorted_years = Year.query.order_by(getattr(Year, column).asc()).all()
-    result = years_schema.dump(sorted_years)
-    return jsonify({"years": result})
 
 
-# Retrieve all countries
-@app.route("/api/countriesfiltered", methods=["GET"])
-def get_countries_filter():
-    to_region = request.args.get("region", "") # http://localhost:5000/api/countriesfiltered?region=South%20Asia&incomelevel=Lower%20middle%20income
-    to_income = request.args.get("incomelevel", "")
 
-    all_countries = db.session.query(Country)
 
-    if to_region != "":
-        all_countries = all_countries.filter(Country.country_region == to_region)
-    if to_income != "":
-        all_countries = all_countries.filter(Country.country_income == to_income)
-
-    result = countries_schema.dump(all_countries)
-    return jsonify({"countries": result})
 
 
 if __name__ == "__main__":
