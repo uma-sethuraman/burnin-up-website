@@ -74,6 +74,8 @@ class City1(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
+db.create_all()
+""""
     def __init__(
         self,
         city_name="NaN",
@@ -87,7 +89,7 @@ class City1(db.Model):
         longitude=0.0,
     ):
         self.city_name = city_name
-        # self.country = country
+        self.country = country
         self.population = population
         self.o3 = o3
         self.pm10 = pm10
@@ -106,7 +108,7 @@ class City1(db.Model):
         self.highest_temp = highest_temp
         self.year_highest = year_highest
 
-# db.create_all()
+ db.create_all()
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -118,7 +120,7 @@ class CityTempPerYear(db.Model):
     city_temp = db.Column(db.Float)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
-
+"""
 ### Table for Cities ###
 
 # get list of cities with years data
@@ -141,6 +143,7 @@ indices = cities_list.keys()
 
 # use opendatasoft api to get basic info on city (name, country, lat, long, pop)
 print("collecting basic city data")
+
 add_cities = []
 count = 0
 for i in indices:
@@ -164,18 +167,16 @@ for i in indices:
                     fields = record["fields"]
                     if fields["country"] == country_iso2:
                         new_city = City1(
-                            city_name = fields["city"].capitalize(),
-                            # country = parent_country,
-                            population = fields["population"],
-                            latitude = fields["latitude"],
-                            longitude = fields["longitude"],
+
+                            country1 = parent_country
                         )
-                        new_city.country = parent_country
                         add_cities += [new_city]
                         count += 1
                         break
 print("num cities:", len(add_cities))
-
+db.session.add_all(add_cities)
+db.session.commit()
+""""
 # use sketch viet api to get environment data per city
 print("collecting city environment data")
 add_cities_environ = []
@@ -210,3 +211,4 @@ for city in add_cities_environ:
 
 db.session.add_all(add_cities_environ)
 db.session.commit()
+"""""
