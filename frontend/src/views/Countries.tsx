@@ -9,11 +9,13 @@ import Navbar from "./components/OurNavbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { CountriesObject, Country} from "./components/Country/CountryInstance";
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import axios from "axios";
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import useAxios from 'axios-hooks';
+import Spinner from "react-bootstrap/Spinner";
 
 // credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const Countries = () => {
@@ -24,19 +26,18 @@ const Countries = () => {
 
 
   // gets data from API
-  const getData = () => {
-    axios.get("/api/countries")
-      .then((response) => {
-        const countryObj: CountriesObject = JSON.parse(JSON.stringify(response.data)) as CountriesObject;
-        setCountriesObj(countryObj);
-        setPosts(countryObj.countries);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
 
-  getData();
+  const [{ data, loading, error }, refetch] = useAxios(
+    '/api/countries'
+  )
+  
+
+  useEffect(() => {
+    const countryObj: CountriesObject = data as CountriesObject;
+    if (countryObj) {
+      setPosts(countryObj.countries);
+    }
+  }, [data]);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
@@ -48,7 +49,7 @@ const Countries = () => {
   return (
     <div className="App">
       <Navbar />
-      <header className="App-header">
+      {loading? <Spinner animation="border" />: <header className="App-header">
         <h1>Countries</h1>
         <Image src={require("../assets/world-map.jpeg")} width="600px" fluid />
         <br></br>
@@ -106,7 +107,7 @@ const Countries = () => {
         <Form></Form>
         {Posts(currentPosts)}
         {Pagination(postsPerPage, posts.length, paginate)}
-      </header>
+      </header>}
     </div>
   );
 }

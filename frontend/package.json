@@ -16,6 +16,7 @@
     "@types/recharts": "^1.8.16",
     "ajv": "^6.12.6",
     "axios": "^0.20.0",
+    "axios-hooks": "^2.1.0",
     "bootstrap": "^4.5.3",
     "browserify-css": "^0.15.0",
     "chai": "^4.2.0",

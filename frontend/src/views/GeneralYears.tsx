@@ -18,6 +18,8 @@ import axios from "axios";
 import Posts from "./components/Posts";
 import Pagination from "./components/Pagination";
 import YearTable from "./components/YearTable";
+import useAxios from 'axios-hooks';
+import Spinner from "react-bootstrap/Spinner";
 
 // credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
 const GeneralYears = () => {
@@ -26,22 +28,20 @@ const GeneralYears = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(22);
 
-  // gets data from API
-  const getData = () => {
-    axios.get("/api/years")
-      .then((response) => {
-        const yearsObj: YearsObject = response.data as YearsObject;
-        setYearsObj(yearsObj);
-        setPosts(yearsObj.years as Year[]);
-        console.log(posts);
-        console.log(yearsObj);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
 
-  getData();
+  const [{ data, loading, error }, refetch] = useAxios(
+    '/api/years'
+  )
+
+  useEffect(() => {
+    const yearsObj: YearsObject = data as YearsObject;
+    if (yearsObj) {
+      setPosts(yearsObj.years as Year[]);
+    }
+  }, [data]);
+  
+
+
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -51,7 +51,7 @@ const GeneralYears = () => {
   return (
     <div className="App">
       <Navbar />
-      <header className="App-header">
+      {loading? <Spinner animation="border" />: <header className="App-header">
         <h1> Annual Global Climate Change</h1>
         <Image src={require("../assets/fire.jpg")} width="600px" fluid />
         <br />
@@ -107,7 +107,7 @@ const GeneralYears = () => {
         <br></br>
         {YearTable(currentPosts)}
         {Pagination(postsPerPage, posts.length, paginate)}
-      </header>
+      </header>}
     </div>
   );
 }

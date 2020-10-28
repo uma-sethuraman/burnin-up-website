@@ -16,6 +16,8 @@ import { useState, useEffect } from 'react';
 import CityPosts from "./components/CityPosts";
 import Pagination from "./components/Pagination";
 import { ButtonToolbar } from 'react-bootstrap';
+import useAxios from 'axios-hooks';
+import Spinner from "react-bootstrap/Spinner";
 
 const Cities = () => {
   const [cityObj, setCityObj] = React.useState<CityObject>();
@@ -23,20 +25,15 @@ const Cities = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(50);
 
-
-  const getData = () => {
-    axios.get("/api/cities")
-      .then((response) => {
-        const cityObj: CityObject = JSON.parse(JSON.stringify(response.data)) as CityObject;
-        setCityObj(cityObj);
-        setPosts(cityObj.cities);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
-
-  getData();
+  const [{ data, loading, error }, refetch] = useAxios(
+    '/api/cities'
+  )
+  useEffect(() => {
+    const cityObj: CityObject = data as CityObject;
+    if (cityObj) {
+      setPosts(cityObj.cities);
+    }
+  }, [data]);
 
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -48,7 +45,7 @@ const Cities = () => {
   return (
     <div className="App">
       <Navbar />
-      <header className="App-header">
+      {loading? <Spinner animation="border" />: <header className="App-header">
         <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} width="600px" fluid />
         <br />
@@ -96,7 +93,7 @@ const Cities = () => {
 
         {CityPosts(currentPosts)}
         {Pagination(postsPerPage, posts.length, paginate)}
-      </header>
+      </header>}
     </div>
   );
 }
