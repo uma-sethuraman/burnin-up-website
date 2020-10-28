@@ -18,8 +18,60 @@ import Pagination from "./components/Pagination";
 import { ButtonToolbar } from 'react-bootstrap';
 import useAxios from 'axios-hooks';
 import Spinner from "react-bootstrap/Spinner";
+import MUIDataTable from "mui-datatables";
+
 
 const Cities = () => {
+  const columns = [
+    {
+     name: "city",
+     label: "City",
+     options: {
+      filter: true,
+      sort: true,
+     }
+    },
+    {
+     name: "iso2",
+     label: "Country ISO2 Code",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    },
+    {
+     name: "o3",
+     label: "O3 (Dobson Units)",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    },
+    {
+     name: "pm10",
+     label: "PM10 (ug/m3)",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    },
+    {
+      name: "pm25",
+      label: "PM2.5 (ug/m3)",
+      options: {
+       filter: true,
+       sort: false,
+      }
+    },
+    {
+      name: "population",
+      label: "Population",
+      options: {
+       filter: true,
+       sort: false,
+      }
+     },
+   ];
   const [cityObj, setCityObj] = React.useState<CityObject>();
   const [posts, setPosts] = useState<City[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
