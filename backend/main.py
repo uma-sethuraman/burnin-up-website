@@ -291,6 +291,73 @@ def get_sorted_years(order, column):
     result = years_schema.dump(sorted_years)
     return jsonify({"years": result})
 
+# Retrieve all filtered cities
+@app.route("/api/years/filter", methods=["GET"])
+def get_filtered_years():
+    year = request.args.get("year", "")
+    methane = request.args.get("methane", "")
+    ice_extent = request.args.get("ice_extent", "")
+    sea_level = request.args.get("sea_level", "")
+    co2 = request.args.get("co2", "")
+    nitrous_oxide = request.args.get("nitrous_oxide", "")
+
+    all_years = db.session.query(Year)
+
+    if year:
+        if year == "1880":
+            all_years = all_years.filter("1880" <= Year.year_name).filter(Year.year_name <= "1900")
+        if year == "1900":
+            all_years = all_years.filter("1900" <= Year.year_name).filter(Year.year_name <= "1920")
+        if year == "1920":
+            all_years = all_years.filter("1920" <= Year.year_name).filter(Year.year_name <= "1940")
+        if year == "1940":
+            all_years = all_years.filter("1940" <= Year.year_name).filter(Year.year_name <= "1960")
+        if year == "1960":
+            all_years = all_years.filter("1960" <= Year.year_name).filter(Year.year_name <= "1980")
+        if year == "1980":
+            all_years = all_years.filter("1980" <= Year.year_name).filter(Year.year_name <= "2000")
+        if year == "2000":
+            all_years = all_years.filter("2000" <= Year.year_name).filter(Year.year_name <= "2018")
+    if methane:
+        if methane == "1000":
+            all_years = all_years.filter(Year.methane <= 1000)
+        if methane == "10001500":
+            all_years = all_years.filter(Year.methane >= 1000).filter(Year.methane <= 1500)
+        if methane == "1500":
+            all_years = all_years.filter(Year.methane >= 1500)
+    if ice_extent:
+        if ice_extent == "23mil":
+            all_years = all_years.filter(Year.ice_extent <= 23000000)
+        if ice_extent == "2327mil":
+            all_years = all_years.filter(Year.ice_extent >= 23000000).filter(Year.ice_extent <= 27000000)
+        if ice_extent == "27mil":
+            all_years = all_years.filter(Year.ice_extent >= 27000000)
+    if sea_level:
+        if sea_level == "2":
+            all_years = all_years.filter(Year.sea_level <= 2)
+        if sea_level == "26":
+            all_years = all_years.filter(Year.sea_level >= 2).filter(Year.sea_level <= 6)
+        if sea_level == "6":
+            all_years = all_years.filter(Year.sea_level >= 6)
+    if co2:
+        if co2 == "300":
+            all_years = all_years.filter(Year.co2 <= 300)
+        if co2 == "300350":
+            all_years = all_years.filter(Year.co2 >= 300).filter(Year.co2 <= 350)
+        if co2 == "350":
+            all_years = all_years.filter(Year.co2 >= 350)
+    if nitrous_oxide:
+        if nitrous_oxide == "290":
+            all_years = all_years.filter(Year.nitrous_oxide <= 290)
+        if nitrous_oxide == "290320":
+            all_years = all_years.filter(Year.nitrous_oxide >= 290).filter(Year.nitrous_oxide <= 320)
+        if nitrous_oxide == "320":
+            all_years = all_years.filter(Year.nitrous_oxide >= 320)
+ 
+
+    result = years_schema.dump(all_years)
+    return jsonify({"years_filtered": result})
+
 # -----------------
 # Cities Endpoints
 # -----------------
