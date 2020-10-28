@@ -305,19 +305,19 @@ def get_filtered_years():
 
     if year:
         if year == "1880":
-            all_years = all_years.filter("1880" <= Year.year_name).filter(Year.year_name <= "1900")
+            all_years = all_years.filter(1880 <= Year.year_name).filter(Year.year_name <= 1900)
         if year == "1900":
-            all_years = all_years.filter("1900" <= Year.year_name).filter(Year.year_name <= "1920")
+            all_years = all_years.filter(1900 <= Year.year_name).filter(Year.year_name <= 1920)
         if year == "1920":
-            all_years = all_years.filter("1920" <= Year.year_name).filter(Year.year_name <= "1940")
+            all_years = all_years.filter(1920 <= Year.year_name).filter(Year.year_name <= 1940)
         if year == "1940":
-            all_years = all_years.filter("1940" <= Year.year_name).filter(Year.year_name <= "1960")
+            all_years = all_years.filter(1940 <= Year.year_name).filter(Year.year_name <= 1960)
         if year == "1960":
-            all_years = all_years.filter("1960" <= Year.year_name).filter(Year.year_name <= "1980")
+            all_years = all_years.filter(1960 <= Year.year_name).filter(Year.year_name <= 1980)
         if year == "1980":
-            all_years = all_years.filter("1980" <= Year.year_name).filter(Year.year_name <= "2000")
+            all_years = all_years.filter(1980 <= Year.year_name).filter(Year.year_name <= 2000)
         if year == "2000":
-            all_years = all_years.filter("2000" <= Year.year_name).filter(Year.year_name <= "2018")
+            all_years = all_years.filter(2000 <= Year.year_name).filter(Year.year_name <= 2018)
     if methane:
         if methane == "1000":
             all_years = all_years.filter(Year.methane <= 1000)
