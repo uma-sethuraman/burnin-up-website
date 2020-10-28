@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from "react";
-import "./App.css";
+import "./Cities.css";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
@@ -19,23 +19,45 @@ import { ButtonToolbar } from 'react-bootstrap';
 import useAxios from 'axios-hooks';
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
+import { constants } from 'os';
+import { blue } from '@material-ui/core/colors';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-
+/* General Cities Model Page (route: "/cities") */
 const Cities = () => {
 
-  function myClick (city_id: string) {
-    return "/cities/id=" + city_id;
-  }
-  
+  /* Array of all cities retrieved from api */
+  const [cities, setCities] = useState<City[]>([]);
+
+  /* Loads api data into data */
+  const [{ data, loading, error }, refetch] = useAxios('/api/cities');
+
+  /* Fills the cities array with the correct values retrieved from data */
+  useEffect(() => {
+    const cityObj: CityObject = data as CityObject;
+    if (cityObj) {
+      setCities(cityObj.cities);
+    }
+  }, [data]);
+
+  /* All columns of the cities table */
   const columns = [
     {
-     name: "city_name",
-     label: "City",
-     options: {
-      filter: true,
-      sort: true,
-      onClick: myClick(id),
-     }
+      name: "city_id",
+      label: "City ID",
+      options: {
+       filter: false,
+       sort: false,
+       display: "excluded",
+      }
+    },
+    {
+      name: "city_name",
+      label: "City",
+      options: {
+       filter: true,
+       sort: true,
+      }
     },
     {
      name: "country_iso2code",
@@ -78,54 +100,30 @@ const Cities = () => {
       }
      },
    ];
-  const [cityObj, setCityObj] = React.useState<CityObject>();
-  const [posts, setPosts] = useState<City[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(50);
 
-  const [{ data, loading, error }, refetch] = useAxios(
-    '/api/cities'
-  )
-  useEffect(() => {
-    const cityObj: CityObject = data as CityObject;
-    if (cityObj) {
-      setPosts(cityObj.cities);
-    }
-  }, [data]);
-
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
+  /* Options for the cities table, initializing OnRowClick
+  to redirect to that row's city page during a click */
   const options = {
     filterType: 'checkbox' as any,
+    onRowClick: (rowData: any) => {
+      window.location.assign('/cities/id='+rowData[0]);
+    },
   };
 
   return (
-    <div className="App">
+    <div className="Cities">
       <Navbar />
-      {loading? <Spinner animation="border" />: <header className="App-header">
-          <MUIDataTable
-            title={"Cities"}
-            data={posts}
-            columns={columns}
-            options={options}
-          />
+
+      {/* Display loading animation if data is still loading */}
+      {loading? <Spinner animation="border" />: <header className="Cities-header">
+
         <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} width="600px" fluid />
         <br />
+
+        {/* Displaying table filtering options */}
         <Form>
           <Form.Group>
-            <Form>
-              <FormControl
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2"
-              />
-              <Button variant="outline-info">Search</Button>
-            </Form>
             <ButtonGroup>
               <DropdownButton className="mr-2" title={"Name"} >
                 <Dropdown.Item eventKey="1">A-Z</Dropdown.Item>
@@ -154,12 +152,18 @@ const Cities = () => {
                 <Dropdown.Item eventKey="3">Less than 50 million</Dropdown.Item>
               </DropdownButton>
             </ButtonGroup>
-
           </Form.Group>
         </Form>
 
-        {CityPosts(currentPosts)}
-        {Pagination(postsPerPage, posts.length, paginate)}
+        {/* Displaying the table of all cities, with searching and pagination */}
+        <div style={{display: 'table', tableLayout:'fixed', width:'100%'}}>
+          <MUIDataTable
+            title={"Cities"}
+            data={cities}
+            columns={columns}
+            options={options}
+          />
+        </div>
       </header>}
     </div>
   );
