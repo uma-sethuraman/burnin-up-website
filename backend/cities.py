@@ -31,7 +31,7 @@ path = "./datasets"
 
 
 # Country Model
-class Country(db.Model):
+class Country1(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
     country_name = db.Column(db.String())
     capital_city_id = db.Column(db.Integer)
@@ -44,7 +44,7 @@ class Country(db.Model):
     country_region = db.Column(db.String())
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
-    cities = db.relationship('City', backref = 'country')
+    cities = db.relationship('City1', backref = 'country1')
 
 # old country class; used for debugging
 # class Country(db.Model):
@@ -60,22 +60,11 @@ class Country(db.Model):
 #     recent_emissions_year = db.Column(db.Integer)
 #     recent_emissions = db.Column(db.Float)
 
-# Avg City Temp Per Year Model
-class CityTempPerYear(db.Model):
-    year_id = db.Column(db.Integer, primary_key=True)
-    year_name = db.Column(db.Integer)
-    city = db.Column(db.String())
-    city_id = db.Column(db.Integer)
-    country = db.Column(db.String())
-    city_temp = db.Column(db.Float)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
-
 # City model
-class City(db.Model):
+class City1(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String())
-    country = db.Column(db.Integer, db.ForeignKey('country.country_id'))
+    country = db.Column(db.Integer, db.ForeignKey('country1.country_id'))
     population = db.Column(db.Integer)
     o3 = db.Column(db.Float)
     pm10 = db.Column(db.Float)
@@ -88,7 +77,6 @@ class City(db.Model):
     def __init__(
         self,
         city_name="NaN",
-        country=None,
         population=0,
         o3=0.0,
         pm10=0.0,
@@ -99,7 +87,7 @@ class City(db.Model):
         longitude=0.0,
     ):
         self.city_name = city_name
-        self.country = country
+        # self.country = country
         self.population = population
         self.o3 = o3
         self.pm10 = pm10
@@ -119,6 +107,17 @@ class City(db.Model):
         self.year_highest = year_highest
 
 # db.create_all()
+
+# Avg City Temp Per Year Model
+class CityTempPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    city = db.Column(db.String())
+    city_id = db.Column(db.Integer)
+    country = db.Column(db.String())
+    city_temp = db.Column(db.Float)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
 
 ### Table for Cities ###
 
@@ -141,11 +140,15 @@ indices = cities_list.keys()
 # print(cities_list.keys() == countries_list.keys())
 
 # use opendatasoft api to get basic info on city (name, country, lat, long, pop)
+print("collecting basic city data")
 add_cities = []
+count = 0
 for i in indices:
+    if count == 10:
+        break
     city = cities_list[i]
     country = countries_list[i]
-    parent_country = db.session.query(Country).filter(Country.country_name == country).first()
+    parent_country = db.session.query(Country1).filter(Country1.country_name == country).first()
     if parent_country:
         country_iso2 = parent_country.country_iso2code.lower()
         req = (
@@ -160,18 +163,21 @@ for i in indices:
                 for record in response["records"]:
                     fields = record["fields"]
                     if fields["country"] == country_iso2:
-                        new_city = City(
+                        new_city = City1(
                             city_name = fields["city"].capitalize(),
-                            country = parent_country,
+                            # country = parent_country,
                             population = fields["population"],
                             latitude = fields["latitude"],
                             longitude = fields["longitude"],
                         )
+                        new_city.country = parent_country
                         add_cities += [new_city]
+                        count += 1
                         break
 print("num cities:", len(add_cities))
 
 # use sketch viet api to get environment data per city
+print("collecting city environment data")
 add_cities_environ = []
 for city in add_cities:
     req = (
@@ -192,12 +198,15 @@ for city in add_cities:
                     add_cities_environ += [city]
 
 # uses city_temp_per_year table to get highest temp and year of highest temp per city
+print("collecting city temp data")
 for city in add_cities_environ:
     country = city.country.country_name
-    ctpy = db.session.query(CityTempPerYear).filter(CityTempPerYear.city == name and CityTempPerYear.country == country).order_by(CityTempPerYear.city_temp).all()
-    highest = ctpy[len(ctpy)-1]
-    city.set_temp_data(highest.city_temp, highest.year_name)
+    ctpy = db.session.query(CityTempPerYear).filter(CityTempPerYear.city == city.city_name and CityTempPerYear.country == country).order_by(CityTempPerYear.city_temp).all()
+    if ctpy:
+        highest = ctpy[len(ctpy)-1]
+        city.set_temp_data(highest.city_temp, highest.year_name)
 
 # all of the cities with complete attributes should be in add_cities_environ list!!!
 
-# db.session.commit()
+db.session.add_all(add_cities_environ)
+db.session.commit()
