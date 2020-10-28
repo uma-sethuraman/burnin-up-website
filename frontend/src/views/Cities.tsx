@@ -22,17 +22,23 @@ import MUIDataTable from "mui-datatables";
 
 
 const Cities = () => {
+
+  function myClick (city_id: string) {
+    return "/cities/id=" + city_id;
+  }
+  
   const columns = [
     {
-     name: "city",
+     name: "city_name",
      label: "City",
      options: {
       filter: true,
       sort: true,
+      onClick: myClick(id),
      }
     },
     {
-     name: "iso2",
+     name: "country_iso2code",
      label: "Country ISO2 Code",
      options: {
       filter: true,
@@ -93,11 +99,20 @@ const Cities = () => {
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const options = {
+    filterType: 'checkbox' as any,
+  };
 
   return (
     <div className="App">
       <Navbar />
       {loading? <Spinner animation="border" />: <header className="App-header">
+          <MUIDataTable
+            title={"Cities"}
+            data={posts}
+            columns={columns}
+            options={options}
+          />
         <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} width="600px" fluid />
         <br />
