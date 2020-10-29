@@ -54,6 +54,23 @@ class Year(db.Model):
     sea_level = db.Column(db.Float)
     world_population = db.Column(db.BigInteger)
 
+# City model
+class City1(db.Model):
+    city_id = db.Column(db.Integer, primary_key=True)
+    city_name = db.Column(db.String())
+    country_id = db.Column(db.Integer, db.ForeignKey('country1.country_id'))
+    country_iso2 = db.Column(db.String())
+    population = db.Column(db.Integer)
+    o3 = db.Column(db.Float)
+    pm10 = db.Column(db.Float)
+    pm25 = db.Column(db.Float)
+    highest_temp = db.Column(db.Float)
+    year_highest = db.Column(db.Integer)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+
+
+### TO BE REMOVED BY END OF PHASE 3 ###
 
 # Country C02 Emissions Per Year Model
 class CountryEmissionsPerYear(db.Model):
@@ -75,22 +92,6 @@ class CityTempPerYear(db.Model):
     city_temp = db.Column(db.Float)
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
-
-
-# City Model
-class City(db.Model):
-    city_id = db.Column(db.Integer, primary_key=True)
-    city_name = db.Column(db.String())
-    population = db.Column(db.Integer)
-    time_zone = db.Column(db.String())
-    elevation = db.Column(db.Integer)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
-    pm25 = db.Column(db.Float)
-    pm10 = db.Column(db.Float)
-    o3 = db.Column(db.Float)
-    country_iso2code = db.Column(db.String())
-    co = db.Column(db.Float)
 
 
 # City Year Model
@@ -166,16 +167,16 @@ class CityTempPerYearSchema(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
+    country = fields.Nested(lambda: CountrySchema(only=('country_name', 'country_id', 'country_iso2code')))
+    country_iso2 = fields.Str(required=False)
     population = fields.Int(required=False)
-    time_zone = fields.Str(required=False)
-    elevation = fields.Int(required=False)
+    o3 = fields.Float(required=False)
+    pm10 = fields.Float(required=False)
+    pm25 = fields.Float(required=False)
+    highest_temp = fields.Float(required=False)
+    year_highest = fields.Int(required=False)
     lat = fields.Float(required=False)
     long = fields.Float(required=False)
-    pm25 = fields.Float(required=False)
-    pm10 = fields.Float(required=False)
-    o3 = fields.Float(required=False)
-    country_iso2code = fields.Str(required=False)
-    co = fields.Float(required=False)
 
 
 # City Year Schema
@@ -294,8 +295,8 @@ def get_filtered_countries():
             all_countries.filter(Country1.long <= 90).filter(Country1.long >= 0)
         elif long == "east":
             all_countries.filter(Country1.long <= 0)
-    if pop != None:
-        if
+    # if pop != None:
+    #     if
 
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
@@ -411,7 +412,7 @@ def get_filtered_years():
 # Retrieve all cities
 @app.route("/api/cities", methods=["GET"])
 def get_cities():
-    all_cities = City.query.all()
+    all_cities = City1.query.all()
     result = cities_schema.dump(all_cities)
     return jsonify({"cities": result})
 
@@ -430,16 +431,16 @@ def get_city_id(id):
 
 
 # Retrieve single city entry by city name
-@app.route("/api/cities/name=<name>", methods=["GET"])
-def get_city_name(name):
-    city = db.session.query(City).filter(City.city_name == name).first()
-    if city is None:
-        response = flask.Response(
-            json.dumps({"error": name + " not found"}), mimetype="application/json"
-        )
-        response.status_code = 404
-        return response
-    return citys_schema.jsonify(city)
+# @app.route("/api/cities/name=<name>", methods=["GET"])
+# def get_city_name(name):
+#     city = db.session.query(City).filter(City.city_name == name).first()
+#     if city is None:
+#         response = flask.Response(
+#             json.dumps({"error": name + " not found"}), mimetype="application/json"
+#         )
+#         response.status_code = 404
+#         return response
+#     return citys_schema.jsonify(city)
 
 
 # Retrieve all sorted cities
