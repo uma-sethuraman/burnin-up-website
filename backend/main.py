@@ -21,21 +21,25 @@ app.debug = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+
 ###### MODELS ######
 
 # Country Model
-class Country(db.Model):
+class Country1(db.Model):
     country_id = db.Column(db.Integer, primary_key=True)
     country_name = db.Column(db.String())
-    country_region = db.Column(db.String())
-    country_income = db.Column(db.String())
-    country_capital_city = db.Column(db.String())
+    capital_city_id = db.Column(db.Integer)
     country_iso2code = db.Column(db.String())
     country_iso3code = db.Column(db.String())
-    country_lat = db.Column(db.Float)
-    country_long = db.Column(db.Float)
-    recent_emissions_year = db.Column(db.Integer)
+    highest_emission = db.Column(db.Float)
     recent_emissions = db.Column(db.Float)
+    country_population = db.Column(db.Integer)
+    capital_city_name = db.Column(db.String())
+    income_level = db.Column(db.String())
+    country_region = db.Column(db.String())
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
+    cities = db.relationship('City', backref = 'country')
 
 
 # Year Model
@@ -112,15 +116,16 @@ class CountrySchema(ma.Schema):
     country_id = fields.Int(required=True)
     country_name = fields.Str(required=False)
     country_region = fields.Str(required=False)
-    country_income = fields.Str(required=False)
-    country_capital_city = fields.Str(required=False)
+    income_level = fields.Str(required=False)
     country_iso2code = fields.Str(required=False)
     country_iso3code = fields.Str(required=False)
-    country_lat = fields.Str(required=False)
-    country_long = fields.Str(required=False)
-    recent_emissions_year = fields.Int(required=False)
+    country_population = fields.Int(required=False)
+    lat = fields.Str(required=False)
+    long = fields.Str(required=False)
+    highest_emission = fields.Float(required=False)
     recent_emissions = fields.Float(required=False)
-
+    capital_city_id = fields.Int(required=False)
+    capital_city_name = fields.Str(required=False)
 
 # Year Schema
 class YearSchema(ma.Schema):
@@ -209,12 +214,14 @@ city_year_schema = CityYearSchema()
 countriesYear_schema = CountryYearSchema(many=True)
 countryYear_schema = CountryYearSchema()
 
+
 ###### ENDPOINTS ######
 # Root routing
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def get_index(path):
     return render_template("index.html")
+
 
 # -------------------
 # Countries Endpoints
@@ -223,7 +230,7 @@ def get_index(path):
 # Retrieve all countries
 @app.route("/api/countries", methods=["GET"])
 def get_countries():
-    all_countries = Country.query.all()
+    all_countries = Country1.query.all()
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
 
@@ -231,7 +238,7 @@ def get_countries():
 # Retrieve single country entry by id
 @app.route("/api/countries/id=<id>", methods=["GET"])
 def get_country_id(id):
-    country = Country.query.get(id)
+    country = Country1.query.get(id)
     if country is None:
         print("here")
         response = flask.Response(
@@ -241,21 +248,58 @@ def get_country_id(id):
         return response
     return country_schema.jsonify(country)
 
+@app.route("/api/countries/sort=<order>&column=<column>", methods=["GET"])
+def get_sorted_countries(order, column):
+    if order == "descending":
+        sorted_countries = Country1.query.order_by(getattr(Country1, column).desc()).all()
+    if order == "ascending":
+        sorted_countries = Country1.query.order_by(getattr(Country1, column).asc()).all()
+    result = countries_schema.dump(sorted_countries)
+    return jsonify({"countries": result})
+
+
 # Retrieve all countries filtered
 @app.route("/api/countries/filter", methods=["GET"])
 def get_filtered_countries():
-    to_region = request.args.get("region", "") # http://localhost:5000/api/countriesfiltered?region=South%20Asia&incomelevel=Lower%20middle%20income
-    to_income = request.args.get("incomelevel", "")
+    region = request.args.get("region")
+    income = request.args.get("income")
+    co2 = request.args.get("co2")
+    lat = request.args.get("lat")
+    long = request.args.get("long")
+    pop = request.args.get("population")
+    all_countries = db.session.query(Country1)
 
-    all_countries = db.session.query(Country)
+    if region != None:
+        all_countries.filter(Country1.country_region == region)
 
-    if to_region:
-        all_countries = all_countries.filter(Country.country_region == to_region)
-    if to_income:
-        all_countries = all_countries.filter(Country.country_income == to_income)
+    if income != None:
+        all_countries.filter(Country1.income_level == income)
+
+    if co2 != None:
+        if co2 == "low":
+            all_countries.filter(Country1.recent_emission < 5)
+        elif co2 == "medium":
+            all_countries.filter(Country1.recent_emissions >= 5).filter(Country1.recent_emissions <= 15)
+        elif co2 == "high":
+            all_countries.filter(Country1.recent_emission > 15)
+
+    if lat != None:
+        if lat == "north":
+            all_countries.filter(Country1.lat <= 90 ).filter(Country1.lat >=0)
+        elif lat == "south":
+            all_countries.filter(Country1.lat < 0 )
+
+    if long != None:
+        if long == "west":
+            all_countries.filter(Country1.long <= 90).filter(Country1.long >= 0)
+        elif long == "east":
+            all_countries.filter(Country1.long <= 0)
+    if pop != None:
+        if
 
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
+
 
 # ----------------
 # Years Endpoints
@@ -281,6 +325,7 @@ def get_year_name(name):
         return response
     return year_schema.jsonify(year)
 
+
 # Retrieve sorted years model
 @app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_years(order, column):
@@ -290,6 +335,7 @@ def get_sorted_years(order, column):
         sorted_years = Year.query.order_by(getattr(Year, column).asc()).all()
     result = years_schema.dump(sorted_years)
     return jsonify({"years": result})
+
 
 # Retrieve all filtered cities
 @app.route("/api/years/filter", methods=["GET"])
@@ -353,10 +399,10 @@ def get_filtered_years():
             all_years = all_years.filter(Year.nitrous_oxide >= 290).filter(Year.nitrous_oxide <= 320)
         if nitrous_oxide == "320":
             all_years = all_years.filter(Year.nitrous_oxide >= 320)
- 
 
     result = years_schema.dump(all_years)
     return jsonify({"years_filtered": result})
+
 
 # -----------------
 # Cities Endpoints
@@ -395,7 +441,8 @@ def get_city_name(name):
         return response
     return citys_schema.jsonify(city)
 
-# Retrieve all sorted cities 
+
+# Retrieve all sorted cities
 @app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_cities(order, column):
     if order == "descending":
@@ -404,6 +451,7 @@ def get_sorted_cities(order, column):
         sorted_cities = City.query.order_by(getattr(City, column).asc()).all()
     result = cities_schema.dump(sorted_cities)
     return jsonify({"cities_sorted": result})
+
 
 # Retrieve all filtered cities
 @app.route("/api/cities/filter", methods=["GET"])
@@ -450,10 +498,11 @@ def get_filtered_cities():
         if pm25 == "50100":
             all_cities = all_cities.filter(50.0 <= City.pm25).filter(City.pm25 <= 100.0)
         if pm25 == "100":
-            all_cities = all_cities.filter(City.pm25 > 100.0)   
+            all_cities = all_cities.filter(City.pm25 > 100.0)
 
     result = cities_schema.dump(all_cities)
     return jsonify({"cities_filtered": result})
+
 
 # -------------------------
 # Endpoints to Remove Later
@@ -475,6 +524,7 @@ def get_city_temperatures():
     all_cities_temps = CityTempPerYear.query.order_by(CityTempPerYear.year_name).all()
     result = cities_temp_schema.dump(all_cities_temps)
     return jsonify({"city_temperatures_years": result})
+
 
 # Retrieve list of relevant city names (capitals and top temp per year cities)
 @app.route("/api/cities/city_names", methods=["GET"])
@@ -573,8 +623,8 @@ def get_country_id_by_city(city_id):
     city_country = city.country_iso2code
     country = (
         db.session.query(Country)
-        .filter(Country.country_iso2code == city_country)
-        .first()
+            .filter(Country.country_iso2code == city_country)
+            .first()
     )
     if country is None:
         response = flask.Response(
@@ -584,11 +634,6 @@ def get_country_id_by_city(city_id):
         return response
     result = {"id": country.country_id, "name": country.country_name}
     return jsonify({"country_code": result})
-
-
-
-
-
 
 
 if __name__ == "__main__":
