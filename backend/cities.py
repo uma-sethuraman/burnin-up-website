@@ -16,6 +16,9 @@ import numpy as np
 import requests
 from time import sleep
 
+# For removing the accents from city and country names
+import unidecode
+
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -96,9 +99,8 @@ class CityYear(db.Model):
 db.create_all()
 
 ### Table for Cities ###
-
 # get list of cities with years data
-city_temps_df = pd.read_csv(os.path.join(path, "AvgTempCity.csv"))
+city_temps_df = pd.read_csv(os.path.join(path, "AvgTempCityFix.csv"))
 unique_cities_df = city_temps_df[["Country", "City"]].drop_duplicates()
 cities_list = unique_cities_df["City"]
 countries_list = unique_cities_df["Country"]
@@ -113,6 +115,7 @@ for i in indices:
         break
     city = cities_list[i]
     country = countries_list[i]
+    print("Retrieved: " + city + ", " + country)
     parent_country = db.session.query(Country1).filter(Country1.country_name == country).first()
     if parent_country:
         country_iso2 = parent_country.country_iso2code.lower()
@@ -135,6 +138,7 @@ for i in indices:
                             latitude = fields["latitude"],
                             longitude = fields["longitude"],
                         )
+                        print("Input: " + new_city.city_name + ", " + new_city.country1.country_name)
                         add_cities += [new_city]
                         count += 1
                         break
@@ -163,19 +167,30 @@ for city in add_cities:
 
 print("num cities with environ data:", len(add_cities_environ))
 
-# uses city_temp_per_year table to get highest temp and year of highest temp per city
-# UNFINSHED!!!!!!
-print("collecting city temp data")
-final_cities = []
-for city in add_cities_environ:
-    country = city.country1.country_name
-    ctpy = db.session.query(CityTempPerYear).filter(CityTempPerYear.city == city.city_name and CityTempPerYear.country == country).order_by(CityTempPerYear.city_temp).all()
-    if ctpy:
-        highest = ctpy[len(ctpy)-1]
-        city.set_temp_data(highest.city_temp, highest.year_name)
-        final_cities += [city]
-
 # all of the cities with complete attributes should be in add_cities_environ list!!!
-print("num cities to commit:", len(final_cities))
-# db.session.add_all(add_cities_environ)
-# db.session.commit()
+### Gets the highest temperature for each city ###
+count = 0
+total = 0
+for city in add_cities_environ:
+    city_name = city.city_name
+    country_name = city.country1.country_name
+    print("From AddCitiesEnviron: " + city_name + ", " + country_name)
+    # Checks if we can find the city in the city temp table
+    if len(city_temps_df.loc[(city_temps_df["City"] == city_name) & (city_temps_df["Country"] == country_name)]) != 0:
+        # Get year associated with max temp and year
+        temp = float(city_temps_df.loc[(city_temps_df["City"] == city_name) & (city_temps_df["Country"] == country_name)]["AvgTemperature"].max())
+        max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == city_name) & (city_temps_df["Country"] == country_name)]["AvgTemperature"].idxmax()
+        year = int(city_temps_df.iloc[max_temp_idx]["Year"])
+        total += 1
+        city.set_temp_data(highest_temp=temp, year_highest=year)
+    else:
+        print("Couldn't find data for: " + city_name + ", " + country_name)
+        count += 1
+        total += 1
+
+print("Couldn't find " + str(count) + " out of " + str(total))
+
+print("num cities to commit:", len(add_cities_environ))
+
+# # db.session.add_all(add_cities_environ)
+# # db.session.commit()
