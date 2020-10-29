@@ -17,7 +17,7 @@ import requests
 from time import sleep
 
 # For removing the accents from city and country names
-import unidecode
+# import unidecode
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -54,6 +54,7 @@ class City1(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String())
     country_id = db.Column(db.Integer, db.ForeignKey('country1.country_id'))
+    country_iso2 = db.Column(db.String())
     population = db.Column(db.Integer)
     o3 = db.Column(db.Float)
     pm10 = db.Column(db.Float)
@@ -63,11 +64,12 @@ class City1(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
-    def set_basic_data(self, city_name="NaN", population=0, latitude=0.0, longitude=0.0):
+    def set_basic_data(self, city_name="NaN", population=0, latitude=0.0, longitude=0.0, country_iso2="NaN"):
         self.city_name = city_name
         self.population = population
         self.latitude = latitude
         self.longitude = longitude
+        self.country_iso2 = country_iso2
 
     def set_environ_data(self, o3=0.0, pm10=0.0, pm25=0.0):
         self.o3 = o3
@@ -107,16 +109,22 @@ countries_list = unique_cities_df["Country"]
 indices = cities_list.keys()
 
 # use opendatasoft api to get basic info on city (name, country, lat, long, pop)
-print("collecting basic city data")
+print("collecting all city data")
 add_cities = []
-count = 0
 for i in indices:
-    if count == 10:
-        break
     city = cities_list[i]
+    print("evaluating", city)
     country = countries_list[i]
-    print("Retrieved: " + city + ", " + country)
     parent_country = db.session.query(Country1).filter(Country1.country_name == country).first()
+    name = ""
+    pop = 0
+    lat = 0.0
+    long = 0.0
+    temp = 0.0
+    year = 0
+    o3 = 0.0
+    pm10 = 0.0
+    pm25 = 0.0
     if parent_country:
         country_iso2 = parent_country.country_iso2code.lower()
         req = (
@@ -131,66 +139,49 @@ for i in indices:
                 for record in response["records"]:
                     fields = record["fields"]
                     if fields["country"] == country_iso2:
-                        new_city = City1(country1 = parent_country)
-                        new_city.set_basic_data(
-                            city_name = fields["city"].capitalize(),
-                            population = fields["population"],
-                            latitude = fields["latitude"],
-                            longitude = fields["longitude"],
+                        if "city" not in fields or "population" not in fields or "latitude" not in fields or "longitude" not in fields:
+                            break
+                        name = fields["city"].capitalize()
+                        pop = fields["population"]
+                        lat = fields["latitude"]
+                        long = fields["longitude"]
+
+                        temp1 = float(city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == country)]["AvgTemperature"].max())
+                        max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == country)]["AvgTemperature"].idxmax()
+                        year1 = int(city_temps_df.iloc[max_temp_idx]["Year"])
+                        temp = temp1
+                        year = year1
+
+                        req = (
+                            "https://api.waqi.info/feed/geo:"
+                            + str(lat)
+                            + ";"
+                            + str(long)
+                            + "/?token=1cbf10be27bc7aa662b54f38d9c0d0a592eba24c"
                         )
-                        print("Input: " + new_city.city_name + ", " + new_city.country1.country_name)
-                        add_cities += [new_city]
-                        count += 1
-                        break
-print("num cities:", len(add_cities))
+                        response = requests.request("GET", req)
+                        if response.status_code == 200:
+                            cities_climate_data = response.json()
+                            if "data" in cities_climate_data:
+                                if "forecast" in cities_climate_data["data"]:
+                                    if "daily" in cities_climate_data["data"]["forecast"]:
+                                        daily = cities_climate_data["data"]["forecast"]["daily"]
+                                        new_city = City1(country1 = parent_country)
+                                        new_city.set_basic_data(
+                                            city_name = name,
+                                            population = pop,
+                                            latitude = lat,
+                                            longitude = long,
+                                            country_iso2=parent_country.country_iso2code
+                                        )
+                                        new_city.set_temp_data(highest_temp=temp, year_highest=year)
+                                        new_city.set_environ_data(o3=daily["o3"][0]["avg"], pm10=daily["pm10"][0]["avg"], pm25=daily["pm25"][0]["avg"])
+                                        add_cities += [new_city]
+                                        print("added", new_city.city_name)
+                                        break
 
-# use sketch viet api to get environment data per city
-print("collecting city environment data")
-add_cities_environ = []
-for city in add_cities:
-    req = (
-        "https://api.waqi.info/feed/geo:"
-        + str(city.latitude)
-        + ";"
-        + str(city.longitude)
-        + "/?token=1cbf10be27bc7aa662b54f38d9c0d0a592eba24c"
-    )
-    response = requests.request("GET", req)
-    if response.status_code == 200:
-        cities_climate_data = response.json()
-        if "data" in cities_climate_data:
-            if "forecast" in cities_climate_data["data"]:
-                if "daily" in cities_climate_data["data"]["forecast"]:
-                    daily = cities_climate_data["data"]["forecast"]["daily"]
-                    city.set_environ_data(o3=daily["o3"][0]["avg"], pm10=daily["pm10"][0]["avg"], pm25=daily["pm25"][0]["avg"])
-                    add_cities_environ += [city]
+print("num cities with all data:", len(add_cities))
 
-print("num cities with environ data:", len(add_cities_environ))
 
-# all of the cities with complete attributes should be in add_cities_environ list!!!
-### Gets the highest temperature for each city ###
-count = 0
-total = 0
-for city in add_cities_environ:
-    city_name = city.city_name
-    country_name = city.country1.country_name
-    print("From AddCitiesEnviron: " + city_name + ", " + country_name)
-    # Checks if we can find the city in the city temp table
-    if len(city_temps_df.loc[(city_temps_df["City"] == city_name) & (city_temps_df["Country"] == country_name)]) != 0:
-        # Get year associated with max temp and year
-        temp = float(city_temps_df.loc[(city_temps_df["City"] == city_name) & (city_temps_df["Country"] == country_name)]["AvgTemperature"].max())
-        max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == city_name) & (city_temps_df["Country"] == country_name)]["AvgTemperature"].idxmax()
-        year = int(city_temps_df.iloc[max_temp_idx]["Year"])
-        total += 1
-        city.set_temp_data(highest_temp=temp, year_highest=year)
-    else:
-        print("Couldn't find data for: " + city_name + ", " + country_name)
-        count += 1
-        total += 1
-
-print("Couldn't find " + str(count) + " out of " + str(total))
-
-print("num cities to commit:", len(add_cities_environ))
-
-# # db.session.add_all(add_cities_environ)
-# # db.session.commit()
+db.session.add_all(add_cities)
+db.session.commit()
