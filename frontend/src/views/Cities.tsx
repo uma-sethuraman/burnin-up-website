@@ -64,7 +64,7 @@ const Cities = () => {
      label: "Country ISO2 Code",
      options: {
       filter: true,
-      sort: false,
+      sort: true,
      }
     },
     {
@@ -72,7 +72,7 @@ const Cities = () => {
      label: "O3 (Dobson Units)",
      options: {
       filter: true,
-      sort: false,
+      sort: true,
      }
     },
     {
@@ -80,7 +80,7 @@ const Cities = () => {
      label: "PM10 (ug/m3)",
      options: {
       filter: true,
-      sort: false,
+      sort: true,
      }
     },
     {
@@ -88,7 +88,7 @@ const Cities = () => {
       label: "PM2.5 (ug/m3)",
       options: {
        filter: true,
-       sort: false,
+       sort: true,
       }
     },
     {
@@ -96,7 +96,19 @@ const Cities = () => {
       label: "Population",
       options: {
        filter: true,
-       sort: false,
+       sort: true,
+       filterOptions: {
+        names: ['Lower population', 'Middle population', 'High Population'],
+        logic(population:any, filterVal:any) {
+          // population = population.replace(/[^\d]/g, '');
+
+          const show =
+            (filterVal.indexOf('Lower population') >= 0 && population < 100000) ||
+            (filterVal.indexOf('Middle population') >= 0 && population >= 1000000 && population < 20000000) ||
+            (filterVal.indexOf('High Population') >= 0 && population >= 20000000);
+          return !show;
+        },
+      },
       }
      },
    ];
@@ -108,6 +120,7 @@ const Cities = () => {
     onRowClick: (rowData: any) => {
       window.location.assign('/cities/id='+rowData[0]);
     },
+
   };
 
   return (
