@@ -34,12 +34,12 @@ class Country1(db.Model):
     highest_emission = db.Column(db.Float)
     recent_emissions = db.Column(db.Float)
     country_population = db.Column(db.Integer)
-    capital_city_name = db.Column(db.String())
+    country_capital_city = db.Column(db.String())
     income_level = db.Column(db.String())
     country_region = db.Column(db.String())
     lat = db.Column(db.Float)
     long = db.Column(db.Float)
-    cities = db.relationship('City', backref = 'country')
+    cities = db.relationship('City1', backref = 'country1')
 
 
 # Year Model
@@ -113,7 +113,7 @@ class CountryYear(db.Model):
 ###### SCHEMAS ######
 
 # Country Schema
-class CountrySchema(ma.Schema):
+class CountrySchema1(ma.Schema):
     country_id = fields.Int(required=True)
     country_name = fields.Str(required=False)
     country_region = fields.Str(required=False)
@@ -126,7 +126,7 @@ class CountrySchema(ma.Schema):
     highest_emission = fields.Float(required=False)
     recent_emissions = fields.Float(required=False)
     capital_city_id = fields.Int(required=False)
-    capital_city_name = fields.Str(required=False)
+    country_capital_city = fields.Str(required=False)
 
 # Year Schema
 class YearSchema(ma.Schema):
@@ -197,8 +197,8 @@ class CountryYearSchema(ma.Schema):
 
 ###### INITIALIZE SCHEMA OBJECTS ######
 
-country_schema = CountrySchema()
-countries_schema = CountrySchema(many=True)
+country_schema = CountrySchema1()
+countries_schema = CountrySchema1(many=True)
 
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
@@ -241,7 +241,6 @@ def get_countries():
 def get_country_id(id):
     country = Country1.query.get(id)
     if country is None:
-        print("here")
         response = flask.Response(
             json.dumps({"error": id + " not found"}), mimetype="application/json"
         )
@@ -271,32 +270,40 @@ def get_filtered_countries():
     all_countries = db.session.query(Country1)
 
     if region != None:
-        all_countries.filter(Country1.country_region == region)
+        all_countries = all_countries.filter(Country1.country_region == region)
 
     if income != None:
-        all_countries.filter(Country1.income_level == income)
+        all_countries = all_countries.filter(Country1.income_level == income)
 
     if co2 != None:
         if co2 == "low":
-            all_countries.filter(Country1.recent_emission < 5)
+            all_countries =all_countries.filter(Country1.recent_emission < 5)
         elif co2 == "medium":
-            all_countries.filter(Country1.recent_emissions >= 5).filter(Country1.recent_emissions <= 15)
+            all_countries =all_countries.filter(Country1.recent_emissions >= 5).filter(Country1.recent_emissions <= 15)
         elif co2 == "high":
-            all_countries.filter(Country1.recent_emission > 15)
+            all_countries =all_countries.filter(Country1.recent_emission > 15)
 
     if lat != None:
         if lat == "north":
-            all_countries.filter(Country1.lat <= 90 ).filter(Country1.lat >=0)
+            all_countries =all_countries.filter(Country1.lat <= 90 ).filter(Country1.lat >=0)
         elif lat == "south":
-            all_countries.filter(Country1.lat < 0 )
+            all_countries =all_countries.filter(Country1.lat < 0 )
 
     if long != None:
         if long == "west":
-            all_countries.filter(Country1.long <= 90).filter(Country1.long >= 0)
+            all_countries =all_countries.filter(Country1.long <= 90).filter(Country1.long >= 0)
         elif long == "east":
-            all_countries.filter(Country1.long <= 0)
-    # if pop != None:
-    #     if
+            all_countries =all_countries.filter(Country1.long <= 0)
+
+    if pop!=None:
+        if pop == "small":
+            all_countries = all_countries.filter(Country1.country_population >=0 ).filter(Country1.country_population < 100000)
+        if pop == "medium":
+            all_countries = all_countries.filter(Country1.country_population >= 100000).filter(Country1.country_population < 5000000)
+        if pop == "large":
+            all_countries = all_countries.filter(Country1.country_population >= 5000000).filter(Country1.country_population < 200000000)
+        if pop == "huge":
+            all_countries = all_countries.filter(Country1.country_population >= 200000000)
 
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
