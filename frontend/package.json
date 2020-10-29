@@ -38,6 +38,7 @@
     "react-bootstrap-table2-paginator": "^2.1.2",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
+    "react-instantsearch-dom": "^6.8.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-thermometer-component": "^1.0.1",
