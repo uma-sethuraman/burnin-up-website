@@ -2,9 +2,8 @@ import React from "react";
 import "./About.css";
 import Navbar from "./components/OurNavbar";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "react-bootstrap/Image";
-import { Link } from "react-router-dom";
 
 /* Importing images for all group members */
 import UmaSethuraman from "../assets/uma-headshot.jpg";
@@ -63,7 +62,7 @@ function About() {
   /* Cumulative totals for about page statistics */
   const [issuesSum, changeIssuesSum] = useState(-1);
   const [commitsSum, changeCommitsSum] = useState(-1);
-  const [unittestsSum, changeUnittestsSum] = useState(105);
+  const unittestsSum: number = 105;
 
   /* Create a copy of the members array to apply changes to */
   let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
@@ -73,7 +72,7 @@ function About() {
 
     /* Populates requestArray with all issues requests */
     const requestURL: string =
-      "https://cors-anywhere.herokuapp.com/https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
+      "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
     const requestArray = [];
     for (const member of members) {
       requestArray.push(axios.get(requestURL + member.username));
@@ -99,9 +98,10 @@ function About() {
 
   /* Retrieves commit data for all members */
   const commitsApiRequest = () => {
+
     axios
       .get(
-        "https://cors-anywhere.herokuapp.com/https://gitlab.com/api/v4/projects/21349576/repository/contributors"
+        "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
       )
       .then((response) => {
         const allCommits: CommitsInfo[] = response.data;
@@ -133,14 +133,18 @@ function About() {
       });
   }
   
+  /* Retrieve Gitlab data from these function calls */
+  useEffect(() => {
+    issuesApiRequest();
+    commitsApiRequest();
+  }, []);
+
   return (
 
     <div className="About">
-      {issuesApiRequest()}
-      {commitsApiRequest()}
       <Navbar />
 
-      <body className="About-body">
+      <div className="About-body">
         <div className="h3_about">
           <h3>About Us</h3>
         </div>
@@ -161,10 +165,10 @@ function About() {
 
         <br></br>
         <div className="h2_about">
-          {commitsSum == -1? <h2>Total Commits: </h2> :
+          {commitsSum === -1? <h2>Total Commits: </h2> :
           <h2>Total Commits: {commitsSum}</h2> }
 
-          {issuesSum == -1? <h2>Total Issues: </h2> :
+          {issuesSum === -1? <h2>Total Issues: </h2> :
           <h2>Total Issues: {issuesSum}</h2> }
 
           <h2>Total Unit Tests: {unittestsSum}</h2>
@@ -308,7 +312,7 @@ function About() {
           </div>
         </div>
         <br></br>
-      </body>
+      </div>
       
       <div className="Tools">
         <h2>Tools</h2>
@@ -345,7 +349,7 @@ function About() {
         </div>
         <div className="Toolcolumn">
           <a href="https://www.namecheap.com/" >
-            <img className="ToolImage" src={NameCheapLogo} />
+            <Image className="ToolImage" src={NameCheapLogo} />
           </a>
           <figcaption className="caption">NameCheap: website name </figcaption>
         </div>
