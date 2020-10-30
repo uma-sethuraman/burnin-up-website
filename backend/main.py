@@ -59,6 +59,7 @@ class City1(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String())
     country_id = db.Column(db.Integer, db.ForeignKey('country1.country_id'))
+    country = db.relationship('Country1', backref='city1')
     country_iso2 = db.Column(db.String())
     population = db.Column(db.Integer)
     o3 = db.Column(db.Float)
@@ -144,7 +145,8 @@ class YearSchema(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
-    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code',)))
+    # country_id = fields.Int(required=False)
+    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code')))
     country_iso2 = fields.Str(required=False)
     population = fields.Int(required=False)
     o3 = fields.Float(required=False)
@@ -200,7 +202,7 @@ countries_schema = CountrySchema1(many=True)
 year_schema = YearSchema()
 years_schema = YearSchema(many=True)
 
-citys_schema = CitySchema()
+city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
@@ -418,95 +420,84 @@ def get_filtered_years():
 def get_cities():
     all_cities = City1.query.all()
     result = cities_schema.dump(all_cities)
+    print(type(result))
+    # return "hi"
+    # return {"cities": json.dumps(result)}
     return jsonify({"cities": result})
 
 
 # Retrieve single city entry by id
 @app.route("/api/cities/id=<id>", methods=["GET"])
 def get_city_id(id):
-    city = City.query.get(id)
+    city = City1.query.get(id)
     if city is None:
         response = flask.Response(
             json.dumps({"error": id + " not found"}), mimetype="application/json"
         )
         response.status_code = 404
         return response
-    return citys_schema.jsonify(city)
-
-
-# Retrieve single city entry by city name
-# @app.route("/api/cities/name=<name>", methods=["GET"])
-# def get_city_name(name):
-#     city = db.session.query(City).filter(City.city_name == name).first()
-#     if city is None:
-#         response = flask.Response(
-#             json.dumps({"error": name + " not found"}), mimetype="application/json"
-#         )
-#         response.status_code = 404
-#         return response
-#     return citys_schema.jsonify(city)
-
+    return city_schema.jsonify(city)
 
 # Retrieve all sorted cities
 @app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_cities(order, column):
     if order == "descending":
-        sorted_cities = City.query.order_by(getattr(City, column).desc()).all()
+        sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
     if order == "ascending":
-        sorted_cities = City.query.order_by(getattr(City, column).asc()).all()
+        sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
     result = cities_schema.dump(sorted_cities)
     return jsonify({"cities_sorted": result})
 
 
 # Retrieve all filtered cities
-@app.route("/api/cities/filter", methods=["GET"])
-def get_filtered_cities():
-    name = request.args.get("name", "")
-    population = request.args.get("population", "")
-    o3 = request.args.get("o3", "")
-    pm10 = request.args.get("pm10", "")
-    pm25 = request.args.get("pm25", "")
+# @app.route("/api/cities/filter", methods=["GET"])
+# def get_filtered_cities():
+#     name = request.args.get("name", "")
+#     population = request.args.get("population", "")
+#     o3 = request.args.get("o3", "")
+#     pm10 = request.args.get("pm10", "")
+#     pm25 = request.args.get("pm25", "")
 
-    all_cities = db.session.query(City)
+#     all_cities = db.session.query(City)
 
-    if name:
-        if name == "ai":
-            all_cities = all_cities.filter("a" <= City.city_name).filter(City.city_name <= "i")
-        if name == "jr":
-            all_cities = all_cities.filter("j" <= City.city_name).filter(City.city_name <= "r")
-        if name == "sz":
-            all_cities = all_cities.filter("s" <= City.city_name).filter(City.city_name <= "z")
-    if population:
-        if population == "500k":
-            all_cities = all_cities.filter(City.population <= 500000)
-        if population == "5mil":
-            all_cities = all_cities.filter(City.population <= 5000000)
-        if population == "20mil":
-            all_cities = all_cities.filter(City.population <= 20000000)
-    if o3:
-        if o3 == "15":
-            all_cities = all_cities.filter(City.o3 < 15.0)
-        if o3 == "1530":
-            all_cities = all_cities.filter(15.0 <= City.o3).filter(City.o3 <= 30.0)
-        if o3 == "30":
-            all_cities = all_cities.filter(City.o3 > 30.0)
-    if pm10:
-        if pm10 == "20":
-            all_cities = all_cities.filter(City.pm10 < 20.0)
-        if pm10 == "2060":
-            all_cities = all_cities.filter(20.0 <= City.pm10).filter(City.pm10 <= 60.0)
-        if pm10 == "60":
-            all_cities = all_cities.filter(City.pm10 > 60.0)
-    if pm25:
-        if pm25 == "50":
-            all_cities = all_cities.filter(City.pm25 < 50.0)
-        if pm25 == "50100":
-            all_cities = all_cities.filter(50.0 <= City.pm25).filter(City.pm25 <= 100.0)
-        if pm25 == "100":
-            all_cities = all_cities.filter(City.pm25 > 100.0)
+#     if name:
+#         if name == "ai":
+#             all_cities = all_cities.filter("a" <= City.city_name).filter(City.city_name <= "i")
+#         if name == "jr":
+#             all_cities = all_cities.filter("j" <= City.city_name).filter(City.city_name <= "r")
+#         if name == "sz":
+#             all_cities = all_cities.filter("s" <= City.city_name).filter(City.city_name <= "z")
+#     if population:
+#         if population == "500k":
+#             all_cities = all_cities.filter(City.population <= 500000)
+#         if population == "5mil":
+#             all_cities = all_cities.filter(City.population <= 5000000)
+#         if population == "20mil":
+#             all_cities = all_cities.filter(City.population <= 20000000)
+#     if o3:
+#         if o3 == "15":
+#             all_cities = all_cities.filter(City.o3 < 15.0)
+#         if o3 == "1530":
+#             all_cities = all_cities.filter(15.0 <= City.o3).filter(City.o3 <= 30.0)
+#         if o3 == "30":
+#             all_cities = all_cities.filter(City.o3 > 30.0)
+#     if pm10:
+#         if pm10 == "20":
+#             all_cities = all_cities.filter(City.pm10 < 20.0)
+#         if pm10 == "2060":
+#             all_cities = all_cities.filter(20.0 <= City.pm10).filter(City.pm10 <= 60.0)
+#         if pm10 == "60":
+#             all_cities = all_cities.filter(City.pm10 > 60.0)
+#     if pm25:
+#         if pm25 == "50":
+#             all_cities = all_cities.filter(City.pm25 < 50.0)
+#         if pm25 == "50100":
+#             all_cities = all_cities.filter(50.0 <= City.pm25).filter(City.pm25 <= 100.0)
+#         if pm25 == "100":
+#             all_cities = all_cities.filter(City.pm25 > 100.0)
 
-    result = cities_schema.dump(all_cities)
-    return jsonify({"cities_filtered": result})
+#     result = cities_schema.dump(all_cities)
+#     return jsonify({"cities_filtered": result})
 
 
 # -------------------------
