@@ -26,43 +26,30 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-path = "./backend/datasets"
+path = "./datasets"
 
-# class Year(db.Model):
-#     year_id = db.Column(db.Integer, primary_key=True)
-#     year_name = db.Column(db.Integer)
-#     temp_anomaly = db.Column(db.Float)
-#     co2 = db.Column(db.Float)
-#     methane = db.Column(db.Float)
-#     nitrous_oxide = db.Column(db.Float)
-#     polar_ice = db.Column(db.Float)
-#     sea_level = db.Column(db.Float)
-#     world_population = db.Column(db.BigInteger)
+class Year1(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    temp_anomaly = db.Column(db.Float)
+    co2 = db.Column(db.Float)
+    methane = db.Column(db.Float)
+    nitrous_oxide = db.Column(db.Float)
+    polar_ice = db.Column(db.Float)
+    sea_level = db.Column(db.Float)
+    world_population = db.Column(db.BigInteger)
+    top_10_countries = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
 
-#     def __init__(self, year_name=0, temp_anomaly=-1, co2=-1, methane=-1, nitrous_oxide=-1, polar_ice=-1,
-#                  sea_level=-1, world_population=-1):
-#         self.year_name = year_name
-#         self.temp_anomaly = temp_anomaly
-#         self.co2 = co2
-#         self.methane = methane
-#         self.nitrous_oxide = nitrous_oxide
-#         self.polar_ice = polar_ice
-#         self.sea_level = sea_level
-#         self.world_population = world_population
 
-# # Creates top countries contributing to climate change per year api request
-# class CountryEmissionsPerYear(db.Model):
-#     year_id = db.Column(db.Integer, primary_key=True)
-#     year_name = db.Column(db.Integer)
-#     country = db.Column(db.String())
-#     code = db.Column(db.String())
-#     country_co2 = db.Column(db.Float)
+# Creates top countries contributing to climate change per year api request
+class CountryEmissionsPerYear(db.Model):
+    year_id = db.Column(db.Integer, primary_key=True)
+    year_name = db.Column(db.Integer)
+    country = db.Column(db.String())
+    code = db.Column(db.String())
+    country_co2 = db.Column(db.Float)
+    parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
 
-#     def __init__(self, year_name=0, country="NaN", code="NaN", country_co2="NaN"):
-#         self.year_name = year_name
-#         self.country = country
-#         self.code = code
-#         self.country_co2 = country_co2
 
 
 class CityTempPerYear(db.Model):
@@ -113,73 +100,63 @@ class City(db.Model):
     co = db.Column(db.Float)
 
 
-# class Country(db.Model):
-#     country_id = db.Column(db.Integer, primary_key=True)
-#     country_name = db.Column(db.String())
-#     country_region = db.Column(db.String())
-#     country_income = db.Column(db.String())
-#     country_capital_city = db.Column(db.String())
-#     country_iso2code = db.Column(db.String())
-#     country_iso3code = db.Column(db.String())
-#     country_lat = db.Column(db.Float)
-#     country_long = db.Column(db.Float)
-
 db.create_all()
 
-# ### Table for Years ###
-# request_url = 'https://global-warming.org/api/temperature-api'
-# r = urllib.request.urlopen(request_url)
-# data = json.loads(r.read())
-# year_dict = dict()
-# for item in data["result"]:
-#     new_year = Year()
-#     new_year.year_name = int(float(item["time"]))
-#     new_year.temp_anomaly = float(item["station"])
-#     year_dict[int(float(item["time"]))] = new_year
-#
-# co2_df = pd.read_csv(os.path.join(path, "GlobalCO2.csv"))
-# for idx, row in co2_df.iterrows():
-#     year_dict[row['Year']].co2 = row['Mean CO2 (ppm)']
-#
-# methane_df = pd.read_csv(os.path.join(path, "Methane.csv"))
-# for idx, row in methane_df.iterrows():
-#     year_dict[row['year']].methane = row['Methane']
-#
-# nitrous_oxide_df = pd.read_csv(os.path.join(path, "NitrousOxide.csv"))
-# for idx, row in nitrous_oxide_df.iterrows():
-#     year_dict[row['Year']].nitrous_oxide = row['Nitrous Oxide Levels (ppb)']
-#
-# polar_ice_df = pd.read_csv(os.path.join(path, "PolarIceCapsPerYear.csv"))
-# for idx, row in polar_ice_df.iterrows():
-#     year_dict[row['Year']].polar_ice = row['Ice Extent (km2)']
-#
-# sea_level_df = pd.read_csv(os.path.join(path, "SeaLevel.csv"))
-# for idx, row in sea_level_df.iterrows():
-#     year_dict[row['Year']].sea_level = row['Absolute Sea Level Change Since 1880 (inches)']
-#
-# world_population_df = pd.read_csv(os.path.join(path, "WorldPopulation.csv"))
-# for idx, row in world_population_df.iterrows():
-#     year_dict[row['Year']].world_population = row['World Population'].item()
+### Table for Years ###
+request_url = 'https://global-warming.org/api/temperature-api'
+r = urllib.request.urlopen(request_url)
+data = json.loads(r.read())
+year_dict = dict()
+for item in data["result"]:
+    new_year = Year1()
+    new_year.year_name = int(float(item["time"]))
+    new_year.temp_anomaly = float(item["station"])
+    year_dict[int(float(item["time"]))] = new_year
 
-# db.session.add_all(year_dict.values())
-# db.session.commit()
+co2_df = pd.read_csv(os.path.join(path, "GlobalCO2.csv"))
+for idx, row in co2_df.iterrows():
+    year_dict[row['Year']].co2 = row['Mean CO2 (ppm)']
 
-# ### Table for Emissions Per Country ###
-# co2_per_country = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
-# sorted_by_year = co2_per_country.groupby("Year").apply(lambda x: x.nlargest(10, "Per capita CO2 emissions")).reset_index(drop=True)
+methane_df = pd.read_csv(os.path.join(path, "Methane.csv"))
+for idx, row in methane_df.iterrows():
+    year_dict[row['year']].methane = row['Methane']
 
-# # Stores a dictionary of years with the CountryEmissionsPerYear object
-# country_years_list = []
-# for index, row in sorted_by_year.iterrows():
-#     new_year = CountryEmissionsPerYear()
-#     new_year.year_name = row['Year']
-#     new_year.country = row['Entity']
-#     new_year.code = row['Code']
-#     new_year.country_co2 = row['Per capita CO2 emissions']
-#     country_years_list.append(new_year)
+nitrous_oxide_df = pd.read_csv(os.path.join(path, "NitrousOxide.csv"))
+for idx, row in nitrous_oxide_df.iterrows():
+    year_dict[row['Year']].nitrous_oxide = row['Nitrous Oxide Levels (ppb)']
 
-# db.session.add_all(country_years_list)
-# db.session.commit()
+polar_ice_df = pd.read_csv(os.path.join(path, "PolarIceCapsPerYear.csv"))
+for idx, row in polar_ice_df.iterrows():
+    year_dict[row['Year']].polar_ice = row['Ice Extent (km2)']
+
+sea_level_df = pd.read_csv(os.path.join(path, "SeaLevel.csv"))
+for idx, row in sea_level_df.iterrows():
+    year_dict[row['Year']].sea_level = row['Absolute Sea Level Change Since 1880 (inches)']
+
+world_population_df = pd.read_csv(os.path.join(path, "WorldPopulation.csv"))
+for idx, row in world_population_df.iterrows():
+    year_dict[row['Year']].world_population = row['World Population'].item()
+
+db.session.add_all(year_dict.values())
+db.session.commit()
+
+### Table for Emissions Per Country ###
+co2_per_country = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
+sorted_by_year = co2_per_country.groupby("Year").apply(lambda x: x.nlargest(10, "Per capita CO2 emissions")).reset_index(drop=True)
+
+# Stores a dictionary of years with the CountryEmissionsPerYear object
+country_years_list = []
+for index, row in sorted_by_year.iterrows():
+    parent_year = db.session.query(Year1).filter(Year1.year_name == row['Year']).first()
+    new_year = CountryEmissionsPerYear(year1=parent_year)
+    new_year.year_name = row['Year']
+    new_year.country = row['Entity']
+    new_year.code = row['Code']
+    new_year.country_co2 = row['Per capita CO2 emissions']
+    country_years_list.append(new_year)
+
+db.session.add_all(country_years_list)
+db.session.commit()
 
 ## Table for Avg City Temps Per Year ###
 # city_temp_per_year = pd.read_csv("./datasets/AvgTempCity.csv")
@@ -199,50 +176,50 @@ db.create_all()
 # db.session.add_all(city_years_list)
 # db.session.commit()
 
-# Adds latitude and longitude of each city in city temps
-cities = CityTempPerYear.query.all()
-for city in cities:
-    # Fill in empty ones
-    if (city.lat == 0) & (city.long == 0) & (" " in city.city):
-        # print("City: " + city.city + " Lat: " + str(city.lat) + " Long: " + str(city.long))
-        words = city.city.split()
-        if "(" in words[1] or ")" in words[1]:
-            print("Has parentheses: " + city.city + " Fix: " + words[0])
-            request_city_location = (
-                "https://maps.googleapis.com/maps/api/geocode/json?&address="
-                + words[0]
-                + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
-            )
-            response = requests.request("GET", request_city_location)
-            city_location_data = response.json()
-            city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
-            city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
-        else:
-            print("Has two words: " + words[0] + " " + words[1])
-            request_city_location = (
-                "https://maps.googleapis.com/maps/api/geocode/json?&address="
-                + words[0]
-                + "%20"
-                + words[1]
-                + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
-            )
-            response = requests.request("GET", request_city_location)
-            city_location_data = response.json()
-            city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
-            city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
-    else:
-        print("Has one word: " + city.city)
-        request_city_location = (
-            "https://maps.googleapis.com/maps/api/geocode/json?&address="
-            + city.city
-            + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
-        )
-        response = requests.request("GET", request_city_location)
-        city_location_data = response.json()
-        city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
-        city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+# # Adds latitude and longitude of each city in city temps
+# cities = CityTempPerYear.query.all()
+# for city in cities:
+#     # Fill in empty ones
+#     if (city.lat == 0) & (city.long == 0) & (" " in city.city):
+#         # print("City: " + city.city + " Lat: " + str(city.lat) + " Long: " + str(city.long))
+#         words = city.city.split()
+#         if "(" in words[1] or ")" in words[1]:
+#             print("Has parentheses: " + city.city + " Fix: " + words[0])
+#             request_city_location = (
+#                 "https://maps.googleapis.com/maps/api/geocode/json?&address="
+#                 + words[0]
+#                 + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+#             )
+#             response = requests.request("GET", request_city_location)
+#             city_location_data = response.json()
+#             city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+#             city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+#         else:
+#             print("Has two words: " + words[0] + " " + words[1])
+#             request_city_location = (
+#                 "https://maps.googleapis.com/maps/api/geocode/json?&address="
+#                 + words[0]
+#                 + "%20"
+#                 + words[1]
+#                 + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+#             )
+#             response = requests.request("GET", request_city_location)
+#             city_location_data = response.json()
+#             city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+#             city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
+#     else:
+#         print("Has one word: " + city.city)
+#         request_city_location = (
+#             "https://maps.googleapis.com/maps/api/geocode/json?&address="
+#             + city.city
+#             + "&key=AIzaSyCFxkZtgINP4Jibsl1cNF0mjwExHHZcmSM"
+#         )
+#         response = requests.request("GET", request_city_location)
+#         city_location_data = response.json()
+#         city.lat = city_location_data["results"][0]["geometry"]["location"]["lat"]
+#         city.long = city_location_data["results"][0]["geometry"]["location"]["lng"]
 
-db.session.commit()
+# db.session.commit()
 
 
 # # Finds the cities we need info on in the Cities Table

@@ -5,6 +5,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow import Schema, fields
 import flask
 import json
+import flask_marshmallow as ma
 
 # Create flask app
 app = Flask(
@@ -41,9 +42,8 @@ class Country1(db.Model):
     long = db.Column(db.Float)
     cities = db.relationship('City1', backref = 'country1')
 
-
-# Year Model
-class Year(db.Model):
+# Year model
+class Year1(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
     temp_anomaly = db.Column(db.Float)
@@ -53,6 +53,7 @@ class Year(db.Model):
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
     world_population = db.Column(db.BigInteger)
+    top_10_countries = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
 
 # City model
 class City1(db.Model):
@@ -73,14 +74,15 @@ class City1(db.Model):
 
 ### TO BE REMOVED BY END OF PHASE 3 ###
 
-# Country C02 Emissions Per Year Model
+# Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
     country = db.Column(db.String())
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
-    countryid = db.Column(db.Integer)
+    parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
+    
 
 
 # Avg City Temp Per Year Model
@@ -129,18 +131,6 @@ class CountrySchema1(ma.Schema):
     capital_city_id = fields.Int(required=False)
     country_capital_city = fields.Str(required=False)
 
-# Year Schema
-class YearSchema(ma.Schema):
-    year_id = fields.Int(required=True)
-    year_name = fields.Str(required=False)
-    temp_anomaly = fields.Float(required=False)
-    co2 = fields.Float(required=False)
-    methane = fields.Float(required=False)
-    nitrous_oxide = fields.Float(required=False)
-    polar_ice = fields.Float(required=False)
-    sea_level = fields.Float(required=False)
-    world_population = fields.Int(required=False)
-
 # City Schema
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
@@ -158,14 +148,26 @@ class CitySchema(ma.Schema):
     long = fields.Float(required=False)
 
 # Country C02 Emissions Per Year Schema
-class CountryEmissionsPerYearSchema(ma.Schema):
+class CountryEmissionsPerYearSchema1(ma.Schema):
     year_id = fields.Int(required=True)
     year_name = fields.Str(required=False)
     country = fields.Str(required=False)
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
-    countryid = fields.Int(required=False)
+    parent_year_id = fields.Int(required=False)
 
+# Year Schema
+class YearSchema1(ma.Schema):
+    year_id = fields.Int(required=True)
+    year_name = fields.Str(required=False)
+    temp_anomaly = fields.Float(required=False)
+    co2 = fields.Float(required=False)
+    methane = fields.Float(required=False)
+    nitrous_oxide = fields.Float(required=False)
+    polar_ice = fields.Float(required=False)
+    sea_level = fields.Float(required=False)
+    world_population = fields.Int(required=False)
+    top_10_countries = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
 
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema(ma.Schema):
@@ -199,13 +201,13 @@ class CountryYearSchema(ma.Schema):
 country_schema = CountrySchema1()
 countries_schema = CountrySchema1(many=True)
 
-year_schema = YearSchema()
-years_schema = YearSchema(many=True)
+year_schema = YearSchema1()
+years_schema = YearSchema1(many=True)
 
 city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
-countries_emissions_schema = CountryEmissionsPerYearSchema(many=True)
+countries_emissions_schema = CountryEmissionsPerYearSchema1(many=True)
 cities_temp_schema = CityTempPerYearSchema(many=True)
 
 city_years_schema = CityYearSchema(many=True)
@@ -315,7 +317,8 @@ def get_filtered_countries():
 # Retrieve all years
 @app.route("/api/years", methods=["GET"])
 def get_years():
-    all_years = Year.query.all()
+    all_years = Year1.query.all()
+    print(all_years[20].top_10_countries)
     result = years_schema.dump(all_years)
     return jsonify({"years": result})
 
@@ -323,7 +326,7 @@ def get_years():
 # Retrieve single year entry by year name
 @app.route("/api/years/name=<name>", methods=["GET"])
 def get_year_name(name):
-    year = db.session.query(Year).filter(Year.year_name == name).first()
+    year = db.session.query(Year1).filter(Year1.year_name == name).first()
     if year is None:
         response = flask.Response(
             json.dumps({"error": name + " not found"}), mimetype="application/json"
@@ -337,78 +340,78 @@ def get_year_name(name):
 @app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_years(order, column):
     if order == "descending":
-        sorted_years = Year.query.order_by(getattr(Year, column).desc()).all()
+        sorted_years = Year1.query.order_by(getattr(Year1, column).desc()).all()
     if order == "ascending":
-        sorted_years = Year.query.order_by(getattr(Year, column).asc()).all()
+        sorted_years = Year1.query.order_by(getattr(Year1, column).asc()).all()
     result = years_schema.dump(sorted_years)
     return jsonify({"years": result})
 
 
-# Retrieve all filtered cities
-@app.route("/api/years/filter", methods=["GET"])
-def get_filtered_years():
-    year = request.args.get("year", "")
-    methane = request.args.get("methane", "")
-    ice_extent = request.args.get("ice_extent", "")
-    sea_level = request.args.get("sea_level", "")
-    co2 = request.args.get("co2", "")
-    nitrous_oxide = request.args.get("nitrous_oxide", "")
+# # Retrieve all filtered cities
+# @app.route("/api/years/filter", methods=["GET"])
+# def get_filtered_years():
+#     year = request.args.get("year", "")
+#     methane = request.args.get("methane", "")
+#     ice_extent = request.args.get("ice_extent", "")
+#     sea_level = request.args.get("sea_level", "")
+#     co2 = request.args.get("co2", "")
+#     nitrous_oxide = request.args.get("nitrous_oxide", "")
 
-    all_years = db.session.query(Year)
+#     all_years = db.session.query(Year1)
 
-    if year:
-        if year == "1880":
-            all_years = all_years.filter(1880 <= Year.year_name).filter(Year.year_name <= 1900)
-        if year == "1900":
-            all_years = all_years.filter(1900 <= Year.year_name).filter(Year.year_name <= 1920)
-        if year == "1920":
-            all_years = all_years.filter(1920 <= Year.year_name).filter(Year.year_name <= 1940)
-        if year == "1940":
-            all_years = all_years.filter(1940 <= Year.year_name).filter(Year.year_name <= 1960)
-        if year == "1960":
-            all_years = all_years.filter(1960 <= Year.year_name).filter(Year.year_name <= 1980)
-        if year == "1980":
-            all_years = all_years.filter(1980 <= Year.year_name).filter(Year.year_name <= 2000)
-        if year == "2000":
-            all_years = all_years.filter(2000 <= Year.year_name).filter(Year.year_name <= 2018)
-    if methane:
-        if methane == "1000":
-            all_years = all_years.filter(Year.methane <= 1000)
-        if methane == "10001500":
-            all_years = all_years.filter(Year.methane >= 1000).filter(Year.methane <= 1500)
-        if methane == "1500":
-            all_years = all_years.filter(Year.methane >= 1500)
-    if ice_extent:
-        if ice_extent == "23mil":
-            all_years = all_years.filter(Year.ice_extent <= 23000000)
-        if ice_extent == "2327mil":
-            all_years = all_years.filter(Year.ice_extent >= 23000000).filter(Year.ice_extent <= 27000000)
-        if ice_extent == "27mil":
-            all_years = all_years.filter(Year.ice_extent >= 27000000)
-    if sea_level:
-        if sea_level == "2":
-            all_years = all_years.filter(Year.sea_level <= 2)
-        if sea_level == "26":
-            all_years = all_years.filter(Year.sea_level >= 2).filter(Year.sea_level <= 6)
-        if sea_level == "6":
-            all_years = all_years.filter(Year.sea_level >= 6)
-    if co2:
-        if co2 == "300":
-            all_years = all_years.filter(Year.co2 <= 300)
-        if co2 == "300350":
-            all_years = all_years.filter(Year.co2 >= 300).filter(Year.co2 <= 350)
-        if co2 == "350":
-            all_years = all_years.filter(Year.co2 >= 350)
-    if nitrous_oxide:
-        if nitrous_oxide == "290":
-            all_years = all_years.filter(Year.nitrous_oxide <= 290)
-        if nitrous_oxide == "290320":
-            all_years = all_years.filter(Year.nitrous_oxide >= 290).filter(Year.nitrous_oxide <= 320)
-        if nitrous_oxide == "320":
-            all_years = all_years.filter(Year.nitrous_oxide >= 320)
+#     if year:
+#         if year == "1880":
+#             all_years = all_years.filter(1880 <= Year1.year_name).filter(Year1.year_name <= 1900)
+#         if year == "1900":
+#             all_years = all_years.filter(1900 <= Year1.year_name).filter(Year1.year_name <= 1920)
+#         if year == "1920":
+#             all_years = all_years.filter(1920 <= Year1.year_name).filter(Year1.year_name <= 1940)
+#         if year == "1940":
+#             all_years = all_years.filter(1940 <= Year1.year_name).filter(Year1.year_name <= 1960)
+#         if year == "1960":
+#             all_years = all_years.filter(1960 <= Year1.year_name).filter(Year1.year_name <= 1980)
+#         if year == "1980":
+#             all_years = all_years.filter(1980 <= Year1.year_name).filter(Year1.year_name <= 2000)
+#         if year == "2000":
+#             all_years = all_years.filter(2000 <= Year1.year_name).filter(Year1.year_name <= 2018)
+#     if methane:
+#         if methane == "1000":
+#             all_years = all_years.filter(Year1.methane <= 1000)
+#         if methane == "10001500":
+#             all_years = all_years.filter(Year1.methane >= 1000).filter(Year1.methane <= 1500)
+#         if methane == "1500":
+#             all_years = all_years.filter(Year1.methane >= 1500)
+#     if ice_extent:
+#         if ice_extent == "23mil":
+#             all_years = all_years.filter(Year.ice_extent <= 23000000)
+#         if ice_extent == "2327mil":
+#             all_years = all_years.filter(Year.ice_extent >= 23000000).filter(Year.ice_extent <= 27000000)
+#         if ice_extent == "27mil":
+#             all_years = all_years.filter(Year.ice_extent >= 27000000)
+#     if sea_level:
+#         if sea_level == "2":
+#             all_years = all_years.filter(Year.sea_level <= 2)
+#         if sea_level == "26":
+#             all_years = all_years.filter(Year.sea_level >= 2).filter(Year.sea_level <= 6)
+#         if sea_level == "6":
+#             all_years = all_years.filter(Year.sea_level >= 6)
+#     if co2:
+#         if co2 == "300":
+#             all_years = all_years.filter(Year.co2 <= 300)
+#         if co2 == "300350":
+#             all_years = all_years.filter(Year.co2 >= 300).filter(Year.co2 <= 350)
+#         if co2 == "350":
+#             all_years = all_years.filter(Year.co2 >= 350)
+#     if nitrous_oxide:
+#         if nitrous_oxide == "290":
+#             all_years = all_years.filter(Year.nitrous_oxide <= 290)
+#         if nitrous_oxide == "290320":
+#             all_years = all_years.filter(Year.nitrous_oxide >= 290).filter(Year.nitrous_oxide <= 320)
+#         if nitrous_oxide == "320":
+#             all_years = all_years.filter(Year.nitrous_oxide >= 320)
 
-    result = years_schema.dump(all_years)
-    return jsonify({"years_filtered": result})
+#     result = years_schema.dump(all_years)
+#     return jsonify({"years_filtered": result})
 
 
 # -----------------
@@ -420,9 +423,6 @@ def get_filtered_years():
 def get_cities():
     all_cities = City1.query.all()
     result = cities_schema.dump(all_cities)
-    print(type(result))
-    # return "hi"
-    # return {"cities": json.dumps(result)}
     return jsonify({"cities": result})
 
 
