@@ -4,6 +4,7 @@ import { Index, InstantSearch } from 'react-instantsearch-dom';
 import { SearchBox, Hits } from 'react-instantsearch-dom';
 import { connectStateResults } from "react-instantsearch-dom";
 import "./Search.css";
+import Navbar from "../OurNavbar";
 
 /* Creating search client for our Algolia search application */
 const searchClient = algoliasearch(
@@ -95,18 +96,30 @@ const YearContent = connectStateResults(
     </div>) : null
 );
 
-function Search() {
+function Search(q: any) {
+  console.log(q.q);
   return (
+    <div>
+      <Navbar/>
     <div className="Search">
+    
       <InstantSearch
         indexName="cities_index"
         searchClient={searchClient}
-      >
+        searchState={{
+          query: q.q
+        }}
+      > 
+      <div style={{ display : "none" }}>
         <SearchBox />
+      </div>
+        {/*onClick={event => {
+          console.log(event.currentTarget);
+        }}*/}
 
         {/* Index containing all cities data */}
         <Index indexName="cities_index">
-          <h2>Cities</h2>
+          <h1>Cities</h1>
           <p>Learn about climate change in cities around the world. </p>
           <br />
           <main>
@@ -116,7 +129,7 @@ function Search() {
 
         {/* Index containing all countries data */}
         <Index indexName="country_index">
-          <h2>Countries</h2>
+          <h1>Countries</h1>
           <p>Learn about climate change in countries around the world. </p>
           <br />
           <main>
@@ -126,7 +139,7 @@ function Search() {
 
         {/* Index containing all years data */}
         <Index indexName="years_index">
-          <h2>Years</h2>
+          <h1>Years</h1>
           <p>Learn about climate change across the years. </p>
           <main>
             <YearContent />
@@ -134,7 +147,8 @@ function Search() {
         </Index>
 
       </InstantSearch>
-    </div>
+      </div>
+      </div>
   );
 }
 

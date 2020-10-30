@@ -14,6 +14,7 @@ import GeneralYears from "./views/GeneralYears";
 import Countries from "./views/Countries";
 import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
+import Search from "./views/components/Search/Search";
 
 ReactDOM.render(
   <Router>
@@ -25,7 +26,8 @@ ReactDOM.render(
       <Route path="/countries" exact component = {Countries} />
       <Route path="/countries/id=:id" render = {(props) => (<CountryInstance id={props.match.params.id}/>)} />
       <Route path="/years/name=:name" render = {(props) => (<YearInstance name={props.match.params.name}/>)} />  
-      <Route path="/years" exact component = {GeneralYears} />
+    <Route path="/years" exact component={GeneralYears} />
+    <Route path="/search/q=:q" render = {(props) => (<Search q={props.match.params.q}/>)} />
 
       
   </Router>,
