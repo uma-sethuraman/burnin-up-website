@@ -98,7 +98,7 @@ class CityYear(db.Model):
     year = db.Column(db.Integer)
     temp = db.Column(db.Float)
 
-db.create_all()
+# db.create_all()
 
 ### Table for Cities ###
 # get list of cities with years data
@@ -108,14 +108,47 @@ cities_list = unique_cities_df["City"]
 countries_list = unique_cities_df["Country"]
 indices = cities_list.keys()
 
+missing = {
+    "Beijing" : "China",
+    "Yamoussoukro" : "Cote D'Ivoire",
+    "Havana" :  "Cuba",
+    "Djibouti" : "Djibouti",
+    "Addis Ababa" : "Ethiopia",
+    "Amman" : "Jordan",
+    "Abuja" : "Nigeria",
+    "Panama City" : "Panama",
+    "Sarajevo" : "Bosnia and Herzegovina",
+    "Luanda" : "Angola",
+    "Washington D.C." : "United States"
+}
+
+populations = {
+    "Beijing" : 21540000,
+    "Havana" : 2130000,
+    "Djibouti": 958920,
+    "Addis Ababa" : 4800000,
+    "Amman" : 4008000,
+    "Abuja" : 3278000,
+    "Panama City" : 477328,
+    "Luanda" : 2572000
+}
+
+# Djibouti 'Jibuti', Djibouti
+# Washington D.C. 'Washington', United States
+
+
 # use opendatasoft api to get basic info on city (name, country, lat, long, pop)
-print("collecting all city data")
+print("collecting missing city data")
 add_cities = []
-for i in indices:
-    city = cities_list[i]
+# for i in indices:
+for i in missing:
+    city = i
     print("evaluating", city)
-    country = countries_list[i]
-    parent_country = db.session.query(Country1).filter(Country1.country_name == country).first()
+    country = missing[i]
+    if country == "Cote D'Ivoire":
+        parent_country = db.session.query(Country1).filter(Country1.country_name == "Cote d'Ivoire").first()
+    else:
+        parent_country = db.session.query(Country1).filter(Country1.country_name == country).first()
     name = ""
     pop = 0
     lat = 0.0
@@ -126,31 +159,56 @@ for i in indices:
     pm10 = 0.0
     pm25 = 0.0
     if parent_country:
+        # print(parent_country.country_name)
         country_iso2 = parent_country.country_iso2code.lower()
-        req = (
-            "https://public.opendatasoft.com/api/records/1.0/search/?dataset=worldcitiespop&q="
-            + city
-            + "&sort=population&facet=country"
-        )
+        if city == "Washington D.C.":
+            req = (
+                "https://public.opendatasoft.com/api/records/1.0/search/?dataset=worldcitiespop&q=Washington+DC&sort=population&facet=country"
+            )
+        else:
+            req = (
+                "https://public.opendatasoft.com/api/records/1.0/search/?dataset=worldcitiespop&q="
+                + city
+                + "&sort=population&facet=country"
+            )
         response = requests.request("GET", req)
         if response.status_code == 200:
+            # print("response from opendatasoft")
             response = requests.request("GET", req).json()
             if len(response["records"]):
+                # print("records present")
                 for record in response["records"]:
                     fields = record["fields"]
+                    # print(country_iso2, fields["country"])
                     if fields["country"] == country_iso2:
-                        if "city" not in fields or "population" not in fields or "latitude" not in fields or "longitude" not in fields:
+                        # print("found country")
+                        if "city" not in fields or "latitude" not in fields or "longitude" not in fields:
+                            # print("missing field")
                             break
-                        name = fields["city"].capitalize()
-                        pop = fields["population"]
+                        name = city.capitalize()
+                        if "population" in fields:
+                            pop = fields["population"]
+                        else:
+                            pop = populations[city]
                         lat = fields["latitude"]
                         long = fields["longitude"]
 
-                        temp1 = float(city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == country)]["AvgTemperature"].max())
-                        max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == country)]["AvgTemperature"].idxmax()
+                        if city == "Djibouti":
+                            temp1 = float(city_temps_df.loc[(city_temps_df["City"] == 'Jibuti') & (city_temps_df["Country"] == country)]["AvgTemperature"].max())
+                            max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == 'Jibuti') & (city_temps_df["Country"] == country)]["AvgTemperature"].idxmax()
+                        elif country == "Bosnia and Herzegovina":
+                            temp1 = float(city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == "Bosnia And Herzegovina")]["AvgTemperature"].max())
+                            max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == "Bosnia And Herzegovina")]["AvgTemperature"].idxmax()
+                        elif city == "Washington D.C.":
+                            temp1 = float(city_temps_df.loc[(city_temps_df["City"] == 'Washington') & (city_temps_df["Country"] == country)]["AvgTemperature"].max())
+                            max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == 'Washington') & (city_temps_df["Country"] == country)]["AvgTemperature"].idxmax()
+                        else:
+                            temp1 = float(city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == country)]["AvgTemperature"].max())
+                            max_temp_idx = city_temps_df.loc[(city_temps_df["City"] == city) & (city_temps_df["Country"] == country)]["AvgTemperature"].idxmax()
                         year1 = int(city_temps_df.iloc[max_temp_idx]["Year"])
                         temp = temp1
                         year = year1
+                        # print("got basic and temp data")
 
                         req = (
                             "https://api.waqi.info/feed/geo:"
@@ -161,11 +219,13 @@ for i in indices:
                         )
                         response = requests.request("GET", req)
                         if response.status_code == 200:
+                            # print(lat, long)
                             cities_climate_data = response.json()
                             if "data" in cities_climate_data:
                                 if "forecast" in cities_climate_data["data"]:
                                     if "daily" in cities_climate_data["data"]["forecast"]:
                                         daily = cities_climate_data["data"]["forecast"]["daily"]
+                                        # print("got environment data")
                                         new_city = City1(country1 = parent_country)
                                         new_city.set_basic_data(
                                             city_name = name,
@@ -180,7 +240,9 @@ for i in indices:
                                         print("added", new_city.city_name)
                                         break
 
+print(add_cities)
 print("num cities with all data:", len(add_cities))
+
 
 
 db.session.add_all(add_cities)
