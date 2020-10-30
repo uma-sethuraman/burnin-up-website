@@ -74,8 +74,16 @@ const YearHit = (hit: any) =>
     <p>Polar Ice Extent: {hit.hit.polar_ice}</p>
     <p>Sea Level: {hit.hit.sea_level}</p>
     <p>Temp Anomaly: {hit.hit.temp_anomaly}</p>
-    <p>Top 10 Countries: {hit.hit.top_10_countries}</p>
     <p>World Population : {hit.hit.world_population}</p>
+    <p>Top 10 Countries: 
+    <div className="list-item">
+      <ol>
+      {hit.hit.top_10_countries.map((country_elem: any) => (
+        <li>{country_elem.country}</li>
+      ))}
+      </ol>
+    </div>
+   </p>
     </div>
 
 /* Displays element for resulting year when user types in query */
@@ -110,6 +118,7 @@ function Search() {
         <Index indexName="country_index">
           <h2>Countries</h2>
           <p>Learn about climate change in countries around the world. </p>
+          <br />
           <main>
             <CountryContent />
           </main>

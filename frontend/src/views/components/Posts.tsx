@@ -43,4 +43,4 @@ const Posts = (posts: Country[]) => {
   );
 };
 
-export default Posts;
+export default Posts; 
