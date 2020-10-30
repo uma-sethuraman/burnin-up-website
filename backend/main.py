@@ -72,8 +72,6 @@ class City1(db.Model):
     longitude = db.Column(db.Float)
 
 
-### TO BE REMOVED BY END OF PHASE 3 ###
-
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -84,6 +82,7 @@ class CountryEmissionsPerYear(db.Model):
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
     
 
+### TO BE REMOVED BY END OF PHASE 3 ###
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -168,6 +167,8 @@ class YearSchema1(ma.Schema):
     world_population = fields.Int(required=False)
     top_10_countries = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
 
+### TO BE REMOVED BY END OF PHASE 3 ###
+
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema(ma.Schema):
     year_id = fields.Int(required=True)
@@ -207,6 +208,9 @@ city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema1(many=True)
+
+### TO BE REMOVED BY END OF PHASE 3 ###
+
 cities_temp_schema = CityTempPerYearSchema(many=True)
 
 city_years_schema = CityYearSchema(many=True)
@@ -249,6 +253,7 @@ def get_country_id(id):
     return country_schema.jsonify(country)
 
 @app.route("/api/countries/sort=<order>&column=<column>", methods=["GET"])
+"""
 def get_sorted_countries(order, column):
     if order == "descending":
         sorted_countries = Country1.query.order_by(getattr(Country1, column).desc()).all()
@@ -256,9 +261,10 @@ def get_sorted_countries(order, column):
         sorted_countries = Country1.query.order_by(getattr(Country1, column).asc()).all()
     result = countries_schema.dump(sorted_countries)
     return jsonify({"countries": result})
-
+"""
 
 # Retrieve all countries filtered
+"""
 @app.route("/api/countries/filter", methods=["GET"])
 def get_filtered_countries():
     region = request.args.get("region")
@@ -307,7 +313,7 @@ def get_filtered_countries():
 
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
-
+"""
 
 # ----------------
 # Years Endpoints
@@ -336,14 +342,14 @@ def get_year_name(name):
 
 
 # Retrieve sorted years model
-@app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
-def get_sorted_years(order, column):
-    if order == "descending":
-        sorted_years = Year1.query.order_by(getattr(Year1, column).desc()).all()
-    if order == "ascending":
-        sorted_years = Year1.query.order_by(getattr(Year1, column).asc()).all()
-    result = years_schema.dump(sorted_years)
-    return jsonify({"years": result})
+# @app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
+# def get_sorted_years(order, column):
+#     if order == "descending":
+#         sorted_years = Year1.query.order_by(getattr(Year1, column).desc()).all()
+#     if order == "ascending":
+#         sorted_years = Year1.query.order_by(getattr(Year1, column).asc()).all()
+#     result = years_schema.dump(sorted_years)
+#     return jsonify({"years": result})
 
 
 # # Retrieve all filtered cities
@@ -438,14 +444,14 @@ def get_city_id(id):
     return city_schema.jsonify(city)
 
 # Retrieve all sorted cities
-@app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
-def get_sorted_cities(order, column):
-    if order == "descending":
-        sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
-    if order == "ascending":
-        sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
-    result = cities_schema.dump(sorted_cities)
-    return jsonify({"cities_sorted": result})
+# @app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
+# def get_sorted_cities(order, column):
+#     if order == "descending":
+#         sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
+#     if order == "ascending":
+#         sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
+#     result = cities_schema.dump(sorted_cities)
+#     return jsonify({"cities_sorted": result})
 
 
 # Retrieve all filtered cities
