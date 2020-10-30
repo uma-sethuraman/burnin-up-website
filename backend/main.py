@@ -134,7 +134,7 @@ class CountrySchema1(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
-    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code')))
+    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id')))
     population = fields.Int(required=False)
     o3 = fields.Float(required=False)
     pm10 = fields.Float(required=False)
@@ -440,7 +440,6 @@ def get_city_id(id):
         )
         response.status_code = 404
         return response
-
     return city_schema.jsonify(city)
 
 

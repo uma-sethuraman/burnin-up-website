@@ -131,7 +131,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/cities")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["cities"]) == 244
+        assert len(d["cities"]) == 3047
 
     def test_cities_list(self):
         r = requests.get("https://burninup.me/api/cities")
@@ -139,37 +139,37 @@ class Tests(TestCase):
         d = r.json()
         assert len(d["cities"]) > 0
         assert d["cities"][0] == {
-            "city_id": 138,
-            "city_name": "Luanda",
-            "co": 0.0,
-            "country_iso2code": "AO",
-            "elevation": 0,
-            "lat": -8.83682,
-            "long": 13.23432,
-            "o3": -1.0,
-            "pm10": -1.0,
-            "pm25": -1.0,
-            "population": 2776168,
-            "time_zone": "NaN",
+            "city_id": 361, 
+            "city_name": "Arhus", 
+            "country": {
+                "country_id": 46, 
+                "country_name": "Denmark"
+            }, 
+            "highest_temp": 9.673833333, 
+            "o3": 26.0, 
+            "pm10": 11.0, 
+            "pm25": 22.0, 
+            "population": 226716, 
+            "year_highest": 1990
         }
 
     def test_cities_id_instance(self):
-        r = requests.get("https://burninup.me/api/cities/id=2240")
+        r = requests.get("https://burninup.me/api/cities/id=512")
         assert r.status_code == 200
         d = r.json()
         assert d == {
-            "city_id": 2240,
-            "city_name": "Victoria",
-            "co": 0.1,
-            "country_iso2code": "MT",
-            "elevation": 0,
-            "lat": 36.04444,
-            "long": 14.23972,
-            "o3": 36.0,
-            "pm10": 9.0,
-            "pm25": 16.0,
-            "population": 6596,
-            "time_zone": "NaN",
+            "city_id": 512, 
+            "city_name": "Asuncion", 
+            "country": {
+                "country_id": 142, 
+                "country_name": "Paraguay"
+            }, 
+            "highest_temp": 24.085, 
+            "o3": 14.0, 
+            "pm10": 8.0, 
+            "pm25": 31.0, 
+            "population": 508797, 
+            "year_highest": 2003
         }
 
     def test_cities_id_error_result(self):
@@ -178,44 +178,8 @@ class Tests(TestCase):
         d = r.json()
         assert d == {"error": "-1 not found"}
 
-    def test_cities_name_instance(self):
-        r = requests.get("https://burninup.me/api/cities/name=Kabul")
-        assert r.status_code == 200
-        d = r.json()
-        assert d == {
-            "city_id": 87,
-            "city_name": "Kabul",
-            "co": 0.0,
-            "country_iso2code": "AF",
-            "elevation": 0,
-            "lat": 34.52813,
-            "long": 69.17233,
-            "o3": 18.0,
-            "pm10": 1.0,
-            "pm25": 14.0,
-            "population": 3043532,
-            "time_zone": "NaN",
-        }
 
-    def test_cities_name_error_result(self):
-        r = requests.get("https://burninup.me/api/cities/name=nooo")
-        assert r.status_code == 404
-        d = r.json()
-        assert d == {"error": "nooo not found"}
-
-    def test_relevant_cities_num_results(self):
-        r = requests.get("https://burninup.me/api/cities/city_names")
-        assert r.status_code == 200
-        d = r.json()
-        assert len(d["city_names"]) == 258
-
-    def test_relevant_cities_list(self):
-        r = requests.get("https://burninup.me/api/cities/city_names")
-        assert r.status_code == 200
-        d = r.json()
-        assert len(d["city_names"]) > 0
-        assert d["city_names"][0] == "Oranjestad"
-        pass
+    ########## DELETE BY THE END OF PHASE 3 ##########
 
     # ------------------
     # City Temperatures
