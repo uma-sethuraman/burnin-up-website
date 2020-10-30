@@ -1,0 +1,11 @@
+.ais-Hits-item {
+    display: flex;
+    text-align: left;
+}
+
+.Search {
+    text-align: left;
+    padding-right: 2vw;
+    padding-left: 2vw;
+}
+  
