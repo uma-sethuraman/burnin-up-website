@@ -252,8 +252,8 @@ def get_country_id(id):
         return response
     return country_schema.jsonify(country)
 
-@app.route("/api/countries/sort=<order>&column=<column>", methods=["GET"])
 """
+@app.route("/api/countries/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_countries(order, column):
     if order == "descending":
         sorted_countries = Country1.query.order_by(getattr(Country1, column).desc()).all()
@@ -261,10 +261,10 @@ def get_sorted_countries(order, column):
         sorted_countries = Country1.query.order_by(getattr(Country1, column).asc()).all()
     result = countries_schema.dump(sorted_countries)
     return jsonify({"countries": result})
-"""
+
 
 # Retrieve all countries filtered
-"""
+
 @app.route("/api/countries/filter", methods=["GET"])
 def get_filtered_countries():
     region = request.args.get("region")
