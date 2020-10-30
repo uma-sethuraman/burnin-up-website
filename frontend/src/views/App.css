@@ -1,3 +1,8 @@
+.ais-Hits-item {
+  display: flex;
+  /* border: 1px solid grey; */
+}
+
 .App {
   text-align: center;
 }

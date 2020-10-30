@@ -8,25 +8,30 @@ import { InstantSearch } from 'react-instantsearch-dom';
 import { SearchBox } from 'react-instantsearch-dom';
 import { Hits } from 'react-instantsearch-dom';
 import { Highlight } from 'react-instantsearch-dom';
+import "./App.css";
 
 const searchClient = algoliasearch(
   '55BA5YQNJQ',
   '0fb7c07cd58d91990a6ca879e44885e5'
 );
 
-// const Hit = (hit:any) =>
-//   <div className="hit">
-//     <div className = "hitName">
-//       <Highlight attribute = "city_name" hit = {hit.city_name}/>
-//     </div>
-//   </div>
 
-// const Content = () =>
-//   <div className = "content">
-//     {/* {console.log(Hit)} */}
-//     <Hits/>
-//     {/* <Hits hitComponent = {Hit}/> */}
-//   </div>
+  const Hit = (hit: any) =>
+  <div className="hit">
+    <a href={"/cities/id="+hit.hit.city_id} >
+        <h1>{hit.hit.city_name}</h1>
+        
+      </a>
+      <p>Name: {} Country: {} Population: {}</p>
+    <div className = "hitName">
+        <Highlight attribute = "city_name" hit = {hit.hit.city_name}/>
+    </div>
+  </div>
+
+const Content = () =>
+  <div className = "content">
+    <Hits hitComponent = {Hit}/>
+  </div>
 
 function App() {
   return (
@@ -37,7 +42,9 @@ function App() {
         searchClient={searchClient}
       >
         <SearchBox />
-        <Hits />
+        <main>
+          <Content/>
+        </main>
       </InstantSearch>
       <LandingPage />
     </div>
