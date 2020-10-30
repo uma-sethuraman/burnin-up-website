@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <Navbar />
       <InstantSearch
-        indexName="prod_BURNINUP"
+        indexName="cities_index"
         searchClient={searchClient}
       >
         <SearchBox />
