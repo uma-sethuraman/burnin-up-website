@@ -61,6 +61,32 @@ const CountryContent = connectStateResults(
     </div>) : null
 );
 
+/* What is displayed for each year in search results */
+const YearHit = (hit: any) =>
+    <div className="hit">
+    <a href={"/years/name="+hit.hit.year_name} >
+        <h1>{hit.hit.year_name}</h1>
+    </a>   
+    <p>Year: {hit.hit.year_name}</p>
+    <p>CO2: {hit.hit.co2}</p>
+    <p>Methane: {hit.hit.methane}</p>
+    <p>Nitrous Oxide: {hit.hit.nitrous_oxide}</p>
+    <p>Polar Ice Extent: {hit.hit.polar_ice}</p>
+    <p>Sea Level: {hit.hit.sea_level}</p>
+    <p>Temp Anomaly: {hit.hit.temp_anomaly}</p>
+    <p>Top 10 Countries: {hit.hit.top_10_countries}</p>
+    <p>World Population : {hit.hit.world_population}</p>
+    </div>
+
+/* Displays element for resulting year when user types in query */
+const YearContent = connectStateResults(
+  ({ searchState }) =>
+    searchState && searchState.query ? (
+    <div className = "content">
+        <Hits hitComponent = {YearHit}/>
+    </div>) : null
+);
+
 function Search() {
   return (
     <div className="Search">
@@ -86,6 +112,15 @@ function Search() {
           <p>Learn about climate change in countries around the world. </p>
           <main>
             <CountryContent />
+          </main>
+        </Index>
+
+        {/* Index containing all years data */}
+        <Index indexName="years_index">
+          <h2>Years</h2>
+          <p>Learn about climate change across the years. </p>
+          <main>
+            <YearContent />
           </main>
         </Index>
 
