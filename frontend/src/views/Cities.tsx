@@ -1,27 +1,12 @@
-import { Link } from 'react-router-dom';
 import React from "react";
 import "./Cities.css";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
 import Navbar from "./components/OurNavbar";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import axios from "axios";
 import { CityObject, City } from "./components/City/CityInstance";
 import { useState, useEffect } from 'react';
-import CityPosts from "./components/CityPosts";
-import Pagination from "./components/Pagination";
-import { ButtonToolbar } from 'react-bootstrap';
 import useAxios from 'axios-hooks';
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
-import { constants } from 'os';
-import { blue } from '@material-ui/core/colors';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 /* General Cities Model Page (route: "/cities") */
 const Cities = () => {
@@ -55,17 +40,53 @@ const Cities = () => {
       name: "city_name",
       label: "City",
       options: {
-       filter: true,
+       filter: true, 
        sort: true,
-      }
+       filterOptions: {
+        names: ['A-I', 'J-R', 'S-Z'],
+        logic(city_name: any, filterVal: any) {
+          const show =
+            (filterVal.indexOf('A-I') >= 0 &&
+            city_name.charCodeAt(0) >= ('A'.charCodeAt(0)) && 
+            city_name.charCodeAt(0) <= ('I'.charCodeAt(0))) ||
+
+            (filterVal.indexOf('J-R') >= 0 &&
+            city_name.charCodeAt(0) >= ('J'.charCodeAt(0)) && 
+            city_name.charCodeAt(0) <= ('R'.charCodeAt(0))) ||
+            
+            (filterVal.indexOf('S-Z') >= 0 &&
+            city_name.charCodeAt(0) >= ('S'.charCodeAt(0)) && 
+            city_name.charCodeAt(0) <= ('Z'.charCodeAt(0)));
+          return !show;
+        },
+       },
+      },
     },
     {
-     name: "country_iso2code",
+     name: "country_iso2",
      label: "Country ISO2 Code",
      options: {
       filter: true,
       sort: true,
-     }
+      filterOptions: {
+        names: ['A-I', 'J-R', 'S-Z'],
+        logic(country_iso2: any, filterVal: any) {
+          const show =
+            (filterVal.indexOf('A-I') >= 0 &&
+            country_iso2.charCodeAt(0) >= ('A'.charCodeAt(0)) && 
+            country_iso2.charCodeAt(0) <= ('I'.charCodeAt(0))) ||
+
+            (filterVal.indexOf('J-R') >= 0 &&
+            country_iso2.charCodeAt(0) >= ('J'.charCodeAt(0)) && 
+            country_iso2.charCodeAt(0) <= ('R'.charCodeAt(0))) ||
+            
+            (filterVal.indexOf('S-Z') >= 0 &&
+            country_iso2.charCodeAt(0) >= ('S'.charCodeAt(0)) && 
+            country_iso2.charCodeAt(0) <= ('Z'.charCodeAt(0)));
+          return !show;
+        },
+      },
+     },
     },
     {
      name: "o3",
@@ -73,7 +94,17 @@ const Cities = () => {
      options: {
       filter: true,
       sort: true,
-     }
+      filterOptions: {
+        names: ['Low O3', 'Medium O3', 'High O3'],
+        logic(o3:any, filterVal:any) {
+          const show =
+            (filterVal.indexOf('Low O3') >= 0 && o3 < 15) ||
+            (filterVal.indexOf('Medium O3') >= 0 && o3 >= 15 && o3 < 30) ||
+            (filterVal.indexOf('High O3') >= 0 && o3 >= 30);
+          return !show;
+        },
+      },
+     },
     },
     {
      name: "pm10",
@@ -81,7 +112,17 @@ const Cities = () => {
      options: {
       filter: true,
       sort: true,
-     }
+      filterOptions: {
+        names: ['Low PM10', 'Medium PM10', 'High PM10'],
+        logic(pm10:any, filterVal:any) {
+          const show =
+            (filterVal.indexOf('Low PM10') >= 0 && pm10 < 20) ||
+            (filterVal.indexOf('Medium PM10') >= 0 && pm10 >= 20 && pm10 < 60) ||
+            (filterVal.indexOf('High PM10') >= 0 && pm10 >= 60);
+          return !show;
+        },
+      },
+     },
     },
     {
       name: "pm25",
@@ -89,7 +130,17 @@ const Cities = () => {
       options: {
        filter: true,
        sort: true,
-      }
+       filterOptions: {
+        names: ['Low PM2.5', 'Medium PM2.5', 'High PM2.5'],
+        logic(pm25:any, filterVal:any) {
+          const show =
+            (filterVal.indexOf('Low PM2.5') >= 0 && pm25 < 50) ||
+            (filterVal.indexOf('Medium PM2.5') >= 0 && pm25 >= 50 && pm25 < 100) ||
+            (filterVal.indexOf('High PM2.5') >= 0 && pm25 >= 100);
+          return !show;
+        },
+      },
+      },
     },
     {
       name: "population",
@@ -98,18 +149,16 @@ const Cities = () => {
        filter: true,
        sort: true,
        filterOptions: {
-        names: ['Lower population', 'Middle population', 'High Population'],
+        names: ['Small Population', 'Medium Population', 'Large Population'],
         logic(population:any, filterVal:any) {
-          // population = population.replace(/[^\d]/g, '');
-
           const show =
-            (filterVal.indexOf('Lower population') >= 0 && population < 100000) ||
-            (filterVal.indexOf('Middle population') >= 0 && population >= 1000000 && population < 20000000) ||
-            (filterVal.indexOf('High Population') >= 0 && population >= 20000000);
+            (filterVal.indexOf('Small Population') >= 0 && population < 500000) ||
+            (filterVal.indexOf('Medium Population') >= 0 && population >= 500000 && population < 5000000) ||
+            (filterVal.indexOf('Large Population') >= 0 && population >= 5000000);
           return !show;
         },
       },
-      }
+      },
      },
    ];
 
@@ -120,7 +169,6 @@ const Cities = () => {
     onRowClick: (rowData: any) => {
       window.location.assign('/cities/id='+rowData[0]);
     },
-
   };
 
   return (
@@ -130,43 +178,13 @@ const Cities = () => {
       {/* Display loading animation if data is still loading */}
       {loading? <Spinner animation="border" />: <header className="Cities-header">
 
+        {console.log('Arhus'.charCodeAt(0))}
+        {console.log('A'.charCodeAt(0))}
+        {console.log('Gurgaon'.charCodeAt(0))}
+        {console.log('G'.charCodeAt(0))}
         <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} width="600px" fluid />
         <br />
-
-        {/* Displaying table filtering options */}
-        <Form>
-          <Form.Group>
-            <ButtonGroup>
-              <DropdownButton className="mr-2" title={"Name"} >
-                <Dropdown.Item eventKey="1">A-Z</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Z-A </Dropdown.Item>
-              </DropdownButton>
-              <DropdownButton className="mr-2" title={"O3"}>
-                <Dropdown.Item eventKey="1">Greater than 10</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Greater than 20 </Dropdown.Item>
-                <Dropdown.Item eventKey="3"> Greater than 30 </Dropdown.Item>
-              </DropdownButton>
-
-              <DropdownButton className="mr-2" title={"PM10"} >
-                <Dropdown.Item eventKey="1">Less than 20</Dropdown.Item>
-                <Dropdown.Item eventKey="2"> 20 - 60</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Greater than 60</Dropdown.Item>
-              </DropdownButton>
-
-              <DropdownButton className="mr-2" title={"PM2.5"} >
-                <Dropdown.Item eventKey="1">Less than 50</Dropdown.Item>
-                <Dropdown.Item eventKey="2">500-100</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Greater than 100</Dropdown.Item>
-              </DropdownButton>
-              <DropdownButton className="mr-2" title={"Population"} >
-                <Dropdown.Item eventKey="1">Less than 1000</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Less than 5 million </Dropdown.Item>
-                <Dropdown.Item eventKey="3">Less than 50 million</Dropdown.Item>
-              </DropdownButton>
-            </ButtonGroup>
-          </Form.Group>
-        </Form>
 
         {/* Displaying the table of all cities, with searching and pagination */}
         <div style={{display: 'table', tableLayout:'fixed', width:'100%'}}>
