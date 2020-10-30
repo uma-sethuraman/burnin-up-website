@@ -135,7 +135,6 @@ class CountrySchema1(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
-    # country_id = fields.Int(required=False)
     country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code')))
     country_iso2 = fields.Str(required=False)
     population = fields.Int(required=False)

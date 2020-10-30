@@ -135,20 +135,67 @@ class City1(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
+missing = [
+    "Belmopan",
+    "Thimphu",
+    "Moroni",
+    "Nicosia",
+    "Roseau",
+    "Pago Pago",
+    "Suva",
+    "Libreville",
+    "Accra",
+    "Malabo",
+    "Saint George's",
+    "Nuuk",
+    "Phnom Penh",
+    "Tarawa",
+    "Kuwait City",
+    "Vaduz",
+    "Luxembourg",
+    "Male",
+    "Mexico City",
+    "Majuro",
+    "Valletta",
+    "Naypyidaw",
+    "Kuala Lumpur",
+    "Noum'ea",
+    "Niamey",
+    "Kathmandu",
+    "Yaren District",
+    "Koror",
+    "Papeete",
+    "Oranjestad",
+    "Buenos Aires",
+    "Saint John's",
+    "Porto-Novo",
+    "Tirane",
+    "Andorra la Vella",
+    "Sao Tome",
+    "Grand Turk",
+    "N'Djamena",
+    "Lome",
+    "Ashgabat",
+    "Nuku'alofa",
+    "Port-of-Spain",
+    "Funafuti",
+    "Road Town",
+    "Port-Vila",
+    "Apia",
+    "Torshavn",
+    "Saint John's",
+    "Oranjestad",
+    "Roseau",
+    "Honiara"
+]
 
-missing = {
-    "Beijing" : "China",
-    "Yamoussoukro" : "Cote D'Ivoire",
-    "Havana" :  "Cuba",
-    "Djibouti" : "Djibouti",
-    "Addis Ababa" : "Ethiopia",
-    "Amman" : "Jordan",
-    "Abuja" : "Nigeria",
-    "Panama City" : "Panama",
-    "Sarajevo" : "Bosnia and Herzegovina",
-    "Luanda" : "Angola",
-    "Washington D.C." : "United States"
-}
+print("num missing cities:", len(missing))
+city_country = {}
+for city in missing:
+    country = db.session.query(Country1).filter(Country1.country_capital_city == city).first()
+    city_country[city] = country.country_name
+print(city_country)
+
 
 
 # city_table = City.query.all()
