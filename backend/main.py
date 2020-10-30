@@ -135,7 +135,6 @@ class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
     country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code')))
-    country_iso2 = fields.Str(required=False)
     population = fields.Int(required=False)
     o3 = fields.Float(required=False)
     pm10 = fields.Float(required=False)
@@ -441,68 +440,8 @@ def get_city_id(id):
         )
         response.status_code = 404
         return response
+
     return city_schema.jsonify(city)
-
-# Retrieve all sorted cities
-# @app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
-# def get_sorted_cities(order, column):
-#     if order == "descending":
-#         sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
-#     if order == "ascending":
-#         sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
-#     result = cities_schema.dump(sorted_cities)
-#     return jsonify({"cities_sorted": result})
-
-
-# Retrieve all filtered cities
-# @app.route("/api/cities/filter", methods=["GET"])
-# def get_filtered_cities():
-#     name = request.args.get("name", "")
-#     population = request.args.get("population", "")
-#     o3 = request.args.get("o3", "")
-#     pm10 = request.args.get("pm10", "")
-#     pm25 = request.args.get("pm25", "")
-
-#     all_cities = db.session.query(City)
-
-#     if name:
-#         if name == "ai":
-#             all_cities = all_cities.filter("a" <= City.city_name).filter(City.city_name <= "i")
-#         if name == "jr":
-#             all_cities = all_cities.filter("j" <= City.city_name).filter(City.city_name <= "r")
-#         if name == "sz":
-#             all_cities = all_cities.filter("s" <= City.city_name).filter(City.city_name <= "z")
-#     if population:
-#         if population == "500k":
-#             all_cities = all_cities.filter(City.population <= 500000)
-#         if population == "5mil":
-#             all_cities = all_cities.filter(City.population <= 5000000)
-#         if population == "20mil":
-#             all_cities = all_cities.filter(City.population <= 20000000)
-#     if o3:
-#         if o3 == "15":
-#             all_cities = all_cities.filter(City.o3 < 15.0)
-#         if o3 == "1530":
-#             all_cities = all_cities.filter(15.0 <= City.o3).filter(City.o3 <= 30.0)
-#         if o3 == "30":
-#             all_cities = all_cities.filter(City.o3 > 30.0)
-#     if pm10:
-#         if pm10 == "20":
-#             all_cities = all_cities.filter(City.pm10 < 20.0)
-#         if pm10 == "2060":
-#             all_cities = all_cities.filter(20.0 <= City.pm10).filter(City.pm10 <= 60.0)
-#         if pm10 == "60":
-#             all_cities = all_cities.filter(City.pm10 > 60.0)
-#     if pm25:
-#         if pm25 == "50":
-#             all_cities = all_cities.filter(City.pm25 < 50.0)
-#         if pm25 == "50100":
-#             all_cities = all_cities.filter(50.0 <= City.pm25).filter(City.pm25 <= 100.0)
-#         if pm25 == "100":
-#             all_cities = all_cities.filter(City.pm25 > 100.0)
-
-#     result = cities_schema.dump(all_cities)
-#     return jsonify({"cities_filtered": result})
 
 
 # -------------------------
