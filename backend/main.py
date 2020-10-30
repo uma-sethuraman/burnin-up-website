@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from flask_marshmallow import Marshmallow
-from marshmallow import fields
+from marshmallow import Schema, fields
 import flask
 import json
 
@@ -140,6 +140,20 @@ class YearSchema(ma.Schema):
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
 
+# City Schema
+class CitySchema(ma.Schema):
+    city_id = fields.Int(required=True)
+    city_name = fields.Str(required=False)
+    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code',)))
+    country_iso2 = fields.Str(required=False)
+    population = fields.Int(required=False)
+    o3 = fields.Float(required=False)
+    pm10 = fields.Float(required=False)
+    pm25 = fields.Float(required=False)
+    highest_temp = fields.Float(required=False)
+    year_highest = fields.Int(required=False)
+    lat = fields.Float(required=False)
+    long = fields.Float(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema(ma.Schema):
@@ -161,23 +175,6 @@ class CityTempPerYearSchema(ma.Schema):
     city_temp = fields.Float(required=False)
     lat = fields.Float(required=False)
     long = fields.Float(required=False)
-
-
-# City Schema
-class CitySchema(ma.Schema):
-    city_id = fields.Int(required=True)
-    city_name = fields.Str(required=False)
-    country = fields.Nested(lambda: CountrySchema(only=('country_name', 'country_id', 'country_iso2code')))
-    country_iso2 = fields.Str(required=False)
-    population = fields.Int(required=False)
-    o3 = fields.Float(required=False)
-    pm10 = fields.Float(required=False)
-    pm25 = fields.Float(required=False)
-    highest_temp = fields.Float(required=False)
-    year_highest = fields.Int(required=False)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
-
 
 # City Year Schema
 class CityYearSchema(ma.Schema):
