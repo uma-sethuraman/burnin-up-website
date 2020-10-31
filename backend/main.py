@@ -53,7 +53,9 @@ class Year1(db.Model):
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
     world_population = db.Column(db.BigInteger)
-    top_10_countries = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+    countries_emissions = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+    city_temperatures = db.relationship('CityTempPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+
 
 # City model
 class City1(db.Model):
@@ -72,17 +74,18 @@ class City1(db.Model):
     longitude = db.Column(db.Float)
 
 
+### TO BE REMOVED BY END OF PHASE 3 ###
+
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
     country = db.Column(db.String())
+    country_id = db.Column(db.Integer)
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
     
-
-### TO BE REMOVED BY END OF PHASE 3 ###
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -92,9 +95,7 @@ class CityTempPerYear(db.Model):
     city_id = db.Column(db.Integer)
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
-
+    parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
 
 # City Year Model
 class CityYear(db.Model):
@@ -134,6 +135,7 @@ class CountrySchema1(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
+    # country_id = fields.Int(required=False)
     country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code')))
     country_iso2 = fields.Str(required=False)
     population = fields.Int(required=False)
@@ -150,8 +152,19 @@ class CountryEmissionsPerYearSchema1(ma.Schema):
     year_id = fields.Int(required=True)
     year_name = fields.Str(required=False)
     country = fields.Str(required=False)
+    country_id = fields.Int(required=False)
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
+    parent_year_id = fields.Int(required=False)
+
+# Avg City Temp Per Year Schema
+class CityTempPerYearSchema1(ma.Schema):
+    year_id = fields.Int(required=True)
+    year_name = fields.Int(required=False)
+    city = fields.Str(required=False)
+    city_id = fields.Int(required=False)
+    country = fields.Str(required=False)
+    city_temp = fields.Float(required=False)
     parent_year_id = fields.Int(required=False)
 
 # Year Schema
@@ -165,20 +178,8 @@ class YearSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
-    top_10_countries = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
-
-### TO BE REMOVED BY END OF PHASE 3 ###
-
-# Avg City Temp Per Year Schema
-class CityTempPerYearSchema(ma.Schema):
-    year_id = fields.Int(required=True)
-    year_name = fields.Int(required=False)
-    city = fields.Str(required=False)
-    city_id = fields.Int(required=False)
-    country = fields.Str(required=False)
-    city_temp = fields.Float(required=False)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
+    countries_emissions = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
+    city_temperatures = fields.Nested(CityTempPerYearSchema1, many=True)
 
 # City Year Schema
 class CityYearSchema(ma.Schema):
@@ -208,10 +209,7 @@ city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema1(many=True)
-
-### TO BE REMOVED BY END OF PHASE 3 ###
-
-cities_temp_schema = CityTempPerYearSchema(many=True)
+cities_temp_schema = CityTempPerYearSchema1(many=True)
 
 city_years_schema = CityYearSchema(many=True)
 city_year_schema = CityYearSchema()
@@ -252,7 +250,6 @@ def get_country_id(id):
         return response
     return country_schema.jsonify(country)
 
-"""
 @app.route("/api/countries/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_countries(order, column):
     if order == "descending":
@@ -264,7 +261,6 @@ def get_sorted_countries(order, column):
 
 
 # Retrieve all countries filtered
-
 @app.route("/api/countries/filter", methods=["GET"])
 def get_filtered_countries():
     region = request.args.get("region")
@@ -313,7 +309,7 @@ def get_filtered_countries():
 
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
-"""
+
 
 # ----------------
 # Years Endpoints
@@ -323,7 +319,7 @@ def get_filtered_countries():
 @app.route("/api/years", methods=["GET"])
 def get_years():
     all_years = Year1.query.all()
-    print(all_years[20].top_10_countries)
+    # print(all_years[20].top_10_countries)
     result = years_schema.dump(all_years)
     return jsonify({"years": result})
 
@@ -342,14 +338,14 @@ def get_year_name(name):
 
 
 # Retrieve sorted years model
-# @app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
-# def get_sorted_years(order, column):
-#     if order == "descending":
-#         sorted_years = Year1.query.order_by(getattr(Year1, column).desc()).all()
-#     if order == "ascending":
-#         sorted_years = Year1.query.order_by(getattr(Year1, column).asc()).all()
-#     result = years_schema.dump(sorted_years)
-#     return jsonify({"years": result})
+@app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
+def get_sorted_years(order, column):
+    if order == "descending":
+        sorted_years = Year1.query.order_by(getattr(Year1, column).desc()).all()
+    if order == "ascending":
+        sorted_years = Year1.query.order_by(getattr(Year1, column).asc()).all()
+    result = years_schema.dump(sorted_years)
+    return jsonify({"years": result})
 
 
 # # Retrieve all filtered cities
@@ -444,14 +440,14 @@ def get_city_id(id):
     return city_schema.jsonify(city)
 
 # Retrieve all sorted cities
-# @app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
-# def get_sorted_cities(order, column):
-#     if order == "descending":
-#         sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
-#     if order == "ascending":
-#         sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
-#     result = cities_schema.dump(sorted_cities)
-#     return jsonify({"cities_sorted": result})
+@app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
+def get_sorted_cities(order, column):
+    if order == "descending":
+        sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
+    if order == "ascending":
+        sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
+    result = cities_schema.dump(sorted_cities)
+    return jsonify({"cities_sorted": result})
 
 
 # Retrieve all filtered cities
