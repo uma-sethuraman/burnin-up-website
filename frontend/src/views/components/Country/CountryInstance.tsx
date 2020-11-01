@@ -3,8 +3,6 @@ import React from "react";
 import "../../App.css";
 import Navbar from "../OurNavbar";
 import Table from "react-bootstrap/Table";
-import ImageBackground from "react";
-import View from "react";
 import "./CountryInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
@@ -20,9 +18,6 @@ import { cpuUsage } from "process";
 const CountryInstance = (id: any) => {
 
   const [country, setCountry] = React.useState<Country>();
-  const [countryYear, setCountryYear] = React.useState<CountryYearElement>();
-  const [capitalId, setCapitalId] = React.useState(0);
-
   // gets data from API
   const getData = () => {
     axios.get("/api/countries/id=" + id.id)
@@ -32,24 +27,6 @@ const CountryInstance = (id: any) => {
       .catch((error) => {
         console.log(error);
       })
-
-    // gets country CO2 Emissions data from API
-    axios.get("/api/country_year/name=" + country?.country_name)
-      .then((response) => {
-        setCountryYear(JSON.parse(JSON.stringify(response.data)) as CountryYearElement);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-
-    axios.get("/api/"+country?.country_id+"/capital_city_id")
-    .then((response) => {
-      const capitalCity: CapitalData = JSON.parse(JSON.stringify(response.data)) as CapitalData;
-      setCapitalId(capitalCity.capital_city_id);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
   };
 
   getData();
@@ -78,7 +55,7 @@ const CountryInstance = (id: any) => {
           <tbody>
             <tr>
               <td>Income Level</td>
-              <td>{country?.country_income}</td>
+              <td>{country?.income_level}</td>
             </tr>
             <tr>
               <td>Region</td>
@@ -86,42 +63,43 @@ const CountryInstance = (id: any) => {
             </tr>
             <tr>
               <td>Capital City</td>
-              {capitalId !== 0?
-                <td><Link to={"/cities/id="+capitalId}>{country?.country_capital_city}</Link></td>:
+              {country?.capital_city_id !== 0?
+                <td><Link to={"/cities/id="+country?.capital_city_id}>{country?.country_capital_city}</Link></td>:
                 <td><Link to={"/cities"}>{country?.country_capital_city}</Link></td>
               }
             </tr>
             <tr>
               <td>Latitude</td>
-              <td>{country?.country_lat}</td>
+              <td>{country?.lat}</td>
             </tr>
             <tr>
               <td>Longitude</td>
-              <td>{country?.country_long}</td>
+              <td>{country?.long}</td>
             </tr>
-            <tr>
+            {/* <tr>
               <td>Highest Annual CO2 Emissions (ppm)</td>
               {countryYear?.co2 !== undefined?
               <td>{countryYear?.co2}</td>: <td>-</td>}
-            </tr> 
-            <tr>
+            </tr>  */}
+            {/* <tr>
               <td>Year of Highest Annual CO2 Emissions</td>
               {countryYear?.year !== undefined?
               <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>:
               <td><Link to={"/years/name=2018"}>2018</Link></td> }
-            </tr>
-            <tr>
+            </tr> */}
+            {/* <tr>
               <td>Most Recent CO2 Emissions (ppm)</td>
               {country?.recent_emissions_year !== -1?
               <td>{country?.recent_emissions}</td> : <td>-</td>}
-            </tr>
+            </tr> */}
 
           </tbody>
         </Table>
-        {OurMap(country?.country_lat! === undefined ? 0 : country?.country_lat!, country?.country_long! === undefined ? 0 : country?.country_long!, country?.country_name!)}
+        {OurMap(Number(country?.lat)! === undefined ? 0 : 
+          Number(country?.lat)!, Number(country?.long)! === undefined ? 0 : Number(country?.long)!, country?.country_name!)}
       </header>
     </div>
-  );
+  ); 
 }
 
 
@@ -130,51 +108,38 @@ export interface CountriesObject {
 }
 
 export interface Country {
+  capital_city_id:      number;
   country_capital_city: string;
-  country_id: number;
-  country_income: CountryIncome;
-  country_iso2code: string;
-  country_iso3code: string;
-  country_name: string;
-  country_region: CountryRegion;
-  country_lat: number;
-  country_long: number;
+  country_id:           number;
+  country_iso2code:     string;
+  country_iso3code:     string;
+  country_name:         string;
+  country_population:   number;
+  country_region:       CountryRegion;
+  highest_emission:     number;
+  income_level:         IncomeLevel;
+  lat:                  string;
+  long:                 string;
   recent_emissions:     number;
-  recent_emissions_year: number;
-}
-
-export enum CountryIncome {
-  Aggregates = "Aggregates",
-  HighIncome = "High income",
-  LowIncome = "Low income",
-  LowerMiddleIncome = "Lower middle income",
-  UpperMiddleIncome = "Upper middle income",
 }
 
 export enum CountryRegion {
-  Aggregates = "Aggregates",
+  Africa = "Africa",
+  Americas = "Americas",
+  Asia = "Asia",
   EastAsiaPacific = "East Asia & Pacific",
-  EuropeCentralAsia = "Europe & Central Asia",
+  Europe = "Europe",
   LatinAmericaCaribbean = "Latin America & Caribbean ",
-  MiddleEastNorthAfrica = "Middle East & North Africa",
-  NorthAmerica = "North America",
-  SouthAsia = "South Asia",
-  SubSaharanAfrica = "Sub-Saharan Africa ",
+  Oceania = "Oceania",
 }
 
-export interface CountryYear {
-  country_year: CountryYearElement[];
-}
-
-export interface CountryYearElement {
-  co2: number;
-  country: string;
-  year: number;
-  year_id: number;
-}
-
-export interface CapitalData {
-  capital_city_id: number;
+export enum IncomeLevel {
+  HighIncome = "High income",
+  IncomeLevelHighIncome = "High Income",
+  IncomeLevelUpperMiddleIncome = "Upper Middle Income",
+  LowIncome = "Low income",
+  LowerMiddleIncome = "Lower middle income",
+  UpperMiddleIncome = "Upper middle income",
 }
 
 
