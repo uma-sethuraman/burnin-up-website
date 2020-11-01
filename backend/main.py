@@ -142,8 +142,8 @@ class CitySchema(ma.Schema):
     pm25 = fields.Float(required=False)
     highest_temp = fields.Float(required=False)
     year_highest = fields.Int(required=False)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
+    latitude = fields.Float(required=False)
+    longitude = fields.Float(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema1(ma.Schema):
@@ -316,10 +316,22 @@ def get_filtered_countries():
 # Retrieve all years
 @app.route("/api/years", methods=["GET"])
 def get_years():
-    all_years = Year1.query.all()
-    # print(all_years[20].top_10_countries)
+    all_years = Year1.query.order_by(Year1.year_id).all()
     result = years_schema.dump(all_years)
     return jsonify({"years": result})
+
+
+# Retrieve single city entry by id
+@app.route("/api/years/id=<id>", methods=["GET"])
+def get_year_id(id):
+    year = Year1.query.get(id)
+    if year is None:
+        response = flask.Response(
+            json.dumps({"error": id + " not found"}), mimetype="application/json"
+        )
+        response.status_code = 404
+        return response
+    return year_schema.jsonify(year)
 
 
 # Retrieve single year entry by year name
