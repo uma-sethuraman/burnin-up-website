@@ -40,8 +40,9 @@ class Country1(db.Model):
     country_region = db.Column(db.String())
     lat = db.Column(db.Integer)
     long = db.Column(db.Integer)
-    cities = db.relationship('City1', backref = 'country1')
-    high_year = db.Column(db.Intger)
+    cities = db.relationship('City1', backref='country1')
+    high_year = db.Column(db.Integer)
+
 
 # Year model
 class Year1(db.Model):
@@ -54,8 +55,10 @@ class Year1(db.Model):
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
     world_population = db.Column(db.BigInteger)
-    countries_emissions = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
-    city_temperatures = db.relationship('CityTempPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+    countries_emissions = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True,
+                                          backref=db.backref('year1', lazy='joined'))
+    city_temperatures = db.relationship('CityTempPerYear', cascade='all,delete-orphan', single_parent=True,
+                                        backref=db.backref('year1', lazy='joined'))
 
 
 # City model
@@ -74,6 +77,7 @@ class City1(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
+
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -83,7 +87,7 @@ class CountryEmissionsPerYear(db.Model):
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
-    
+
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -96,6 +100,7 @@ class CityTempPerYear(db.Model):
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
+
 
 ###### SCHEMAS ######
 
@@ -116,6 +121,7 @@ class CountrySchema1(ma.Schema):
     country_capital_city = fields.Str(required=False)
     high_year = fields.Int(required=False)
 
+
 # City Schema
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
@@ -130,6 +136,7 @@ class CitySchema(ma.Schema):
     latitude = fields.Float(required=False)
     longitude = fields.Float(required=False)
 
+
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema1(ma.Schema):
     year_id = fields.Int(required=True)
@@ -139,6 +146,7 @@ class CountryEmissionsPerYearSchema1(ma.Schema):
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
     parent_year_id = fields.Int(required=False)
+
 
 # Avg City Temp Per Year Schema
 class CityTempPerYearSchema1(ma.Schema):
@@ -151,6 +159,7 @@ class CityTempPerYearSchema1(ma.Schema):
     parent_year_id = fields.Int(required=False)
     latitude = fields.Float(required=False)
     longitude = fields.Float(required=False)
+
 
 # Year Schema
 class YearSchema1(ma.Schema):
@@ -201,6 +210,7 @@ def get_countries():
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
 
+
 # Retrieve single country entry by id
 @app.route("/api/countries/id=<id>", methods=["GET"])
 def get_country_id(id):
@@ -213,6 +223,7 @@ def get_country_id(id):
         return response
     return country_schema.jsonify(country)
 
+
 # ----------------
 # Years Endpoints
 # ----------------
@@ -223,6 +234,7 @@ def get_years():
     all_years = Year1.query.order_by(Year1.year_id).all()
     result = years_schema.dump(all_years)
     return jsonify({"years": result})
+
 
 # Retrieve single city entry by id
 @app.route("/api/years/id=<id>", methods=["GET"])
@@ -247,6 +259,7 @@ def get_cities():
     all_cities = City1.query.all()
     result = cities_schema.dump(all_cities)
     return jsonify({"cities": result})
+
 
 # Retrieve single city entry by id
 @app.route("/api/cities/id=<id>", methods=["GET"])
