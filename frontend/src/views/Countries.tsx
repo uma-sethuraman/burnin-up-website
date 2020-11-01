@@ -1,115 +1,186 @@
-import { Link } from "react-router-dom";
 import React from "react";
-import "./App.css";
-import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
 import Navbar from "./components/OurNavbar";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import { CountriesObject, Country} from "./components/Country/CountryInstance";
+import { CountriesObject, Country } from "./components/Country/CountryInstance";
 import { useState, useEffect } from 'react';
-import axios from "axios";
-
-import Posts from "./components/Posts";
-import Pagination from "./components/Pagination";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import useAxios from 'axios-hooks';
 import Spinner from "react-bootstrap/Spinner";
+import MUIDataTable from "mui-datatables";
+import "./Countries.css";
 
 
-
-// credit: https://www.youtube.com/watch?v=IYCa1F-OWmk
+/* General Counries Model Page (route: "/countries") */
 const Countries = () => {
-  const [countriesObj, setCountriesObj] = React.useState<CountriesObject>();
-  const [posts, setPosts] = useState<Country[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(20);
-
-
-  // gets data from API
-
-  const [{ data, loading, error }, refetch] = useAxios(
-    '/api/countries'
-  )
   
+  /* Array of all countries retrieved from api */
+  const [countries, setCountries] = useState<Country[]>([]);
 
+  /* Loads api data into data */
+  const [{ data, loading, error }, refetch] = useAxios('/api/countries')
+
+  /* Fills the countries array with the correct values retrieved from data */
   useEffect(() => {
     const countryObj: CountriesObject = data as CountriesObject;
     if (countryObj) {
-      setPosts(countryObj.countries);
+      setCountries(countryObj.countries);
     }
   }, [data]);
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  /* All columns of the cities table */
+  const columns = [
+    {
+      name: "country_id",
+      label: "Country ID",
+      options: {
+        filter: false,
+        sort: false,
+        display: "excluded",
+      }
+    },
+    {
+      name: "country_name",
+      label: "Country",
+      options: {
+        filter: true,
+        sort: true,
+        filterOptions: {
+          names: ['A-I', 'J-R', 'S-Z'],
+          logic(city_name: any, filterVal: any) {
+            const show =
+              (filterVal.indexOf('A-I') >= 0 &&
+                city_name.charCodeAt(0) >= ('A'.charCodeAt(0)) &&
+                city_name.charCodeAt(0) <= ('I'.charCodeAt(0))) ||
 
-  console.log(currentPosts);
+              (filterVal.indexOf('J-R') >= 0 &&
+                city_name.charCodeAt(0) >= ('J'.charCodeAt(0)) &&
+                city_name.charCodeAt(0) <= ('R'.charCodeAt(0))) ||
+
+              (filterVal.indexOf('S-Z') >= 0 &&
+                city_name.charCodeAt(0) >= ('S'.charCodeAt(0)) &&
+                city_name.charCodeAt(0) <= ('Z'.charCodeAt(0)));
+            return !show;
+          },
+        },
+      },
+    },
+    {
+      name: "income_level",
+      label: "Income Level",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "country_region",
+      label: "Country Region",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "country_capital_city",
+      label: "Capital City",
+      options: {
+        filter: true,
+        sort: true,
+        filterOptions: {
+          names: ['A-I', 'J-R', 'S-Z'],
+          logic(city_name: any, filterVal: any) {
+            const show =
+              (filterVal.indexOf('A-I') >= 0 &&
+                city_name.charCodeAt(0) >= ('A'.charCodeAt(0)) &&
+                city_name.charCodeAt(0) <= ('I'.charCodeAt(0))) ||
+
+              (filterVal.indexOf('J-R') >= 0 &&
+                city_name.charCodeAt(0) >= ('J'.charCodeAt(0)) &&
+                city_name.charCodeAt(0) <= ('R'.charCodeAt(0))) ||
+
+              (filterVal.indexOf('S-Z') >= 0 &&
+                city_name.charCodeAt(0) >= ('S'.charCodeAt(0)) &&
+                city_name.charCodeAt(0) <= ('Z'.charCodeAt(0)));
+            return !show;
+          },
+        },
+      },
+    },
+    {
+      name: "lat",
+      label: "Latitude",
+      options: {
+        filter: true,
+        sort: true,
+        filterOptions: {
+          names: ['Northern Hemisphere', 'Southern Hemisphere'],
+          logic(lat: any, filterVal: any) {
+            const show =
+              (filterVal.indexOf('Northern Hemisphere') >= -90 && lat < 0) ||
+              (filterVal.indexOf('Southern Hemisphere') >= 0 && lat <= 90);
+            return !show;
+          },
+        },
+      },
+    },
+    {
+      name: "long",
+      label: "Longitude",
+      options: {
+        filter: true,
+        sort: true,
+        filterOptions: {
+          names: ['Western Hemisphere', 'Eastern Hemisphere'],
+          logic(lon: any, filterVal: any) {
+            const show =
+              (filterVal.indexOf('Western Hemisphere') >= -180 && lon < 0) ||
+              (filterVal.indexOf('Eastern Hemisphere') >= 0 && lon <= 180);
+            return !show;
+          },
+        },
+      },
+    },
+    {
+      name: "recent_emissions",
+      label: "Most Recent CO2 Emissions (ppm)",
+      options: {
+        filter: true,
+        sort: true,
+        filterOptions: {
+          names: ['Low CO2', 'Medium CO2', 'High CO2'],
+          logic(co2: any, filterVal: any) {
+            const show =
+              (filterVal.indexOf('Low CO2 Emissions') >= 0 && co2 < 50) ||
+              (filterVal.indexOf('Medium CO2 Emissions') >= 0 && co2 >= 50 && co2 < 100) ||
+              (filterVal.indexOf('High CO2 Emissions') >= 0 && co2 >= 100);
+            return !show;
+          },
+        },
+      },
+    },
+  ];
+  /* Options for the cities table, initializing OnRowClick
+to redirect to that row's city page during a click */
+  const options = {
+    filterType: 'checkbox' as any,
+    onRowClick: (rowData: any) => {
+      window.location.assign('/countries/id=' + rowData[0]);
+    },
+  };
   return (
-    <div className="App">
+    <div className="Countries">
       <Navbar />
-      {loading? <Spinner animation="border" />: <header className="App-header">
+      {loading ? <Spinner animation="border" /> : <header className="Countries-header">
         <h1>Countries</h1>
         <Image src={require("../assets/world-map.jpeg")} width="600px" fluid />
-        <br></br>
-        <Form>
-          <Form.Group>
-            <Form>
-              <FormControl
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2"
-              />
-              <Button variant="outline-info">Search</Button>
-            </Form>
-            <>
-              <ButtonGroup>
-                <DropdownButton className="mr-2" title={"Income Level"}>
-                  <Dropdown.Item eventKey="1">Low Income</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Middle Income</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">High Income</Dropdown.Item>
-                </DropdownButton>
-
-                <DropdownButton className="mr-2" title={"Region"}>
-                  <Dropdown.Item eventKey="1">Europe</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Asia</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Middle East</Dropdown.Item>
-                  <Dropdown.Item eventKey="4">North America</Dropdown.Item>
-                  <Dropdown.Item eventKey="5">South America</Dropdown.Item>
-                  <Dropdown.Item eventKey="5">Africa</Dropdown.Item>
-                  <Dropdown.Item eventKey="5">Australia</Dropdown.Item>
-                </DropdownButton>
-
-                <DropdownButton className="mr-2" title={"Capital City"}>
-                  <Dropdown.Item eventKey="1">A to Z</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Z to A</Dropdown.Item>
-                </DropdownButton>
-
-                <DropdownButton className="mr-2" title={"Latitude"}>
-                  <Dropdown.Item eventKey="1">60° - 90°</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">30° - 60°</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">0° - 30°</Dropdown.Item>
-                  <Dropdown.Item eventKey="1">-30°- 0° </Dropdown.Item>
-                  <Dropdown.Item eventKey="2">-60° - -30°</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">-90° - -60°</Dropdown.Item>
-                </DropdownButton>
-
-                <DropdownButton className="mr-2" title={"Recent CO2 Emission"}>
-                  <Dropdown.Item eventKey="1">Less than 5</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">5-15</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">More than 15</Dropdown.Item>
-                </DropdownButton>
-              </ButtonGroup>
-            </>
-          </Form.Group>
-        </Form>
-        <Form></Form>
-        {Posts(currentPosts)}
-        {Pagination(postsPerPage, posts.length, paginate)}
+        <br />
+        <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
+          <MUIDataTable
+            title={"Countries"}
+            data={countries}
+            columns={columns}
+            options={options}
+          />
+        </div>
       </header>}
     </div>
   );

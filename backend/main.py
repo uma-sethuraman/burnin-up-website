@@ -54,7 +54,9 @@ class Year1(db.Model):
     polar_ice = db.Column(db.Float)
     sea_level = db.Column(db.Float)
     world_population = db.Column(db.BigInteger)
-    top_10_countries = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+    countries_emissions = db.relationship('CountryEmissionsPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+    city_temperatures = db.relationship('CityTempPerYear', cascade='all,delete-orphan', single_parent=True, backref=db.backref('year1', lazy='joined'))
+
 
 # City model
 class City1(db.Model):
@@ -73,17 +75,18 @@ class City1(db.Model):
     longitude = db.Column(db.Float)
 
 
+### TO BE REMOVED BY END OF PHASE 3 ###
+
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
     country = db.Column(db.String())
+    country_id = db.Column(db.Integer)
     code = db.Column(db.String())
     country_co2 = db.Column(db.Float)
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
     
-
-### TO BE REMOVED BY END OF PHASE 3 ###
 
 # Avg City Temp Per Year Model
 class CityTempPerYear(db.Model):
@@ -93,9 +96,9 @@ class CityTempPerYear(db.Model):
     city_id = db.Column(db.Integer)
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
-
+    parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
 # City Year Model
 class CityYear(db.Model):
@@ -136,25 +139,37 @@ class CountrySchema1(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
-    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id', 'country_iso2code')))
-    country_iso2 = fields.Str(required=False)
+    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id')))
     population = fields.Int(required=False)
     o3 = fields.Float(required=False)
     pm10 = fields.Float(required=False)
     pm25 = fields.Float(required=False)
     highest_temp = fields.Float(required=False)
     year_highest = fields.Int(required=False)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
+    latitude = fields.Float(required=False)
+    longitude = fields.Float(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema1(ma.Schema):
     year_id = fields.Int(required=True)
     year_name = fields.Str(required=False)
     country = fields.Str(required=False)
+    country_id = fields.Int(required=False)
     code = fields.Str(required=False)
     country_co2 = fields.Float(required=False)
     parent_year_id = fields.Int(required=False)
+
+# Avg City Temp Per Year Schema
+class CityTempPerYearSchema1(ma.Schema):
+    year_id = fields.Int(required=True)
+    year_name = fields.Int(required=False)
+    city = fields.Str(required=False)
+    city_id = fields.Int(required=False)
+    country = fields.Str(required=False)
+    city_temp = fields.Float(required=False)
+    parent_year_id = fields.Int(required=False)
+    latitude = fields.Float(required=False)
+    longitude = fields.Float(required=False)
 
 # Year Schema
 class YearSchema1(ma.Schema):
@@ -167,20 +182,8 @@ class YearSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
-    top_10_countries = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
-
-### TO BE REMOVED BY END OF PHASE 3 ###
-
-# Avg City Temp Per Year Schema
-class CityTempPerYearSchema(ma.Schema):
-    year_id = fields.Int(required=True)
-    year_name = fields.Int(required=False)
-    city = fields.Str(required=False)
-    city_id = fields.Int(required=False)
-    country = fields.Str(required=False)
-    city_temp = fields.Float(required=False)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
+    countries_emissions = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
+    city_temperatures = fields.Nested(CityTempPerYearSchema1, many=True)
 
 # City Year Schema
 class CityYearSchema(ma.Schema):
@@ -210,10 +213,7 @@ city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
 countries_emissions_schema = CountryEmissionsPerYearSchema1(many=True)
-
-### TO BE REMOVED BY END OF PHASE 3 ###
-
-cities_temp_schema = CityTempPerYearSchema(many=True)
+cities_temp_schema = CityTempPerYearSchema1(many=True)
 
 city_years_schema = CityYearSchema(many=True)
 city_year_schema = CityYearSchema()
@@ -254,7 +254,6 @@ def get_country_id(id):
         return response
     return country_schema.jsonify(country)
 
-"""
 @app.route("/api/countries/sort=<order>&column=<column>", methods=["GET"])
 def get_sorted_countries(order, column):
     if order == "descending":
@@ -266,7 +265,6 @@ def get_sorted_countries(order, column):
 
 
 # Retrieve all countries filtered
-
 @app.route("/api/countries/filter", methods=["GET"])
 def get_filtered_countries():
     region = request.args.get("region")
@@ -315,7 +313,7 @@ def get_filtered_countries():
 
     result = countries_schema.dump(all_countries)
     return jsonify({"countries": result})
-"""
+
 
 # ----------------
 # Years Endpoints
@@ -324,10 +322,22 @@ def get_filtered_countries():
 # Retrieve all years
 @app.route("/api/years", methods=["GET"])
 def get_years():
-    all_years = Year1.query.all()
-    print(all_years[20].top_10_countries)
+    all_years = Year1.query.order_by(Year1.year_id).all()
     result = years_schema.dump(all_years)
     return jsonify({"years": result})
+
+
+# Retrieve single city entry by id
+@app.route("/api/years/id=<id>", methods=["GET"])
+def get_year_id(id):
+    year = Year1.query.get(id)
+    if year is None:
+        response = flask.Response(
+            json.dumps({"error": id + " not found"}), mimetype="application/json"
+        )
+        response.status_code = 404
+        return response
+    return year_schema.jsonify(year)
 
 
 # Retrieve single year entry by year name
@@ -341,84 +351,6 @@ def get_year_name(name):
         response.status_code = 404
         return response
     return year_schema.jsonify(year)
-
-
-# Retrieve sorted years model
-# @app.route("/api/years/sort=<order>&column=<column>", methods=["GET"])
-# def get_sorted_years(order, column):
-#     if order == "descending":
-#         sorted_years = Year1.query.order_by(getattr(Year1, column).desc()).all()
-#     if order == "ascending":
-#         sorted_years = Year1.query.order_by(getattr(Year1, column).asc()).all()
-#     result = years_schema.dump(sorted_years)
-#     return jsonify({"years": result})
-
-
-# # Retrieve all filtered cities
-# @app.route("/api/years/filter", methods=["GET"])
-# def get_filtered_years():
-#     year = request.args.get("year", "")
-#     methane = request.args.get("methane", "")
-#     ice_extent = request.args.get("ice_extent", "")
-#     sea_level = request.args.get("sea_level", "")
-#     co2 = request.args.get("co2", "")
-#     nitrous_oxide = request.args.get("nitrous_oxide", "")
-
-#     all_years = db.session.query(Year1)
-
-#     if year:
-#         if year == "1880":
-#             all_years = all_years.filter(1880 <= Year1.year_name).filter(Year1.year_name <= 1900)
-#         if year == "1900":
-#             all_years = all_years.filter(1900 <= Year1.year_name).filter(Year1.year_name <= 1920)
-#         if year == "1920":
-#             all_years = all_years.filter(1920 <= Year1.year_name).filter(Year1.year_name <= 1940)
-#         if year == "1940":
-#             all_years = all_years.filter(1940 <= Year1.year_name).filter(Year1.year_name <= 1960)
-#         if year == "1960":
-#             all_years = all_years.filter(1960 <= Year1.year_name).filter(Year1.year_name <= 1980)
-#         if year == "1980":
-#             all_years = all_years.filter(1980 <= Year1.year_name).filter(Year1.year_name <= 2000)
-#         if year == "2000":
-#             all_years = all_years.filter(2000 <= Year1.year_name).filter(Year1.year_name <= 2018)
-#     if methane:
-#         if methane == "1000":
-#             all_years = all_years.filter(Year1.methane <= 1000)
-#         if methane == "10001500":
-#             all_years = all_years.filter(Year1.methane >= 1000).filter(Year1.methane <= 1500)
-#         if methane == "1500":
-#             all_years = all_years.filter(Year1.methane >= 1500)
-#     if ice_extent:
-#         if ice_extent == "23mil":
-#             all_years = all_years.filter(Year.ice_extent <= 23000000)
-#         if ice_extent == "2327mil":
-#             all_years = all_years.filter(Year.ice_extent >= 23000000).filter(Year.ice_extent <= 27000000)
-#         if ice_extent == "27mil":
-#             all_years = all_years.filter(Year.ice_extent >= 27000000)
-#     if sea_level:
-#         if sea_level == "2":
-#             all_years = all_years.filter(Year.sea_level <= 2)
-#         if sea_level == "26":
-#             all_years = all_years.filter(Year.sea_level >= 2).filter(Year.sea_level <= 6)
-#         if sea_level == "6":
-#             all_years = all_years.filter(Year.sea_level >= 6)
-#     if co2:
-#         if co2 == "300":
-#             all_years = all_years.filter(Year.co2 <= 300)
-#         if co2 == "300350":
-#             all_years = all_years.filter(Year.co2 >= 300).filter(Year.co2 <= 350)
-#         if co2 == "350":
-#             all_years = all_years.filter(Year.co2 >= 350)
-#     if nitrous_oxide:
-#         if nitrous_oxide == "290":
-#             all_years = all_years.filter(Year.nitrous_oxide <= 290)
-#         if nitrous_oxide == "290320":
-#             all_years = all_years.filter(Year.nitrous_oxide >= 290).filter(Year.nitrous_oxide <= 320)
-#         if nitrous_oxide == "320":
-#             all_years = all_years.filter(Year.nitrous_oxide >= 320)
-
-#     result = years_schema.dump(all_years)
-#     return jsonify({"years_filtered": result})
 
 
 # -----------------
@@ -444,67 +376,6 @@ def get_city_id(id):
         response.status_code = 404
         return response
     return city_schema.jsonify(city)
-
-# Retrieve all sorted cities
-# @app.route("/api/cities/sort=<order>&column=<column>", methods=["GET"])
-# def get_sorted_cities(order, column):
-#     if order == "descending":
-#         sorted_cities = City1.query.order_by(getattr(City1, column).desc()).all()
-#     if order == "ascending":
-#         sorted_cities = City1.query.order_by(getattr(City1, column).asc()).all()
-#     result = cities_schema.dump(sorted_cities)
-#     return jsonify({"cities_sorted": result})
-
-
-# Retrieve all filtered cities
-# @app.route("/api/cities/filter", methods=["GET"])
-# def get_filtered_cities():
-#     name = request.args.get("name", "")
-#     population = request.args.get("population", "")
-#     o3 = request.args.get("o3", "")
-#     pm10 = request.args.get("pm10", "")
-#     pm25 = request.args.get("pm25", "")
-
-#     all_cities = db.session.query(City)
-
-#     if name:
-#         if name == "ai":
-#             all_cities = all_cities.filter("a" <= City.city_name).filter(City.city_name <= "i")
-#         if name == "jr":
-#             all_cities = all_cities.filter("j" <= City.city_name).filter(City.city_name <= "r")
-#         if name == "sz":
-#             all_cities = all_cities.filter("s" <= City.city_name).filter(City.city_name <= "z")
-#     if population:
-#         if population == "500k":
-#             all_cities = all_cities.filter(City.population <= 500000)
-#         if population == "5mil":
-#             all_cities = all_cities.filter(City.population <= 5000000)
-#         if population == "20mil":
-#             all_cities = all_cities.filter(City.population <= 20000000)
-#     if o3:
-#         if o3 == "15":
-#             all_cities = all_cities.filter(City.o3 < 15.0)
-#         if o3 == "1530":
-#             all_cities = all_cities.filter(15.0 <= City.o3).filter(City.o3 <= 30.0)
-#         if o3 == "30":
-#             all_cities = all_cities.filter(City.o3 > 30.0)
-#     if pm10:
-#         if pm10 == "20":
-#             all_cities = all_cities.filter(City.pm10 < 20.0)
-#         if pm10 == "2060":
-#             all_cities = all_cities.filter(20.0 <= City.pm10).filter(City.pm10 <= 60.0)
-#         if pm10 == "60":
-#             all_cities = all_cities.filter(City.pm10 > 60.0)
-#     if pm25:
-#         if pm25 == "50":
-#             all_cities = all_cities.filter(City.pm25 < 50.0)
-#         if pm25 == "50100":
-#             all_cities = all_cities.filter(50.0 <= City.pm25).filter(City.pm25 <= 100.0)
-#         if pm25 == "100":
-#             all_cities = all_cities.filter(City.pm25 > 100.0)
-
-#     result = cities_schema.dump(all_cities)
-#     return jsonify({"cities_filtered": result})
 
 
 # -------------------------

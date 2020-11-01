@@ -19,7 +19,6 @@ import LocationPhoto from "../LandingPhoto/LandingPhoto";
 const CityInstance = (id: any) => {
 
   const [city, setCity] = React.useState<City>();
-  const [cityYear, setCityYear] = React.useState<CityYear>();
   const [countryName, setCountryName] = React.useState("");
   const [countryID, setCountryID] = React.useState(0);
 
@@ -31,22 +30,6 @@ const CityInstance = (id: any) => {
     })
     .catch((error) => {
         console.log(error);
-    })
-    axios.get("/api/city_year/name="+city?.city_name)
-    .then((response)=>{
-        setCityYear(JSON.parse(JSON.stringify(response.data)) as CityYear);
-    })
-    .catch((error) => {
-        console.log(error);
-    })
-    axios.get("/api/"+city?.city_id+"/country_code")
-    .then((response)=>{
-      const responseData: CountryCode = JSON.parse(JSON.stringify(response.data.country_code)) as CountryCode;
-      setCountryName(responseData.name);
-      setCountryID(responseData.id);
-    })
-    .catch((error) => {
-      console.log(error);
     })
   };
 
@@ -68,14 +51,10 @@ const CityInstance = (id: any) => {
             <tr>
               <td>Country</td>
               <td>
-                <Link to={"/countries/id="+countryID}>
-                  {countryName}
+                <Link to={"/countries/id="+city?.country?.country_id}>
+                  {city?.country.country_name}
                 </Link>
               </td>
-            </tr>
-            <tr>
-              <td>Country ISO2 Code</td>
-              <td>{city?.country_iso2code}</td>
             </tr>
             <tr>
               <td>O3 (Dobson Units)</td>
@@ -91,13 +70,13 @@ const CityInstance = (id: any) => {
             </tr>
             <tr>
               <td>Highest Annual Temp</td>
-              {cityYear?.temp !== undefined?
-              <td>{cityYear?.temp + (cityYear?.temp! > 40 ? " °F": " °C") }</td> : <td>-</td> }
+              {city?.highest_temp !== undefined?
+              <td>{city?.highest_temp + (city?.highest_temp! > 40 ? " °F": " °C") }</td> : <td>-</td> }
             </tr>
             <tr>
               <td>Year of Highest Annual Temp</td>
-              {cityYear?.year !== undefined?
-              <td><Link to={"/years/name="+cityYear?.year}>{cityYear?.year}</Link></td>:
+              {city?.year_highest !== undefined?
+              <td><Link to={"/years/name="+city?.year_highest}>{city?.year_highest}</Link></td>:
               <td><Link to={"/years/name=2018"}>2018</Link></td>}
             </tr>
             <tr>
@@ -108,7 +87,7 @@ const CityInstance = (id: any) => {
           </tbody>
         </Table>
   
-        {OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), city?.city_name!)}
+        {/*OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), city?.city_name!)*/}
       </header>
     </div>
   );
@@ -118,27 +97,25 @@ export interface CityObject {
   cities: City[];
 }
 
+
 export interface City {
-  city_id:          number;
-  city_name:        string;
-  co:               null;
-  country_iso2code: string;
-  elevation:        number;
-  lat:              number;
-  long:             number;
-  o3:               number;
-  pm10:             number;
-  pm25:             number;
-  population:       number;
-  time_zone:        string;
+  city_id:      number;
+  city_name:    string;
+  country:      Country;
+  highest_temp: number;
+  o3:           number;
+  pm10:         number;
+  pm25:         number;
+  population:   number;
+  year_highest: number;
+  
 }
 
-export interface CityYear {
-  city:    string;
-  temp:    number;
-  year:    number;
-  year_id: number;
+export interface Country {
+  country_id:   number;
+  country_name: string;
 }
+
 
 export interface CountryIdentification {
   country_code: CountryCode;
