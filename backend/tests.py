@@ -146,6 +146,8 @@ class Tests(TestCase):
                 "country_name": "Denmark"
             }, 
             "highest_temp": 9.673833333, 
+            "latitude": 56.153423, 
+            "longitude": 10.22553, 
             "o3": 26.0, 
             "pm10": 11.0, 
             "pm25": 22.0, 
@@ -165,6 +167,8 @@ class Tests(TestCase):
                 "country_name": "Paraguay"
             }, 
             "highest_temp": 24.085, 
+            "latitude": -25.266667, 
+            "longitude": -57.666667, 
             "o3": 14.0, 
             "pm10": 8.0, 
             "pm25": 31.0, 
