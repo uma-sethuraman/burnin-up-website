@@ -96,6 +96,8 @@ class CityTempPerYear(db.Model):
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
 # City Year Model
 class CityYear(db.Model):
@@ -164,6 +166,8 @@ class CityTempPerYearSchema1(ma.Schema):
     country = fields.Str(required=False)
     city_temp = fields.Float(required=False)
     parent_year_id = fields.Int(required=False)
+    latitude = fields.Float(required=False)
+    longitude = fields.Float(required=False)
 
 # Year Schema
 class YearSchema1(ma.Schema):

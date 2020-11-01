@@ -61,6 +61,8 @@ class CityTempPerYear(db.Model):
     country = db.Column(db.String())
     city_temp = db.Column(db.Float)
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
 
 class City1(db.Model):
@@ -134,45 +136,48 @@ db.create_all()
 # db.session.add_all(year_dict.values())
 # db.session.commit()
 
-### Table for Emissions Per Country ###
-co2_per_country = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
-sorted_by_year = co2_per_country.groupby("Year").apply(lambda x: x.nlargest(10, "Per capita CO2 emissions")).reset_index(drop=True)
+# ### Table for Emissions Per Country ###
+# co2_per_country = pd.read_csv(os.path.join(path, "AnnualCO2PerCountry.csv"))
+# sorted_by_year = co2_per_country.groupby("Year").apply(lambda x: x.nlargest(10, "Per capita CO2 emissions")).reset_index(drop=True)
 
-# Stores a dictionary of years with the CountryEmissionsPerYear object
-country_years_list = []
-for index, row in sorted_by_year.iterrows():
-    parent_year = db.session.query(Year1).filter(Year1.year_name == row['Year']).first()
-    new_year = CountryEmissionsPerYear(year1=parent_year)
-    new_year.year_name = row['Year']
-    new_year.country = row['Entity']
-    if db.session.query(Country1).filter(Country1.country_name==row['Entity']).first():
-        new_year.country_id = db.session.query(Country1).filter(Country1.country_name==row['Entity']).first().country_id
-    new_year.code = row['Code']
-    new_year.country_co2 = row['Per capita CO2 emissions']
-    country_years_list.append(new_year)
-
-db.session.add_all(country_years_list)
-db.session.commit()
-
-# # Table for Avg City Temps Per Year ###
-# city_temp_per_year = pd.read_csv(os.path.join(path, "AvgTempCityFix.csv"))
-# sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
-# # Stores a dictionary of years with the CityTempPerYear object
-# city_years_list = []
+# # Stores a dictionary of years with the CountryEmissionsPerYear object
+# country_years_list = []
 # for index, row in sorted_by_year.iterrows():
 #     parent_year = db.session.query(Year1).filter(Year1.year_name == row['Year']).first()
-#     new_year = CityTempPerYear(year1=parent_year)
+#     new_year = CountryEmissionsPerYear(year1=parent_year)
 #     new_year.year_name = row['Year']
-#     new_year.city = row['City']
-#     ########## capitalize both words in city_name to see if they're in City1 ############
-#     if db.session.query(City1).filter(City1.city_name==row['City']).first():
-#         new_year.city_id = db.session.query(City1).filter(City1.city_name==row['City']).first().city_id
-#     new_year.country = row['Country']
-#     new_year.city_temp = row['AvgTemperature']
-#     city_years_list.append(new_year)
+#     new_year.country = row['Entity']
+#     if db.session.query(Country1).filter(Country1.country_name==row['Entity']).first():
+#         new_year.country_id = db.session.query(Country1).filter(Country1.country_name==row['Entity']).first().country_id
+#     new_year.code = row['Code']
+#     new_year.country_co2 = row['Per capita CO2 emissions']
 
-# db.session.add_all(city_years_list)
+#     country_years_list.append(new_year)
+
+# db.session.add_all(country_years_list)
 # db.session.commit()
+
+# Table for Avg City Temps Per Year ###
+city_temp_per_year = pd.read_csv(os.path.join(path, "AvgTempCityFix.csv"))
+sorted_by_year = city_temp_per_year.groupby("Year").apply(lambda x: x.nlargest(10, 'AvgTemperature')).reset_index(drop=True)
+# Stores a dictionary of years with the CityTempPerYear object
+city_years_list = []
+for index, row in sorted_by_year.iterrows():
+    parent_year = db.session.query(Year1).filter(Year1.year_name == row['Year']).first()
+    new_year = CityTempPerYear(year1=parent_year)
+    new_year.year_name = row['Year']
+    new_year.city = row['City']
+    if db.session.query(City1).filter(City1.city_name==row['City']).first():
+        query_city = db.session.query(City1).filter(City1.city_name==row['City']).first()
+        new_year.city_id = query_city.city_id
+        new_year.latitude = query_city.latitude
+        new_year.longitude = query_city.longitude
+    new_year.country = row['Country']
+    new_year.city_temp = row['AvgTemperature']
+    city_years_list.append(new_year)
+
+db.session.add_all(city_years_list)
+db.session.commit()
 
 # Adds latitude and longitude of each city in city temps
 # cities = CityTempPerYear.query.all()
