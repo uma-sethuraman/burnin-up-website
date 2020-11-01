@@ -142,8 +142,8 @@ class CitySchema(ma.Schema):
     pm25 = fields.Float(required=False)
     highest_temp = fields.Float(required=False)
     year_highest = fields.Int(required=False)
-    lat = fields.Float(required=False)
-    long = fields.Float(required=False)
+    latitude = fields.Float(required=False)
+    longitude = fields.Float(required=False)
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema1(ma.Schema):
