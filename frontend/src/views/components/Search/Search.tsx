@@ -3,7 +3,6 @@ import algoliasearch from 'algoliasearch/lite';
 import { Index, InstantSearch } from 'react-instantsearch-dom';
 import { SearchBox, Hits, Highlight } from 'react-instantsearch-dom';
 import { connectStateResults } from "react-instantsearch-dom";
-import { text } from '@storybook/addon-knobs';
 import "./Search.css";
 import Navbar from "../OurNavbar";
 
@@ -16,231 +15,235 @@ const searchClient = algoliasearch(
 /* What is displayed for each city in search results */
 const CityHit = (hit: any) =>
   <div className="hit">
-    <a href={"/cities/id="+hit.hit.city_id} >
-        <h1>{hit.hit.city_name}</h1>
+    <a href={"/cities/id=" + hit.hit.city_id} >
+      <h1>{hit.hit.city_name}</h1>
     </a>
     <p>
-      Name:
-      <Highlight
+      Name: <Highlight
         attribute="city_name"
         tagName="mark"
         hit={hit.hit}
       />
     </p>
     <p>Country: <Highlight
-        attribute="country_iso2code"
-        tagName="mark"
-        hit={hit.hit}
-      /></p>
+      attribute="country_iso2code"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Population: <Highlight
-    attribute="population"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="population"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>PM10: <Highlight
-    attribute="pm10"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="pm10"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>O3: <Highlight
-    attribute="o3"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="o3"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>PM2.5: <Highlight
-    attribute="pm25"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="pm25"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
   </div>
 
 /* Displays element for resulting city when user types in query */
 const CityContent = connectStateResults(
   ({ searchState }) =>
     searchState && searchState.query ? (
-    <div className = "content">
-        <Hits hitComponent = {CityHit}/>
-    </div>) : null
+      <div className="content">
+        <Hits hitComponent={CityHit} />
+      </div>) : null
 );
 
 /* What is displayed for each country in search results */
 const CountryHit = (hit: any) =>
-    <div className="hit">
-    <a href={"/countries/id="+hit.hit.country_id} >
-        <h1>{hit.hit.country_name}</h1>
+  <div className="hit">
+    <a href={"/countries/id=" + hit.hit.country_id} >
+      <h1>{hit.hit.country_name}</h1>
     </a>
     <p>Name: <Highlight
-        attribute="country_name"
-        tagName="mark"
-        hit={hit.hit}
-      /></p>
+      attribute="country_name"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Capital City: <Highlight
-    attribute="country_capital_city"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="country_capital_city"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>ISO2 Code: <Highlight
-    attribute="country_iso2code"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="country_iso2code"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>ISO3 Code: <Highlight
-    attribute="country_iso3code"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="country_iso3code"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Region: <Highlight
-    attribute="country_region"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="country_region"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Highest Annual CO2 Emission Level: <Highlight
-    attribute="highest_emission"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="highest_emission"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Income Level: <Highlight
-    attribute="income_level"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="income_level"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Latitude: <Highlight
-    attribute="lat"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="lat"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Longitude: <Highlight
-    attribute="long"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
+      attribute="long"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Recent CO2 Emissions: <Highlight
-    attribute="recent_emissions"
-    tagName="mark"
-    hit={hit.hit}
-  /></p>
-    </div>
+      attribute="recent_emissions"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
+  </div>
 
 /* Displays element for resulting country when user types in query */
 const CountryContent = connectStateResults(
   ({ searchState }) =>
     searchState && searchState.query ? (
-    <div className = "content">
-        <Hits hitComponent = {CountryHit}/>
-    </div>) : null
+      <div className="content">
+        <Hits hitComponent={CountryHit} />
+      </div>) : null
 );
 
 /* What is displayed for each year in search results */
 const YearHit = (hit: any) =>
-    <div className="hit">
-    <a href={"/years/name="+hit.hit.year_name} >
-        <h1>{hit.hit.year_name}</h1>
-    </a>   
+  <div className="hit">
+    <a href={"/years/name=" + hit.hit.year_name} >
+      <h1>{hit.hit.year_name}</h1>
+    </a>
     <p>Year: <Highlight
-    attribute="year_name"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="year_name"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>CO2: <Highlight
-    attribute="co2"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="co2"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>Methane: <Highlight
-    attribute="methane"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="methane"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>Nitrous Oxide: <Highlight
-    attribute="nitrous_oxide"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="nitrous_oxide"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>Polar Ice Extent: <Highlight
-    attribute="polar_ice"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="polar_ice"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>Sea Level: <Highlight
-    attribute="sea_level"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="sea_level"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>Temp Anomaly: <Highlight
-    attribute="temp_anomaly"
-    tagName="mark"
-    hit={hit.hit} /></p>
+      attribute="temp_anomaly"
+      tagName="mark"
+      hit={hit.hit} /></p>
     <p>World Population : <Highlight
-    attribute="world_population"
-    tagName="mark"
-    hit={hit.hit} /></p>
-    <p>Top 10 Countries: 
+      attribute="world_population"
+      tagName="mark"
+      hit={hit.hit} /></p>
+    <p>Top 10 Countries:
     <div className="list-item">
-      <ol>
-      {hit.hit.top_10_countries.map((country_elem: any) => (
-        <p>{country_elem.country}</p>
-      ))}
-      </ol>
-    </div>
-   </p>
-    </div>
+        <ul>
+          {hit.hit.top_10_countries.map((country_elem: any, index: any) => (
+            <li>
+              <Highlight
+                attribute={`top_10_countries[${index}].country`}
+                hit={hit.hit}
+                tagName="mark" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </p>
+  </div>
 
 /* Displays element for resulting year when user types in query */
 const YearContent = connectStateResults(
   ({ searchState }) =>
     searchState && searchState.query ? (
-    <div className = "content">
-        <Hits hitComponent = {YearHit}/>
-    </div>) : null
+      <div className="content">
+        <Hits hitComponent={YearHit} />
+      </div>) : null
 );
 
+/* Takes in query that the user searches and returns search results */
 function Search(q: any) {
-  console.log(q.q);
+
   return (
     <div>
-      <Navbar/>
-    <div className="Search">
-    
-      <InstantSearch
-        indexName="cities_index"
-        searchClient={searchClient}
-        searchState={{
-          query: q.q
-        }}
-      > 
-      <div style={{ display : "none" }}>
-        <SearchBox />
+      <Navbar />
+      <div className="Search">
+        <h1>Search Results</h1>
+        <br/>
+        <InstantSearch
+          indexName="cities_index"
+          searchClient={searchClient}
+          searchState={{
+            query: q.q
+          }}
+        >
+          <div style={{ display: "none" }}>
+            <SearchBox />
+          </div>
+
+          {/* Index containing all cities data */}
+          <Index indexName="cities_index">
+            <h1>Cities</h1>
+            <p>Learn about climate change in cities around the world. </p>
+            <br />
+            <main>
+              <CityContent />
+            </main>
+          </Index>
+
+          {/* Index containing all countries data */}
+          <Index indexName="country_index">
+            <h1>Countries</h1>
+            <p>Learn about climate change in countries around the world. </p>
+            <br />
+            <main>
+              <CountryContent />
+            </main>
+          </Index>
+
+          {/* Index containing all years data */}
+          <Index indexName="years_index">
+            <h1>Years</h1>
+            <p>Learn about climate change across the years. </p>
+            <br />
+            <main>
+              <YearContent />
+            </main>
+          </Index>
+
+        </InstantSearch>
       </div>
-        {/*onClick={event => {
-          console.log(event.currentTarget);
-        }}*/}
-
-        {/* Index containing all cities data */}
-        <Index indexName="cities_index">
-          <h1>Cities</h1>
-          <p>Learn about climate change in cities around the world. </p>
-          <br />
-          <main>
-            <CityContent />
-          </main>
-        </Index>
-
-        {/* Index containing all countries data */}
-        <Index indexName="country_index">
-          <h1>Countries</h1>
-          <p>Learn about climate change in countries around the world. </p>
-          <br />
-          <main>
-            <CountryContent />
-          </main>
-        </Index>
-
-        {/* Index containing all years data */}
-        <Index indexName="years_index">
-          <h1>Years</h1>
-          <p>Learn about climate change across the years. </p>
-          <main>
-            <YearContent />
-          </main>
-        </Index>
-
-      </InstantSearch>
-      </div>
-      </div>
+    </div>
   );
 }
 
