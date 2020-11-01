@@ -41,7 +41,7 @@ class Country1(db.Model):
     lat = db.Column(db.Integer)
     long = db.Column(db.Integer)
     cities = db.relationship('City1', backref = 'country1')
-    high_year = db.Column(db.Intger)
+    high_year = db.Column(db.Integer)
 
 # Year model
 class Year1(db.Model):
@@ -63,6 +63,7 @@ class City1(db.Model):
     city_id = db.Column(db.Integer, primary_key=True)
     city_name = db.Column(db.String())
     country_id = db.Column(db.Integer, db.ForeignKey('country1.country_id'))
+    country_name = db.Column(db.String())
     country = db.relationship('Country1', backref='city1')
     country_iso2 = db.Column(db.String())
     population = db.Column(db.Integer)
@@ -120,7 +121,9 @@ class CountrySchema1(ma.Schema):
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
     city_name = fields.Str(required=False)
-    country = fields.Nested(CountrySchema1(only=('country_name', 'country_id')))
+    country_id = fields.Int(required=False)
+    country_name = fields.Str(required=False)
+    # country = fields.Nested(CountrySchema1(only=('country_name', 'country_id')))
     population = fields.Int(required=False)
     o3 = fields.Float(required=False)
     pm10 = fields.Float(required=False)
