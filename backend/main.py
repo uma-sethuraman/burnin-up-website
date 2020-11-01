@@ -38,9 +38,10 @@ class Country1(db.Model):
     country_capital_city = db.Column(db.String())
     income_level = db.Column(db.String())
     country_region = db.Column(db.String())
-    lat = db.Column(db.Float)
-    long = db.Column(db.Float)
+    lat = db.Column(db.Integer)
+    long = db.Column(db.Integer)
     cities = db.relationship('City1', backref = 'country1')
+    high_year = db.Column(db.Intger)
 
 # Year model
 class Year1(db.Model):
@@ -123,12 +124,13 @@ class CountrySchema1(ma.Schema):
     country_iso2code = fields.Str(required=False)
     country_iso3code = fields.Str(required=False)
     country_population = fields.Int(required=False)
-    lat = fields.Str(required=False)
-    long = fields.Str(required=False)
+    lat = fields.Int(required=False)
+    long = fields.Int(required=False)
     highest_emission = fields.Float(required=False)
     recent_emissions = fields.Float(required=False)
     capital_city_id = fields.Int(required=False)
     country_capital_city = fields.Str(required=False)
+    high_year = fields.Int(required=False)
 
 # City Schema
 class CitySchema(ma.Schema):
