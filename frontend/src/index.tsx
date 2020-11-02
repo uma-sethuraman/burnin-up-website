@@ -1,7 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
@@ -15,25 +20,39 @@ import Countries from "./views/Countries";
 import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
 import Search from "./views/components/Search/Search";
+import Invalid from "./views/components/Invalid";
 
 ReactDOM.render(
   <Router>
-      <Route path="/about" exact component = {About}/>
-      <Route path="/" exact component = {App}/>
+    <Switch>
+      <Route path="/about" exact component={About} />
+      <Route path="/" exact component={App} />
       <Route path="/cities" exact component={Cities} />
-      <Route path="/cities/id=:id" render = {(props) => (<CityInstance id={props.match.params.id}/>)} />
-      <Route path="/city" exact component = {CityInstance } />
-      <Route path="/countries" exact component = {Countries} />
-      <Route path="/countries/id=:id" render = {(props) => (<CountryInstance id={props.match.params.id}/>)} />
-      <Route path="/years/name=:name" render = {(props) => (<YearInstance name={props.match.params.name}/>)} />  
-    <Route path="/years" exact component={GeneralYears} />
-    <Route path="/search/q=:q" render = {(props) => (<Search q={props.match.params.q}/>)} />
+      <Route
+        path="/cities/id=:id"
+        render={(props) => <CityInstance id={props.match.params.id} />}
+      />
+      <Route path="/city" exact component={CityInstance} />
+      <Route path="/countries" exact component={Countries} />
+      <Route
+        path="/countries/id=:id"
+        render={(props) => <CountryInstance id={props.match.params.id} />}
+      />
+      <Route
+        path="/years/name=:name"
+        render={(props) => <YearInstance name={props.match.params.name} />}
+      />
+      <Route path="/years" exact component={GeneralYears} />
+      <Route
+        path="/search/q=:q"
+        render={(props) => <Search q={props.match.params.q} />}
+      />
 
-      
+      <Route path="/404" component={Invalid} />
+      <Redirect to="/404" />
+    </Switch>
   </Router>,
   document.getElementById("root")
-
-  
 );
 
 // If you want your app to work offline and load faster, you can change

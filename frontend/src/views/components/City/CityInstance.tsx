@@ -10,7 +10,6 @@ import "./CityInstance.css";
 import Carousel from "react-bootstrap/Carousel";
 import OurCarousel from "../OurCarousel";
 import Slide from "../Slide";
-import CityPosts from "../CityPosts";
 import axios from "axios";
 import OurMap from "../Map/OurMap";
 import LocationPhoto from "../LandingPhoto/LandingPhoto";
