@@ -292,203 +292,222 @@ class Tests(TestCase):
         }
 
     def test_years_id_instance(self):
-        r = requests.get("https://burninup.me/api/years/id=77")
+        r = requests.get("https://burninup.me/api/years/id=2016")
         assert r.status_code == 200
         d = r.json()
         assert d == {
             "city_temperatures": [
             {
-                "city": "Niamey",
-                "city_id": 3487,
-                "city_temp": 29.01616667,
-                "country": "Niger",
-                "parent_year_id": 77,
-                "year_id": 761,
-                "year_name": 1956
-            },
+            "city": "Niamey", 
+            "city_id": 3487, 
+            "city_temp": 84.55, 
+            "country": "Nigeria", 
+            "latitude": 13.5166667, 
+            "longitude": 2.1166667, 
+            "parent_year_id": 2016, 
+            "year_id": 1361, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Khartoum",
-                "city_id": 1691,
-                "city_temp": 28.97258333,
-                "country": "Sudan",
-                "parent_year_id": 77,
-                "year_id": 762,
-                "year_name": 1956
-            },
+            "city": "Chennai", 
+            "city_id": 3530, 
+            "city_temp": 83.41803279, 
+            "country": "India", 
+            "latitude": 13.083333, 
+            "longitude": 80.283333, 
+            "parent_year_id": 2016, 
+            "year_id": 1362, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Kassala",
-                "city_id": 1658,
-                "city_temp": 28.84341667,
-                "country": "Sudan",
-                "parent_year_id": 77,
-                "year_id": 763,
-                "year_name": 1956
-            },
+            "city": "Dubai", 
+            "city_id": 1079, 
+            "city_temp": 83.03442623, 
+            "country": "United Arab Emirates", 
+            "latitude": 25.258172, 
+            "longitude": 55.304717, 
+            "parent_year_id": 2016, 
+            "year_id": 1363, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Umm Durman",
-                "city_id": 3088,
-                "city_temp": 28.8065,
-                "country": "Sudan",
-                "parent_year_id": 77,
-                "year_id": 764,
-                "year_name": 1956
-            },
+            "city": "Doha", 
+            "city_id": 1064, 
+            "city_temp": 82.03060109, 
+            "country": "Qatar", 
+            "latitude": 25.286667, 
+            "longitude": 51.533333, 
+            "parent_year_id": 2016, 
+            "year_id": 1364, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Jibuti",
-                "city_id": 1568,
-                "city_temp": 28.78616667,
-                "country": "Djibouti",
-                "parent_year_id": 77,
-                "year_id": 765,
-                "year_name": 1956
-            },
+            "city": "Abu Dhabi", 
+            "city_id": 375, 
+            "city_temp": 81.84016393, 
+            "country": "United Arab Emirates", 
+            "latitude": 24.466667, 
+            "longitude": 54.366667, 
+            "parent_year_id": 2016, 
+            "year_id": 1365, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Mopti",
-                "city_id": 2087,
-                "city_temp": 28.68633333,
-                "country": "Mali",
-                "parent_year_id": 77,
-                "year_id": 766,
-                "year_name": 1956
-            },
+            "city": "Bombay", 
+            "city_id": 709, 
+            "city_temp": 81.83934426, 
+            "country": "India", 
+            "latitude": 18.975, 
+            "longitude": 72.825833, 
+            "parent_year_id": 2016, 
+            "year_id": 1366, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Rabak",
-                "city_id": 2504,
-                "city_temp": 28.46708333,
-                "country": "Sudan",
-                "parent_year_id": 77,
-                "year_id": 767,
-                "year_name": 1956
-            },
+            "city": "Manila", 
+            "city_id": 1978, 
+            "city_temp": 81.66202186, 
+            "country": "Philippines", 
+            "latitude": 14.6042, 
+            "longitude": 120.9822, 
+            "parent_year_id": 2016, 
+            "year_id": 1367, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Alandur",
-                "city_id": 408,
-                "city_temp": 28.42933333,
-                "country": "India",
-                "parent_year_id": 77,
-                "year_id": 768,
-                "year_name": 1956
-            },
+            "city": "Kuala Lumpur", 
+            "city_id": 3485, 
+            "city_temp": 81.46775956, 
+            "country": "Malaysia", 
+            "latitude": 3.166667, 
+            "longitude": 101.7, 
+            "parent_year_id": 2016, 
+            "year_id": 1368, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Ambattur",
-                "city_id": 436,
-                "city_temp": 28.42933333,
-                "country": "India",
-                "parent_year_id": 77,
-                "year_id": 769,
-                "year_name": 1956
-            },
+            "city": "Singapore", 
+            "city_id": 2800, 
+            "city_temp": 81.30300546, 
+            "country": "Singapore", 
+            "latitude": 1.2930556, 
+            "longitude": 103.8558333, 
+            "parent_year_id": 2016, 
+            "year_id": 1369, 
+            "year_name": 2016
+            }, 
             {
-                "city": "Pallavaram",
-                "city_id": 2313,
-                "city_temp": 28.42933333,
-                "country": "India",
-                "parent_year_id": 77,
-                "year_id": 770,
-                "year_name": 1956
+            "city": "Managua", 
+            "city_id": 1968, 
+            "city_temp": 81.20218579, 
+            "country": "Nicaragua", 
+            "latitude": 12.1508333, 
+            "longitude": -86.2683333, 
+            "parent_year_id": 2016, 
+            "year_id": 1370, 
+            "year_name": 2016
             }
-        ],
-        "co2": 314.3,
+        ], 
+        "co2": 404.22, 
         "countries_emissions": [
             {
-                "code": "FLK",
-                "country": "Falkland Islands",
-                "country_co2": 155.72,
-                "country_id": 201,
-                "parent_year_id": 77,
-                "year_id": 761,
-                "year_name": "1956"
-            },
+            "code": "QAT", 
+            "country": "Qatar", 
+            "country_co2": 38.51005261122005, 
+            "country_id": 144, 
+            "parent_year_id": 2016, 
+            "year_id": 1361, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "LUX",
-                "country": "Luxembourg",
-                "country_co2": 33.775635179153106,
-                "country_id": 99,
-                "parent_year_id": 77,
-                "year_id": 762,
-                "year_name": "1956"
-            },
+            "code": "CUW", 
+            "country": "Curacao", 
+            "country_co2": 33.45391304347826, 
+            "country_id": 200, 
+            "parent_year_id": 2016, 
+            "year_id": 1362, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "NCL",
-                "country": "New Caledonia",
-                "country_co2": 16.88626086956522,
-                "country_id": 124,
-                "parent_year_id": 77,
-                "year_id": 763,
-                "year_name": "1956"
-            },
+            "code": "TTO", 
+            "country": "Trinidad and Tobago", 
+            "country_co2": 31.750874794295548, 
+            "country_id": 172, 
+            "parent_year_id": 2016, 
+            "year_id": 1363, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "USA",
-                "country": "United States",
-                "country_co2": 16.32983666545716,
-                "country_id": 180,
-                "parent_year_id": 77,
-                "year_id": 764,
-                "year_name": "1956"
-            },
+            "code": "KWT", 
+            "country": "Kuwait", 
+            "country_co2": 24.780630801139644, 
+            "country_id": 91, 
+            "parent_year_id": 2016, 
+            "year_id": 1364, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "QAT",
-                "country": "Qatar",
-                "country_co2": 13.306105263157894,
-                "country_id": 144,
-                "parent_year_id": 77,
-                "year_id": 765,
-                "year_name": "1956"
-            },
+            "code": "BHR", 
+            "country": "Bahrain", 
+            "country_co2": 22.061504237507247, 
+            "country_id": 19, 
+            "parent_year_id": 2016, 
+            "year_id": 1365, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "CAN",
-                "country": "Canada",
-                "country_co2": 11.779140428172507,
-                "country_id": 30,
-                "parent_year_id": 77,
-                "year_id": 766,
-                "year_name": "1956"
-            },
+            "code": "ARE", 
+            "country": "United Arab Emirates", 
+            "country_co2": 21.7042830237086, 
+            "country_id": 6, 
+            "parent_year_id": 2016, 
+            "year_id": 1366, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "GBR",
-                "country": "United Kingdom",
-                "country_co2": 11.196691140326925,
-                "country_id": 62,
-                "parent_year_id": 77,
-                "year_id": 767,
-                "year_name": "1956"
-            },
+            "code": "SAU", 
+            "country": "Saudi Arabia", 
+            "country_co2": 19.466424391248893, 
+            "country_id": 147, 
+            "parent_year_id": 2016, 
+            "year_id": 1367, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "BEL",
-                "country": "Belgium",
-                "country_co2": 10.825231044509056,
-                "country_id": 14,
-                "parent_year_id": 77,
-                "year_id": 768,
-                "year_name": "1956"
-            },
+            "code": "NCL", 
+            "country": "New Caledonia", 
+            "country_co2": 19.386049521674952, 
+            "country_id": 124, 
+            "parent_year_id": 2016, 
+            "year_id": 1368, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "DEU",
-                "country": "Germany",
-                "country_co2": 10.66487080207652,
-                "country_id": 43,
-                "parent_year_id": 77,
-                "year_id": 769,
-                "year_name": "1956"
-            },
+            "code": "SXM", 
+            "country": "Sint Maarten (Dutch part)", 
+            "country_co2": 18.58809756097561, 
+            "country_id": 202, 
+            "parent_year_id": 2016, 
+            "year_id": 1369, 
+            "year_name": "2016"
+            }, 
             {
-                "code": "VEN",
-                "country": "Venezuela",
-                "country_co2": 9.271822019395321,
-                "country_id": 205,
-                "parent_year_id": 77,
-                "year_id": 770,
-                "year_name": "1956"
+            "code": "BRN", 
+            "country": "Brunei", 
+            "country_co2": 17.962194351364293, 
+            "country_id": 203, 
+            "parent_year_id": 2016, 
+            "year_id": 1370, 
+            "year_name": "2016"
             }
-        ],
-        "methane": 1161.9,
-        "nitrous_oxide": 290.6,
-        "polar_ice": 27491864.7,
-        "sea_level": 3.763779524,
-        "temp_anomaly": -0.17,
-        "world_population": 2807246148,
-        "year_id": 77,
-        "year_name": "1956"
+        ], 
+        "methane": 1843.13, 
+        "nitrous_oxide": 328.9583333, 
+        "polar_ice": 21314735.8825, 
+        "sea_level": 9.033066323, 
+        "temp_anomaly": 1.23, 
+        "world_population": 7464022049, 
+        "year_id": 2016
         }
 
     def test_years_error_result(self):
