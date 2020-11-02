@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import useAxios from 'axios-hooks';
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
-import { Typography } from "@material-ui/core";
 
 /* General Cities Model Page (route: "/cities") */
 const Cities = () => {
@@ -65,27 +64,26 @@ const Cities = () => {
     },
     {
       /* sort not working until backend fixes */
-     name: "country",
+     name: "country_name",
      label: "Country",
      options: {
       filter: true,
-       sort: true,
-       customBodyRender: (country: any, meta: any) => (<>{country.country_name}</>),
+      sort: true,
       filterOptions: {
         names: ['A-I', 'J-R', 'S-Z'],
-        logic(country: any, filterVal: any) {
+        logic(country_name: any, filterVal: any) {
           const show =
             (filterVal.indexOf('A-I') >= 0 &&
-              country?.country_name.charCodeAt(0) >= ('A'.charCodeAt(0)) &&
-              country?.country_name.charCodeAt(0) <= ('I'.charCodeAt(0))) ||
+            country_name.charCodeAt(0) >= ('A'.charCodeAt(0)) &&
+            country_name.charCodeAt(0) <= ('I'.charCodeAt(0))) ||
 
             (filterVal.indexOf('J-R') >= 0 &&
-              country?.country_name.charCodeAt(0) >= ('J'.charCodeAt(0)) &&
-              country?.country_name.charCodeAt(0) <= ('R'.charCodeAt(0))) ||
+            country_name.charCodeAt(0) >= ('J'.charCodeAt(0)) &&
+            country_name.charCodeAt(0) <= ('R'.charCodeAt(0))) ||
             
             (filterVal.indexOf('S-Z') >= 0 &&
-              country?.country_name.charCodeAt(0) >= ('S'.charCodeAt(0)) &&
-              country?.country_name.charCodeAt(0) <= ('Z'.charCodeAt(0)));
+            country_name.charCodeAt(0) >= ('S'.charCodeAt(0)) &&
+            country_name.charCodeAt(0) <= ('Z'.charCodeAt(0)));
           return !show;
         },
       },
@@ -180,11 +178,7 @@ const Cities = () => {
 
       {/* Display loading animation if data is still loading */}
       {loading? <Spinner animation="border" />: <header className="Cities-header">
-
-        {console.log('Arhus'.charCodeAt(0))}
-        {console.log('A'.charCodeAt(0))}
-        {console.log('Gurgaon'.charCodeAt(0))}
-        {console.log('G'.charCodeAt(0))}
+        
         <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} width="600px" fluid />
         <br />
