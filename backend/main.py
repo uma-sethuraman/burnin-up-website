@@ -46,7 +46,6 @@ class Country1(db.Model):
 
 # Year model
 class Year1(db.Model):
-    # year_id = db.Column(db.Integer, primary_key=True)
     year_id = db.Column(db.Integer, primary_key=True)
     temp_anomaly = db.Column(db.Float)
     co2 = db.Column(db.Float)
@@ -166,7 +165,6 @@ class CityTempPerYearSchema1(ma.Schema):
 # Year Schema
 class YearSchema1(ma.Schema):
     year_id = fields.Int(required=True)
-    year_name = fields.Str(required=False)
     temp_anomaly = fields.Float(required=False)
     co2 = fields.Float(required=False)
     methane = fields.Float(required=False)
@@ -174,8 +172,6 @@ class YearSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
-    # countries_emissions = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
-    # city_temperatures = fields.Nested(CityTempPerYearSchema1, many=True)
 
 class YearInstanceSchema1(ma.Schema):
     year_id = fields.Int(required=True)
