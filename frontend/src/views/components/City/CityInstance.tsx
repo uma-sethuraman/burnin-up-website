@@ -2,48 +2,37 @@ import { Link } from "react-router-dom";
 import React from "react";
 import "../../App.css";
 import Navbar from "../OurNavbar";
-import Image from "react-bootstrap/Image";
 import Table from "react-bootstrap/Table";
-import ImageBackground from "react";
-import View from "react";
 import "./CityInstance.css";
-import Carousel from "react-bootstrap/Carousel";
-import OurCarousel from "../OurCarousel";
-import Slide from "../Slide";
-import CityPosts from "../CityPosts";
-import axios from "axios";
-import OurMap from "../Map/OurMap";
+import useAxios from 'axios-hooks';
 import LocationPhoto from "../LandingPhoto/LandingPhoto";
+import OurMap from "../Map/OurMap";
+import { useEffect } from 'react';
+import Spinner from "react-bootstrap/Spinner";
 
 
 const CityInstance = (id: any) => {
 
   const [city, setCity] = React.useState<City>();
-  const [countryName, setCountryName] = React.useState("");
-  const [countryID, setCountryID] = React.useState(0);
 
-  // gets data from API
-  const getData = () => {
-    axios.get("/api/cities/id="+id.id)
-    .then((response)=>{
-        setCity(JSON.parse(JSON.stringify(response.data)) as City);
-    })
-    .catch((error) => {
-        console.log(error);
-    })
-  };
-
-  getData();
+  const [{ data, loading, error }, refetch] = useAxios('/api/cities/id='+id.id);
   
+  useEffect(() => {
+    const cityObj: City = data as City;
+    if (cityObj) {
+      setCity(cityObj);
+    }
+  }, [data]);
+
   return (
-    <div className="CountryInstance">
+    <div className="CityInstance">
       <Navbar />
-      <header className="App-header">
+      {loading? <Spinner animation="border" />: <header className="App-header">
       <div className="image-text">
         <h3> {city?.city_name} </h3>
         </div> 
         <div className="image_holder">
-        {LocationPhoto(encodeURI(city?.city_name!))}
+        {/* {LocationPhoto(encodeURI(city?.city_name!))} */}
         </div>
         <br />
         <Table bordered hover size="sm" variant="dark">
@@ -51,8 +40,8 @@ const CityInstance = (id: any) => {
             <tr>
               <td>Country</td>
               <td>
-                <Link to={"/countries/id="+city?.country?.country_id}>
-                  {city?.country.country_name}
+                <Link to={"/countries/id="+city?.country_id}>
+                  {city?.country_name}
                 </Link>
               </td>
             </tr>
@@ -87,8 +76,8 @@ const CityInstance = (id: any) => {
           </tbody>
         </Table>
   
-        {/*OurMap(Number(city?.lat! === undefined ? 0: Number(city?.lat!)), Number(city?.long! === undefined ? 0: Number(city?.long!)), city?.city_name!)*/}
-      </header>
+        {/* {OurMap(Number(city?.latitude! === undefined ? 0: Number(city?.latitude!)), Number(city?.longitude! === undefined ? 0: Number(city?.longitude!)), city?.city_name!)} */}
+      </header>}
     </div>
   );
 }
@@ -101,19 +90,16 @@ export interface CityObject {
 export interface City {
   city_id:      number;
   city_name:    string;
-  country:      Country;
-  highest_temp: number;
-  o3:           number;
-  pm10:         number;
-  pm25:         number;
-  population:   number;
-  year_highest: number;
-  
-}
-
-export interface Country {
   country_id:   number;
   country_name: string;
+  highest_temp: number;
+  latitude:    number;
+  longitude:   number;
+  o3:          number;
+  pm10:        number;
+  pm25:        number;
+  population:  number;
+  year_highest: number;
 }
 
 
