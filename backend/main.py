@@ -189,9 +189,6 @@ years_schema = YearSchema1(many=True)
 city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
-countries_emissions_schema = CountryEmissionsPerYearSchema1(many=True)
-cities_temp_schema = CityTempPerYearSchema1(many=True)
-
 
 ###### ENDPOINTS ######
 # Root routing

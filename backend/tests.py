@@ -29,7 +29,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/countries")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["countries"]) == 217
+        assert len(d["countries"]) == 185
 
     def test_countries_all(self):
         r = requests.get("https://burninup.me/api/countries")
@@ -37,17 +37,20 @@ class Tests(TestCase):
         d = r.json()
         assert len(d["countries"]) > 0
         assert d["countries"][0] == {
-            "country_capital_city": "Oranjestad",
-            "country_id": 1,
-            "country_income": "High income",
-            "country_iso2code": "AW",
-            "country_iso3code": "ABW",
-            "country_lat": "12.5167",
-            "country_long": "-70.0167",
-            "country_name": "Aruba",
-            "country_region": "Latin America & Caribbean ",
-            "recent_emissions": 8.463651329197651,
-            "recent_emissions_year": 2018,
+            "capital_city_id": 3537, 
+            "country_capital_city": "Bandar Seri Begawan", 
+            "country_id": 203, 
+            "country_iso2code": "BN", 
+            "country_iso3code": "BRN", 
+            "country_name": "Brunei", 
+            "country_population": 229384, 
+            "country_region": "East Asia & Pacific", 
+            "high_year": 1988, 
+            "highest_emission": 19.398742, 
+            "income_level": "High income", 
+            "lat": 5, 
+            "long": 115, 
+            "recent_emissions": 18.48369728
         }
 
     def test_countries_instance(self):
@@ -55,17 +58,20 @@ class Tests(TestCase):
         assert r.status_code == 200
         d = r.json()
         assert d == {
-            "country_capital_city": "Luanda",
-            "country_id": 3,
-            "country_income": "Lower middle income",
-            "country_iso2code": "AO",
-            "country_iso3code": "AGO",
-            "country_lat": "-8.81155",
-            "country_long": "13.242",
-            "country_name": "Angola",
-            "country_region": "Sub-Saharan Africa ",
-            "recent_emissions": 1.1209737471599153,
-            "recent_emissions_year": 2018,
+            "capital_city_id": 3401, 
+            "country_capital_city": "Luanda", 
+            "country_id": 3, 
+            "country_iso2code": "AO", 
+            "country_iso3code": "AGO", 
+            "country_name": "Angola", 
+            "country_population": 25868000, 
+            "country_region": "Africa", 
+            "high_year": 2014, 
+            "highest_emission": 1.6423749152828735, 
+            "income_level": "Lower middle income", 
+            "lat": -9, 
+            "long": 13, 
+            "recent_emissions": 1.1209737471599153
         }
 
     def test_countries_error_result(self):
@@ -286,7 +292,7 @@ class Tests(TestCase):
         }
 
     def test_years_id_instance(self):
-        r = requests.get("https://burninup.me/api/years/id=512")
+        r = requests.get("https://burninup.me/api/years/id=77")
         assert r.status_code == 200
         d = r.json()
         assert d == {
@@ -486,7 +492,7 @@ class Tests(TestCase):
         }
 
     def test_years_error_result(self):
-        r = requests.get("https://burninup.me/api/years/name=-188")
+        r = requests.get("https://burninup.me/api/years/id=-188")
         assert r.status_code == 404
         d = r.json()
         assert d == {"error": "-188 not found"}
@@ -499,7 +505,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/cities")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["cities"]) == 3047
+        assert len(d["cities"]) == 3055
 
     def test_cities_list(self):
         r = requests.get("https://burninup.me/api/cities")
@@ -507,20 +513,18 @@ class Tests(TestCase):
         d = r.json()
         assert len(d["cities"]) > 0
         assert d["cities"][0] == {
-            "city_id": 361, 
-            "city_name": "Arhus", 
-            "country": {
-                "country_id": 46, 
-                "country_name": "Denmark"
-            }, 
-            "highest_temp": 9.673833333, 
-            "latitude": 56.153423, 
-            "longitude": 10.22553, 
-            "o3": 26.0, 
-            "pm10": 11.0, 
-            "pm25": 22.0, 
-            "population": 226716, 
-            "year_highest": 1990
+            "city_id": 3537, 
+            "city_name": "Bandar seri begawan", 
+            "country_id": 203, 
+            "country_name": "Brunei", 
+            "highest_temp": -1.0, 
+            "latitude": 4.8833333, 
+            "longitude": 114.9333333, 
+            "o3": 10.0, 
+            "pm10": 9.0, 
+            "pm25": 27.0, 
+            "population": -1, 
+            "year_highest": -1
         }
 
     def test_cities_id_instance(self):
@@ -530,10 +534,8 @@ class Tests(TestCase):
         assert d == {
             "city_id": 512, 
             "city_name": "Asuncion", 
-            "country": {
-                "country_id": 142, 
-                "country_name": "Paraguay"
-            }, 
+            "country_id": 142, 
+            "country_name": "Paraguay", 
             "highest_temp": 24.085, 
             "latitude": -25.266667, 
             "longitude": -57.666667, 
