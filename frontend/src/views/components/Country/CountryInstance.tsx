@@ -4,32 +4,46 @@ import "../../App.css";
 import Navbar from "../OurNavbar";
 import Table from "react-bootstrap/Table";
 import "./CountryInstance.css";
-import Carousel from "react-bootstrap/Carousel";
-import OurCarousel from "../OurCarousel";
 import OurMap from "../Map/OurMap";
-import Slide from "../Slide";
-import { useState, useEffect } from 'react';
-import axios from "axios";
+import { useEffect } from 'react';
+import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
-import LocationPhoto from "../LandingPhoto/LandingPhoto";
-import { cpuUsage } from "process";
+import LocationPhoto from "../LocationPhoto/LocationPhoto";
 
 
 const CountryInstance = (id: any) => {
 
+  console.log("in country instance");
   const [country, setCountry] = React.useState<Country>();
-  // gets data from API
-  const getData = () => {
-    axios.get("/api/countries/id=" + id.id)
-      .then((response) => {
-        setCountry(JSON.parse(JSON.stringify(response.data)) as Country);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
 
-  getData();
+  const [{ data, loading, error }, refetch] = useAxios(
+    "/api/countries/id=" + id.id
+  );
+
+  if (error || id.id == undefined) {
+    window.location.assign("/404");
+  }
+
+  useEffect(() => {
+    const countryObj: Country = data as Country;
+    if (countryObj) {
+      setCountry(countryObj);
+    }
+  }, [data]);
+
+  // gets data from API
+  // const getData = () => {
+  //   axios.get("/api/countries/id=" + id.id)
+  //     .then((response) => {
+  //       setCountry(JSON.parse(JSON.stringify(response.data)) as Country);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  // };
+
+  // getData();
+
   let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
 
   return (
@@ -40,7 +54,8 @@ const CountryInstance = (id: any) => {
         <div className="row">
           <div className="column">
             <div className="image_holder">
-              {LocationPhoto(encodeURI(country?.country_name!))}
+              {/* NEED TO FIX THIS, OTHERWISE COUNTRY INSTANCE WILL KEEP BEING RERENDERED */}
+              <Image src={LocationPhoto(encodeURI(country?.country_name!))} />
             </div>
           </div>
           <div className="column">

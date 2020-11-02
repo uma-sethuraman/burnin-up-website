@@ -4,12 +4,8 @@ import "../../App.css";
 import Navbar from "../OurNavbar";
 import Table from "react-bootstrap/Table";
 import "./CityInstance.css";
-import Carousel from "react-bootstrap/Carousel";
-import OurCarousel from "../OurCarousel";
-import Slide from "../Slide";
-import axios from "axios";
 import useAxios from "axios-hooks";
-import LocationPhoto from "../LandingPhoto/LandingPhoto";
+import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
@@ -35,7 +31,7 @@ const CityInstance = (id: any) => {
     }
   }, [data]);
   // console.log("Ret: "+ ret);
-  console.log(city);
+  //console.log(city);
   // let uri = encodeURI(city?.city_name!) as string;
   let city_img = LocationPhoto(encodeURI(city?.city_name!));
   return (
