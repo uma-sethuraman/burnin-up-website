@@ -13,33 +13,43 @@ import LocationPhoto from "../LandingPhoto/LandingPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import Image from "react-bootstrap/Image";
 
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
+  // const [city_img, setCityImg] = React.useState("");
 
   const [{ data, loading, error }, refetch] = useAxios(
     "/api/cities/id=" + id.id
   );
 
+  if (error || id.id == undefined) {
+    window.location.assign("/404");
+  }
+
   useEffect(() => {
     const cityObj: City = data as City;
     if (cityObj) {
       setCity(cityObj);
+      // setCityImg(LocationPhoto(encodeURI(city?.city_name!)));
     }
   }, [data]);
-
+  // console.log("Ret: "+ ret);
+  console.log(city);
+  // let uri = encodeURI(city?.city_name!) as string;
+  let city_img = LocationPhoto(encodeURI(city?.city_name!));
   return (
     <div className="CityInstance">
       <Navbar />
-      {loading ? (
-        <Spinner animation="border" />
-      ) : (
+      {/* {setCityImg()} */}
+      {loading ? <Spinner animation="border" /> : (
         <header className="App-header">
           <div className="image-text">
             <h3> {city?.city_name} </h3>
           </div>
           <div className="image_holder">
-            {/* {LocationPhoto(encodeURI(city?.city_name!))} */}
+            {/* <LocationPhoto cityName={encodeURI(city?.city_name!)}/> */}
+            <Image src={city_img} fluid/>
           </div>
           <br />
           <Table bordered hover size="sm" variant="dark">
@@ -100,7 +110,7 @@ const CityInstance = (id: any) => {
             </tbody>
           </Table>
 
-          {/* {OurMap(Number(city?.latitude! === undefined ? 0: Number(city?.latitude!)), Number(city?.longitude! === undefined ? 0: Number(city?.longitude!)), city?.city_name!)} */}
+          {OurMap(Number(city?.latitude! === undefined ? 0: Number(city?.latitude!)), Number(city?.longitude! === undefined ? 0: Number(city?.longitude!)), city?.city_name!)}
         </header>
       )}
     </div>
