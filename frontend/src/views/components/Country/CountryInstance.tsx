@@ -76,27 +76,28 @@ const CountryInstance = (id: any) => {
               <td>Longitude</td>
               <td>{country?.long}</td>
             </tr>
-            {/* <tr>
+            <tr>
               <td>Highest Annual CO2 Emissions (ppm)</td>
-              {countryYear?.co2 !== undefined?
-              <td>{countryYear?.co2}</td>: <td>-</td>}
-            </tr>  */}
-            {/* <tr>
+              {country?.highest_emission !== undefined?
+              <td>{country?.highest_emission}</td>: <td>-</td>}
+            </tr>  
+            <tr>
               <td>Year of Highest Annual CO2 Emissions</td>
-              {countryYear?.year !== undefined?
-              <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>:
+              {country?.high_year !== undefined?
+              <td><Link to={"/years/name=" + country?.high_year}> {country?.high_year} </Link></td>:
               <td><Link to={"/years/name=2018"}>2018</Link></td> }
-            </tr> */}
-            {/* <tr>
+            </tr>
+            <tr>
               <td>Most Recent CO2 Emissions (ppm)</td>
-              {country?.recent_emissions_year !== -1?
+              {country?.high_year !== -1?
               <td>{country?.recent_emissions}</td> : <td>-</td>}
-            </tr> */}
+            </tr>
 
           </tbody>
         </Table>
-        {OurMap(Number(country?.lat)! === undefined ? 0 : 
-          Number(country?.lat)!, Number(country?.long)! === undefined ? 0 : Number(country?.long)!, country?.country_name!)}
+        {OurMap(country?.lat! === undefined ? 0 : country?.lat!, 
+                country?.long! === undefined ? 0 : country?.long!, 
+                country?.country_name!)}
       </header>
     </div>
   ); 
@@ -116,10 +117,11 @@ export interface Country {
   country_name:         string;
   country_population:   number;
   country_region:       CountryRegion;
+  high_year:            number;
   highest_emission:     number;
   income_level:         IncomeLevel;
-  lat:                  string;
-  long:                 string;
+  lat:                  number;
+  long:                 number;
   recent_emissions:     number;
 }
 
