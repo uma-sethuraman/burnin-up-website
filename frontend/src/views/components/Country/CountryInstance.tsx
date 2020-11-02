@@ -4,32 +4,46 @@ import "../../App.css";
 import Navbar from "../OurNavbar";
 import Table from "react-bootstrap/Table";
 import "./CountryInstance.css";
-import Carousel from "react-bootstrap/Carousel";
-import OurCarousel from "../OurCarousel";
 import OurMap from "../Map/OurMap";
-import Slide from "../Slide";
-import { useState, useEffect } from 'react';
-import axios from "axios";
+import { useEffect } from 'react';
+import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
-import LocationPhoto from "../LandingPhoto/LandingPhoto";
-import { cpuUsage } from "process";
+import LocationPhoto from "../LocationPhoto/LocationPhoto";
 
 
 const CountryInstance = (id: any) => {
 
+  console.log("in country instance");
   const [country, setCountry] = React.useState<Country>();
-  // gets data from API
-  const getData = () => {
-    axios.get("/api/countries/id=" + id.id)
-      .then((response) => {
-        setCountry(JSON.parse(JSON.stringify(response.data)) as Country);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
 
-  getData();
+  const [{ data, loading, error }, refetch] = useAxios(
+    "/api/countries/id=" + id.id
+  );
+
+  if (error || id.id == undefined) {
+    window.location.assign("/404");
+  }
+
+  useEffect(() => {
+    const countryObj: Country = data as Country;
+    if (countryObj) {
+      setCountry(countryObj);
+    }
+  }, [data]);
+
+  // gets data from API
+  // const getData = () => {
+  //   axios.get("/api/countries/id=" + id.id)
+  //     .then((response) => {
+  //       setCountry(JSON.parse(JSON.stringify(response.data)) as Country);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  // };
+
+  // getData();
+
   let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
 
   return (
@@ -40,7 +54,8 @@ const CountryInstance = (id: any) => {
         <div className="row">
           <div className="column">
             <div className="image_holder">
-              {LocationPhoto(encodeURI(country?.country_name!))}
+              {/* NEED TO FIX THIS, OTHERWISE COUNTRY INSTANCE WILL KEEP BEING RERENDERED */}
+              <Image src={LocationPhoto(encodeURI(country?.country_name!))} />
             </div>
           </div>
           <div className="column">
@@ -76,27 +91,28 @@ const CountryInstance = (id: any) => {
               <td>Longitude</td>
               <td>{country?.long}</td>
             </tr>
-            {/* <tr>
+            <tr>
               <td>Highest Annual CO2 Emissions (ppm)</td>
-              {countryYear?.co2 !== undefined?
-              <td>{countryYear?.co2}</td>: <td>-</td>}
-            </tr>  */}
-            {/* <tr>
+              {country?.highest_emission !== undefined?
+              <td>{country?.highest_emission}</td>: <td>-</td>}
+            </tr>  
+            <tr>
               <td>Year of Highest Annual CO2 Emissions</td>
-              {countryYear?.year !== undefined?
-              <td><Link to={"/years/name=" + countryYear?.year}> {countryYear?.year} </Link></td>:
+              {country?.high_year !== undefined?
+              <td><Link to={"/years/name=" + country?.high_year}> {country?.high_year} </Link></td>:
               <td><Link to={"/years/name=2018"}>2018</Link></td> }
-            </tr> */}
-            {/* <tr>
+            </tr>
+            <tr>
               <td>Most Recent CO2 Emissions (ppm)</td>
-              {country?.recent_emissions_year !== -1?
+              {country?.high_year !== -1?
               <td>{country?.recent_emissions}</td> : <td>-</td>}
-            </tr> */}
+            </tr>
 
           </tbody>
         </Table>
-        {OurMap(Number(country?.lat)! === undefined ? 0 : 
-          Number(country?.lat)!, Number(country?.long)! === undefined ? 0 : Number(country?.long)!, country?.country_name!)}
+        {OurMap(country?.lat! === undefined ? 0 : country?.lat!, 
+                country?.long! === undefined ? 0 : country?.long!, 
+                country?.country_name!)}
       </header>
     </div>
   ); 
@@ -116,10 +132,11 @@ export interface Country {
   country_name:         string;
   country_population:   number;
   country_region:       CountryRegion;
+  high_year:            number;
   highest_emission:     number;
   income_level:         IncomeLevel;
-  lat:                  string;
-  long:                 string;
+  lat:                  number;
+  long:                 number;
   recent_emissions:     number;
 }
 
