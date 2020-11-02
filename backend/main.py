@@ -46,8 +46,8 @@ class Country1(db.Model):
 
 # Year model
 class Year1(db.Model):
+    # year_id = db.Column(db.Integer, primary_key=True)
     year_id = db.Column(db.Integer, primary_key=True)
-    year_name = db.Column(db.Integer)
     temp_anomaly = db.Column(db.Float)
     co2 = db.Column(db.Float)
     methane = db.Column(db.Float)
@@ -172,6 +172,19 @@ class YearSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
+    # countries_emissions = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
+    # city_temperatures = fields.Nested(CityTempPerYearSchema1, many=True)
+
+class YearInstanceSchema1(ma.Schema):
+    year_id = fields.Int(required=True)
+    year_name = fields.Str(required=False)
+    temp_anomaly = fields.Float(required=False)
+    co2 = fields.Float(required=False)
+    methane = fields.Float(required=False)
+    nitrous_oxide = fields.Float(required=False)
+    polar_ice = fields.Float(required=False)
+    sea_level = fields.Float(required=False)
+    world_population = fields.Int(required=False)
     countries_emissions = fields.Nested(CountryEmissionsPerYearSchema1, many=True)
     city_temperatures = fields.Nested(CityTempPerYearSchema1, many=True)
 
@@ -183,6 +196,7 @@ countries_schema = CountrySchema1(many=True)
 
 year_schema = YearSchema1()
 years_schema = YearSchema1(many=True)
+year_instance_schema = YearInstanceSchema1()
 
 city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
@@ -246,7 +260,7 @@ def get_year_id(id):
         )
         response.status_code = 404
         return response
-    return year_schema.jsonify(year)
+    return year_instance_schema.jsonify(year)
 
 
 # -----------------
