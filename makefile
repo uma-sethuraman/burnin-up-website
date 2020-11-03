@@ -17,11 +17,6 @@ all:
 # auto format the code
 format:
 	black ./backend/main.py
-	black ./backend/countries.py
-	black ./backend/cities.py
-	black ./backend/years.py
-	black ./backend/cities_updated.py
-	black ./backend/CityCountryYear.py
 	black ./backend/tests.py
 
 install:
