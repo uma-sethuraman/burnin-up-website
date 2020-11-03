@@ -1,28 +1,26 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useCallback } from 'react'
 import Image from "react-bootstrap/Image";
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/* Returns link for a photo of the given city or country,
+/* Returns an image of the given city or country,
 used by city and country instance pages */
-const LocationPhoto = (name: string) => {
+const LocationPhoto = (name: any) => {
 
-    /* Saves photo reference */
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    
+    /* Saves link to photo from google maps API */
     const [actualPhoto, setActualPhoto] = useState<string>("");
 
+    /* Request link for google maps API */
     const findPhotoRef = 
     "https://cors-anywhere.herokuapp.com/"+
-    "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + name + 
+    "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + name.name + 
     "&inputtype=textquery&fields=photos&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc";
 
     /* Makes request to Google Maps API to get the link of the actual photo */
-    // const getPhotoReference = useCallback(() => {
-        
-    // },[findPhotoRef]);
-
     useEffect(() => {
+        console.log("in request in use effect");
         axios.get(findPhotoRef)
             .then((response) => {
                 const ret: LocationPhotoData = JSON.parse(JSON.stringify(response)).data as LocationPhotoData;
@@ -34,11 +32,7 @@ const LocationPhoto = (name: string) => {
             })
     }, [findPhotoRef]);
 
-    /* Link to actual photo, returned by this function*/
-    // const actualPhoto = 
-
-
-    // return actualPhoto;
+    /* Return an image of the provided location */
     return(
     <div>
         <Image src={actualPhoto}/>

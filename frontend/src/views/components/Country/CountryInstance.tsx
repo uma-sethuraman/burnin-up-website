@@ -42,9 +42,6 @@ const CountryInstance = (id: any) => {
     country?.country_iso2code?.toLowerCase() +
     ".png";
 
-  /* Link to image of this country from the LocationPhoto component */
-  // let country_img = LocationPhoto(encodeURI(country?.country_name!));
-
   return (
     <div className="CountryInstance">
       <Navbar />
@@ -54,15 +51,19 @@ const CountryInstance = (id: any) => {
         <Spinner animation="border" />
       ) : (
         <header className="App-header">
-          {/* Display country name, image, and flag */}
+          {/* Display country name */}
           <h3> {country?.country_name} </h3>
           <div className="row">
             <div className="column">
+
+              {/* Displays image of country */}
               <div className="image_holder">
-                {/* <Image src={country_img} fluid /> */}
+                <LocationPhoto name={(encodeURI(country?.country_name!))} />
               </div>
             </div>
             <div className="column">
+
+              {/* Displays country flag */}
               <div className="image_holder">
                 <Image src={flagLink} alt="Flag" />
               </div>

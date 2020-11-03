@@ -9,7 +9,6 @@ import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import Image from "react-bootstrap/Image";
 
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
@@ -31,9 +30,6 @@ const CityInstance = (id: any) => {
     }
   }, [data]);
 
-  /* photo of the city from google api */
-  // let city_img = LocationPhoto(encodeURI(city?.city_name!));
-  
   return (
     <div className="CityInstance">
       <Navbar />
@@ -45,9 +41,10 @@ const CityInstance = (id: any) => {
           <div className="image-text">
             <h3> {city?.city_name} </h3>
           </div>
+
+          {/* display image of the city */}
           <div className="image_holder">
-            <LocationPhoto name={encodeURI(city?.city_name!)}/>
-            {/* <Image src={city_img} fluid /> */}
+            <LocationPhoto name={(encodeURI(city?.city_name!))} />
           </div>
           <br />
           {/* city table */}
