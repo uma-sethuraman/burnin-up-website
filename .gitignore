@@ -21,7 +21,7 @@ frontend/build/
 
 # misc
 *.DS_store
-/.idea
+.idea/
 backend/datasets/
 .env.local
 .env.development.local
