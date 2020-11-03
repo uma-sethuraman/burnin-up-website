@@ -21,6 +21,7 @@ import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
 import Search from "./views/components/Search/Search";
 import Invalid from "./views/components/Invalid";
+import HowToHelp from "./views/HowToHelp"
 
 ReactDOM.render(
   <Router>
@@ -47,6 +48,8 @@ ReactDOM.render(
         path="/search/q=:q"
         render={(props) => <Search q={props.match.params.q} />}
       />
+
+      <Route path="/howtohelp" exact component={HowToHelp} />
 
       <Route path="/404" component={Invalid} />
       {/* redirect to 404 page for invalid urls */}

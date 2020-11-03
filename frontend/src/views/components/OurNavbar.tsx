@@ -30,6 +30,7 @@ class OurNavbar extends React.Component {
             <Nav.Link href="/cities">Cities</Nav.Link>
             <Nav.Link href="/countries">Countries</Nav.Link>
             <Nav.Link href="/years">Annual Global Climate Change</Nav.Link>
+            <Nav.Link href="/howtohelp">How To Help</Nav.Link>
           </Nav>
           <Form inline onSubmit={e => { e.preventDefault() }}>
             <FormControl
