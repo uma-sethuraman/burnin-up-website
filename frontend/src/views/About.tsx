@@ -301,14 +301,21 @@ function About() {
           Raw csv data formatted using Jupyter Notebook and Pandas.
           Flask, SQL Alchemy, and URL Lib were used to get data from the external APIs and create the JSON response.
 
-          <li><a href="https://ipstack.com/documentation">https://ipstack.com/documentation</a>  </li>
-            <li><a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries">https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries</a> </li>
-            <li><a href="https://docs.openaq.org/">https://docs.openaq.org/</a>  </li>
-            <li><a href="https://developer.climacell.co/v3/reference">https://developer.climacell.co/v3/reference</a>    </li>
-            <li><a href="http://geodb-cities-api.wirefreethought.com/">http://geodb-cities-api.wirefreethought.com/</a>   </li>
-            <li><a href="https://global-warming.org/">https://global-warming.org/</a> </li>
-            <li><a href="https://www.jpl.nasa.gov/edu/teach/activity/graphing-sea-level-trends/">https://www.jpl.nasa.gov/edu/teach/activity/graphing-sea-level-trends/</a> </li>
-            <li><a href="https://ourworldindata.org/world-population-growth">ttps://ourworldindata.org/world-population-growth</a></li>
+          <li><a href="https://developers.google.com/places/web-service/photos">Google Places API: </a> Used to get images of the cities and countries.</li>
+          <li><a href="https://developers.google.com/maps/documentation/javascript/overview">Google Geo Location API: </a> Used to map cities and countries.</li>
+          <li><a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/898599-indicator-api-queries">World Bank API: </a> Used to get general information on countries.</li>
+          <li><a href="https://public.opendatasoft.com/explore/dataset/worldcitiespop/api/?disjunctive.country&sort=population">OpenDataSoft WorldCitiesPop API: </a> Used to get the general information of cities.</li>
+          <li><a href="https://developers.google.com/maps/documentation/geocoding/overview">Google Geocoding API: </a> Used to get latitude and longitude of cities.</li>
+          <li><a href="https://aqicn.org/api/">Air Quality Programmatic API: </a> Used to get air quality data on different cities.</li>
+          <li><a href="https://global-warming.org/">Global Warming API: </a> Used to get climate data for temperature anomalies.</li>
+          <li><a href="https://data.giss.nasa.gov/modelforce/ghgases/Fig1A.ext.txt
+ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt">Carbon Emissions Dataset: </a> Used to get global carbon emissions from 1880-2019.</li>
+          <li><a href="ftp://aftp.cmdl.noaa.gov/products/trends/ch4/ch4_annmean_gl.txt">Methane Dataset: </a> Used to get global methane levels from 1880-2019.</li>
+          <li><a href="ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/law/law2006.txt
+https://www.epa.gov/sites/production/files/2016-08/ghg-concentrations_fig-3.csv">Nitrous Oxide Dataset: </a> Used to get global nitrous oxide levels from 1880-2019.</li>
+          <li><a href="https://nsidc.org/data/g10010">Polar Ice Dataset: </a> Used to get polar ice extent from 1880-2019.</li>
+          <li><a href="https://www.jpl.nasa.gov/edu/teach/activity/graphing-sea-level-trends/">Sea Level Dataset: </a> Used to get global sea levels from 1800-2018.</li>
+          <li><a href="https://ourworldindata.org/world-population-growth">World Population Dataset: </a> Used to get the world population from 1800-2019.</li>
           </div>
         </div>
         <br></br>
