@@ -15,7 +15,6 @@ const searchClient = algoliasearch(
 /* What is displayed for each city in search results */
 const CityHit = (hit: any) =>
   <div className="hit">
-    {console.log(hit.hit)}
     <a href={"/cities/id=" + hit.hit.city_id} >
       <h1>{hit.hit.city_name}</h1>
     </a>
@@ -224,6 +223,7 @@ const YearContent = connectStateResults(
 
 /* Takes in query that the user searches and returns search results */
 function Search(q: any) {
+  console.log("q.q "+ q.q)
 
   return (
     <div>
