@@ -7,6 +7,11 @@ frontend/node_modules/
 venv
 package-lock.json
 
+# scripts
+backend/cities.py
+backend/years.py
+backend/countries.py
+
 # testing
 /coverage
 
