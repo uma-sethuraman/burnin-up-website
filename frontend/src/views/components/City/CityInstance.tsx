@@ -9,45 +9,45 @@ import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import Image from "react-bootstrap/Image";
 
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
-  // const [city_img, setCityImg] = React.useState("");
-
-  const [{ data, loading, error }, refetch] = useAxios(
+  /* fetch city data */
+  const [{ data, loading, error }] = useAxios(
     "/api/cities/id=" + id.id
   );
 
+  /* if id is undefined show our 404 page */
   if (error || id.id === undefined) {
     window.location.assign("/404");
   }
 
+  /* set city data */
   useEffect(() => {
     const cityObj: City = data as City;
     if (cityObj) {
       setCity(cityObj);
-      // setCityImg(LocationPhoto(encodeURI(city?.city_name!)));
     }
   }, [data]);
-  // console.log("Ret: "+ ret);
-  //console.log(city);
-  // let uri = encodeURI(city?.city_name!) as string;
-  let city_img = LocationPhoto(encodeURI(city?.city_name!));
+
   return (
     <div className="CityInstance">
       <Navbar />
-      {/* {setCityImg()} */}
-      {loading ? <Spinner animation="border" /> : (
+      {/* show spinner if content is loading */}
+      {loading ? (
+        <Spinner animation="border" />
+      ) : (
         <header className="App-header">
           <div className="image-text">
             <h3> {city?.city_name} </h3>
           </div>
+
+          {/* display image of the city */}
           <div className="image_holder">
-            {/* <LocationPhoto cityName={encodeURI(city?.city_name!)}/> */}
-            <Image src={city_img} fluid/>
+            <LocationPhoto name={(encodeURI(city?.city_name!))} />
           </div>
           <br />
+          {/* city table */}
           <Table bordered hover size="sm" variant="dark">
             <tbody>
               <tr>
@@ -72,7 +72,7 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Highest Annual Temp</td>
-                {city?.highest_temp !== (undefined || -1)? (
+                {city?.highest_temp !== (undefined || -1) ? (
                   <td>
                     {city?.highest_temp +
                       (city?.highest_temp! > 40 ? " °F" : " °C")}
@@ -83,7 +83,7 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Year of Highest Annual Temp</td>
-                {city?.year_highest !== (undefined || -1)? (
+                {city?.year_highest !== (undefined || -1) ? (
                   <td>
                     <Link to={"/years/id=" + city?.year_highest}>
                       {city?.year_highest}
@@ -105,13 +105,21 @@ const CityInstance = (id: any) => {
               </tr>
             </tbody>
           </Table>
-
-          {OurMap(Number(city?.latitude! === undefined ? 0: Number(city?.latitude!)), Number(city?.longitude! === undefined ? 0: Number(city?.longitude!)), city?.city_name!)}
+          {/* map with city on it */}
+          {OurMap(
+            Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!)),
+            Number(
+              city?.longitude! === undefined ? 0 : Number(city?.longitude!)
+            ),
+            city?.city_name!
+          )}
         </header>
       )}
     </div>
   );
 };
+
+/* relevant interfaces for city and country data */
 
 export interface CityObject {
   cities: City[];

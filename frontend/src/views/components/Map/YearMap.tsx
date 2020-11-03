@@ -24,6 +24,7 @@ const YearMap = (cities: CityTemperature[]) => {
               lng={city.longitude}
               name={city.city}
               id={city.city_id}
+              key={city.city_id}
               color="blue"/>
         ))}
         </GoogleMapReact>

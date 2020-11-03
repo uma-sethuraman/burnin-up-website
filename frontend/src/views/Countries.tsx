@@ -9,15 +9,20 @@ import MUIDataTable from "mui-datatables";
 import "./Countries.css";
 
 
-/* General Counries Model Page (route: "/countries") */
+/* General Countries Model Page (route: "/countries") */
 const Countries = () => {
   
   /* Array of all countries retrieved from api */
   const [countries, setCountries] = useState<Country[]>([]);
 
   /* Loads api data into data */
-  const [{ data, loading, error }, refetch] = useAxios('/api/countries')
+  const [{ data, loading, error }] = useAxios('/api/countries')
 
+  /* If request returns error, redirect to 404 page */
+  if (error) {
+    window.location.assign("/404");
+  }
+  
   /* Fills the countries array with the correct values retrieved from data */
   useEffect(() => {
     const countryObj: CountriesObject = data as CountriesObject;
@@ -158,26 +163,35 @@ const Countries = () => {
       },
     },
   ];
-  /* Options for the cities table, initializing OnRowClick
-to redirect to that row's city page during a click */
+
+  /* Options for the countries table, initializing OnRowClick
+  to redirect to that row's country page during a click */
   const options = {
     filterType: 'checkbox' as any,
     onRowClick: (rowData: any) => {
       window.location.assign('/countries/id=' + rowData[0]);
     },
   };
+
   return (
     <div className="Countries">
       <Navbar />
-      {loading ? <Spinner animation="border" /> : <header className="Countries-header">
+
+      {/* Display loading animation if data is still loading */}
+      {loading ? <Spinner animation="border" /> : 
+      <header className="Countries-header">
         <h1>Countries</h1>
         <Image src={require("../assets/world-map.jpeg")} width="600px" fluid />
         <br />
         <div className="side-by-side">
+
+        {/* Displaying instructions on how to sort and filter */}
         <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
           <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any column.</p>
           </div>
         <p>Click on a column name to sort by that column.</p>
+
+        {/* Displaying table with all country instances */}
         <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
           <MUIDataTable
             title={"Countries"}
