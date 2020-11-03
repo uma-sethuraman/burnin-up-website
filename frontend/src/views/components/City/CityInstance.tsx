@@ -32,7 +32,7 @@ const CityInstance = (id: any) => {
   }, [data]);
 
   /* photo of the city from google api */
-  let city_img = LocationPhoto(encodeURI(city?.city_name!));
+  // let city_img = LocationPhoto(encodeURI(city?.city_name!));
   return (
     <div className="CityInstance">
       <Navbar />
@@ -45,7 +45,8 @@ const CityInstance = (id: any) => {
             <h3> {city?.city_name} </h3>
           </div>
           <div className="image_holder">
-            <Image src={city_img} fluid />
+            {LocationPhoto(encodeURI(city?.city_name!))}
+            {/* <Image src={city_img} fluid /> */}
           </div>
           <br />
           {/* city table */}

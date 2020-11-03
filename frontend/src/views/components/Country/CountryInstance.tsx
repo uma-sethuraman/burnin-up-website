@@ -43,7 +43,7 @@ const CountryInstance = (id: any) => {
     ".png";
 
   /* Link to image of this country from the LocationPhoto component */
-  let country_img = LocationPhoto(encodeURI(country?.country_name!));
+  // let country_img = LocationPhoto(encodeURI(country?.country_name!));
 
   return (
     <div className="CountryInstance">
@@ -59,7 +59,7 @@ const CountryInstance = (id: any) => {
           <div className="row">
             <div className="column">
               <div className="image_holder">
-                <Image src={country_img} fluid />
+                {/* <Image src={country_img} fluid /> */}
               </div>
             </div>
             <div className="column">
