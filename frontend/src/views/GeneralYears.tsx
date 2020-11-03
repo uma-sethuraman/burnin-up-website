@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./GeneralYears.css";
 import Image from "react-bootstrap/Image";
 import Navbar from './components/OurNavbar';
 import { Year, YearsObject } from "./components/Year/YearInstance";
@@ -22,10 +22,10 @@ const GeneralYears = () => {
     }
   }, [data]);
 
-  /* All columns of the cities table */
+  /* All columns of the years table */
   const columns = [
     {
-      name: "year_name",
+      name: "year_id",
       label: "Year",
       options: {
        filter: true,
@@ -33,16 +33,15 @@ const GeneralYears = () => {
        filterOptions: {
         names: ['1880-1900', '1900-1920', '1920-1940', '1940-1960', '1960-1980',
         '1980-2000', '2000-2018'],
-        logic(year_name: any, filterVal: any) {
-          let year_num: number = parseInt(year_name);
+        logic(year_id: any, filterVal: any) {
           const show =
-            (filterVal.indexOf('1880-1900') >= 0 && year_num >= 1880 && year_num <= 1900) ||
-            (filterVal.indexOf('1900-1920') >= 0 && year_num >= 1900 && year_num <= 1920) ||
-            (filterVal.indexOf('1920-1940') >= 0 && year_num >= 1920 && year_num <= 1940) ||
-            (filterVal.indexOf('1940-1960') >= 0 && year_num >= 1940 && year_num <= 1960) ||
-            (filterVal.indexOf('1960-1980') >= 0 && year_num >= 1960 && year_num <= 1980) ||
-            (filterVal.indexOf('1980-2000') >= 0 && year_num >= 1980 && year_num <= 2000) ||
-            (filterVal.indexOf('2000-2018') >= 0 && year_num >= 2000 && year_num <= 2018);
+            (filterVal.indexOf('1880-1900') >= 0 && year_id >= 1880 && year_id <= 1900) ||
+            (filterVal.indexOf('1900-1920') >= 0 && year_id >= 1900 && year_id <= 1920) ||
+            (filterVal.indexOf('1920-1940') >= 0 && year_id >= 1920 && year_id <= 1940) ||
+            (filterVal.indexOf('1940-1960') >= 0 && year_id >= 1940 && year_id <= 1960) ||
+            (filterVal.indexOf('1960-1980') >= 0 && year_id >= 1960 && year_id <= 1980) ||
+            (filterVal.indexOf('1980-2000') >= 0 && year_id >= 1980 && year_id <= 2000) ||
+            (filterVal.indexOf('2000-2018') >= 0 && year_id >= 2000 && year_id <= 2018);
           return !show;
         },
        },
@@ -162,17 +161,22 @@ const GeneralYears = () => {
   const options = {
     filterType: 'checkbox' as any,
     onRowClick: (rowData: any) => {
-      window.location.assign('/years/name='+rowData[0]);
+      window.location.assign('/years/id='+rowData[0]);
     },
   };
 
   return (
-    <div className="App">
+    <div className="GeneralYears">
       <Navbar />
-      {loading? <Spinner animation="border" />: <header className="App-header">
+      {loading? <Spinner animation="border" />: <header className="Years-header">
         <h1> Annual Global Climate Change</h1>
         <Image src={require("../assets/fire.jpg")} width="600px" fluid />
         <br />
+        <div className="side-by-side">
+          <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
+          <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any column.</p>
+        </div>
+        <p>Click on a column name to sort by that column.</p>
         <div style={{display: 'table', tableLayout:'fixed', width:'100%'}}>
           <MUIDataTable
             title={"Annual Global Climate Change"}

@@ -131,7 +131,7 @@ const CountryContent = connectStateResults(
 /* What is displayed for each year in search results */
 const YearHit = (hit: any) =>
   <div className="hit">
-    <a href={"/years/name=" + hit.hit.year_name} >
+    <a href={"/years/id=" + hit.hit.year_name} >
       <h1>{hit.hit.year_name}</h1>
     </a>
     <p>Year: <Highlight

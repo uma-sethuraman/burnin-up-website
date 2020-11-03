@@ -18,3 +18,9 @@
   table-layout:'fixed';
   width:'100%';
 }
+
+.side-by-side {
+  display:flex; 
+  flex-direction:row;
+  color: white;
+}

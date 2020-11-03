@@ -39,8 +39,8 @@ ReactDOM.render(
         render={(props) => <CountryInstance id={props.match.params.id} />}
       />
       <Route
-        path="/years/name=:name"
-        render={(props) => <YearInstance name={props.match.params.name} />}
+        path="/years/id=:id"
+        render={(props) => <YearInstance id={props.match.params.id} />}
       />
       <Route path="/years" exact component={GeneralYears} />
       <Route

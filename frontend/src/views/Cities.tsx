@@ -182,7 +182,11 @@ const Cities = () => {
         <h1>Cities </h1>
         <Image src={require("../assets/city-landing-photo-singapore.jpg")} width="600px" fluid />
         <br />
-
+        <div className="side-by-side">
+        <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
+          <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any column.</p>
+          </div>
+        <p>Click on a column name to sort by that column.</p>
         {/* Displaying the table of all cities, with searching and pagination */}
         <div style={{display: 'table', tableLayout:'fixed', width:'100%'}}>
           <MUIDataTable

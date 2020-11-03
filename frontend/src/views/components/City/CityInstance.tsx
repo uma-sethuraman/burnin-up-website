@@ -19,7 +19,7 @@ const CityInstance = (id: any) => {
     "/api/cities/id=" + id.id
   );
 
-  if (error || id.id == undefined) {
+  if (error || id.id === undefined) {
     window.location.assign("/404");
   }
 
@@ -72,7 +72,7 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Highest Annual Temp</td>
-                {city?.highest_temp !== undefined ? (
+                {city?.highest_temp !== (undefined || -1)? (
                   <td>
                     {city?.highest_temp +
                       (city?.highest_temp! > 40 ? " °F" : " °C")}
@@ -83,15 +83,15 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Year of Highest Annual Temp</td>
-                {city?.year_highest !== undefined ? (
+                {city?.year_highest !== (undefined || -1)? (
                   <td>
-                    <Link to={"/years/name=" + city?.year_highest}>
+                    <Link to={"/years/id=" + city?.year_highest}>
                       {city?.year_highest}
                     </Link>
                   </td>
                 ) : (
                   <td>
-                    <Link to={"/years/name=2018"}>2018</Link>
+                    <Link to={"/years/id=2018"}>2018</Link>
                   </td>
                 )}
               </tr>
