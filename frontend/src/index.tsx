@@ -25,31 +25,53 @@ import Invalid from "./views/components/Invalid";
 ReactDOM.render(
   <Router>
     <Switch>
+      {/* about page */}
       <Route path="/about" exact component={About} />
+
+      {/* landing page */}
       <Route path="/" exact component={App} />
+
+      {/* cities general page */}
       <Route path="/cities" exact component={Cities} />
+
+      {/* city instance page based on city id */}
       <Route
         path="/cities/id=:id"
         render={(props) => <CityInstance id={props.match.params.id} />}
       />
-      <Route path="/city" exact component={CityInstance} />
+
+      {/* countries general page */}
       <Route path="/countries" exact component={Countries} />
+
+      {/* country instance page based on country id */}
       <Route
         path="/countries/id=:id"
         render={(props) => <CountryInstance id={props.match.params.id} />}
       />
+
+      {/* years general page */}
+      <Route path="/years" exact component={GeneralYears} />
+
+      {/* year instance page based on year id */}
       <Route
         path="/years/id=:id"
         render={(props) => <YearInstance id={props.match.params.id} />}
       />
-      <Route path="/years" exact component={GeneralYears} />
+      
+      {/* search page based on provided query q */}
       <Route
         path="/search/q=:q"
         render={(props) => <Search q={props.match.params.q} />}
       />
 
-      <Route path="/404" component={Invalid} />
+      {/* search page when query is empty */}
+      <Route
+        path="/search/q="
+        render={(props) => <Search q={""} />}
+      />
+
       {/* redirect to 404 page for invalid urls */}
+      <Route path="/404" component={Invalid} />
       <Redirect to="/404" />
     </Switch>
   </Router>,

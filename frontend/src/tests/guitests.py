@@ -12,7 +12,7 @@ class tests(unittest.TestCase):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        self.driver = webdriver.Chrome('node_modules/.bin/chromedriver', options=chrome_options)
+        self.driver = webdriver.Chrome('../../node_modules/.bin/chromedriver', options=chrome_options)
 
     def test_landing(self):
         self.driver.get("https://burninup.me")
