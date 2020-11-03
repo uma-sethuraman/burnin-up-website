@@ -61,4 +61,4 @@ cs373-sustainability_selenium:
     - apt-get install -y google-chrome-stable
     - npm install
     # Test the app
-    #- python3 guitests.py # uncomment when fixed!!
+    - python3 guitests.py
