@@ -164,10 +164,6 @@ class YearSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
-<<<<<<< HEAD
-
-=======
->>>>>>> f774c7d46c254660dfa8cd2001ed39106eba0b6c
 
 class YearInstanceSchema1(ma.Schema):
     year_id = fields.Int(required=True)
