@@ -20,7 +20,6 @@ const LocationPhoto = (name: any) => {
 
     /* Makes request to Google Maps API to get the link of the actual photo */
     useEffect(() => {
-        console.log("in request in use effect");
         axios.get(findPhotoRef)
             .then((response) => {
                 const ret: LocationPhotoData = JSON.parse(JSON.stringify(response)).data as LocationPhotoData;

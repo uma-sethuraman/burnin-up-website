@@ -308,6 +308,7 @@ function About() {
           <li><a href="https://developers.google.com/maps/documentation/geocoding/overview">Google Geocoding API: </a> Used to get latitude and longitude of cities.</li>
           <li><a href="https://aqicn.org/api/">Air Quality Programmatic API: </a> Used to get air quality data on different cities.</li>
           <li><a href="https://global-warming.org/">Global Warming API: </a> Used to get climate data for temperature anomalies.</li>
+          <li><a href="https://www.algolia.com/">Algolia: </a> Used to facilitate searching through the entire website.</li>
           <li><a href="https://data.giss.nasa.gov/modelforce/ghgases/Fig1A.ext.txt
 ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_annmean_mlo.txt">Carbon Emissions Dataset: </a> Used to get global carbon emissions from 1880-2019.</li>
           <li><a href="ftp://aftp.cmdl.noaa.gov/products/trends/ch4/ch4_annmean_gl.txt">Methane Dataset: </a> Used to get global methane levels from 1880-2019.</li>

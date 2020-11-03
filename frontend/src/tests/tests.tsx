@@ -1,13 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { expect, use } from 'chai';
+import { expect } from 'chai';
 import * as Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
-import { mount, shallow, configure } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
-
+/* Importing components/pages to test */
 import App from "../views/App";
 import About from "../views/About";
 import Cities from "../views/Cities";
@@ -16,12 +14,25 @@ import GeneralYears from "../views/GeneralYears";
 import Countries from "../views/Countries";
 import CountryInstance from "../views/components/Country/CountryInstance";
 import YearInstance from "../views/components/Year/YearInstance";
+import Search from "../views/components/Search/Search";
 
 Enzyme.configure({
   adapter: new Adapter(),
 })
 
-var assert = require('assert')
+it('Get Landing Page', async () => {
+	const copy = shallow(<App />);
+	expect(copy).to.not.be.undefined;
+	expect(copy).to.have.length(1);
+	expect(copy.find("div")).to.have.length(1);
+});
+
+it('Get About Page', async () => {
+	const copy = shallow(<About />);
+	expect(copy).to.not.be.undefined;
+	expect(copy).to.have.length(1);
+	expect(copy.find("div")).to.have.length(24);
+});
 
 it('Get City General Page', async () => {
 	const copy = shallow(<Cities />);
@@ -43,13 +54,6 @@ it('Get Years General page', async () => {
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(1);
 });
-
-it('Get About Page', async () => {
-	const copy = shallow(<About />);
-	expect(copy).to.not.be.undefined;
-	expect(copy).to.have.length(1);
-	expect(copy.find("div")).to.have.length(23);
-});
   
 it('Get a CityInstance', async () => {
 	const component = mount(<Router><CityInstance /> </Router>);
@@ -69,9 +73,9 @@ it('Get a YearInstance', async () => {
 	expect(component).to.have.length(1);
 });
 
-// test("renders About page", () => {
-// 	const component = shallow(<About />);
-// 	const element = component.getByText("About");
-// 	expect(element).toBeInTheDocument();
-//   }); 
+it('Get a Search Page', async () => {
+	const component = mount(<Router><Search /></Router>);
+	expect(component).to.not.be.undefined;
+	expect(component).to.have.length(1);
+});
 
