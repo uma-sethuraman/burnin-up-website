@@ -2,45 +2,49 @@
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 
-entity "Country" as country {
+entity "Country1" as country1 {
     *Country Table Attributes
     --
     *country_id = Integer
     *country_name = String
-    *country_region = String
-    *country_income = String
-    *country_capital_city = String
+    *capital_city_id = Integer
     *country_iso2code = String
     *country_iso3code = String
+    *highest_emissions = Float
+    *recent_emissions = Float
+    *country_population = Integer
+    *income_level = String
+    *country_region = String
     *country_lat = Float
     *country_long = Float
-    *recent_emissions_year = Integer
-    *recent_emissions = Float
+    *country_capital_city = String
+    *high_year = Integer
 }
 
-entity "City" as city {
+entity "City1" as city1 {
     *City Table Attributes
     --
     *city_id = Integer
     *city_name = String
+    *country_id = Integer
+    *country_name = String
+    *country_iso2 = String
     *population = Integer
-    *time_zone = String
-    *elevation = Integer
     *lat = Float
     *long = Float
     *pm25 = Float
     *pm10 = Float
     *o3 = Float
-    *country_iso2code = String
     *co = Float
+    *highest_temp = Float
+    *year_highest = Integer
 }
 
 
-entity "Year" as year {
+entity "Year1" as year1 {
     *Years Table Attributes
     --
     *year_id = Integer
-    *year_name = Integer
     *temp_anomaly = Float
     *co2 = Float
     *methane = Float
@@ -48,11 +52,38 @@ entity "Year" as year {
     *polar_ice = Float
     *sea_level = Float
     *world_population = Integer
-
-
 }
 
-country |o..|{ year
-city  |o..|{  year
-country }|..|| city
+entity "CountryEmissionsPerYear" as countryemissionsperyear1 {
+    *CountryEmissionsPerYear Table Attributes
+    --
+    *year_id = Integer
+    *year_name = Integer
+    *country = String
+    *country_id = Integer
+    *code = String
+    *country_co2 = Float
+    *parent_year_id = Integer
+}
+
+entity "CityTemperaturePerYear" as citytemperatureperyear1 {
+    *CityTemperaturePerYear Table Attributes
+    --
+    *year_id = Integer
+    *year_name = Integer
+    *city = String
+    *city_id = Integer
+    *country = String
+    *city_temp = Float
+    *parent_year_id = Integer
+    *lat = Float
+    *long = Float
+}
+country1 |o..|{ year1
+city1  |o..|{  year1
+country1 }|..|| city1
+year1 }|..|| countryemissionsperyear1
+year1 }|..|| citytemperatureperyear1
+city1 }|..|| citytemperatureperyear1
+country1 }|..|| countryemissionsperyear1
 @enduml

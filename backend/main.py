@@ -43,7 +43,6 @@ class Country1(db.Model):
     cities = db.relationship('City1', backref='country1')
     high_year = db.Column(db.Integer)
 
-
 # Year model
 class Year1(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -58,7 +57,6 @@ class Year1(db.Model):
                                           backref=db.backref('year1', lazy='joined'))
     city_temperatures = db.relationship('CityTempPerYear', cascade='all,delete-orphan', single_parent=True,
                                         backref=db.backref('year1', lazy='joined'))
-
 
 # City model
 class City1(db.Model):
@@ -77,7 +75,7 @@ class City1(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
-
+# Country Emissions Per Year Model
 # Creates top countries contributing to climate change per year api request
 class CountryEmissionsPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
@@ -88,8 +86,8 @@ class CountryEmissionsPerYear(db.Model):
     country_co2 = db.Column(db.Float)
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
 
-
 # Avg City Temp Per Year Model
+# Creates top cities contributing to climate change per year api request
 class CityTempPerYear(db.Model):
     year_id = db.Column(db.Integer, primary_key=True)
     year_name = db.Column(db.Integer)
@@ -100,7 +98,6 @@ class CityTempPerYear(db.Model):
     parent_year_id = db.Column(db.Integer, db.ForeignKey('year1.year_id'))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-
 
 ###### SCHEMAS ######
 
@@ -121,7 +118,6 @@ class CountrySchema1(ma.Schema):
     country_capital_city = fields.Str(required=False)
     high_year = fields.Int(required=False)
 
-
 # City Schema
 class CitySchema(ma.Schema):
     city_id = fields.Int(required=True)
@@ -136,7 +132,6 @@ class CitySchema(ma.Schema):
     year_highest = fields.Int(required=False)
     latitude = fields.Float(required=False)
     longitude = fields.Float(required=False)
-
 
 # Country C02 Emissions Per Year Schema
 class CountryEmissionsPerYearSchema1(ma.Schema):
@@ -161,7 +156,6 @@ class CityTempPerYearSchema1(ma.Schema):
     latitude = fields.Float(required=False)
     longitude = fields.Float(required=False)
 
-
 # Year Schema
 class YearSchema1(ma.Schema):
     year_id = fields.Int(required=True)
@@ -173,9 +167,9 @@ class YearSchema1(ma.Schema):
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
 
+# Year Instance Schema
 class YearInstanceSchema1(ma.Schema):
     year_id = fields.Int(required=True)
-    year_name = fields.Str(required=False)
     temp_anomaly = fields.Float(required=False)
     co2 = fields.Float(required=False)
     methane = fields.Float(required=False)
@@ -192,16 +186,17 @@ class YearInstanceSchema1(ma.Schema):
 country_schema = CountrySchema1()
 countries_schema = CountrySchema1(many=True)
 
-year_schema = YearSchema1()
-years_schema = YearSchema1(many=True)
 year_instance_schema = YearInstanceSchema1()
+years_schema = YearSchema1(many=True)
 
 city_schema = CitySchema()
 cities_schema = CitySchema(many=True)
 
 
 ###### ENDPOINTS ######
+
 # Root routing
+# Serves the frontend
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def get_index(path):
