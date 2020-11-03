@@ -1,8 +1,8 @@
-.Cities {
+.GeneralYears {
     text-align: center;
-}
+  }
   
-.Cities-header {
+  .Years-header {
     background-color: #556875;
     min-height: 100vh;
     display: flex;
@@ -11,15 +11,15 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-}
-
-.Cities-table {
+  }
+  
+  .Years-table {
     display: 'table';
     table-layout:'fixed';
     width:'100%';
-}
+  }
 
-.side-by-side {
+  .side-by-side {
     display:flex; 
     flex-direction:row;
     color: white;

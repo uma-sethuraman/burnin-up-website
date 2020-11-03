@@ -173,6 +173,11 @@ to redirect to that row's city page during a click */
         <h1>Countries</h1>
         <Image src={require("../assets/world-map.jpeg")} width="600px" fluid />
         <br />
+        <div className="side-by-side">
+        <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
+          <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any column.</p>
+          </div>
+        <p>Click on a column name to sort by that column.</p>
         <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
           <MUIDataTable
             title={"Countries"}

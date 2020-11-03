@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
+import Spinner from "react-bootstrap/Spinner";
 
 
 const CountryInstance = (id: any) => {
@@ -20,7 +21,7 @@ const CountryInstance = (id: any) => {
     "/api/countries/id=" + id.id
   );
 
-  if (error || id.id == undefined) {
+  if (error || id.id === undefined) {
     window.location.assign("/404");
   }
 
@@ -45,17 +46,19 @@ const CountryInstance = (id: any) => {
   // getData();
 
   let flagLink = "https://flagcdn.com/h240/" + (country?.country_iso2code)?.toLowerCase() + ".png";
+  let country_img = LocationPhoto(encodeURI(country?.country_name!));
 
   return (
     <div className="CountryInstance">
       <Navbar />
+      {loading ? <Spinner animation="border" /> :
       <header className="App-header">
         <h3> {country?.country_name} </h3>
         <div className="row">
           <div className="column">
             <div className="image_holder">
               {/* NEED TO FIX THIS, OTHERWISE COUNTRY INSTANCE WILL KEEP BEING RERENDERED */}
-              <Image src={LocationPhoto(encodeURI(country?.country_name!))} />
+              <Image src={country_img} fluid/>
             </div>
           </div>
           <div className="column">
@@ -99,8 +102,8 @@ const CountryInstance = (id: any) => {
             <tr>
               <td>Year of Highest Annual CO2 Emissions</td>
               {country?.high_year !== undefined?
-              <td><Link to={"/years/name=" + country?.high_year}> {country?.high_year} </Link></td>:
-              <td><Link to={"/years/name=2018"}>2018</Link></td> }
+              <td><Link to={"/years/id=" + country?.high_year}> {country?.high_year} </Link></td>:
+              <td><Link to={"/years/id=2018"}>2018</Link></td> }
             </tr>
             <tr>
               <td>Most Recent CO2 Emissions (ppm)</td>
@@ -113,7 +116,7 @@ const CountryInstance = (id: any) => {
         {OurMap(country?.lat! === undefined ? 0 : country?.lat!, 
                 country?.long! === undefined ? 0 : country?.long!, 
                 country?.country_name!)}
-      </header>
+      </header>}
     </div>
   ); 
 }

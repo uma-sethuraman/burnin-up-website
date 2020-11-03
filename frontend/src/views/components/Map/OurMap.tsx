@@ -1,9 +1,7 @@
 //copied from https://levelup.gitconnected.com/reactjs-google-maps-with-custom-marker-ece0c7d184c4
-import React, { useState } from 'react';
+import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from '../Marker/Marker';
-
-const AnyReactComponent = ({text}: any) => <div>{text}</div>;
 
 const OurMap = (latitude: number, longitude: number, locationName: string) => {
     return (

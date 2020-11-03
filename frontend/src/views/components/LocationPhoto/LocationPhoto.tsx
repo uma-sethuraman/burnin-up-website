@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const LocationPhoto= (cityName:string) => {
-    console.log("in location photo");
+    // console.log("in location photo");
     // console.log("CityName" + cityName);
     const [photoRef, setPhotoRef] = useState("");
     

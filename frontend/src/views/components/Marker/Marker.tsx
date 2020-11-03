@@ -2,7 +2,7 @@ import React from 'react';
 import './Marker.css';
 
 const Marker = (props: any) => {
-    const { color, name, id } = props;
+    const { color, name, id} = props;
     return (
       <div>
         <div
@@ -10,6 +10,7 @@ const Marker = (props: any) => {
           style={{ backgroundColor: color, cursor: 'pointer' }}
           title={name}
         />
+        <br />
         <div className="pulse" />
       </div>
     );

@@ -45,7 +45,6 @@ class Country1(db.Model):
 
 # Year model
 class Year1(db.Model):
-    # year_id = db.Column(db.Integer, primary_key=True)
     year_id = db.Column(db.Integer, primary_key=True)
     temp_anomaly = db.Column(db.Float)
     co2 = db.Column(db.Float)
@@ -165,7 +164,10 @@ class YearSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
+<<<<<<< HEAD
 
+=======
+>>>>>>> f774c7d46c254660dfa8cd2001ed39106eba0b6c
 
 class YearInstanceSchema1(ma.Schema):
     year_id = fields.Int(required=True)

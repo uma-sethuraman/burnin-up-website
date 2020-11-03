@@ -1,39 +1,34 @@
 //copied from https://levelup.gitconnected.com/reactjs-google-maps-with-custom-marker-ece0c7d184c4
-import React, { useState } from 'react';
+import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from '../Marker/Marker';
-import { CityTemperaturesYear } from "../Year/YearInstance";
+import { CityTemperature } from "../Year/YearInstance";
 
+const YearMap = (cities: CityTemperature[]) => {
 
-const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
-
-
-
-const YearMap = (cities: CityTemperaturesYear[]) => {
-
-    const [cityLocations, setCityLocations] = React.useState<CityTemperaturesYear[]>([]);
-    const [center, setCenter] = useState({lat: 0, lng: 0 });
-    const [zoom, setZoom] = useState(1);
+  function markerClick(key:any, childProps:any){
+    window.location.assign("/cities/id="+childProps.id)
+  }
 
     return (
         <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBhcWoY9R1YI__bc0fC8vHRN8eEMVYoLKM' }}
-          defaultCenter={center}
-          defaultZoom={zoom}
+          defaultCenter={{lat: 0, lng: 0 }}
+          defaultZoom={1}
+          onChildClick = {markerClick}
         >
         {cities.map(city => (
             <Marker
-              lat={city.lat}
-              lng={city.long}
+              lat={city.latitude}
+              lng={city.longitude}
               name={city.city}
+              id={city.city_id}
               color="blue"/>
         ))}
         </GoogleMapReact>
         </div>
       );
-    
-
   }
     
 

@@ -15,6 +15,7 @@ const searchClient = algoliasearch(
 /* What is displayed for each city in search results */
 const CityHit = (hit: any) =>
   <div className="hit">
+    {console.log(hit.hit)}
     <a href={"/cities/id=" + hit.hit.city_id} >
       <h1>{hit.hit.city_name}</h1>
     </a>
@@ -26,7 +27,7 @@ const CityHit = (hit: any) =>
       />
     </p>
     <p>Country: <Highlight
-      attribute="country_iso2code"
+      attribute="country_name"
       tagName="mark"
       hit={hit.hit}
     /></p>
@@ -47,6 +48,26 @@ const CityHit = (hit: any) =>
     /></p>
     <p>PM2.5: <Highlight
       attribute="pm25"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
+    <p>Highest Annual Temperature: <Highlight
+      attribute="highest_temp"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
+    <p>Year of Highest Annual Temperature: <Highlight
+      attribute="year_highest"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
+    <p>Latitude: <Highlight
+      attribute="latitude"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
+    <p>Longitude: <Highlight
+      attribute="longitude"
       tagName="mark"
       hit={hit.hit}
     /></p>
@@ -92,8 +113,18 @@ const CountryHit = (hit: any) =>
       tagName="mark"
       hit={hit.hit}
     /></p>
+    <p>Population: <Highlight
+      attribute="country_population"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
     <p>Highest Annual CO2 Emission Level: <Highlight
       attribute="highest_emission"
+      tagName="mark"
+      hit={hit.hit}
+    /></p>
+    <p>Year of Highest Annual CO2 Emission Level: <Highlight
+      attribute="high_year"
       tagName="mark"
       hit={hit.hit}
     /></p>
@@ -131,7 +162,7 @@ const CountryContent = connectStateResults(
 /* What is displayed for each year in search results */
 const YearHit = (hit: any) =>
   <div className="hit">
-    <a href={"/years/name=" + hit.hit.year_name} >
+    <a href={"/years/id=" + hit.hit.year_name} >
       <h1>{hit.hit.year_name}</h1>
     </a>
     <p>Year: <Highlight
