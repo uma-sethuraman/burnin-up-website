@@ -10,7 +10,7 @@ import {
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-//pages
+/* pages */
 import App from "./views/App";
 import About from "./views/About";
 import Cities from "./views/Cities";
@@ -49,6 +49,7 @@ ReactDOM.render(
       />
 
       <Route path="/404" component={Invalid} />
+      {/* redirect to 404 page for invalid urls */}
       <Redirect to="/404" />
     </Switch>
   </Router>,

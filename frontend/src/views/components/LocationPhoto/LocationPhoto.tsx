@@ -5,15 +5,19 @@ import useAxios from 'axios-hooks';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-const LocationPhoto = (cityName: string) => {
+/* Returns link for a photo of the given city or country,
+used by city and country instance pages */
+const LocationPhoto = (name: string) => {
 
+    /* Saves photo reference */
     const [photoRef, setPhotoRef] = useState("");
 
     const findPhotoRef = 
     "https://cors-anywhere.herokuapp.com/"+
     "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?" +
-    "input=" + cityName + "&inputtype=textquery&fields=photos&" +"key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc"
+    "input=" + name + "&inputtype=textquery&fields=photos&" +"key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc"
 
+    /* Makes request to Google Maps API to get the link of the actual photo */
     const getPhotoReference = () => {
         axios.get(findPhotoRef)
             .then((response) => {
@@ -29,6 +33,7 @@ const LocationPhoto = (cityName: string) => {
         getPhotoReference();
     }, [getPhotoReference]);
 
+    /* Link to actual photo, returned by this function*/
     const actualPhoto = 
     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&" + "photoreference=" + photoRef + 
     "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc"
@@ -37,6 +42,8 @@ const LocationPhoto = (cityName: string) => {
 }
 
 export default LocationPhoto;
+
+/* Interfaces related to Google Maps API request */
 
 export interface LocationPhotoData {
     candidates: Candidate[];
@@ -53,5 +60,3 @@ export interface Photo {
     photo_reference: string;
     width: number;
 }
-
-// export default LocationPhoto;

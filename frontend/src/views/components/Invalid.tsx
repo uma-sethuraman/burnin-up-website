@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "./OurNavbar";
 import "./Invalid.css";
+
+/* page for 404 errors */
 function Invalid() {
   return (
     <div className="Invalid">

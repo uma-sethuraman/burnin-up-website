@@ -13,15 +13,17 @@ import Image from "react-bootstrap/Image";
 
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
-
+  /* fetch city data */
   const [{ data, loading, error }, refetch] = useAxios(
     "/api/cities/id=" + id.id
   );
 
+  /* if id is undefined show our 404 page */
   if (error || id.id === undefined) {
     window.location.assign("/404");
   }
 
+  /* set city data */
   useEffect(() => {
     const cityObj: City = data as City;
     if (cityObj) {
@@ -29,19 +31,24 @@ const CityInstance = (id: any) => {
     }
   }, [data]);
 
+  /* photo of the city from google api */
   let city_img = LocationPhoto(encodeURI(city?.city_name!));
   return (
     <div className="CityInstance">
       <Navbar />
-      {loading ? <Spinner animation="border" /> : (
+      {/* show spinner if content is loading */}
+      {loading ? (
+        <Spinner animation="border" />
+      ) : (
         <header className="App-header">
           <div className="image-text">
             <h3> {city?.city_name} </h3>
           </div>
           <div className="image_holder">
-            <Image src={city_img} fluid/>
+            <Image src={city_img} fluid />
           </div>
           <br />
+          {/* city table */}
           <Table bordered hover size="sm" variant="dark">
             <tbody>
               <tr>
@@ -66,7 +73,7 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Highest Annual Temp</td>
-                {city?.highest_temp !== (undefined || -1)? (
+                {city?.highest_temp !== (undefined || -1) ? (
                   <td>
                     {city?.highest_temp +
                       (city?.highest_temp! > 40 ? " °F" : " °C")}
@@ -77,7 +84,7 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Year of Highest Annual Temp</td>
-                {city?.year_highest !== (undefined || -1)? (
+                {city?.year_highest !== (undefined || -1) ? (
                   <td>
                     <Link to={"/years/id=" + city?.year_highest}>
                       {city?.year_highest}
@@ -99,13 +106,21 @@ const CityInstance = (id: any) => {
               </tr>
             </tbody>
           </Table>
-
-          {OurMap(Number(city?.latitude! === undefined ? 0: Number(city?.latitude!)), Number(city?.longitude! === undefined ? 0: Number(city?.longitude!)), city?.city_name!)}
+          {/* map with city on it */}
+          {OurMap(
+            Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!)),
+            Number(
+              city?.longitude! === undefined ? 0 : Number(city?.longitude!)
+            ),
+            city?.city_name!
+          )}
         </header>
       )}
     </div>
   );
 };
+
+/* relevant interfaces for city and country data */
 
 export interface CityObject {
   cities: City[];
