@@ -43,9 +43,7 @@ const CityInstance = (id: any) => {
           </div>
 
           {/* display image of the city */}
-          <div className="image_holder">
-            <LocationPhoto name={(encodeURI(city?.city_name!))} />
-          </div>
+          <LocationPhoto name={(encodeURI(city?.city_name!))} />
           <br />
           {/* city table */}
           <Table bordered hover size="sm" variant="dark">

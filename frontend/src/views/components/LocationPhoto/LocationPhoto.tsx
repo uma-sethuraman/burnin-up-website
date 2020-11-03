@@ -24,7 +24,7 @@ const LocationPhoto = (name: any) => {
         axios.get(findPhotoRef)
             .then((response) => {
                 const ret: LocationPhotoData = JSON.parse(JSON.stringify(response)).data as LocationPhotoData;
-                setActualPhoto("https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=" + ret.candidates[0].photos[0].photo_reference + 
+                setActualPhoto("https://maps.googleapis.com/maps/api/place/photo?maxwidth=360&photoreference=" + ret.candidates[0].photos[0].photo_reference + 
                 "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc");
             })
             .catch((error) => {
