@@ -39,20 +39,20 @@ class Tests(TestCase):
         d = r.json()
         assert len(d["countries"]) > 0
         assert d["countries"][0] == {
-            "capital_city_id": 3492,
-            "country_capital_city": "Oranjestad", 
-            "country_id": 1, 
-            "country_iso2code": "AW", 
-            "country_iso3code": "ABW", 
-            "country_name": "Aruba", 
-            "country_population": 107394, 
-            "country_region": "Americas", 
-            "high_year": 2007, 
-            "highest_emission": 27.933465346534657,
+            "capital_city_id": 3537, 
+            "country_capital_city": "Bandar Seri Begawan", 
+            "country_id": 203, 
+            "country_iso2code": "BN", 
+            "country_iso3code": "BRN", 
+            "country_name": "Brunei", 
+            "country_population": 229384, 
+            "country_region": "East Asia & Pacific", 
+            "high_year": 1988, 
+            "highest_emission": 19.398742, 
             "income_level": "High income", 
-            "lat": 13, 
-            "long": -70, 
-            "recent_emissions": 8.463651329197651
+            "lat": 5, 
+            "long": 115, 
+            "recent_emissions": 18.48369728
         }
 
     # asserts expected country response given id
