@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 import Image from "react-bootstrap/Image";
 
 /* Returns an image of the given city or country,
@@ -34,7 +35,9 @@ const LocationPhoto = (name: any) => {
     /* Return an image of the provided location */
     return(
     <div>
-        <Image src={actualPhoto}/>
+        {actualPhoto === "" ? 
+        (<Spinner animation="border" />):
+        (<Image src={actualPhoto}/>)}
     </div>);
 }
 
