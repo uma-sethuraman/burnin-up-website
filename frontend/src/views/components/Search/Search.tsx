@@ -161,11 +161,11 @@ const CountryContent = connectStateResults(
 /* What is displayed for each year in search results */
 const YearHit = (hit: any) =>
   <div className="hit">
-    <a href={"/years/id=" + hit.hit.year_name} >
-      <h1>{hit.hit.year_name}</h1>
+    <a href={"/years/id=" + hit.hit.year_id} >
+      <h1>{hit.hit.year_id}</h1>
     </a>
     <p>Year: <Highlight
-      attribute="year_name"
+      attribute="year_id"
       tagName="mark"
       hit={hit.hit} /></p>
     <p>CO2: <Highlight
@@ -199,10 +199,24 @@ const YearHit = (hit: any) =>
     <p>Top 10 Countries:
     <div className="list-item">
         <ul>
-          {hit.hit.top_10_countries.map((country_elem: any, index: any) => (
+          {hit.hit.countries_emissions.map((country_elem: any, index: any) => (
             <li>
               <Highlight
-                attribute={`top_10_countries[${index}].country`}
+                attribute={`countries_emissions[${index}].country`}
+                hit={hit.hit}
+                tagName="mark" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </p>
+    <p>Top 10 Cities:
+    <div className="list-item">
+        <ul>
+          {hit.hit.city_temperatures.map((city_elem: any, index: any) => (
+            <li>
+              <Highlight
+                attribute={`city_temperatures[${index}].city`}
                 hit={hit.hit}
                 tagName="mark" />
             </li>
