@@ -11,17 +11,18 @@ package-lock.json
 /coverage
 
 # production
-/build
-frontend/build
+build/
+frontend/build/
 
 # misc
 .DS_Store
+.DS_Store?
 frontend/src/assets/.DS_Store
 frontend/src/.DS_Store
 frontend/.DS_Store
-idea/
+.idea/
 backend/.DS_Store
-backend/datasets
+backend/datasets/
 .env.local
 .env.development.local
 .env.test.local
