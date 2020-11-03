@@ -13,11 +13,6 @@ from unittest import main, TestCase
 import sys, os
 import requests
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "../scraped_data"))
-# from cities import *
-# from countries import *
-# from years import *
-
 
 class Tests(TestCase):
 
