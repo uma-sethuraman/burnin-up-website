@@ -25,12 +25,14 @@ class Tests(TestCase):
     # Countries
     # ---------
 
+    # asserts expected number of all countries in response
     def test_countries_num_results(self):
         r = requests.get("https://burninup.me/api/countries")
         assert r.status_code == 200
         d = r.json()
         assert len(d["countries"]) == 185
 
+    # asserts expected first object in all countries response
     def test_countries_all(self):
         r = requests.get("https://burninup.me/api/countries")
         assert r.status_code == 200
@@ -53,6 +55,7 @@ class Tests(TestCase):
             "recent_emissions": 8.463651329197651
         }
 
+    # asserts expected country response given id
     def test_countries_instance(self):
         r = requests.get("https://burninup.me/api/countries/id=3")
         assert r.status_code == 200
@@ -74,6 +77,7 @@ class Tests(TestCase):
             "recent_emissions": 1.1209737471599153
         }
 
+    # asserts expected error response given invalid id
     def test_countries_error_result(self):
         r = requests.get("https://burninup.me/api/countries/id=-1")
         assert r.status_code == 404
@@ -84,12 +88,14 @@ class Tests(TestCase):
     # Years
     # -------
 
+    # asserts expected number of all years in response
     def test_years_num_results(self):
         r = requests.get("https://burninup.me/api/years")
         assert r.status_code == 200
         d = r.json()
         assert len(d["years"]) == 141
 
+    # asserts expected first object in all years response
     def test_years_list(self):
         r = requests.get("https://burninup.me/api/years")
         assert r.status_code == 200
@@ -106,6 +112,7 @@ class Tests(TestCase):
             "year_id": 1880
         }
 
+    # asserts expected year response given id
     def test_years_id_instance(self):
         r = requests.get("https://burninup.me/api/years/id=2016")
         assert r.status_code == 200
@@ -325,6 +332,7 @@ class Tests(TestCase):
         "year_id": 2016
         }
 
+    # asserts expected error response given invalid id
     def test_years_error_result(self):
         r = requests.get("https://burninup.me/api/years/id=-188")
         assert r.status_code == 404
@@ -335,12 +343,14 @@ class Tests(TestCase):
     # Cities
     # -------
 
+    # asserts expected number of all cities in response
     def test_cities_num_results(self):
         r = requests.get("https://burninup.me/api/cities")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["cities"]) == 3055
+        assert len(d["cities"]) == 3056
 
+    # asserts expected first object in all cities response
     def test_cities_list(self):
         r = requests.get("https://burninup.me/api/cities")
         assert r.status_code == 200
@@ -361,6 +371,7 @@ class Tests(TestCase):
             "year_highest": -1
         }
 
+    # asserts expected city response given id
     def test_cities_id_instance(self):
         r = requests.get("https://burninup.me/api/cities/id=512")
         assert r.status_code == 200
@@ -380,6 +391,7 @@ class Tests(TestCase):
             "year_highest": 2003
         }
 
+    # asserts expected error response given invalid id
     def test_cities_id_error_result(self):
         r = requests.get("https://burninup.me/api/cities/id=-1")
         assert r.status_code == 404

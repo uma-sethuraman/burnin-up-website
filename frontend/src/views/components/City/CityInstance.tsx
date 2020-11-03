@@ -13,7 +13,6 @@ import Image from "react-bootstrap/Image";
 
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
-  // const [city_img, setCityImg] = React.useState("");
 
   const [{ data, loading, error }, refetch] = useAxios(
     "/api/cities/id=" + id.id
@@ -27,24 +26,19 @@ const CityInstance = (id: any) => {
     const cityObj: City = data as City;
     if (cityObj) {
       setCity(cityObj);
-      // setCityImg(LocationPhoto(encodeURI(city?.city_name!)));
     }
   }, [data]);
-  // console.log("Ret: "+ ret);
-  //console.log(city);
-  // let uri = encodeURI(city?.city_name!) as string;
+
   let city_img = LocationPhoto(encodeURI(city?.city_name!));
   return (
     <div className="CityInstance">
       <Navbar />
-      {/* {setCityImg()} */}
       {loading ? <Spinner animation="border" /> : (
         <header className="App-header">
           <div className="image-text">
             <h3> {city?.city_name} </h3>
           </div>
           <div className="image_holder">
-            {/* <LocationPhoto cityName={encodeURI(city?.city_name!)}/> */}
             <Image src={city_img} fluid/>
           </div>
           <br />
