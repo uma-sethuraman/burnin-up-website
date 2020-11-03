@@ -16,8 +16,13 @@ const Countries = () => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   /* Loads api data into data */
-  const [{ data, loading, error }, refetch] = useAxios('/api/countries')
+  const [{ data, loading, error }] = useAxios('/api/countries')
 
+  /* If request returns error, redirect to 404 page */
+  if (error) {
+    window.location.assign("/404");
+  }
+  
   /* Fills the countries array with the correct values retrieved from data */
   useEffect(() => {
     const countryObj: CountriesObject = data as CountriesObject;

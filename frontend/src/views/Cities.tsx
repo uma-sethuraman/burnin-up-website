@@ -14,8 +14,12 @@ const Cities = () => {
   const [cities, setCities] = useState<City[]>([]);
 
   /* Loads api data into data */
-  const [{ data, loading, error }, refetch] = useAxios("/api/cities");
+  const [{ data, loading, error }] = useAxios("/api/cities");
 
+  /* If request returns error, redirect to 404 page */
+  if (error) {
+    window.location.assign("/404");
+  }
   /* Fills the cities array with the correct values retrieved from data */
   useEffect(() => {
     const cityObj: CityObject = data as CityObject;

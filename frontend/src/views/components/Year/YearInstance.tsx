@@ -22,7 +22,7 @@ const YearInstance = (id: any) => {
   const [year, setYear] = React.useState<Year>();
 
   /* fetching year data */
-  const [{ data, loading, error }, refetch] = useAxios(
+  const [{ data, loading, error }] = useAxios(
     "/api/years/id=" + id.id
   );
 
@@ -123,7 +123,7 @@ const YearInstance = (id: any) => {
             </thead>
             <tbody>
               {year?.city_temperatures.map((city) => (
-                <tr>
+                <tr key={city.city_id}>
                   <td>
                     <Link to={"/cities/id=" + city.city_id}>{city.city}</Link>
                   </td>

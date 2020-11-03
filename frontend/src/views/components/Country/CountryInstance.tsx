@@ -18,7 +18,7 @@ const CountryInstance = (id: any) => {
   const [country, setCountry] = React.useState<Country>();
 
   /* Gets this country's data from our backend */
-  const [{ data, loading, error }, refetch] = useAxios(
+  const [{ data, loading, error }] = useAxios(
     "/api/countries/id=" + id.id
   );
 

@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 import Navbar from "./components/OurNavbar";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "react-bootstrap/Image";
 
 /* Importing images for all group members */
@@ -68,7 +68,7 @@ function About() {
   let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
 
   /* Retrieves data about GitLab issues per contributor */
-  const issuesApiRequest = () => {
+  const issuesApiRequest = useCallback(() => {
 
     /* Populates requestArray with all issues requests */
     const requestURL: string =
@@ -92,12 +92,12 @@ function About() {
         changeIssuesSum(totalIssues);
       })
     ).catch(errors => {
-      console.log(errors.toJSON());
+      /* Development: console.log(errors.toJSON()); */
     })
-  }
+  }, [members, membersCopy]);
 
   /* Retrieves commit data for all members */
-  const commitsApiRequest = () => {
+  const commitsApiRequest = useCallback(() => {
 
     axios
       .get(
@@ -129,15 +129,15 @@ function About() {
         });
       })
       .catch(function (error) {
-        console.log(error.toJSON());
+        /* Development: console.log(errors.toJSON()); */
       });
-  }
+  }, [membersCopy]);
   
   /* Retrieve Gitlab data from these function calls */
   useEffect(() => {
     issuesApiRequest();
     commitsApiRequest();
-  }, []);
+  }, [issuesApiRequest, commitsApiRequest]);
 
   return (
 

@@ -14,7 +14,7 @@ import Image from "react-bootstrap/Image";
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
   /* fetch city data */
-  const [{ data, loading, error }, refetch] = useAxios(
+  const [{ data, loading, error }] = useAxios(
     "/api/cities/id=" + id.id
   );
 

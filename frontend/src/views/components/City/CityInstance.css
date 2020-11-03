@@ -1,8 +1,13 @@
+.CityInstance {
+  text-align: center;
+}
+
 .container {
   position: relative;
   text-align: center;
   color: white;
 }
+
 .img-text-wrapper {
   position: absolute;
   top: 0;
@@ -14,9 +19,6 @@
   text-align: center;
   padding-left: 100px;
   padding-right: 100px;
-}
-
-.image-text {
 }
 
 .image_holder{

@@ -1,10 +1,14 @@
+.CountryInstance {
+  text-align: center;
+}
+
 .container {
     position: relative;
     text-align: center;
     color: white;
-  }
+}
   
-  .img-text-wrapper {
+.img-text-wrapper {
     position: absolute;
     top: 0;
     display: flex;
@@ -15,11 +19,10 @@
     text-align: center;
     padding-left: 100px;
     padding-right: 100px;
-  }
+}
 
-  .Country-header {
+.Country-header {
     background: rgba(70, 72, 82, 0.3);
-    /* background-image: url("../../../assets/austin-capitol.jpg"); */ /* The image used */
     height: 100%; /* You must set a specified height */
     width: 100%;
     background-position: center; /* Center the image */
@@ -33,35 +36,36 @@
     color: white;
   }
   
-  /* Centered text */
-  .carousel-caption {
+/* Centered text */
+.carousel-caption {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
 
-  .image_container {
+.image_container {
     background: rgba(70, 72, 82, 0.3);
     filter: brightness(50%);
-  }
+}
 
-  .column {
+.column {
     float: left;
     width: 50%;
     padding: 5px;
-  }
+}
   
-  .image_holder{
+.image_holder{
     object-fit: scale-down;
     overflow:hidden;
     width: 360px;
     height: 240px;
-  }
-  /* Clear floats after image containers */
-  .row::after {
+}
+
+/* Clear floats after image containers */
+.row::after {
     content: "";
     clear: both;
     display: table;
-  }
+}
   

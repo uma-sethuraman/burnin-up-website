@@ -12,7 +12,12 @@ const GeneralYears = () => {
   const [years, setYears] = useState<Year[]>([]);
 
   /* get years from api */
-  const [{ data, loading, error }, refetch] = useAxios("/api/years");
+  const [{ data, loading, error }] = useAxios("/api/years");
+
+  /* if request returns error, redirect to 404 page */
+  if (error) {
+    window.location.assign("/404");
+  }
 
   /* set years data */
   useEffect(() => {

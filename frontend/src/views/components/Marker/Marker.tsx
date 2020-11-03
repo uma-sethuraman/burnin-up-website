@@ -3,7 +3,7 @@ import './Marker.css';
 
 /* map marker component */
 const Marker = (props: any) => {
-    const { color, name, id} = props;
+    const { color, name } = props;
     return (
       <div>
         <div

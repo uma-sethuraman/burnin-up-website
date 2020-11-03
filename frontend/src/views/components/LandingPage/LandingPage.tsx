@@ -14,7 +14,7 @@ function LandingPage() {
         </div>
       </header>
       {/* summary */}
-      <body className="Landing-body">
+      <div className="Landing-body">
         <br></br>
         <div className="story">
           Earth’s climate is changing faster than ever. The emission of
@@ -58,7 +58,7 @@ function LandingPage() {
             </Button>{" "}
           </div>
         </div>
-      </body>
+      </div>
     </div>
   );
 }
