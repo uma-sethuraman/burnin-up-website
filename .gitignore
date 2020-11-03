@@ -20,13 +20,8 @@ build/
 frontend/build/
 
 # misc
-.DS_Store
-.DS_Store?
-frontend/src/assets/.DS_Store
-frontend/src/.DS_Store
-frontend/.DS_Store
-.idea/
-backend/.DS_Store
+*.DS_store
+/.idea
 backend/datasets/
 .env.local
 .env.development.local
@@ -37,3 +32,6 @@ __pycache__
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# track gitignore
+!.gitignore
