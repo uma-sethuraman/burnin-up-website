@@ -12,7 +12,7 @@ Project Leader: Caitlin Lien
 
 GitLab Pipelines: https://gitlab.com/caitlinlien/cs373-sustainability/-/pipelines
 
-Website: https://www.burninup.me
+Website: https://burninup.me
 
 Estimated completion time for each member: 
 - Caitlin L - 30 hours
@@ -23,11 +23,11 @@ Estimated completion time for each member:
 - Uma - 30 hours
 
 Actual completion time for each member:
-- Caitlin L - 45 hours
+- Caitlin L - 18 hours
 - Caitlin O - 45 hours
-- Cherry - 45 hours
+- Cherry - 21 hours
 - Lauren - 45 hours
-- Samantha - 45 hours
+- Samantha - 24 hours
 - Uma - 45 hours
 
-Comments: amplify and docker killed us
+Comments: Still hurt by aws amplify...but we're moving on
