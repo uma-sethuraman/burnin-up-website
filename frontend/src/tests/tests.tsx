@@ -15,6 +15,7 @@ import Countries from "../views/Countries";
 import CountryInstance from "../views/components/Country/CountryInstance";
 import YearInstance from "../views/components/Year/YearInstance";
 import Search from "../views/components/Search/Search";
+import HowToHelp from '../views/HowToHelp';
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -53,6 +54,13 @@ it('Get Years General page', async () => {
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
 	expect(copy.find("div")).to.have.length(1);
+});
+
+it('Get How To Help page', async () => {
+	const copy = shallow(<HowToHelp />);
+	expect(copy).to.not.be.undefined;
+	expect(copy).to.have.length(1);
+	expect(copy.find("div")).to.have.length(7);
 });
   
 it('Get a CityInstance', async () => {
