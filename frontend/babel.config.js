@@ -1,4 +1,5 @@
-// babel.config.js
+/* For jest tests */
+
 module.exports = {
     presets: [
       [

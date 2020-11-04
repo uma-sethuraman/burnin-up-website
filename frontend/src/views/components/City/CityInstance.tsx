@@ -10,8 +10,11 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 
+/* city instance page, takes in city id,
+route = "/cities/id=" */
 const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
+
   /* fetch city data */
   const [{ data, loading, error }] = useAxios(
     "/api/cities/id=" + id.id
@@ -33,6 +36,7 @@ const CityInstance = (id: any) => {
   return (
     <div className="CityInstance">
       <Navbar />
+
       {/* show spinner if content is loading */}
       {loading ? (
         <Spinner animation="border" />
@@ -45,6 +49,7 @@ const CityInstance = (id: any) => {
           {/* display image of the city */}
           <LocationPhoto name={(encodeURI(city?.city_name!))} />
           <br />
+
           {/* city table */}
           <Table bordered hover size="sm" variant="dark">
             <tbody>
@@ -103,6 +108,7 @@ const CityInstance = (id: any) => {
               </tr>
             </tbody>
           </Table>
+          
           {/* map with city on it */}
           {OurMap(
             Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!)),

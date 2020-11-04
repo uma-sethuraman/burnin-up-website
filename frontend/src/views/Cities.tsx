@@ -8,19 +8,20 @@ import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
 
-/* General Cities Model Page (route: "/cities") */
+/* general cities model page (route: "/cities") */
 const Cities = () => {
-  /* Array of all cities retrieved from api */
+
+  /* array of all cities retrieved from api */
   const [cities, setCities] = useState<City[]>([]);
 
-  /* Loads api data into data */
+  /* loads api data into data */
   const [{ data, loading, error }] = useAxios("/api/cities");
 
-  /* If request returns error, redirect to 404 page */
+  /* if request returns error, redirect to 404 page */
   if (error) {
     window.location.assign("/404");
   }
-  /* Fills the cities array with the correct values retrieved from data */
+  /* fills the cities array with the correct values retrieved from data */
   useEffect(() => {
     const cityObj: CityObject = data as CityObject;
     if (cityObj) {
@@ -28,7 +29,7 @@ const Cities = () => {
     }
   }, [data]);
 
-  /* All columns of the cities table */
+  /* all columns of the cities table */
   const columns = [
     {
       name: "city_id",
@@ -159,7 +160,7 @@ const Cities = () => {
         customBodyRender: (value:any, tableMeta:any, updateValue:any) => (
           value !== -1?
           <div>{value}</div>:
-          <div>-</div> // for cities without population data
+          <div>-</div> /* for cities without population data */
         ),
         /* filtering options */
         filterOptions: {
@@ -180,7 +181,7 @@ const Cities = () => {
     },
   ];
 
-  /* Options for the cities table, initializing OnRowClick
+  /* options for the cities table, initializing OnRowClick
   to redirect to that row's city page during a click */
   const options = {
     filterType: "checkbox" as any,
@@ -193,7 +194,7 @@ const Cities = () => {
     <div className="Cities">
       <Navbar />
 
-      {/* Display loading animation if data is still loading */}
+      {/* display loading animation if data is still loading */}
       {loading ? (
         <Spinner animation="border" />
       ) : (
@@ -211,13 +212,16 @@ const Cities = () => {
               width="50px"
               fluid
             />
+
+            {/* instructions on how to sort and filter */}
             <p>
               &nbsp;&nbsp;Click this filter icon in the table to filter by any
               column.
             </p>
           </div>
           <p>Click on a column name to sort by that column.</p>
-          {/* Displaying the table of all cities, with searching and pagination */}
+
+          {/* displaying the table of all cities, with searching and pagination */}
           <div style={{ display: "table", tableLayout: "fixed", width: "100%" }}>
             <MUIDataTable
               title={"Cities"}

@@ -5,10 +5,11 @@ import Image from "react-bootstrap/Image";
 import "./OurCarousel.css";
 import { Link } from "react-router-dom";
 
-/* An image carousel consisting of the passed in slides */
+/* an image carousel consisting of the passed in slides */
 function OurCarousel(slide1: Slide, slide2: Slide, slide3: Slide) {
   return (
-    /* Displays the three slides and their captions */
+
+    /* displays the three slides and their captions */
     <Carousel>
       <Carousel.Item>
         <Link to={slide1.countryLink}>

@@ -8,6 +8,7 @@ import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
 
+/* general years model page (route: "/years") */
 const GeneralYears = () => {
   const [years, setYears] = useState<Year[]>([]);
 
@@ -27,7 +28,7 @@ const GeneralYears = () => {
     }
   }, [data]);
 
-  /* All columns of the years table */
+  /* all columns of the years table */
   const columns = [
     {
       name: "year_id",
@@ -217,7 +218,7 @@ const GeneralYears = () => {
     },
   ];
 
-  /* Options for the cities table, initializing OnRowClick
+  /* options for the cities table, initializing OnRowClick
   to redirect to that row's city page during a click */
   const options = {
     filterType: "checkbox" as any,
@@ -229,6 +230,7 @@ const GeneralYears = () => {
   return (
     <div className="GeneralYears">
       <Navbar />
+
       {/* if it's loading display spinner animation */}
       {loading ? (
         <Spinner animation="border" />
@@ -243,13 +245,16 @@ const GeneralYears = () => {
               width="50px"
               fluid
             />
+
+            {/* instructions to sort and filter */}
             <p>
               &nbsp;&nbsp;Click this filter icon in the table to filter by any
               column.
             </p>
           </div>
           <p>Click on a column name to sort by that column.</p>
-          {/* years table */}
+
+          {/* years table with all years instances displayed*/}
           <div
             style={{ display: "table", tableLayout: "fixed", width: "100%" }}
           >

@@ -6,13 +6,13 @@ import { connectStateResults } from "react-instantsearch-dom";
 import "./Search.css";
 import Navbar from "../OurNavbar";
 
-/* Creating search client for our Algolia search application */
+/* creating search client for our Algolia search application */
 const searchClient = algoliasearch(
   "55BA5YQNJQ",
   "0fb7c07cd58d91990a6ca879e44885e5"
 );
 
-/* What is displayed for each city in search results */
+/* what is displayed for each city in search results */
 const CityHit = (hit: any) => (
   <div className="hit">
     <a href={"/cities/id=" + hit.hit.city_id}>
@@ -61,7 +61,7 @@ const CityHit = (hit: any) => (
   </div>
 );
 
-/* Displays element for resulting city when user types in query */
+/* displays element for resulting city when user types in query */
 const CityContent = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <div className="content">
@@ -70,7 +70,7 @@ const CityContent = connectStateResults(({ searchState }) =>
   ) : null
 );
 
-/* What is displayed for each country in search results */
+/* what is displayed for each country in search results */
 const CountryHit = (hit: any) => (
   <div className="hit">
     <a href={"/countries/id=" + hit.hit.country_id}>
@@ -131,7 +131,7 @@ const CountryHit = (hit: any) => (
   </div>
 );
 
-/* Displays element for resulting country when user types in query */
+/* displays element for resulting country when user types in query */
 const CountryContent = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <div className="content">
@@ -140,7 +140,7 @@ const CountryContent = connectStateResults(({ searchState }) =>
   ) : null
 );
 
-/* What is displayed for each year in search results */
+/* what is displayed for each year in search results */
 const YearHit = (hit: any) => (
   <div className="hit">
     <a href={"/years/id=" + hit.hit.year_id}>
@@ -210,7 +210,7 @@ const YearHit = (hit: any) => (
   </div>
 );
 
-/* Displays element for resulting year when user types in query */
+/* displays element for resulting year when user types in query */
 const YearContent = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <div className="content">
@@ -219,7 +219,7 @@ const YearContent = connectStateResults(({ searchState }) =>
   ) : null
 );
 
-/* Takes in query that the user searches and returns search results */
+/* takes in query that the user searches and returns search results */
 function Search(q: any) {
   return (
     <div>
@@ -238,7 +238,7 @@ function Search(q: any) {
             <SearchBox />
           </div>
 
-          {/* Index containing all cities data */}
+          {/* index containing all cities data */}
           <Index indexName="cities_index">
             <h1>Cities</h1>
             <p>Learn about climate change in cities around the world. </p>
@@ -248,7 +248,7 @@ function Search(q: any) {
             </main>
           </Index>
 
-          {/* Index containing all countries data */}
+          {/* index containing all countries data */}
           <Index indexName="country_index">
             <h1>Countries</h1>
             <p>Learn about climate change in countries around the world. </p>
@@ -258,7 +258,7 @@ function Search(q: any) {
             </main>
           </Index>
 
-          {/* Index containing all years data */}
+          {/* index containing all years data */}
           <Index indexName="years_index">
             <h1>Years</h1>
             <p>Learn about climate change across the years. </p>

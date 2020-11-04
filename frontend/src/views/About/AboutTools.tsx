@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 import Image from "react-bootstrap/Image";
 
-/* Importing images for tools and data sections */
+/* importing images for tools and data sections */
 import PostmanLogo from "../../assets/PostmanLogo.png";
 import GitlabLogo from "../../assets/GitlabLogo.jpg";
 import ReactLogo from "../../assets/ReactLogo.jpg";
@@ -12,6 +12,7 @@ import NameCheapLogo from "../../assets/NameCheapLogo.png";
 import DiscordLogo from "../../assets/DiscordLogo.png";
 import JupyterNotebookLogo from "../../assets/JupyterNotebook.svg";
 
+/* displays tools section on About Us page */
 function AboutTools() {
     return(
     <div className="Tools">

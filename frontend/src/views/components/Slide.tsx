@@ -1,6 +1,6 @@
 import React from "react";
 
-/* Slide component which contains a source for an image,
+/* slide component which contains a source for an image,
 a caption, and a link to its corresponding country - used
 in the OurCarousel component */
 

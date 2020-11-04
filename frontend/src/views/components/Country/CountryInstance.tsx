@@ -11,24 +11,25 @@ import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import Spinner from "react-bootstrap/Spinner";
 
-/* A single country instance page, takes in country id 
+/* country instance page, takes in country id,
    route: "/countries/id=" */
 const CountryInstance = (id: any) => {
-  /* Stores all information about current country */
+
+  /* stores all information about current country */
   const [country, setCountry] = React.useState<Country>();
 
-  /* Gets this country's data from our backend */
+  /* gets this country's data from our backend */
   const [{ data, loading, error }] = useAxios(
     "/api/countries/id=" + id.id
   );
 
-  /* If there is an error in the request or id is invalid, 
+  /* if there is an error in the request or id is invalid, 
   go to the invalid page */
   if (error || id.id === undefined) {
     window.location.assign("/404");
   }
 
-  /* Set the country variable after getting data */
+  /* set the country variable after getting data */
   useEffect(() => {
     const countryObj: Country = data as Country;
     if (countryObj) {
@@ -36,7 +37,7 @@ const CountryInstance = (id: any) => {
     }
   }, [data]);
 
-  /* Link for this country's flag from the flag API */
+  /* link for this country's flag from the flag API */
   let flagLink =
     "https://flagcdn.com/h240/" +
     country?.country_iso2code?.toLowerCase() +
@@ -46,24 +47,25 @@ const CountryInstance = (id: any) => {
     <div className="CountryInstance">
       <Navbar />
 
-      {/* Display loading animation if data is still loading */}
+      {/* display loading animation if data is still loading */}
       {loading ? (
         <Spinner animation="border" />
       ) : (
         <header className="App-header">
-          {/* Display country name */}
+
+          {/* display country name */}
           <h3> {country?.country_name} </h3>
           <div className="row">
             <div className="column">
 
-              {/* Displays image of country */}
+              {/* displays image of country */}
               <div className="image_holder">
                 <LocationPhoto name={(encodeURI(country?.country_name!))} />
               </div>
             </div>
             <div className="column">
 
-              {/* Displays country flag */}
+              {/* displays country flag */}
               <div className="image_holder">
                 <Image src={flagLink} alt="Flag" />
               </div>
@@ -71,7 +73,7 @@ const CountryInstance = (id: any) => {
           </div>
           <br />
 
-          {/* Display all data/attributes about this country */}
+          {/* display all data/attributes about this country */}
           <Table bordered hover size="sm" variant="dark">
             <tbody>
               <tr>
@@ -142,7 +144,7 @@ const CountryInstance = (id: any) => {
             </tbody>
           </Table>
 
-          {/* Display world map with country plotted as a marker */}
+          {/* display world map with country plotted as a marker */}
           {OurMap(
             country?.lat! === undefined ? 0 : country?.lat!,
             country?.long! === undefined ? 0 : country?.long!,
@@ -154,7 +156,7 @@ const CountryInstance = (id: any) => {
   );
 };
 
-/* Interfaces needed for country data */
+/* interfaces needed for country data */
 
 export interface CountriesObject {
   countries: Country[];

@@ -29,11 +29,11 @@
 }
 
 .City-header {
-  background-image: url("../../../assets/austin-capitol.jpg"); /* The image used */
-  height: 100%; /* You must set a specified height */
+  background-image: url("../../../assets/austin-capitol.jpg"); /* the image used */
+  height: 100%; /* you must set a specified height */
   width: 100%;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */ /* Resize the background image to cover the entire container */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat; /* do not repeat the image */ 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@
   color: white;
 }
 
-/* Centered text */
+/* centered text */
 .carousel-caption {
   position: absolute;
   top: 50%;

@@ -23,6 +23,7 @@ import Search from "./views/components/Search/Search";
 import Invalid from "./views/components/Invalid";
 import HowToHelp from "./views/HowToHelp"
 
+/* sets up routes for all pages on website */
 ReactDOM.render(
   <Router>
     <Switch>
@@ -65,9 +66,9 @@ ReactDOM.render(
         render={(props) => <Search q={props.match.params.q} />}
       />
 
+      {/* how to help page for resources */}
       <Route path="/howtohelp" exact component={HowToHelp} />
 
-      <Route path="/404" component={Invalid} />
       {/* search page when query is empty */}
       <Route
         path="/search/q="

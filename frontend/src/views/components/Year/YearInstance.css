@@ -25,7 +25,7 @@
     height: 100%; /* You must set a specified height */
     width: 100%;
     background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */ /* Resize the background image to cover the entire container */
+    background-repeat: no-repeat; /* Do not repeat the image */
     min-height: 100vh;
     display: flex;
     flex-direction: column;

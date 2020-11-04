@@ -18,7 +18,11 @@ import {
 import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 
+/* year instance page, takes in year id,
+route: "/years/id=" */
 const YearInstance = (id: any) => {
+
+  /* contains all data about current year */
   const [year, setYear] = React.useState<Year>();
 
   /* fetching year data */
@@ -39,7 +43,7 @@ const YearInstance = (id: any) => {
     }
   }, [data]);
 
-  /* route to countries from bar graph */
+  /* link to countries from bar graph */
   function barClick(currCountry: any) {
     window.location.assign("/countries/id=" + currCountry.country_id);
   }
@@ -47,6 +51,7 @@ const YearInstance = (id: any) => {
   return (
     <div className="YearInstance">
       <Navbar />
+
       {/* display spinner animation if loading */}
       {loading ? (
         <Spinner animation="border" />
@@ -54,6 +59,7 @@ const YearInstance = (id: any) => {
         <header className="App-header">
           <h3> {year?.year_id} </h3>
           <br />
+
           {/* bar chart with country data */}
           <h1>Top 10 Countries with Highest CO2 Emissions This Year</h1>
           <p>Click on a bar to learn more about that country!</p>
@@ -77,6 +83,7 @@ const YearInstance = (id: any) => {
           </BarChart>
           <br />
           <br />
+
           {/* year table */}
           <Table bordered hover size="sm" variant="dark">
             <tbody>
@@ -109,6 +116,7 @@ const YearInstance = (id: any) => {
             </tbody>
           </Table>
           <br />
+
           {/* city temperature table */}
           <h1> Top 10 Cities with Highest Average Temperatures This Year</h1>
           <p>
@@ -134,6 +142,7 @@ const YearInstance = (id: any) => {
               ))}
             </tbody>
           </Table>
+          
           {/* map with the top 10 cities */}
           {YearMap(
             year?.city_temperatures !== undefined ? year?.city_temperatures : []

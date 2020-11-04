@@ -8,22 +8,21 @@ import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
 import "./Countries.css";
 
-
-/* General Countries Model Page (route: "/countries") */
+/* general countries model page (route: "/countries") */
 const Countries = () => {
   
-  /* Array of all countries retrieved from api */
+  /* array of all countries retrieved from api */
   const [countries, setCountries] = useState<Country[]>([]);
 
-  /* Loads api data into data */
+  /* loads api data into data */
   const [{ data, loading, error }] = useAxios('/api/countries')
 
-  /* If request returns error, redirect to 404 page */
+  /* if request returns error, redirect to 404 page */
   if (error) {
     window.location.assign("/404");
   }
   
-  /* Fills the countries array with the correct values retrieved from data */
+  /* fills the countries array with the correct values retrieved from data */
   useEffect(() => {
     const countryObj: CountriesObject = data as CountriesObject;
     if (countryObj) {
@@ -31,7 +30,8 @@ const Countries = () => {
     }
   }, [data]);
 
-  /* All columns of the countries table */
+  /* all columns of the countries table, with sorting
+  and filtering options set */
   const columns = [
     {
       name: "country_id",
@@ -203,7 +203,7 @@ const Countries = () => {
     },
   ];
 
-  /* Options for the countries table, initializing OnRowClick
+  /* options for the countries table, initializing OnRowClick
   to redirect to that row's country page during a click */
   const options = {
     filterType: 'checkbox' as any,
@@ -216,7 +216,7 @@ const Countries = () => {
     <div className="Countries">
       <Navbar />
 
-      {/* Display loading animation if data is still loading */}
+      {/* display loading animation if data is still loading */}
       {loading ? <Spinner animation="border" /> : 
       <header className="Countries-header">
         <h1>Countries</h1>
@@ -224,13 +224,13 @@ const Countries = () => {
         <br />
         <div className="side-by-side">
 
-        {/* Displaying instructions on how to sort and filter */}
+        {/* displaying instructions on how to sort and filter */}
         <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
           <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any column.</p>
           </div>
         <p>Click on a column name to sort by that column.</p>
 
-        {/* Displaying table with all country instances */}
+        {/* displaying table with all country instances */}
         <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
           <MUIDataTable
             title={"Countries"}

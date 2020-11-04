@@ -3,9 +3,11 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import "./LandingPage.css";
 
+/* home page */
 function LandingPage() {
   return (
     <div className="Landing">
+
       {/* header */}
       <header className="Landing-header">
         <div className="hook">
@@ -13,6 +15,7 @@ function LandingPage() {
           <h2>it's "burning up, burning up for you baby." - Jonas Brothers </h2>
         </div>
       </header>
+
       {/* summary */}
       <div className="Landing-body">
         <br></br>
@@ -27,6 +30,7 @@ function LandingPage() {
           has changed around the world in the past decades and encourages people
           to take action to help the environment.
         </div>
+
         {/* links to the three models */}
         <h3 style={{ color: "white" }}>Explore</h3>
         <div className="row">

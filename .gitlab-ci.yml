@@ -39,28 +39,24 @@ cs373-sustainability_selenium:
 
     # code from texas votes
     # Dependencies for chromedriver, https://gist.github.com/mikesmullin/2636776#gistcomment-1742414
-    # Otherwise we get this error: "chromedriver: error while loading shared libraries: libnss3.so: cannot open shared object file: No such file or directory"
     - apt-get update -q -y
     - apt-get install nodejs npm -y
     - apt-get --yes install libnss3
     - apt-get --yes install libgconf-2-4
-
-    # Installed for "chromedriver: error while loading shared libraries: libX11-xcb.so.1: cannot open shared object file: No such file or directory"
     - apt-get install libx11-xcb1
 
-    # Install chrome
-    # Based off of
+    # install chrome and add key
+    # based off of
     # - https://gitlab.com/gitlab-org/gitlab-build-images/blob/9dadb28021f15913a49897126a0cd6ab0149e44f/scripts/install-chrome
     # - https://askubuntu.com/a/510186/196148
-    #
-    # Add key
     - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-    # Add repo
+    
+    # add repo and install npm
     - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
     - apt-get update -q -y
     - apt-get install -y google-chrome-stable
     - npm install
     
-    # Test the app
+    # test the website
     - cd src/tests
     - python3 guitests.py

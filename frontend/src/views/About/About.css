@@ -13,88 +13,88 @@
     color: #ffffff;
 }
   
-  .About-body {
+.About-body {
     text-align: center;
     min-height: 50vh;
     padding-right: 2vw;
     padding-left: 2vw;
     background-color: #556875;
-  }
+}
   
-  /* Three image containers (use 25% for four, and 50% for two, etc) */
+/* Three image containers (use 25% for four, and 50% for two, etc) */
   .columnsAbout {
     float: left;
     width: 50%;
     padding: 20px;
     font-size: 24px;
-  }
+}
   
-  .Toolcolumn {
+.Toolcolumn {
     float: left;
     width: 25%;
-  }
+}
   
-  /* Clear floats after image containers */
-  .row::after {
+/* Clear floats after image containers */
+.row::after {
     content: "";
     clear: both;
     display: table;
-  }
+}
   
-  .About {
+.About {
     text-align: center;
-  }
+}
 
-  .ToolImage{
+.ToolImage{
     object-fit: contain;
     width: 200px;
     height: 100px;
-  }
+}
 
-  .Tools{
+.Tools{
     padding:2vh;
     text-align: left;
     font-size: 25px;
     color: black;
     background-color: white;
-  }
+}
 
-  .caption{
+.caption{
     font-size: 14px;
     color: black;
     text-align: center;
     width: 200px;
     height: 200px;
-  }
+}
 
-  .purpose {
+.purpose {
     text-align: left;
     font-size: 20px;
     color: #ffffff;
     background-color: #556875;
-  }
+}
   
-  .About-logo {
+.About-logo {
     height: 40vmin;
     pointer-events: none;
-  }
+}
   
-  @media (prefers-reduced-motion: no-preference) {
-    .About-logo {
+@media (prefers-reduced-motion: no-preference) {
+  .About-logo {
       animation: App-logo-spin infinite 20s linear;
     }
-  }
+}
   
-  .About-link {
+.About-link {
     color: #61dafb;
-  }
+}
   
-  @keyframes About-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+@keyframes About-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
   

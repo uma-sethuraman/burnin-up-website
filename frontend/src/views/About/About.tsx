@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
 import Image from "react-bootstrap/Image";
 
-/* Importing images for all group members */
+/* importing images for all group members */
 import UmaSethuraman from "../../assets/uma-headshot.jpg";
 import CaitlinOCallaghan from "../../assets/caitlin-o-headshot.jpeg";
 import LaurenMangibin from "../../assets/LaurenMangibin-headshot.jpg";
@@ -13,14 +13,14 @@ import SamanthaTuapen from "../../assets/samantha-headshot.jpg";
 import CatilinLien from "../../assets/CaitlinLien.jpeg";
 import CherrySun from "../../assets/cherry.jpeg";
 
-/* Importing interfaces and images for tools and data sections */
+/* importing interfaces and images for tools and data sections */
 import AboutTools from "./AboutTools";
 import AboutSets from "./AboutSets";
 import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
 
 function About() {
 
-  /* Team member information */
+  /* team member information */
   const [members, changeMembers] = useState<GroupMember[]>([
     {
       name: "Caitlin Lien",
@@ -54,18 +54,18 @@ function About() {
     },
   ]);
 
-  /* Cumulative totals for about page statistics */
+  /* cumulative totals for about page statistics */
   const [issuesSum, changeIssuesSum] = useState(-1);
   const [commitsSum, changeCommitsSum] = useState(-1);
   const unittestsSum: number = 105;
 
-  /* Create a copy of the members array to apply changes to */
+  /* create a copy of the members array to apply changes to */
   let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
 
-  /* Retrieves data about GitLab issues per contributor */
+  /* retrieves data about GitLab issues per contributor */
   const issuesApiRequest = useCallback(() => {
 
-    /* Populates requestArray with all issues requests */
+    /* populates requestArray with all issues requests */
     const requestURL: string =
       "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
     const requestArray = [];
@@ -73,7 +73,7 @@ function About() {
       requestArray.push(axios.get(requestURL + member.username));
     }
 
-    /* Updates issues number for all people in members */
+    /* updates issues number for all people in members */
     axios.all([...requestArray]).then(
       axios.spread((...responses) => {
         let totalIssues = 0;
@@ -83,15 +83,15 @@ function About() {
           totalIssues += response.data.statistics.counts.all;
         }
 
-        /* Update total number of issues */
+        /* update total number of issues */
         changeIssuesSum(totalIssues);
       })
     ).catch(errors => {
-      /* Development: console.log(errors.toJSON()); */
+      /* development: console.log(errors.toJSON()); */
     })
   }, [members, membersCopy]);
 
-  /* Retrieves commit data for all members */
+  /* retrieves commit data for all members */
   const commitsApiRequest = useCallback(() => {
 
     axios
@@ -103,7 +103,7 @@ function About() {
 
         let totalCommits = 0;
 
-        /* Iterate over all elements in the array and assign
+        /* iterate over all elements in the array and assign
         each member to their number of commits */
         for (let elem of allCommits) {
           for (let i = 0; i < membersCopy.length; i++) {
@@ -115,20 +115,20 @@ function About() {
           }
         }
 
-        /* Update total number of commits */
+        /* update total number of commits */
         changeCommitsSum(totalCommits);
 
-        /* Update members array once with all changes */
+        /* update members array once with all changes */
         changeMembers(old => {
           return [...membersCopy]
         });
       })
       .catch(function (error) {
-        /* Development: console.log(errors.toJSON()); */
+        /* development: console.log(errors.toJSON()); */
       });
   }, [membersCopy]);
   
-  /* Retrieve Gitlab data from these function calls */
+  /* retrieve Gitlab data from these function calls */
   useEffect(() => {
     issuesApiRequest();
     commitsApiRequest();
@@ -144,7 +144,7 @@ function About() {
           <h3>About Us</h3>
         </div>
 
-        {/* Describing general purpose of website */}
+        {/* describing general purpose of website */}
         <div className="purpose">
           Burnin’ Up aims to educate people on the climate crisis of our planet, and make them aware of how quickly our home is changing.
           This website will allow you to navigate from city to city, or country to country, to see how each city or country is contributing to,
@@ -159,7 +159,7 @@ function About() {
           we show help us understand how drastic the changes are throughout history.
         </div>
 
-        {/* Total commits, issues, and unit tests */}
+        {/* total commits, issues, and unit tests */}
         <br></br>
         <div className="h2_about">
           {commitsSum === -1? <h2>Total Commits: </h2> :
@@ -171,6 +171,7 @@ function About() {
           <h2>Total Unit Tests: {unittestsSum}</h2>
         </div>
 
+        {/* information about each group member */}
         <div className="row">
           <div className="h2_about">
             <div className="columnsAbout">
@@ -275,9 +276,11 @@ function About() {
           </div>
         </div>
         <br></br>
+        {/* datasets and APIs */}
         <AboutSets/>
         <br></br>
       </div>
+      {/* tools sections */}
       <AboutTools/>
     </div>
   );

@@ -1,3 +1,5 @@
+/* For jest tests */
+
 const path = require('path');
 
 module.exports = {

@@ -6,7 +6,7 @@ import catf_img from "../assets/CATF.png";
 import crfn_img from "../assets/cfrn-min.png";
 import climate from "../assets/fightClimate.png";
 
-/* page for Helpful Links*/
+/* page for Helpful Links */
 function HowToHelp() {
   return (
     <div className="HowToHelp">
