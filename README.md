@@ -34,5 +34,5 @@ Comments: Still hurt by aws amplify...but we're moving on
 - Frontend tests can be found in frontend/src/tests
     - guitests.py is for selenium testing
     - tests.tsx is for jest testing
-- To run Jest tests: `npm run test` in frontend
+- To run Jest tests: `npm run test` in frontend/src/tests
 - To run Selenium tests: `python guitests.py` in frontend/src/tests
