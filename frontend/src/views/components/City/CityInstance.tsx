@@ -95,7 +95,7 @@ const CityInstance = (id: any) => {
               </tr>
               <tr>
                 <td>Population</td>
-                {city?.population !== 0 ? (
+                {city?.population !== -1 ? (
                   <td>{city?.population}</td>
                 ) : (
                   <td>-</td>

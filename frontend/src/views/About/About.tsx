@@ -13,9 +13,10 @@ import SamanthaTuapen from "../../assets/samantha-headshot.jpg";
 import CatilinLien from "../../assets/CaitlinLien.jpeg";
 import CherrySun from "../../assets/cherry.jpeg";
 
-/* Importing images for tools and data sections */
+/* Importing interfaces and images for tools and data sections */
 import AboutTools from "./AboutTools";
 import AboutSets from "./AboutSets";
+import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
 
 function About() {
 
@@ -143,6 +144,7 @@ function About() {
           <h3>About Us</h3>
         </div>
 
+        {/* Describing general purpose of website */}
         <div className="purpose">
           Burnin’ Up aims to educate people on the climate crisis of our planet, and make them aware of how quickly our home is changing.
           This website will allow you to navigate from city to city, or country to country, to see how each city or country is contributing to,
@@ -157,6 +159,7 @@ function About() {
           we show help us understand how drastic the changes are throughout history.
         </div>
 
+        {/* Total commits, issues, and unit tests */}
         <br></br>
         <div className="h2_about">
           {commitsSum === -1? <h2>Total Commits: </h2> :
@@ -279,70 +282,5 @@ function About() {
     </div>
   );
 }
-
-export interface GroupMember {
-  name: string;
-  email: string;
-  username?: string;
-  bio?: string;
-  commits?: number;
-  issues?: number;
-  unittest?: number;
-}
-
-export interface Gitlab {
-  data: Data;
-  status: number;
-  statusText: string;
-  headers: GITLABHeaders;
-  config: Config;
-  request: Request;
-}
-
-export interface Config {
-  url: string;
-  method: string;
-  headers: ConfigHeaders;
-  transformRequest: null[];
-  transformResponse: null[];
-  timeout: number;
-  xsrfCookieName: string;
-  xsrfHeaderName: string;
-  maxContentLength: number;
-  maxBodyLength: number;
-}
-
-export interface ConfigHeaders {
-  Accept: string;
-}
-
-export interface Data {
-  statistics: Statistics;
-}
-
-export interface Statistics {
-  counts: Counts;
-}
-
-export interface Counts {
-  all: number;
-  closed: number;
-  opened: number;
-}
-
-export interface CommitsInfo {
-  name: string;
-  email: string;
-  commits: number;
-  additions: number;
-  deletions: number;
-}
-
-export interface GITLABHeaders {
-  "cache-control": string;
-  "content-type": string;
-}
-
-export interface Request { }
 
 export default About;

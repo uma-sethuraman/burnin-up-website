@@ -32,7 +32,7 @@ it('Get About Page', async () => {
 	const copy = shallow(<About />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
-	expect(copy.find("div")).to.have.length(24);
+	expect(copy.find("div")).to.have.length(13);
 });
 
 it('Get City General Page', async () => {

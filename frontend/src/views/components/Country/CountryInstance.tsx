@@ -97,6 +97,10 @@ const CountryInstance = (id: any) => {
                 )}
               </tr>
               <tr>
+                <td>Population</td>
+                <td>{country?.country_population}</td>
+              </tr>
+              <tr>
                 <td>Latitude</td>
                 <td>{country?.lat}</td>
               </tr>

@@ -19,38 +19,43 @@ const CityHit = (hit: any) => (
       <h1>{hit.hit.city_name}</h1>
     </a>
     <p>
-      Name: <Highlight attribute="city_name" tagName="mark" hit={hit.hit} />
+      Name: {" "}
+      <Highlight attribute="city_name" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Country:{" "}
+      Country: {" "}
       <Highlight attribute="country_name" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Population:{" "}
+      Population: {" "}
       <Highlight attribute="population" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      PM10: <Highlight attribute="pm10" tagName="mark" hit={hit.hit} />
+      PM10: {" "}
+      <Highlight attribute="pm10" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      O3: <Highlight attribute="o3" tagName="mark" hit={hit.hit} />
+      O3: {" "}
+      <Highlight attribute="o3" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      PM2.5: <Highlight attribute="pm25" tagName="mark" hit={hit.hit} />
+      PM2.5: {" "}
+      <Highlight attribute="pm25" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Highest Annual Temperature:{" "}
+      Highest Annual Temperature: {" "}
       <Highlight attribute="highest_temp" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Year of Highest Annual Temperature:{" "}
+      Year of Highest Annual Temperature: {" "}
       <Highlight attribute="year_highest" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Latitude: <Highlight attribute="latitude" tagName="mark" hit={hit.hit} />
+      Latitude: {" "}
+      <Highlight attribute="latitude" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Longitude:{" "}
+      Longitude: {" "}
       <Highlight attribute="longitude" tagName="mark" hit={hit.hit} />
     </p>
   </div>
@@ -72,10 +77,11 @@ const CountryHit = (hit: any) => (
       <h1>{hit.hit.country_name}</h1>
     </a>
     <p>
-      Name: <Highlight attribute="country_name" tagName="mark" hit={hit.hit} />
+      Name: {" "}
+      <Highlight attribute="country_name" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Capital City:{" "}
+      Capital City: {" "}
       <Highlight
         attribute="country_capital_city"
         tagName="mark"
@@ -83,41 +89,43 @@ const CountryHit = (hit: any) => (
       />
     </p>
     <p>
-      ISO2 Code:{" "}
+      ISO2 Code: {" "}
       <Highlight attribute="country_iso2code" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      ISO3 Code:{" "}
+      ISO3 Code: {" "}
       <Highlight attribute="country_iso3code" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Region:{" "}
+      Region: {" "}
       <Highlight attribute="country_region" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Population:{" "}
+      Population: {" "}
       <Highlight attribute="country_population" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Highest Annual CO2 Emission Level:{" "}
+      Highest Annual CO2 Emission Level: {" "}
       <Highlight attribute="highest_emission" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Year of Highest Annual CO2 Emission Level:{" "}
+      Year of Highest Annual CO2 Emission Level: {" "}
       <Highlight attribute="high_year" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Income Level:{" "}
+      Income Level: {" "}
       <Highlight attribute="income_level" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Latitude: <Highlight attribute="lat" tagName="mark" hit={hit.hit} />
+      Latitude: {" "}
+      <Highlight attribute="lat" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Longitude: <Highlight attribute="long" tagName="mark" hit={hit.hit} />
+      Longitude: {" "}
+      <Highlight attribute="long" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Recent CO2 Emissions:{" "}
+      Recent CO2 Emissions: {" "}
       <Highlight attribute="recent_emissions" tagName="mark" hit={hit.hit} />
     </p>
   </div>
@@ -139,32 +147,35 @@ const YearHit = (hit: any) => (
       <h1>{hit.hit.year_id}</h1>
     </a>
     <p>
-      Year: <Highlight attribute="year_id" tagName="mark" hit={hit.hit} />
+      Year: {" "}
+      <Highlight attribute="year_id" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      CO2: <Highlight attribute="co2" tagName="mark" hit={hit.hit} />
+      CO2: {" "}
+      <Highlight attribute="co2" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Methane: <Highlight attribute="methane" tagName="mark" hit={hit.hit} />
+      Methane: {" "}
+      <Highlight attribute="methane" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Nitrous Oxide:{" "}
+      Nitrous Oxide: {" "}
       <Highlight attribute="nitrous_oxide" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Polar Ice Extent:{" "}
+      Polar Ice Extent: {" "}
       <Highlight attribute="polar_ice" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Sea Level:{" "}
+      Absolute Sea Level Change Since 1880: {" "}
       <Highlight attribute="sea_level" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      Temp Anomaly:{" "}
+      Temperature Anomaly: {" "}
       <Highlight attribute="temp_anomaly" tagName="mark" hit={hit.hit} />
     </p>
     <p>
-      World Population :{" "}
+      World Population: {" "}
       <Highlight attribute="world_population" tagName="mark" hit={hit.hit} />
     </p>
     <p>Top 10 Countries:</p>

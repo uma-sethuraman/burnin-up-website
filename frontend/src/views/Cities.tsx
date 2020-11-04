@@ -156,6 +156,11 @@ const Cities = () => {
       options: {
         filter: true,
         sort: true,
+        customBodyRender: (value:any, tableMeta:any, updateValue:any) => (
+          value !== -1?
+          <div>{value}</div>:
+          <div>-</div> // for cities without population data
+        ),
         /* filtering options */
         filterOptions: {
           names: ["Small Population", "Medium Population", "Large Population"],
@@ -213,9 +218,7 @@ const Cities = () => {
           </div>
           <p>Click on a column name to sort by that column.</p>
           {/* Displaying the table of all cities, with searching and pagination */}
-          <div
-            style={{ display: "table", tableLayout: "fixed", width: "100%" }}
-          >
+          <div style={{ display: "table", tableLayout: "fixed", width: "100%" }}>
             <MUIDataTable
               title={"Cities"}
               data={cities}

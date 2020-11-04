@@ -44,7 +44,7 @@ const GeneralYears = () => {
             "1940-1960",
             "1960-1980",
             "1980-2000",
-            "2000-2018",
+            "2000-2020",
           ],
           logic(year_id: any, filterVal: any) {
             const show =
@@ -66,9 +66,9 @@ const GeneralYears = () => {
               (filterVal.indexOf("1980-2000") >= 0 &&
                 year_id >= 1980 &&
                 year_id <= 2000) ||
-              (filterVal.indexOf("2000-2018") >= 0 &&
+              (filterVal.indexOf("2000-2020") >= 0 &&
                 year_id >= 2000 &&
-                year_id <= 2018);
+                year_id <= 2020);
             return !show;
           },
         },
