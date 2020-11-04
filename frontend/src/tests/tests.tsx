@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 /* Importing components/pages to test */
 import App from "../views/App";
-import About from "../views/About";
+import About from "../views/About/About";
 import Cities from "../views/Cities";
 import CityInstance from "../views/components/City/CityInstance";
 import GeneralYears from "../views/GeneralYears";

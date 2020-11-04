@@ -12,7 +12,7 @@ import * as serviceWorker from "./serviceWorker";
 
 /* pages */
 import App from "./views/App";
-import About from "./views/About";
+import About from "./views/About/About";
 import Cities from "./views/Cities";
 import CityInstance from "./views/components/City/CityInstance";
 import GeneralYears from "./views/GeneralYears";
