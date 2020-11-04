@@ -1,4 +1,4 @@
-cd frontend
+cd ../frontend
 sudo npm install
 sudo npm run build
 cd ../backend
@@ -8,6 +8,6 @@ docker tag burninup-backend:latest 170263725750.dkr.ecr.us-east-1.amazonaws.com/
 docker push 170263725750.dkr.ecr.us-east-1.amazonaws.com/burninup-backend:latest
 pip3 install awsebcli
 cd aws_deploy
-#eb init
+#eb init (only needed the first time you initialize)
 eb deploy
 
