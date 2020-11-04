@@ -82,13 +82,13 @@ class tests(unittest.TestCase):
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/div[2]/div[5]/div/li[1]/a")[0].click()
         assert "https://developers.google.com/places/web-service/photos" in self.driver.current_url
-        self.driver.get("https://burninup.me/about")
-        self.driver.implicitly_wait(20)
+        # self.driver.get("https://burninup.me/about")
+        # self.driver.implicitly_wait(20)
         # test tools link
-        self.driver.find_elements_by_xpath(
-            "/html/body/div/div/div[3]/div[1]/a/img")[0].click()
-        assert "https://reactjs.org/" in self.driver.current_url
-        self.driver.get("https://burninup.me/about")
+        # self.driver.find_elements_by_xpath(
+        #     "/html/body/div/div/div[3]/div[1]/a/img")[0].click()
+        # assert "https://reactjs.org/" in self.driver.current_url
+        # self.driver.get("https://burninup.me/about")
 
     def test_cities(self):
         self.driver.get("https://burninup.me")
