@@ -69,7 +69,7 @@ const CityInstance = (id: any) => {
                 <td>{city?.pm25 + " "}</td>
               </tr>
               <tr>
-                <td>Highest Annual Temp</td>
+                <td>Highest Annual Temperature</td>
                 {city?.highest_temp !== (undefined || -1) ? (
                   <td>
                     {city?.highest_temp +
@@ -80,7 +80,7 @@ const CityInstance = (id: any) => {
                 )}
               </tr>
               <tr>
-                <td>Year of Highest Annual Temp</td>
+                <td>Year of Highest Annual Temperature</td>
                 {city?.year_highest !== (undefined || -1) ? (
                   <td>
                     <Link to={"/years/id=" + city?.year_highest}>
