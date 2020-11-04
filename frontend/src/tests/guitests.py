@@ -71,16 +71,19 @@ class tests(unittest.TestCase):
             "/html/body/div/div/div[2]/div[5]/h2[1]/a/img")[0].click()
         assert "https://documenter.getpostman.com/view/12123261/TVRdAWse" in self.driver.current_url
         self.driver.get("https://burninup.me/about")
+        self.driver.implicitly_wait(20)
         # test gitlab image link
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/div[2]/div[5]/h2[2]/a/img")[0].click()
         assert "gitlab.com/caitlinlien/cs373-sustainability/" in self.driver.current_url
         self.driver.get("https://burninup.me/about")
+        self.driver.implicitly_wait(20)
         # test API link
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/div[2]/div[5]/div/li[1]/a")[0].click()
         assert "https://developers.google.com/places/web-service/photos" in self.driver.current_url
         self.driver.get("https://burninup.me/about")
+        self.driver.implicitly_wait(20)
         # test tools link
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/div[3]/div[1]/a/img")[0].click()
@@ -102,34 +105,40 @@ class tests(unittest.TestCase):
             "/html/body/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div[1]/label/span[1]/span[1]/input")[0].click()
         # test clicking on row
         self.driver.get("https://burninup.me/cities")
+        self.driver.implicitly_wait(20)
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/div[2]/div/div[3]/table/tbody/tr[1]/td[4]/div[2]")[0].click()
         assert "https://burninup.me/cities/id=3537" in self.driver.current_url
         self.driver.get("https://burninup.me/cities")
+        self.driver.implicitly_wait(20)
         # test going to next page
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/header/div[2]/div/table/tfoot/tr/td/div/div/div/div[3]/button[2]")[0].click()
 
-    # def test_countries(self):
-    #     self.driver.get("https://burninup.me")
-    #     self.driver.implicitly_wait(20)
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/div[1]/nav/div/a[3]")[0].click()
-    #     assert "countries" in self.driver.current_url
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/form[1]/div/form/button")[0].click()
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/form[1]/div/div/div[1]/button")[0].click()
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/form[1]/div/div/div[2]/button")[0].click()
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/form[1]/div/div/div[3]/button")[0].click()
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/form[1]/div/div/div[4]/button")[0].click()
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/form[1]/div/div/div[5]/button")[0].click()
-    #     self.driver.find_elements_by_xpath(
-    #         "/html/body/div/div/header/nav/ul/li[2]/a")[0].click()
+    def test_countries(self):
+        self.driver.get("https://burninup.me")
+        self.driver.implicitly_wait(20)
+        # navigate to countries general page
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div/nav/div/a[3]")[0].click()
+        assert "countries" in self.driver.current_url
+        # test filter button
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/header/div[2]/div/div[1]/div[2]/span[3]/button")[0].click()
+        # test filter option
+        self.driver.find_elements_by_xpath(
+            "/html/body/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div[1]/label/span[1]/span[1]/input")[0].click()
+        # test clicking on row
+        self.driver.get("https://burninup.me/countries")
+        self.driver.implicitly_wait(20)
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/header/div[2]/div/div[3]/table/tbody/tr[1]/td[2]")[0].click()
+        assert "https://burninup.me/countries/id=203" in self.driver.current_url
+        self.driver.get("https://burninup.me/countries")
+        self.driver.implicitly_wait(20)
+        # test going to next page
+        self.driver.find_elements_by_xpath(
+            "/html/body/div/div/header/div[2]/div/table/tfoot/tr/td/div/div/div/div[3]/button[2]")[0].click()
 
     # def test_years(self):
     #     self.driver.get("https://burninup.me")
