@@ -31,3 +31,6 @@ Actual completion time for each member:
 - Uma - 45 hours
 
 Comments: Still hurt by aws amplify...but we're moving on
+
+To run Jest tests: npm run test in frontend/src/tests
+To run Selenium tests: python guitests.py in frontend/src/tests
