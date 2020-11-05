@@ -19,38 +19,37 @@ import AboutSets from "./AboutSets";
 import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
 
 function About() {
-
   /* team member information */
   const [members, changeMembers] = useState<GroupMember[]>([
     {
       name: "Caitlin Lien",
       email: "caitlinlien@utexas.edu",
-      username: "caitlinlien"
+      username: "caitlinlien",
     },
     {
       name: "Caitlin O'Callaghan",
       email: "caitlinocallaghan@Caitlins-MBP.lan",
-      username: "caitlinocallaghan"
+      username: "caitlinocallaghan",
     },
     {
       name: "Cherry Sun",
       email: "cherrysun9@utexas.edu",
-      username: "cherrysun9"
+      username: "cherrysun9",
     },
     {
       name: "Lauren Mangibin",
       email: "lauren.mangibin@gmail.com",
-      username: "lauren.mangibin"
+      username: "lauren.mangibin",
     },
     {
       name: "Samantha Tuapen",
       email: "samtuapen@utexas.edu",
-      username: "samantha3pen"
+      username: "samantha3pen",
     },
     {
       name: "Uma Sethuraman",
       email: "uma.sethuraman@utexas.edu",
-      username: "uma-sethuraman"
+      username: "uma-sethuraman",
     },
   ]);
 
@@ -64,36 +63,40 @@ function About() {
 
   /* retrieves data about GitLab issues per contributor */
   const issuesApiRequest = useCallback(() => {
-
     /* populates requestArray with all issues requests */
     const requestURL: string =
-      "https://gitlab.com/api/v4/projects/21349576/issues_statistics?author_username=";
+      "https://gitlab.com/api/v4/projects/21349576/"+
+      "issues_statistics?author_username=";
     const requestArray = [];
     for (const member of members) {
       requestArray.push(axios.get(requestURL + member.username));
     }
 
     /* updates issues number for all people in members */
-    axios.all([...requestArray]).then(
-      axios.spread((...responses) => {
-        let totalIssues = 0;
-        for (let i = 0; i < responses.length; i++) {
-          const response: Gitlab = JSON.parse(JSON.stringify(responses[i])) as Gitlab;
-          membersCopy[i].issues = response.data.statistics.counts.all;
-          totalIssues += response.data.statistics.counts.all;
-        }
+    axios
+      .all([...requestArray])
+      .then(
+        axios.spread((...responses) => {
+          let totalIssues = 0;
+          for (let i = 0; i < responses.length; i++) {
+            const response: Gitlab = JSON.parse(
+              JSON.stringify(responses[i])
+            ) as Gitlab;
+            membersCopy[i].issues = response.data.statistics.counts.all;
+            totalIssues += response.data.statistics.counts.all;
+          }
 
-        /* update total number of issues */
-        changeIssuesSum(totalIssues);
-      })
-    ).catch(errors => {
-      /* development: console.log(errors.toJSON()); */
-    })
+          /* update total number of issues */
+          changeIssuesSum(totalIssues);
+        })
+      )
+      .catch((errors) => {
+        /* development: console.log(errors.toJSON()); */
+      });
   }, [members, membersCopy]);
 
   /* retrieves commit data for all members */
   const commitsApiRequest = useCallback(() => {
-
     axios
       .get(
         "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
@@ -119,15 +122,15 @@ function About() {
         changeCommitsSum(totalCommits);
 
         /* update members array once with all changes */
-        changeMembers(old => {
-          return [...membersCopy]
+        changeMembers((old) => {
+          return [...membersCopy];
         });
       })
       .catch(function (error) {
         /* development: console.log(errors.toJSON()); */
       });
   }, [membersCopy]);
-  
+
   /* retrieve Gitlab data from these function calls */
   useEffect(() => {
     issuesApiRequest();
@@ -135,7 +138,6 @@ function About() {
   }, [issuesApiRequest, commitsApiRequest]);
 
   return (
-
     <div className="About">
       <Navbar />
 
@@ -146,27 +148,39 @@ function About() {
 
         {/* describing general purpose of website */}
         <div className="purpose">
-          Burnin’ Up aims to educate people on the climate crisis of our planet, and make them aware of how quickly our home is changing.
-          This website will allow you to navigate from city to city, or country to country, to see how each city or country is contributing to,
-          or has been affected by climate change. You can also see how climate change has been affecting the world on a year by year basis.
-          We encourage you to take action by making small changes in your life to decrease your individual carbon footprint, such as turning off lights
-          you aren’t using, or carpooling with others when you can. By understanding the history of our Earth, we can understand where we will be in the future.
-
-          <br></br>
-          
-          The compilation of our data allows us to expand our views on climate change to other areas of the world. 
-          We often only hear about the state of our environment within our own countries or regions. The visualizations and graphs 
-          we show help us understand how drastic the changes are throughout history.
+        Burnin’ Up aims to educate people on the climate crisis of our planet,
+        and make them aware of how quickly our home is changing. This website
+        will allow you to navigate from city to city, or country to country,
+        to see how each city or country is contributing to, or has been
+        affected by climate change. You can also see how climate change has
+        been affecting the world on a year by year basis. We encourage you to
+        take action by making small changes in your life to decrease your
+        individual carbon footprint, such as turning off lights you aren’t
+        using, or carpooling with others when you can. By understanding the
+        history of our Earth, we can understand where we will be in the
+        future.
+        <br></br>
+        The compilation of our data allows us to expand our views on climate
+        change to other areas of the world. We often only hear about the state
+        of our environment within our own countries or regions. The
+        visualizations and graphs we show help us understand how drastic the
+        changes are throughout history.
         </div>
 
         {/* total commits, issues, and unit tests */}
         <br></br>
         <div className="h2_about">
-          {commitsSum === -1? <h2>Total Commits: </h2> :
-          <h2>Total Commits: {commitsSum}</h2> }
+          {commitsSum === -1 ? (
+            <h2>Total Commits: </h2>
+          ) : (
+            <h2>Total Commits: {commitsSum}</h2>
+          )}
 
-          {issuesSum === -1? <h2>Total Issues: </h2> :
-          <h2>Total Issues: {issuesSum}</h2> }
+          {issuesSum === -1 ? (
+            <h2>Total Issues: </h2>
+          ) : (
+            <h2>Total Issues: {issuesSum}</h2>
+          )}
 
           <h2>Total Unit Tests: {unittestsSum}</h2>
         </div>
@@ -175,11 +189,7 @@ function About() {
         <div className="row">
           <div className="h2_about">
             <div className="columnsAbout">
-              <Image
-                src={CatilinLien}
-                height="250"
-                roundedCircle
-              />
+              <Image src={CatilinLien} height="250" roundedCircle />
               <h2>
                 <b>Caitlin Lien</b>
               </h2>
@@ -187,33 +197,30 @@ function About() {
               <p>Commits: {members[0].commits}</p>
               <p>Unit Tests: 4</p>
 
-              <p>Caitlin is a junior from Round Rock, TX. She works on backend development for the site
-              and enjoys Data Science and Machine Learning. Her hobbies includes baking, playing video games,
-                 and taking group stretch breaks.</p>
+              <p>
+                Caitlin is a junior from Round Rock, TX. She works on backend
+                development for the site and enjoys Data Science and Machine
+                Learning. Her hobbies includes baking, playing video games, and
+                taking group stretch breaks.
+              </p>
             </div>
             <div className="columnsAbout">
-              <Image
-                src={CaitlinOCallaghan}
-                height="250"
-                roundedCircle
-              />
+              <Image src={CaitlinOCallaghan} height="250" roundedCircle />
               <h2>
                 <b>Caitlin O'Callaghan</b>
               </h2>
               <p>Issues: {members[1].issues}</p>
               <p>Commits: {members[1].commits}</p>
               <p>Unit Tests: 10</p>
-              <p>Caitlin is a junior from Dallas, TX. Some of her technical interests are
-              front end web and app development and NLP. Her hobbies include painting
-                and drawing, playing oboe, listening to classical music, and drinking tea.</p>
-
+              <p>
+                Caitlin is a junior from Dallas, TX. Some of her technical
+                interests are front end web and app development and NLP. Her
+                hobbies include painting and drawing, playing oboe, listening to
+                classical music, and drinking tea.
+              </p>
             </div>
             <div className="columnsAbout">
-              <Image
-                src={CherrySun}
-                height="250"
-                roundedCircle
-              />
+              <Image src={CherrySun} height="250" roundedCircle />
               <h2>
                 <b>Cherry Sun</b>
               </h2>
@@ -221,67 +228,68 @@ function About() {
               <p>Commits: {members[2].commits}</p>
               <p>Unit Tests: 45</p>
 
-              <p>Cherry aged at least 5 years from doing this project. She’s working on backend and has
-              interest in overall full stack app development. She likes
-                working out, swimming, getting a massage, going to spa and just enjoying life. </p>
+              <p>
+                Cherry aged at least 5 years from doing this project. She’s
+                working on backend and has interest in overall full stack app
+                development. She likes working out, swimming, getting a massage,
+                going to spa and just enjoying life.{" "}
+              </p>
             </div>
             <div className="columnsAbout">
-              <Image
-                src={LaurenMangibin}
-                height="250"
-                roundedCircle
-              />
+              <Image src={LaurenMangibin} height="250" roundedCircle />
               <h2>
                 <b>Lauren Mangibin</b>
               </h2>
               <p>Issues: {members[3].issues}</p>
               <p>Commits: {members[3].commits}</p>
               <p>Unit Tests: 10</p>
-              <p>Lauren is Junior from Austin, TX whose eyebags got much bigger from sleeping late. She is working on the front end of the site and loves working with people.
-                She is a hip-hop dancer and choreographer for UT dance teams and loves to explore and hike.</p>
-
+              <p>
+                Lauren is Junior from Austin, TX whose eyebags got much bigger
+                from sleeping late. She is working on the front end of the site
+                and loves working with people. She is a hip-hop dancer and
+                choreographer for UT dance teams and loves to explore and hike.
+              </p>
             </div>
             <div className="columnsAbout">
-              <Image
-                src={SamanthaTuapen}
-                height="250"
-                roundedCircle
-              />
+              <Image src={SamanthaTuapen} height="250" roundedCircle />
               <h2>
                 <b>Samantha Tuapen</b>
               </h2>
               <p>Issues: {members[4].issues}</p>
               <p>Commits: {members[4].commits}</p>
               <p>Unit Tests: 32</p>
-              <p>Samantha is a junior from Dallas, TX. She’s working on the backend development of
-              this site and has an interest in overall full stack app development. Outside of the CS world, she enjoys journaling,
-                 kickboxing, playing musical instruments, and eating good food.</p>
+              <p>
+                Samantha is a junior from Dallas, TX. She’s working on the
+                backend development of this site and has an interest in overall
+                full stack app development. Outside of the CS world, she enjoys
+                journaling, kickboxing, playing musical instruments, and eating
+                good food.
+              </p>
             </div>
             <div className="columnsAbout">
-              <Image
-                src={UmaSethuraman}
-                height="250"
-                roundedCircle
-              />
+              <Image src={UmaSethuraman} height="250" roundedCircle />
               <h2>
                 <b>Uma Sethuraman</b>
               </h2>
               <p>Issues: {members[5].issues}</p>
               <p>Commits: {members[5].commits}</p>
               <p>Unit Tests: 4</p>
-              <p>Uma is a junior from Houston, TX. She is working on the frontend development for this project. Some of her other technical
-              interests include mobile development and machine learning.
-                She also enjoys dancing and cooking.</p>
+              <p>
+                Uma is a junior from Houston, TX. She is working on the frontend
+                development for this project. Some of her other technical
+                interests include mobile development and machine learning. She
+                also enjoys dancing and cooking.
+              </p>
             </div>
           </div>
         </div>
         <br></br>
         {/* datasets and APIs */}
-        <AboutSets/>
+        <AboutSets />
         <br></br>
       </div>
       {/* tools sections */}
-      <AboutTools/>
+      <AboutTools />
     </div>
   );
 }
