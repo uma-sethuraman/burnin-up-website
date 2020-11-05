@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
+import {MUIDataTableColumnDef} from "mui-datatables";
 
 /* general cities model page (route: "/cities") */
 const Cities = () => {
@@ -30,7 +31,7 @@ const Cities = () => {
   }, [data]);
 
   /* all columns of the cities table */
-  const columns = [
+  const columns: MUIDataTableColumnDef[] = [
     {
       name: "city_id",
       label: "City ID",
