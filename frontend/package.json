@@ -93,11 +93,15 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf)$": "<rootDir>/assetsTransformer.js",
+      "\\.(webp|svg|ttf|woff|woff2|mp4)$": "<rootDir>/assetsTransformer.js",
+      "\\.(webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
       "\\.(css|less)$": "identity-obj-proxy"
     },
     "transform": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf)$": "<rootDir>/assetsTransformer.js",
+      "\\.(webp|svg|ttf|woff|woff2|mp4)$": "<rootDir>/assetsTransformer.js",
+      "\\.(webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js"
     },
     "snapshotSerializers": [
       "enzyme-to-json"
