@@ -256,7 +256,7 @@ class tests(unittest.TestCase):
         self.driver.find_elements_by_xpath(
             "/html/body/div/div/div[2]/main[3]/div/div/ul/li[1]/div/a"
         )[0].click()
-        assert "https://burninup.me/years/id=2018" in self.driver.current_url
+        assert "https://burninup.me/years/id=2020" in self.driver.current_url
         # go to search results for "2017"
         self.driver.get("https://burninup.me/search/q=2017")
         self.driver.implicitly_wait(10)
