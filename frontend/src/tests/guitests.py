@@ -198,7 +198,7 @@ class tests(unittest.TestCase):
         self.driver.get("https://burninup.me/countries/id=1")
         # test link to year of highest emissions
         self.driver.find_elements_by_xpath(
-            "/html/body/div/div/header/table/tbody/tr[7]/td[2]/a"
+            "/html/body/div/div/header/table/tbody/tr[8]/td[2]/a"
         )[0].click()
         assert "https://burninup.me/years/id=2007" in self.driver.current_url
         self.driver.get("https://burninup.me/countries/id=1")
