@@ -29,7 +29,7 @@
 }
 
 .City-header {
-  background-image: url("../../../assets/austin-capitol.jpg"); /* the image used */
+  background-image: url("../../../assets/austin-capitol.jpg");
   height: 100%; /* you must set a specified height */
   width: 100%;
   background-position: center; /* center the image */

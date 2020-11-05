@@ -38,7 +38,8 @@ cs373-sustainability_selenium:
     - cd frontend
 
     # code from texas votes
-    # Dependencies for chromedriver, https://gist.github.com/mikesmullin/2636776#gistcomment-1742414
+    # Dependencies for chromedriver, 
+    # https://gist.github.com/mikesmullin/2636776#gistcomment-1742414
     - apt-get update -q -y
     - apt-get install nodejs npm -y
     - apt-get --yes install libnss3
@@ -47,12 +48,15 @@ cs373-sustainability_selenium:
 
     # install chrome and add key
     # based off of
-    # - https://gitlab.com/gitlab-org/gitlab-build-images/blob/9dadb28021f15913a49897126a0cd6ab0149e44f/scripts/install-chrome
+    # - https://gitlab.com/gitlab-org/gitlab-build-images
+    # /blob/9dadb28021f15913a49897126a0cd6ab0149e44f/scripts/install-chrome
     # - https://askubuntu.com/a/510186/196148
-    - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | 
+      apt-key add -
     
     # add repo and install npm
-    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ 
+      stable main" > /etc/apt/sources.list.d/google.list
     - apt-get update -q -y
     - apt-get install -y google-chrome-stable
     - npm install

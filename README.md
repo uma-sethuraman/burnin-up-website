@@ -10,7 +10,8 @@ Git SHA:546257db184d361c2c25212e0537c24aeb857caa
 
 Project Leader: Caitlin Lien
 
-GitLab Pipelines: https://gitlab.com/caitlinlien/cs373-sustainability/-/pipelines
+GitLab Pipelines: 
+- https://gitlab.com/caitlinlien/cs373-sustainability/-/pipelines
 
 Website: https://burninup.me
 
