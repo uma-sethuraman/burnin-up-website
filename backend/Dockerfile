@@ -15,7 +15,8 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 RUN pip3 install psycopg2
 
-# Exposes port 5000 which Flask app will use to the container so that later it can be mapped with the system’s port
+# Exposes port 5000 which Flask app will use to the container
+# so that later it can be mapped with the system’s port
 EXPOSE 5000
 
 COPY . /app
