@@ -7,6 +7,7 @@ import useAxios from 'axios-hooks';
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
 import "./Countries.css";
+import {MUIDataTableColumnDef} from "mui-datatables";
 
 /* general countries model page (route: "/countries") */
 const Countries = () => {
@@ -243,7 +244,7 @@ const Countries = () => {
           <MUIDataTable
             title={"Countries"}
             data={countries}
-            columns={columns}
+            columns={columns as MUIDataTableColumnDef[]}
             options={options}
           />
         </div>

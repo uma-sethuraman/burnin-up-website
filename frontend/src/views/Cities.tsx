@@ -31,7 +31,7 @@ const Cities = () => {
   }, [data]);
 
   /* all columns of the cities table */
-  const columns: MUIDataTableColumnDef[] = [
+  const columns = [
     {
       name: "city_id",
       label: "City ID",
@@ -230,7 +230,7 @@ const Cities = () => {
             <MUIDataTable
               title={"Cities"}
               data={cities}
-              columns={columns}
+              columns={columns as MUIDataTableColumnDef[]}
               options={options}
             />
           </div>

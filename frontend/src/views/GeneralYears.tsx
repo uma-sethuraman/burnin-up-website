@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
+import {MUIDataTableColumnDef} from "mui-datatables";
 
 /* general years model page (route: "/years") */
 const GeneralYears = () => {
@@ -261,7 +262,7 @@ const GeneralYears = () => {
             <MUIDataTable
               title={"Annual Global Climate Change"}
               data={years}
-              columns={columns}
+              columns={columns as MUIDataTableColumnDef[]}
               options={options}
             />
           </div>
