@@ -221,8 +221,11 @@ const Cities = () => {
           </div>
           <p>Click on a column name to sort by that column.</p>
 
-          {/* displaying the table of all cities, with searching and pagination */}
-          <div style={{ display: "table", tableLayout: "fixed", width: "100%" }}>
+          {/* displaying the table of all cities, 
+          with searching and pagination */}
+          <div style={{ display: "table", 
+                        tableLayout: "fixed", 
+                        width: "100%" }}>
             <MUIDataTable
               title={"Cities"}
               data={cities}

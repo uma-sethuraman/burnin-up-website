@@ -75,7 +75,8 @@ const Countries = () => {
         filter: true,
         sort: true,
         filterOptions: {
-          names: ['High Income', 'Upper Middle Income', 'Lower Middle Income', 'Low Income'],
+          names: ['High Income', 'Upper Middle Income', 
+          'Lower Middle Income', 'Low Income'],
           logic(income_level: any, filterVal: any) {
             const show =
               (filterVal.indexOf('High Income') >= 0 &&
@@ -140,9 +141,13 @@ const Countries = () => {
           names: ['Small Population', 'Medium Population', 'Large Population'],
           logic(country_population: any, filterVal: any) {
             const show =
-              (filterVal.indexOf('Small Population') >= 0 && country_population < 1000000) ||
-              (filterVal.indexOf('Medium Population') >= 0 && country_population >= 1000000 && country_population < 100000000) ||
-              (filterVal.indexOf('Large Population') >= 0 && country_population >= 100000000);
+              (filterVal.indexOf('Small Population') >= 0 && 
+              country_population < 1000000) ||
+              (filterVal.indexOf('Medium Population') >= 0 && 
+              country_population >= 1000000 && 
+              country_population < 100000000) ||
+              (filterVal.indexOf('Large Population') >= 0 && 
+              country_population >= 100000000);
 
             return !show;
           },
@@ -194,7 +199,9 @@ const Countries = () => {
           logic(co2: any, filterVal: any) {
             const show =
               (filterVal.indexOf('Low CO2 Emissions') >= 0 && co2 < 50) ||
-              (filterVal.indexOf('Medium CO2 Emissions') >= 0 && co2 >= 50 && co2 < 100) ||
+              (filterVal.indexOf('Medium CO2 Emissions') >= 0 && 
+              co2 >= 50 && 
+              co2 < 100) ||
               (filterVal.indexOf('High CO2 Emissions') >= 0 && co2 >= 100);
             return !show;
           },
@@ -226,7 +233,8 @@ const Countries = () => {
 
         {/* displaying instructions on how to sort and filter */}
         <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
-          <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any column.</p>
+          <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any
+             column.</p>
           </div>
         <p>Click on a column name to sort by that column.</p>
 

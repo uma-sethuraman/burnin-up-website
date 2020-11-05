@@ -26,7 +26,13 @@ function HowToHelp() {
 
               <br />
               
-              <i>"The Coalition for Rainforest Nations (CfRN or the ‘Coalition) assists tropical governments, communities and peoples responsibly manage their rainforests. Healthy rainforests protect against a changing climate, generate needed biodiversity and provide safe habitats."</i>
+              <i>
+                "The Coalition for Rainforest Nations (CfRN or the ‘Coalition)
+                 assists tropical governments, communities and peoples 
+                 responsibly manage their rainforests. Healthy rainforests 
+                 protect against a changing climate, generate needed 
+                 biodiversity and provide safe habitats."
+              </i>
             </div>
           </div>
 
@@ -40,9 +46,13 @@ function HowToHelp() {
                 Clean Air Task Force
               </a>
               <br />
-              <i>"Our task is to reduce climate change by applying an overwhelming amount of force to some of the biggest levers to reduce carbon and other climate warming emissions.
+              <i>"Our task is to reduce climate change by applying an 
+                overwhelming amount of force to some of the biggest levers to 
+                reduce carbon and other climate warming emissions.
               <br />
-              Through technology innovation, policy change, and thought leadership, the Clean Air Task Force drives impact to prevent catastrophic climate change through realistic solutions."</i>
+              Through technology innovation, policy change, and thought 
+              leadership, the Clean Air Task Force drives impact to prevent 
+              catastrophic climate change through realistic solutions."</i>
             </div>
             <br />
           </div>
