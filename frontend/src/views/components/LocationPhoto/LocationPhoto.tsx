@@ -15,24 +15,27 @@ const LocationPhoto = (name: any) => {
 
     /* request link for google maps API */
     const findPhotoRef = 
-    "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com"
-    +"/maps/api/place/findplacefromtext/json?input" + name.name + 
-    "&inputtype=textquery&fields=photos&key=AIzaSyCzdtsBKJELtLdSZD7"+
-    "NJAsiTKcULgSZGlc";
+    "https://cors-anywhere.herokuapp.com/"+
+    "https://maps.googleapis.com/maps/"
+    +"api/place/findplacefromtext/json?input=" + name.name + 
+    "&inputtype=textquery&fields=photos&key"+
+    "=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc";
 
     /* makes request to Google Maps API to get the link of the actual photo */
     useEffect(() => {
         axios.get(findPhotoRef)
-        .then((response) => {
-            const ret: LocationPhotoData = response.data as LocationPhotoData;
-            setActualPhoto("https://maps.googleapis.com/maps/api/place"
-            +"/photo?maxwidth=360&photoreference="
-            + ret.candidates[0].photos[0].photo_reference + 
-            "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc");
-        })
-        .catch((error) => {
-            /* development: console.log('error')*/
-        })
+            .then((response) => {
+                const ret: LocationPhotoData = JSON.parse(
+                JSON.stringify(response)).data as LocationPhotoData;
+                
+                setActualPhoto("https://maps.googleapis.com/maps/api/place"
+                + "/photo?maxwidth=360&photoreference=" + 
+                ret.candidates[0].photos[0].photo_reference + 
+                "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc");
+            })
+            .catch((error) => {
+                /* development: console.log('error')*/
+            })
     }, [findPhotoRef]);
 
     /* return an image of the provided location */
