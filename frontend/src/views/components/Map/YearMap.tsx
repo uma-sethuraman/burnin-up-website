@@ -3,7 +3,8 @@ import GoogleMapReact from 'google-map-react';
 import Marker from '../Marker/Marker';
 import { CityTemperature } from "../Year/YearInstance";
 
-/* from https://levelup.gitconnected.com/reactjs-google-maps-with-custom-marker-ece0c7d184c4 */
+/* from https://levelup.gitconnected.com/"
++"reactjs-google-maps-with-custom-marker-ece0c7d184c4 */
 
 /* displays world map with markers at all cities passed in */
 const YearMap = (cities: CityTemperature[]) => {

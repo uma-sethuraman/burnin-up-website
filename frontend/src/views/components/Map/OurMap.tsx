@@ -2,7 +2,8 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from '../Marker/Marker';
 
-/* from https://levelup.gitconnected.com/reactjs-google-maps-with-custom-marker-ece0c7d184c4 */
+/* from https://levelup.gitconnected.com/"
++"reactjs-google-maps-with-custom-marker-ece0c7d184c4 */
 
 /* displays world map with a marker at the location passed in */
 const OurMap = (latitude: number, longitude: number, locationName: string) => {
