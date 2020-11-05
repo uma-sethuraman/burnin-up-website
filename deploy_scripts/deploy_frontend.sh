@@ -1,3 +1,4 @@
+# script to deploy frontend
 echo "Deploying Frontend..."
 cd ../frontend
 export REACT_APP_API_URL=/api

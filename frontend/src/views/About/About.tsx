@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 import Navbar from "../components/OurNavbar";
 import axios from "axios";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "react-bootstrap/Image";
 
 /* importing images for all group members */
@@ -56,19 +56,25 @@ function About() {
   /* cumulative totals for about page statistics */
   const [issuesSum, changeIssuesSum] = useState(-1);
   const [commitsSum, changeCommitsSum] = useState(-1);
-  const unittestsSum: number = 105;
+  const unittestsSum: number = 64;
 
   /* create a copy of the members array to apply changes to */
   let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
 
-  /* retrieves data about GitLab issues per contributor */
-  const issuesApiRequest = useCallback(() => {
+  /* creates a reference to both members and membersCopy
+  to pass into the useEffect */
+  const {current:membersRef} = useRef(membersCopy);
+  const {current:membersCopyRef} = useRef(members);
+
+  /* make requests to GitLab API to get commit and issue number data */
+  useEffect(()=>{
     /* populates requestArray with all issues requests */
     const requestURL: string =
-      "https://gitlab.com/api/v4/projects/21349576/"+
-      "issues_statistics?author_username=";
-    const requestArray = [];
-    for (const member of members) {
+    "https://gitlab.com/api/v4/projects/21349576/"+
+    "issues_statistics?author_username=";
+
+    const requestArray: any = [];
+    for (const member of membersRef) {
       requestArray.push(axios.get(requestURL + member.username));
     }
 
@@ -82,7 +88,7 @@ function About() {
             const response: Gitlab = JSON.parse(
               JSON.stringify(responses[i])
             ) as Gitlab;
-            membersCopy[i].issues = response.data.statistics.counts.all;
+            membersCopyRef[i].issues = response.data.statistics.counts.all;
             totalIssues += response.data.statistics.counts.all;
           }
 
@@ -93,25 +99,24 @@ function About() {
       .catch((errors) => {
         /* development: console.log(errors.toJSON()); */
       });
-  }, [members, membersCopy]);
 
-  /* retrieves commit data for all members */
-  const commitsApiRequest = useCallback(() => {
+    /* updates commits number for all group members */
     axios
       .get(
         "https://gitlab.com/api/v4/projects/21349576/repository/contributors"
       )
       .then((response) => {
-        const allCommits: CommitsInfo[] = response.data;
 
+        /* store commits info for all members */
+        const allCommits: CommitsInfo[] = response.data;
         let totalCommits = 0;
 
         /* iterate over all elements in the array and assign
         each member to their number of commits */
         for (let elem of allCommits) {
-          for (let i = 0; i < membersCopy.length; i++) {
-            if (elem.email === membersCopy[i].email) {
-              membersCopy[i].commits = elem.commits;
+          for (let i = 0; i < membersCopyRef.length; i++) {
+            if (elem.email === membersCopyRef[i].email) {
+              membersCopyRef[i].commits = elem.commits;
               totalCommits += elem.commits;
               break;
             }
@@ -123,19 +128,13 @@ function About() {
 
         /* update members array once with all changes */
         changeMembers((old) => {
-          return [...membersCopy];
+          return [...membersCopyRef];
         });
       })
       .catch(function (error) {
         /* development: console.log(errors.toJSON()); */
       });
-  }, [membersCopy]);
-
-  /* retrieve Gitlab data from these function calls */
-  useEffect(() => {
-    issuesApiRequest();
-    commitsApiRequest();
-  }, [issuesApiRequest, commitsApiRequest]);
+  }, [membersRef, membersCopyRef]);
 
   return (
     <div className="About">
@@ -211,7 +210,7 @@ function About() {
               </h2>
               <p>Issues: {members[1].issues}</p>
               <p>Commits: {members[1].commits}</p>
-              <p>Unit Tests: 10</p>
+              <p>Unit Tests: 9</p>
               <p>
                 Caitlin is a junior from Dallas, TX. Some of her technical
                 interests are front end web and app development and NLP. Her
@@ -226,7 +225,7 @@ function About() {
               </h2>
               <p>Issues: {members[2].issues}</p>
               <p>Commits: {members[2].commits}</p>
-              <p>Unit Tests: 45</p>
+              <p>Unit Tests: 35</p>
 
               <p>
                 Cherry aged at least 5 years from doing this project. She’s
@@ -242,7 +241,7 @@ function About() {
               </h2>
               <p>Issues: {members[3].issues}</p>
               <p>Commits: {members[3].commits}</p>
-              <p>Unit Tests: 10</p>
+              <p>Unit Tests: 8</p>
               <p>
                 Lauren is Junior from Austin, TX whose eyebags got much bigger
                 from sleeping late. She is working on the front end of the site
@@ -257,7 +256,7 @@ function About() {
               </h2>
               <p>Issues: {members[4].issues}</p>
               <p>Commits: {members[4].commits}</p>
-              <p>Unit Tests: 32</p>
+              <p>Unit Tests: 4</p>
               <p>
                 Samantha is a junior from Dallas, TX. She’s working on the
                 backend development of this site and has an interest in overall

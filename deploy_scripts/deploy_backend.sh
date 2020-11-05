@@ -1,3 +1,4 @@
+# script to deploy backend
 cd ../frontend
 sudo npm install
 sudo npm run build
