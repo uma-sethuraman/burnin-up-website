@@ -34,3 +34,9 @@ plt.show()
 years_viz_df = pd.DataFrame({'Year': year, 'Mean Carbon Dioxide Level (ppm)': co2})
 years_viz_df.to_csv("Carbon Emissions 1880-2020.csv", index=False)
 
+city_temps_df = pd.read_csv(os.path.join(path, "AvgTempCityFix.csv"))
+unique_cities_df = city_temps_df[["Country", "City"]].drop_duplicates()
+print("length of df", len(unique_cities_df))
+cities_list = unique_cities_df["City"]
+countries_list = unique_cities_df["Country"]
+indices = cities_list.keys()
