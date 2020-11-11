@@ -7,11 +7,10 @@ import { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
-import {MUIDataTableColumnDef} from "mui-datatables";
+import { MUIDataTableColumnDef } from "mui-datatables";
 
 /* general cities model page (route: "/cities") */
 const Cities = () => {
-
   /* array of all cities retrieved from api */
   const [cities, setCities] = useState<City[]>([]);
 
@@ -158,11 +157,12 @@ const Cities = () => {
       options: {
         filter: true,
         sort: true,
-        customBodyRender: (value:any, tableMeta:any, updateValue:any) => (
-          value !== -1?
-          <div>{value}</div>:
-          <div>-</div> /* for cities without population data */
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) =>
+          value !== -1 ? (
+            <div>{value}</div>
+          ) : (
+            <div>-</div>
+          ) /* for cities without population data */,
         /* filtering options */
         filterOptions: {
           names: ["Small Population", "Medium Population", "Large Population"],
@@ -200,12 +200,9 @@ const Cities = () => {
         <Spinner animation="border" />
       ) : (
         <header className="Cities-header">
-          <h1>Cities </h1>
-          <Image
-            src={require("../assets/city-landing-photo-singapore.jpg")}
-            width="600px"
-            fluid
-          />
+          <div className="Cities-h1">
+            <h1 className="Cities-h1">Cities </h1>
+          </div>
           <br />
           <div className="side-by-side">
             <Image
@@ -215,7 +212,7 @@ const Cities = () => {
             />
 
             {/* instructions on how to sort and filter */}
-            <p>
+            <p className="p_cities">
               &nbsp;&nbsp;Click this filter icon in the table to filter by any
               column.
             </p>
@@ -224,11 +221,11 @@ const Cities = () => {
 
           {/* displaying the table of all cities, 
           with searching and pagination */}
-          <div style={{ display: "table", 
-                        tableLayout: "fixed", 
-                        width: "100%" }}>
+          <div
+            style={{ display: "table", tableLayout: "fixed", width: "100%" }}
+          >
             <MUIDataTable
-              title={"Cities"}
+              title={<div className="table">Cities Data</div>}
               data={cities}
               columns={columns as MUIDataTableColumnDef[]}
               options={options}
