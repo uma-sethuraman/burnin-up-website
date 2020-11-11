@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import { string } from "prop-types";
+import { Class } from "@material-ui/icons";
 
 function getDocHeight() {
   var D = document;
@@ -32,12 +33,12 @@ function amountscrolled() {
   console.log(pctScrolled + "% scrolled");
 }
 
-interface NavbarProps {
-  color: string;
+export type NavbarProps = {
+  color?: string;
 }
 
 /* navbar component used at the top of all pages */
-class OurNavbar extends React.Component {
+class OurNavbar extends React.Component<NavbarProps, {}> {
   textInput: any;
   navbarColor: string;
   winHeight: number;
@@ -45,7 +46,9 @@ class OurNavbar extends React.Component {
 
   constructor(props: NavbarProps) {
     super(props);
-    this.navbarColor = props.color;
+  //   this.navbarColor = props.color;
+    this.navbarColor = this.props.color!;
+    console.log("NAVBAR COLOR: " + this.navbarColor);
     this.winHeight =
       window.innerHeight ||
       (document.documentElement || document.body).clientHeight;
@@ -74,7 +77,9 @@ class OurNavbar extends React.Component {
     return (
       <div className="OurNavbar">
         {console.log(this.winHeight)}
+        {/* this.winHeight> 10?"white": "black" */}
         <Navbar bg={this.navbarColor} variant="dark" fixed="top">
+        {console.log(this.navbarColor)}
           <Navbar.Brand href="/">
             <b>
               Burnin Up

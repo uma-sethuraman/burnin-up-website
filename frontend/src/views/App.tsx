@@ -1,9 +1,11 @@
 import React from "react";
-import Navbar from "./components/OurNavbar";
+import OurNavbar from "./components/OurNavbar";
 import LandingPage from "./components/LandingPage/LandingPage";
 import "./App.css";
+import {NavbarProps} from "./components/OurNavbar";
 
 let navbarColor: string = "black";
+let myProps: NavbarProps = {color: ""};
 
 function getDocHeight() {
   var D = document;
@@ -28,8 +30,10 @@ function amountscrolled() {
       .scrollTop;
   var trackLength = docheight - winheight;
   var pctScrolled = Math.floor((scrollTop / trackLength) * 100); // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
-  navbarColor = pctScrolled > 10 ? 'dark' : 'black';
+  navbarColor = pctScrolled > 10 ? "white" : "black";
+  myProps.color = navbarColor;
   console.log(pctScrolled + "% scrolled");
+  console.log("NAVBAR NOW: " + navbarColor);
 }
 
 /* main page, displays landing page and navbar */
@@ -39,8 +43,7 @@ function App() {
   };
   return (
     <div className="App">
-      {/* props={{ color: 'white' }} */}
-      <Navbar />
+      <OurNavbar color={navbarColor}/>
 
       <LandingPage />
     </div>
