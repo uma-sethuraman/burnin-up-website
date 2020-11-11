@@ -5,17 +5,17 @@ import Typography from '@material-ui/core/Typography';
 
 const images = [
   {
-    url: '/static/images/grid-list/breakfast.jpg',
+    url: '/frontend/src/assets/austin-capitol.jpg',
     title: 'Breakfast',
     width: '33%',
   },
   {
-    url: '/static/images/grid-list/burgers.jpg',
+    url: '/frontend/src/assets/landing-bg.jpg',
     title: 'Burgers',
     width: '33%',
   },
   {
-    url: '/static/images/grid-list/camera.jpg',
+    url: '/frontend/src/assets/beijing-skyline.jpg',
     title: 'Camera',
     width: '33%',
   },
