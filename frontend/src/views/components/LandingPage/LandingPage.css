@@ -12,17 +12,18 @@ h2 {
   background-color: #556875;
 }
 .story{
-  font-size: 24px;
-  color:white;
-  padding-right: 2vw;
-  padding-left: 2vw;
+  font-size: 20px;
+  color: #556875;
+  padding-right: 5vw;
+  padding-left: 5vw;
   text-align:left;
 }
 
 .Landing-body {
   text-align: center;
+  font-size: 24px;
   min-height: 50vh;
-  background-color: #556875;
+  /* background-color: white; */
 }
 
 /* Three image containers (use 25% for four, and 50% for two, etc) */
@@ -30,6 +31,15 @@ h2 {
   float: left;
   width: 33.33%;
   padding: 5px;
+}
+
+.columnsLanding:hover > .overlay {
+  width:100%;
+  height:100%;
+  position:absolute;
+  background-color:#000;
+  opacity:0.5;
+  border-radius:30px;
 }
 
 /* Clear floats after image containers */
@@ -50,8 +60,8 @@ h2 {
 }
 
 .Landing-header {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
-    url("../../../assets/landing-bg.jpg");
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 10.0) ),
+    url("../../../assets/rainforest.png");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -78,3 +88,4 @@ h2 {
     transform: rotate(360deg);
   }
 }
+
