@@ -22,6 +22,8 @@ import YearInstance from "./views/components/Year/YearInstance";
 import Search from "./views/components/Search/Search";
 import Invalid from "./views/components/Invalid";
 import HowToHelp from "./views/HowToHelp"
+import Visuals from "./views/Visualizations"
+
 
 /* sets up routes for all pages on website */
 ReactDOM.render(
@@ -68,6 +70,9 @@ ReactDOM.render(
 
       {/* how to help page for resources */}
       <Route path="/howtohelp" exact component={HowToHelp} />
+
+      {/* Visualizations */}
+      <Route path="/visualizations" exact component={Visuals} />
 
       {/* search page when query is empty */}
       <Route

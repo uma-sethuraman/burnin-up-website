@@ -103,6 +103,9 @@ class OurNavbar extends React.Component<NavbarProps, {}> {
             <Nav.Link href="/howtohelp">
               <b>How To Help</b>
             </Nav.Link>
+            <Nav.Link href="/visualizations">
+              <b>Visualizations</b>
+            </Nav.Link>
           </Nav>
 
           {/* saves query when user clicks enter or "search" button */}
