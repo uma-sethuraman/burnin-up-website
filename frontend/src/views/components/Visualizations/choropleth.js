@@ -1,7 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 
-class Chropleth extends React.Component {
+class Choropleth extends React.Component {
   constructor(props) {
     super(props);
     this.createChoropleth = this.createChoropleth.bind(this);
@@ -31,10 +31,13 @@ var colorScale = d3.scaleThreshold()
   .range(d3.schemeBlues[7]);
 
 // Load external data and boot
-d3.queue()
-  .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-  .defer(d3.csv, "/backend/visualizations/Country.csv", function(d) { data.set(d.code, +d.emissions); })
-  .await(ready);
+// d3.queue()
+//   .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+//   .defer(d3.csv, "/backend/visualizations/Country.csv", function(d) { data.set(d.code, +d.emissions); })
+//   .await(ready);
+
+  d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson%22")
+  d3.csv("/backend/visualizations/Country.csv", function(d) { data.set(d.code, +d.emissions); })
 
 function ready(error, topo) {
 
@@ -82,9 +85,10 @@ function ready(error, topo) {
       .on("mouseover", mouseOver )
       .on("mouseleave", mouseLeave )
     }
+  }
 
   render() {
-    return <div ref="Choropleth"></div>;
+    return <svg id="Choropleth" width="400" height="300"></svg>
   }
 }
 

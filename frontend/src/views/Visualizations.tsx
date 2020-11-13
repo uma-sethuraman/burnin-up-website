@@ -6,7 +6,7 @@ import catf_img from "../assets/CATF.png";
 import crfn_img from "../assets/cfrn-min.png";
 import climate from "../assets/fightClimate.png";
 import PieChart from "./components/Visualizations/PieChart";
-import choropleth from "./components/Visualizations/choropleth";
+import Choropleth from "./components/Visualizations/choropleth";
 
 /* page for Helpful Links */
 function Visuals() {
@@ -17,9 +17,9 @@ function Visuals() {
       <div className="Visuals-header">
         <Image src={climate} fluid />
         <div className="Visuals-body">
-          {/* <PieChart /> */
-		  <choropleth />
-		  }
+          {/* <PieChart /> */}
+          <p>Choropleth graph: </p>
+          <Choropleth />
           <br />
           <br />
         </div>

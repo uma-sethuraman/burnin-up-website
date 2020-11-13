@@ -1,67 +1,65 @@
 import React from 'react';
 import * as d3 from 'd3';
 
-class BarChart extends React.Component {
+class PieChart extends React.Component {
   constructor(props) {
     super(props);
-    this.createBarChart = this.createBarChart.bind(this);
+    this.createPieChart = this.createPieChart.bind(this);
   }
 
   componentDidMount() {
-    this.createBarChart();
+    this.createPieChart();
   }
 
-  createBarChart() {
+  createPieChart() {
   // set the dimensions and margins of the graph
-	var margin = {top: 30, right: 30, bottom: 70, left: 60},
-		width = 460 - margin.left - margin.right,
-		height = 400 - margin.top - margin.bottom;
+  var width = 450;
+  var height = 450;
+  var margin = 40;
 
-	// append the svg object to the body of the page
-	var svg = d3.select("#my_dataviz")
-	  .append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-		.attr("transform",
-			  "translate(" + margin.left + "," + margin.top + ")");
+  // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+  var radius = Math.min(width, height) / 2 - margin
 
-	// Parse the Data
-	d3.csv("/backend/visualizations/energy_sources.csv", function(data) {
+  // append the svg object to the div called 'my_dataviz'
+  var svg = d3.select(this.refs.pieChart)
+    .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+    .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	// X axis
-	var x = d3.scaleBand()
-	  .range([ 0, width ])
-	  .domain(data.map(function(d) { return d.Country; }))
-	  .padding(0.2);
-	svg.append("g")
-	  .attr("transform", "translate(0," + height + ")")
-	  .call(d3.axisBottom(x))
-	  .selectAll("text")
-		.attr("transform", "translate(-10,0)rotate(-45)")
-		.style("text-anchor", "end");
+  // Create dummy data
+  var data = {a: 9, b: 20, c:30, d:8, e:12}
 
-	// Add Y axis
-	var y = d3.scaleLinear()
-	  .domain([0, 13000])
-	  .range([ height, 0]);
-	svg.append("g")
-	  .call(d3.axisLeft(y));
+  // set the color scale
+  var color = d3.scaleOrdinal()
+    .domain(data)
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"])
 
-	// Bars
-	svg.selectAll("mybar")
-	  .data(data)
-	  .enter()
-	  .append("rect")
-		.attr("x", function(d) { return x(d.Country); })
-		.attr("y", function(d) { return y(d.Value); })
-		.attr("width", x.bandwidth())
-		.attr("height", function(d) { return height - y(d.Value); })
-		.attr("fill", "#69b3a2")
+  // Compute the position of each group on the pie:
+  var pie = d3.pie()
+    .value(function(d) {return d.value; })
+  var data_ready = pie(d3.entries(data))
+
+  // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+  svg
+    .selectAll('whatever')
+    .data(data_ready)
+    .enter()
+    .append('path')
+    .attr('d', d3.arc()
+      .innerRadius(0)
+      .outerRadius(radius)
+    )
+    .attr('fill', function(d){ return(color(d.data.key)) })
+    .style("stroke-width", "2px")
+    .style("opacity", 0.7)
+
+    }
 
     render() {
-      return <div ref="BarChart"></div>;
+      return <div ref="pieChart"></div>;
     }
 }
 
-export default BarChart;
+export default PieChart;
