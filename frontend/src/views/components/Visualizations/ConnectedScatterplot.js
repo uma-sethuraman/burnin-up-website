@@ -24,7 +24,8 @@ class ConnectedScatterplot extends React.Component {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
       .style('color', 'white');
-
+    
+    // x-axis
     const x = d3.scaleLinear()
       .domain([0, this.props.xMax])
       .range([0, width]);
@@ -32,7 +33,8 @@ class ConnectedScatterplot extends React.Component {
       .append('g')
       .attr('transform', 'translate(0,' + height + ')')
       .call(d3.axisBottom(x));
-
+    
+    // y-axis
     const y = d3.scaleLinear()
       .domain([0, this.props.yMax])
       .range([height, 0]);
@@ -55,6 +57,7 @@ class ConnectedScatterplot extends React.Component {
       .text(this.props.yLabel)
       .style('fill', 'white');
 
+    // plot points
     svg
       .append('g')
       .selectAll('dot')
