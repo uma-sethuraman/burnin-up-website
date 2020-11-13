@@ -4,63 +4,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import { string } from "prop-types";
-import { Class } from "@material-ui/icons";
-
-function getDocHeight() {
-  var D = document;
-  return Math.max(
-    D.body.scrollHeight,
-    D.documentElement.scrollHeight,
-    D.body.offsetHeight,
-    D.documentElement.offsetHeight,
-    D.body.clientHeight,
-    D.documentElement.clientHeight
-  );
-}
-
-function amountscrolled() {
-  var winheight =
-    window.innerHeight ||
-    (document.documentElement || document.body).clientHeight;
-  var docheight = getDocHeight();
-  var scrollTop =
-    window.pageYOffset ||
-    (document.documentElement || document.body.parentNode || document.body)
-      .scrollTop;
-  var trackLength = docheight - winheight;
-  var pctScrolled = Math.floor((scrollTop / trackLength) * 100); // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
-  console.log(pctScrolled + "% scrolled");
-}
-
-export type NavbarProps = {
-  color?: string;
-}
 
 /* navbar component used at the top of all pages */
-class OurNavbar extends React.Component<NavbarProps, {}> {
+class OurNavbar extends React.Component {
   textInput: any;
   navbarColor: string;
-  winHeight: number;
-  docHeight: number;
 
-  constructor(props: NavbarProps) {
+  constructor(props: any) {
     super(props);
-  //   this.navbarColor = props.color;
-    this.navbarColor = this.props.color!;
-    console.log("NAVBAR COLOR: " + this.navbarColor);
-    this.winHeight =
-      window.innerHeight ||
-      (document.documentElement || document.body).clientHeight;
-    this.docHeight = getDocHeight();
-
-    window.addEventListener(
-      "scroll",
-      function () {
-        amountscrolled();
-      },
-      false
-    );
+    this.navbarColor = "";
 
     /* initialize ref to store search bar input */
     this.textInput = React.createRef();
@@ -72,14 +24,27 @@ class OurNavbar extends React.Component<NavbarProps, {}> {
     window.location.assign("/search/q=" + this.textInput.current.value);
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (window.scrollY > 100) {
+      this.setState({ navbarColor: "white"});
+    } else {
+      this.setState({ navbarColor: "black"});
+    }
+  };
+
   render() {
     /* attach ref to FormControl component */
     return (
       <div className="OurNavbar">
-        {console.log(this.winHeight)}
-        {/* this.winHeight> 10?"white": "black" */}
-        <Navbar bg={this.navbarColor} variant="dark" fixed="top">
-        {console.log(this.navbarColor)}
+        <Navbar bg={window.scrollY > 150? "white": "black"} variant={window.scrollY > 150? "light": "dark"} fixed="top">
           <Navbar.Brand href="/">
             <b>
               Burnin Up

@@ -3,22 +3,27 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import Image from "react-bootstrap/Image";
+
+import landing from "../../../assets/landing-bg.jpg";
+import austin from "../../../assets/austin-capitol.jpg";
+import beijing from "../../../assets/beijing-skyline.jpg";
 
 const images = [
   {
-    url: "../../../assets/rainforest.png",
+    url: austin,
     title: 'Cities',
     width: '33%',
     ref: "/cities",
   },
   {
-    url: `/frontend/src/assets/landing-bg.jpg`,
+    url: beijing,
     title: 'Countries',
     width: '33%',
     ref: "/countries",
   },
   {
-    url: `/frontend/src/assets/beijing-skyline.jpg`,
+    url: landing,
     title: 'Annual Global Climate Change',
     width: '33%',
     ref: "/years",
@@ -116,10 +121,11 @@ export default function LandingButton() {
           }}
         >
           <Link to={image.ref}>
-          <div
-            className={classes.imageSrc}
-            style={{ backgroundImage:`url(${image.url})` }}  
-          />
+          {console.log(image.url)}
+          <div className={classes.imageSrc}>
+            <Image src = {image.url} width={"100%"} height={200}/>
+          </div>
+
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
             <Typography
