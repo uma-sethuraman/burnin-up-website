@@ -9,6 +9,7 @@ import PieChart from "./components/Visualizations/PieChart";
 import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
 
 import carbonemissions from "../vizdata/CarbonEmissions.json";
+import Choropleth from "./components/Visualizations/choropleth";
 
 /* page for Helpful Links */
 function Visuals() {
@@ -17,10 +18,13 @@ function Visuals() {
       <Navbar />
       <h1>Visualizations</h1>
       <div className="Visuals-header">
-        <div className="Ticket-vis">
-            <h2>help me</h2>
-            <br />
-            <ConnectedScatterplot data={carbonemissions} xAttr="Year" yAttr="CarbonEmissions" xMax={1000} yMax={250} xLabel="Year" yLabel="Carbon Emissions (ppm)" />
+        <Image src={climate} fluid />
+        <div className="Visuals-body">
+          {/* <PieChart /> */}
+          <p>Choropleth graph: </p>
+          <Choropleth />
+          <br />
+          <br />
         </div>
       </div>
     </div>
