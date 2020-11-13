@@ -1,7 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 
-class chropleth extends React.Component {
+class Chropleth extends React.Component {
   constructor(props) {
     super(props);
     this.createChoropleth = this.createChoropleth.bind(this);
@@ -84,8 +84,8 @@ function ready(error, topo) {
     }
 
   render() {
-    return <div ref="choropleth"></div>;
+    return <div ref="Choropleth"></div>;
   }
 }
 
-export default choropleth;
+export default Choropleth;

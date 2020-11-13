@@ -1,50 +1,67 @@
-import React, { Component } from 'react'
-import './App.css'
-import { scaleLinear } from 'd3-scale'
-import { max } from 'd3-array'
-import { select } from 'd3-selection'
-class BarChart extends Component {
-   constructor(props){
-      super(props)
-      this.createBarChart = this.createBarChart.bind(this)
-   }
-   componentDidMount() {
-      this.createBarChart()
-   }
-   componentDidUpdate() {
-      this.createBarChart()
-   }
-   createBarChart() {
-      const node = this.node
-      const dataMax = max(this.props.data)
-      const yScale = scaleLinear()
-         .domain([0, dataMax])
-         .range([0, this.props.size[1]])
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .enter()
-      .append('rect')
-   
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .exit()
-      .remove()
-   
-   select(node)
-      .selectAll('rect')
-      .data(this.props.data)
-      .style('fill', '#fe9922')
-      .attr('x', (d,i) => i * 25)
-      .attr('y', d => this.props.size[1] - yScale(d))
-      .attr('height', d => yScale(d))
-      .attr('width', 25)
-   }
-render() {
-      return <svg ref={node => this.node = node}
-      width={500} height={500}>
-      </svg>
-   }
+import React from 'react';
+import * as d3 from 'd3';
+
+class BarChart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.createBarChart = this.createBarChart.bind(this);
+  }
+
+  componentDidMount() {
+    this.createBarChart();
+  }
+
+  createBarChart() {
+  // set the dimensions and margins of the graph
+	var margin = {top: 30, right: 30, bottom: 70, left: 60},
+		width = 460 - margin.left - margin.right,
+		height = 400 - margin.top - margin.bottom;
+
+	// append the svg object to the body of the page
+	var svg = d3.select("#my_dataviz")
+	  .append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+		.attr("transform",
+			  "translate(" + margin.left + "," + margin.top + ")");
+
+	// Parse the Data
+	d3.csv("/backend/visualizations/energy_sources.csv", function(data) {
+
+	// X axis
+	var x = d3.scaleBand()
+	  .range([ 0, width ])
+	  .domain(data.map(function(d) { return d.name; }))
+	  .padding(0.2);
+	svg.append("g")
+	  .attr("transform", "translate(0," + height + ")")
+	  .call(d3.axisBottom(x))
+	  .selectAll("text")
+		.attr("transform", "translate(-10,0)rotate(-45)")
+		.style("text-anchor", "end");
+
+	// Add Y axis
+	var y = d3.scaleLinear()
+	  .domain([0, 13000])
+	  .range([ height, 0]);
+	svg.append("g")
+	  .call(d3.axisLeft(y));
+
+	// Bars
+	svg.selectAll("mybar")
+	  .data(data)
+	  .enter()
+	  .append("rect")
+		.attr("x", function(d) { return x(d.name); })
+		.attr("y", function(d) { return y(d.total_power); })
+		.attr("width", x.bandwidth())
+		.attr("height", function(d) { return height - y(d.total_power); })
+		.attr("fill", "#69b3a2")
+
+    render() {
+      return <div ref="BarChart"></div>;
+    }
 }
-export default BarChart
+
+export default BarChart;
