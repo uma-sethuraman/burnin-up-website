@@ -60,8 +60,8 @@ h2 {
 }
 
 .Landing-header {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 10.0) ),
-    url("../../../assets/rainforest.png");
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0.5, 0, 0, 2.0) ),
+    url("../../../assets/forestfireflames.jpg");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */

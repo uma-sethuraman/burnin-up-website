@@ -1,10 +1,5 @@
-import IconButton from "@material-ui/core/IconButton/IconButton";
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
 import LandingButton from "./LandingButton";
-
-import austinCapitol from "../../../assets/austin-capitol.jpg";
 
 import "./LandingPage.css";
 
@@ -38,37 +33,7 @@ function LandingPage() {
         </div>
         {/* links to the three models */}
         <h3 style={{ color: "#556875" }}>Explore</h3>
-        <div className="row">
-          <LandingButton/>
-          {/* <div className="columnsLanding">
-            <Button variant="outline-dark" href="/cities">
-              <Image
-                src={require("../../../assets/austin-capitol.jpg")}
-                height="250"
-              />
-              <br />
-              Cities
-            </Button>{" "}
-          </div>
-          <div className="columnsLanding">
-            <Image
-              src={require("../../../assets/beijing-skyline.jpg")}
-              height="250"
-            />
-            <Button variant="outline-dark" href="/countries">
-              Countries
-            </Button>{" "}
-          </div>
-          <div className="columnsLanding">
-            <Image
-              src={require("../../../assets/landing-bg.jpg")}
-              height="250"
-            />
-            <Button variant="outline-dark" href="/years">
-              Climate Change
-            </Button>{" "}
-  </d */}
-        </div>
+        <LandingButton/>
       </div>
     </div>
   );

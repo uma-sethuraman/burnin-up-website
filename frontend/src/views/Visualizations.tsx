@@ -5,8 +5,6 @@ import "./Visualizations.css";
 import catf_img from "../assets/CATF.png";
 import crfn_img from "../assets/cfrn-min.png";
 import climate from "../assets/fightClimate.png";
-import d3 from "d3";
-import BarChart from "./BarChart";
 import PieChart from "./components/Visualizations/PieChart";
 
 /* page for Helpful Links */

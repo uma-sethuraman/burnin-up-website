@@ -19,7 +19,7 @@ const images = [
   {
     url: beijing,
     title: 'Countries',
-    width: '33%',
+    width: '34%',
     ref: "/countries",
   },
   {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     image: {
       position: 'relative',
-      height: 200,
+      height: 250,
       [theme.breakpoints.down('xs')]: {
         width: '100% !important', // Overrides inline-style
         height: 100,
@@ -121,9 +121,8 @@ export default function LandingButton() {
           }}
         >
           <Link to={image.ref}>
-          {console.log(image.url)}
           <div className={classes.imageSrc}>
-            <Image src = {image.url} width={"100%"} height={200}/>
+            <Image src = {image.url} width={"100%"} height={250}/>
           </div>
 
           <span className={classes.imageBackdrop} />
