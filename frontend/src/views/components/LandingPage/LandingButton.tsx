@@ -2,22 +2,26 @@ import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 const images = [
   {
-    url: '/frontend/src/assets/austin-capitol.jpg',
-    title: 'Breakfast',
+    url: "../../../assets/rainforest.png",
+    title: 'Cities',
     width: '33%',
+    ref: "/cities",
   },
   {
-    url: '/frontend/src/assets/landing-bg.jpg',
-    title: 'Burgers',
+    url: `/frontend/src/assets/landing-bg.jpg`,
+    title: 'Countries',
     width: '33%',
+    ref: "/countries",
   },
   {
-    url: '/frontend/src/assets/beijing-skyline.jpg',
-    title: 'Camera',
+    url: `/frontend/src/assets/beijing-skyline.jpg`,
+    title: 'Annual Global Climate Change',
     width: '33%',
+    ref: "/years",
   },
 ];
 
@@ -111,11 +115,10 @@ export default function LandingButton() {
             width: image.width,
           }}
         >
-          <span
+          <Link to={image.ref}>
+          <div
             className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(${image.url})`,
-            }}
+            style={{ backgroundImage:`url(${image.url})` }}  
           />
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
@@ -129,6 +132,7 @@ export default function LandingButton() {
               <span className={classes.imageMarked} />
             </Typography>
           </span>
+          </Link>
         </ButtonBase>
       ))}
     </div>
