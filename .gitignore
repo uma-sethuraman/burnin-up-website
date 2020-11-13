@@ -9,6 +9,8 @@ package-lock.json
 backend/cities.py
 backend/years.py
 backend/countries.py
+backend/years_viz.py
+backend/vehicles_viz.py
 
 # testing
 /coverage
