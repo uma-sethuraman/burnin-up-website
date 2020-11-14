@@ -1,16 +1,36 @@
 import React from "react";
 import LandingButton from "./LandingButton";
+import WebFont from "webfontloader";
 
 import "./LandingPage.css";
 
 /* home page */
 function LandingPage() {
+  WebFont.load({
+    google: {
+      families: [
+        "Trirong",
+        "Nunito Sans",
+        "Quicksand",
+        "Vesper Libre",
+        "Trocchi",
+        "serif",
+        "Advantage",
+        "Prompt",
+        "Big Shoulders Stencil Text",
+        "cursive",
+        "Raleway",
+        "sans-serif",
+      ],
+    },
+  });
+
   return (
     <div className="Landing">
       {/* header */}
       <header className="Landing-header">
         {/* <div className="hook"> */}
-        <h3> Our world is burning up. </h3>
+        <h3> OUR WORLD IS BURNIN' UP. </h3>
         <h2>it's "burnin' up, burnin' up for you baby" - Jonas Brothers </h2>
         {/* </div> */}
       </header>
@@ -18,22 +38,18 @@ function LandingPage() {
       <div className="Landing-body">
         <br></br>
         <div className="story">
-          <p>Our Purpose</p>
+          <div className="story-header">
+            <h1>Our Purpose</h1>
+          </div>
           <p>
-            Earth’s climate is changing faster than ever. The emission of
-            pollutants in the air can result in serious changes to the climate.
-            These pollutants can be extremely dangerous with harmful effects for
-            public health, ecosystems, and agricultural productivity. We want
-            people to realize how serious the issue is by showing data that
-            captures the impact of climate change around the world. We hope that
-            our website shows a clear picture of how fast and how far the
-            climate has changed around the world in the past decades and
-            encourages people to take action to help the environment.
+            Earth’s climate is changing faster than ever. Our website shows a
+            clear picture of how fast and how far the climate has changed around
+            the world in the past decades and encourages people to take action
+            to help the environment.
           </p>
         </div>
         {/* links to the three models */}
-        <h3 style={{ color: "#556875" }}>Explore</h3>
-        <LandingButton/>
+        <LandingButton />
       </div>
     </div>
   );
