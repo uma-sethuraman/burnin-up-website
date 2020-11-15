@@ -6,6 +6,7 @@ export interface GroupMember {
     email: string;
     username?: string;
     bio?: string;
+    image: any;
     commits?: number;
     issues?: number;
     unittest?: number;

@@ -17,39 +17,85 @@ import CherrySun from "../../assets/cherry.jpeg";
 import AboutTools from "./AboutTools";
 import AboutSets from "./AboutSets";
 import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
+import { bisector } from "d3";
+import AboutCarousel from "./AboutCarousel";
 
 function About() {
   /* team member information */
+
+
   const [members, changeMembers] = useState<GroupMember[]>([
     {
       name: "Caitlin Lien",
       email: "caitlinlien@utexas.edu",
       username: "caitlinlien",
+      image: CatilinLien,
+      unittest: 4,
+      bio:
+      "Caitlin is a junior from Round Rock, TX. She works on backend"+
+      " development for the site and enjoys Data Science and Machine"+
+      " Learning. Her hobbies includes baking, playing video games, and"+
+      " taking group stretch breaks.",
     },
     {
       name: "Caitlin O'Callaghan",
       email: "caitlinocallaghan@Caitlins-MBP.lan",
       username: "caitlinocallaghan",
+      image: CaitlinOCallaghan,
+      unittest: 11,
+      bio:
+      "Caitlin is a junior from Dallas, TX. Some of her technical" +
+      " interests are front end web and app development and NLP. Her hobbies" + " include painting and drawing, playing oboe, listening to classical " + " music, and drinking tea.",
     },
     {
       name: "Cherry Sun",
       email: "cherrysun9@utexas.edu",
       username: "cherrysun9",
+      image: CherrySun,
+      unittest: 39, 
+      bio: 
+      "Cherry aged at least 5 years from doing this project. She’s" +
+      " working on backend and has interest in overall full stack app" +
+      " development. She likes working out, swimming, getting a massage," +
+      " going to spa and just enjoying life.",
     },
     {
       name: "Lauren Mangibin",
       email: "lauren.mangibin@gmail.com",
       username: "lauren.mangibin",
+      image: LaurenMangibin,
+      unittest: 9,
+      bio: 
+      "Lauren is Junior from Austin, TX whose eyebags got much bigger" +
+      " from sleeping late. She is working on the front end of the site" +
+      " and loves working with people. She is a hip-hop dancer and" +
+      " choreographer for UT dance teams and loves to explore and hike.",
     },
     {
       name: "Samantha Tuapen",
       email: "samtuapen@utexas.edu",
       username: "samantha3pen",
+      image: SamanthaTuapen,
+      unittest: 5,
+      bio: 
+      "Samantha is a junior from Dallas, TX. She’s working on the"+
+      " backend development of this site and has an interest in overall"+
+      " full stack app development. Outside of the CS world, she enjoys"+
+      " journaling, kickboxing, playing musical instruments, and eating"+
+      " good food.",
+
     },
     {
       name: "Uma Sethuraman",
       email: "uma.sethuraman@utexas.edu",
       username: "uma-sethuraman",
+      image: UmaSethuraman,
+      unittest: 8,
+      bio:
+      "Uma is a junior from Houston, TX. She is working on the frontend"+
+      " development for this project. Some of her other technical"+
+      " interests include mobile development and machine learning. She"+
+      " also enjoys dancing and cooking.",
     },
   ]);
 
@@ -183,9 +229,10 @@ function About() {
 
           <h2>Total Unit Tests: {unittestsSum}</h2>
         </div>
+        <AboutCarousel members={members}/>
 
         {/* information about each group member */}
-        <div className="row">
+        {/* <div className="row">
           <div className="h2_about">
             <div className="columnsAbout">
               <Image src={CatilinLien} height="250" roundedCircle />
@@ -197,14 +244,11 @@ function About() {
               <p>Unit Tests: 4</p>
 
               <p>
-                Caitlin is a junior from Round Rock, TX. She works on backend
-                development for the site and enjoys Data Science and Machine
-                Learning. Her hobbies includes baking, playing video games, and
-                taking group stretch breaks.
+              {members[0].bio}
               </p>
             </div>
             <div className="columnsAbout">
-              <Image src={CaitlinOCallaghan} height="250" roundedCircle />
+              <Image src={members[1].image} height="250" roundedCircle />
               <h2>
                 <b>Caitlin O'Callaghan</b>
               </h2>
@@ -212,10 +256,7 @@ function About() {
               <p>Commits: {members[1].commits}</p>
               <p>Unit Tests: 9</p>
               <p>
-                Caitlin is a junior from Dallas, TX. Some of her technical
-                interests are front end web and app development and NLP. Her
-                hobbies include painting and drawing, playing oboe, listening to
-                classical music, and drinking tea.
+                {members[1].bio}
               </p>
             </div>
             <div className="columnsAbout">
@@ -228,10 +269,7 @@ function About() {
               <p>Unit Tests: 35</p>
 
               <p>
-                Cherry aged at least 5 years from doing this project. She’s
-                working on backend and has interest in overall full stack app
-                development. She likes working out, swimming, getting a massage,
-                going to spa and just enjoying life.{" "}
+              {members[2].bio}{" "}
               </p>
             </div>
             <div className="columnsAbout">
@@ -243,45 +281,33 @@ function About() {
               <p>Commits: {members[3].commits}</p>
               <p>Unit Tests: 8</p>
               <p>
-                Lauren is Junior from Austin, TX whose eyebags got much bigger
-                from sleeping late. She is working on the front end of the site
-                and loves working with people. She is a hip-hop dancer and
-                choreographer for UT dance teams and loves to explore and hike.
+              {members[3].bio}
               </p>
             </div>
             <div className="columnsAbout">
               <Image src={SamanthaTuapen} height="250" roundedCircle />
               <h2>
-                <b>Samantha Tuapen</b>
+                <b>{members[4].name}</b>
               </h2>
               <p>Issues: {members[4].issues}</p>
               <p>Commits: {members[4].commits}</p>
               <p>Unit Tests: 4</p>
               <p>
-                Samantha is a junior from Dallas, TX. She’s working on the
-                backend development of this site and has an interest in overall
-                full stack app development. Outside of the CS world, she enjoys
-                journaling, kickboxing, playing musical instruments, and eating
-                good food.
+              {members[4].bio}
               </p>
             </div>
             <div className="columnsAbout">
-              <Image src={UmaSethuraman} height="250" roundedCircle />
+              <Image src={members[5].image} height="250" roundedCircle />
               <h2>
-                <b>Uma Sethuraman</b>
+                <b>{members[5].name}</b>
               </h2>
               <p>Issues: {members[5].issues}</p>
               <p>Commits: {members[5].commits}</p>
-              <p>Unit Tests: 4</p>
-              <p>
-                Uma is a junior from Houston, TX. She is working on the frontend
-                development for this project. Some of her other technical
-                interests include mobile development and machine learning. She
-                also enjoys dancing and cooking.
-              </p>
+              <p>Unit Tests: {members[5].unittest}</p>
+              <p>{members[5].bio}</p>
             </div>
           </div>
-        </div>
+        </div> */}
         <br></br>
         {/* datasets and APIs */}
         <AboutSets />
