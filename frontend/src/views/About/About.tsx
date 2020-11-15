@@ -38,16 +38,6 @@ function About() {
       " taking group stretch breaks.",
     },
     {
-      name: "Caitlin O'Callaghan",
-      email: "caitlinocallaghan@Caitlins-MBP.lan",
-      username: "caitlinocallaghan",
-      image: CaitlinOCallaghan,
-      unittest: 11,
-      bio:
-      "Caitlin is a junior from Dallas, TX. Some of her technical" +
-      " interests are front end web and app development and NLP. Her hobbies" + " include painting and drawing, playing oboe, listening to classical " + " music, and drinking tea.",
-    },
-    {
       name: "Cherry Sun",
       email: "cherrysun9@utexas.edu",
       username: "cherrysun9",
@@ -58,18 +48,6 @@ function About() {
       " working on backend and has interest in overall full stack app" +
       " development. She likes working out, swimming, getting a massage," +
       " going to spa and just enjoying life.",
-    },
-    {
-      name: "Lauren Mangibin",
-      email: "lauren.mangibin@gmail.com",
-      username: "lauren.mangibin",
-      image: LaurenMangibin,
-      unittest: 9,
-      bio: 
-      "Lauren is Junior from Austin, TX whose eyebags got much bigger" +
-      " from sleeping late. She is working on the front end of the site" +
-      " and loves working with people. She is a hip-hop dancer and" +
-      " choreographer for UT dance teams and loves to explore and hike.",
     },
     {
       name: "Samantha Tuapen",
@@ -84,6 +62,28 @@ function About() {
       " journaling, kickboxing, playing musical instruments, and eating"+
       " good food.",
 
+    },
+    {
+      name: "Caitlin O'Callaghan",
+      email: "caitlinocallaghan@Caitlins-MBP.lan",
+      username: "caitlinocallaghan",
+      image: CaitlinOCallaghan,
+      unittest: 11,
+      bio:
+      "Caitlin is a junior from Dallas, TX. Some of her technical" +
+      " interests are front end web and app development and NLP. Her hobbies" + " include painting and drawing, playing oboe, listening to classical " + " music, and drinking tea.",
+    },
+    {
+      name: "Lauren Mangibin",
+      email: "lauren.mangibin@gmail.com",
+      username: "lauren.mangibin",
+      image: LaurenMangibin,
+      unittest: 9,
+      bio: 
+      "Lauren is Junior from Austin, TX whose eyebags got much bigger" +
+      " from sleeping late. She is working on the front end of the site" +
+      " and loves working with people. She is a hip-hop dancer and" +
+      " choreographer for UT dance teams and loves to explore and hike.",
     },
     {
       name: "Uma Sethuraman",

@@ -7,15 +7,22 @@ function AboutCard(props:any) {
     return(
         <div className="col-sm d-flex">
         <Card>
-        <div className="columnsImage">
-            <Card.Img variant="top" src={props.member.image} />
-        </div>
+        <Card.Img variant="top" src={props.member.image} />
         <Card.Body>
             <Card.Title>{props.member.name}</Card.Title>
             <Card.Text>{props.member.bio}</Card.Text>
-            <Card.Text>Issues: {props.member.issues}</Card.Text>
-            <Card.Text>Commits: {props.member.commits}</Card.Text>
-           <Card.Text> Unit Tests: {props.member.unittest}</Card.Text>
+            <div className="row">
+                <div className="columns">
+                <Card.Text>Issues:<br/>{props.member.issues}</Card.Text>
+                </div>
+                <div className="columns">
+                <Card.Text>Commits:<br/>{props.member.commits}</Card.Text>
+                </div>
+                <div className="columns">
+                <Card.Text> Unit Tests:<br/>{props.member.unittest}</Card.Text>
+                </div>
+            </div>
+          
         </Card.Body>
         </Card>
         </div>
