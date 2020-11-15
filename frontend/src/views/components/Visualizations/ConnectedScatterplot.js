@@ -27,8 +27,10 @@ class ConnectedScatterplot extends React.Component {
     
     // x-axis
     const x = d3.scaleLinear()
-      .domain([0, this.props.xMax])
+      .domain([this.props.xMin, this.props.xMax])
       .range([0, width]);
+      // .ticks(d3.timeYear.every(1));
+
     svg
       .append('g')
       .attr('transform', 'translate(0,' + height + ')')
@@ -36,7 +38,7 @@ class ConnectedScatterplot extends React.Component {
     
     // y-axis
     const y = d3.scaleLinear()
-      .domain([0, this.props.yMax])
+      .domain([this.props.yMin, this.props.yMax])
       .range([height, 0]);
     svg.append('g').call(d3.axisLeft(y));
 
@@ -66,7 +68,7 @@ class ConnectedScatterplot extends React.Component {
       .append('circle')
       .attr('cx', d => x(d[this.props.xAttr]))
       .attr('cy', d => y(d[this.props.yAttr]))
-      .attr('r', 3)
+      .attr('r', 1)
       .style('fill', '#2bc4ad');
   }
 

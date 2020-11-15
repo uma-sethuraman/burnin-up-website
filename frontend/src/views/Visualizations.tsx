@@ -28,7 +28,7 @@ function Visuals() {
           <div className="carbonemissions-vis">
             <h2>help me</h2>
             <br />
-            <ConnectedScatterplot data={carbonemissions} xAttr="Year" yAttr="CarbonEmissions" xMax={1000} yMax={250} xLabel="Year" yLabel="Carbon Emissions (ppm)" />
+            <ConnectedScatterplot data={carbonemissions} xAttr="Year" yAttr="CarbonEmissions" xMin={1880} xMax={2020} yMin={200} yMax={500} xLabel="Year" yLabel="Carbon Emissions (ppm)" />
           </div>
         </div>
       </div>
