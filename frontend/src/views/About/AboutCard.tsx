@@ -1,13 +1,15 @@
 import React from "react";
+import "./About.css";
 import { Card, CardDeck } from "react-bootstrap";
 import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
 
 function AboutCard(props:any) {
     return(
-        <div className="columnsAbout">
+        <div className="col-sm d-flex">
         <Card>
-        <Card.Img variant="top" src={props.member.image} 
-        height="250" width="250"/>
+        <div className="columnsImage">
+            <Card.Img variant="top" src={props.member.image} />
+        </div>
         <Card.Body>
             <Card.Title>{props.member.name}</Card.Title>
             <Card.Text>{props.member.bio}</Card.Text>

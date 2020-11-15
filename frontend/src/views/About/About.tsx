@@ -229,85 +229,8 @@ function About() {
 
           <h2>Total Unit Tests: {unittestsSum}</h2>
         </div>
+        {/* member info */}
         <AboutCarousel members={members}/>
-
-        {/* information about each group member */}
-        {/* <div className="row">
-          <div className="h2_about">
-            <div className="columnsAbout">
-              <Image src={CatilinLien} height="250" roundedCircle />
-              <h2>
-                <b>Caitlin Lien</b>
-              </h2>
-              <p>Issues: {members[0].issues}</p>
-              <p>Commits: {members[0].commits}</p>
-              <p>Unit Tests: 4</p>
-
-              <p>
-              {members[0].bio}
-              </p>
-            </div>
-            <div className="columnsAbout">
-              <Image src={members[1].image} height="250" roundedCircle />
-              <h2>
-                <b>Caitlin O'Callaghan</b>
-              </h2>
-              <p>Issues: {members[1].issues}</p>
-              <p>Commits: {members[1].commits}</p>
-              <p>Unit Tests: 9</p>
-              <p>
-                {members[1].bio}
-              </p>
-            </div>
-            <div className="columnsAbout">
-              <Image src={CherrySun} height="250" roundedCircle />
-              <h2>
-                <b>Cherry Sun</b>
-              </h2>
-              <p>Issues: {members[2].issues}</p>
-              <p>Commits: {members[2].commits}</p>
-              <p>Unit Tests: 35</p>
-
-              <p>
-              {members[2].bio}{" "}
-              </p>
-            </div>
-            <div className="columnsAbout">
-              <Image src={LaurenMangibin} height="250" roundedCircle />
-              <h2>
-                <b>Lauren Mangibin</b>
-              </h2>
-              <p>Issues: {members[3].issues}</p>
-              <p>Commits: {members[3].commits}</p>
-              <p>Unit Tests: 8</p>
-              <p>
-              {members[3].bio}
-              </p>
-            </div>
-            <div className="columnsAbout">
-              <Image src={SamanthaTuapen} height="250" roundedCircle />
-              <h2>
-                <b>{members[4].name}</b>
-              </h2>
-              <p>Issues: {members[4].issues}</p>
-              <p>Commits: {members[4].commits}</p>
-              <p>Unit Tests: 4</p>
-              <p>
-              {members[4].bio}
-              </p>
-            </div>
-            <div className="columnsAbout">
-              <Image src={members[5].image} height="250" roundedCircle />
-              <h2>
-                <b>{members[5].name}</b>
-              </h2>
-              <p>Issues: {members[5].issues}</p>
-              <p>Commits: {members[5].commits}</p>
-              <p>Unit Tests: {members[5].unittest}</p>
-              <p>{members[5].bio}</p>
-            </div>
-          </div>
-        </div> */}
         <br></br>
         {/* datasets and APIs */}
         <AboutSets />
