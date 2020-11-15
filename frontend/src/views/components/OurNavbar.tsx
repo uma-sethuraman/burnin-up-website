@@ -4,6 +4,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import WebFont from "webfontloader";
+// import { AiOutlineSearch } from "react-icons/ai";
 
 /* navbar component used at the top of all pages */
 class OurNavbar extends React.Component {
@@ -41,10 +43,28 @@ class OurNavbar extends React.Component {
   };
 
   render() {
+    WebFont.load({
+      google: {
+        families: [
+          "Trirong",
+          "Nunito Sans",
+          "Quicksand",
+          "Vesper Libre",
+          "Trocchi",
+          "serif",
+          "Advantage",
+          "Prompt",
+          "Big Shoulders Stencil Text",
+          "cursive",
+          "Raleway",
+          "sans-serif",
+        ],
+      },
+    });
     /* attach ref to FormControl component */
     return (
       <div className="OurNavbar">
-        <Navbar bg={window.scrollY > 150? "white": "black"} variant={window.scrollY > 150? "light": "dark"} fixed="top">
+        <Navbar className="navbar-header" bg={"dark"} variant={window.scrollY > 150? "dark": "dark"} fixed="top">
           <Navbar.Brand href="/">
             <b>
               Burnin Up
@@ -53,23 +73,23 @@ class OurNavbar extends React.Component {
 
           {/* links to navbar pages */}
           <Nav className="mr-auto">
-            <Nav.Link href="/about">
-              <b>About Us</b>
+            <Nav.Link href="/about" >
+              <div className="b-navbar">About Us</div>
             </Nav.Link>
             <Nav.Link href="/cities">
-              <b>Cities</b>
+              Cities
             </Nav.Link>
             <Nav.Link href="/countries">
-              <b>Countries</b>
+              Countries
             </Nav.Link>
             <Nav.Link href="/years">
-              <b>Annual Global Climate Change</b>
+              Annual Global Climate Change
             </Nav.Link>
             <Nav.Link href="/howtohelp">
-              <b>How To Help</b>
+              How To Help
             </Nav.Link>
             <Nav.Link href="/visualizations">
-              <b>Visualizations</b>
+              Visualizations
             </Nav.Link>
           </Nav>
 
