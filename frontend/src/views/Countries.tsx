@@ -226,29 +226,33 @@ const Countries = () => {
 
       {/* display loading animation if data is still loading */}
       {loading ? <Spinner animation="border" /> : 
-      <header className="Countries-header">
-        <h1>Countries</h1>
-        <Image src={require("../assets/world-map.jpeg")} width="600px" fluid />
-        <br />
-        <div className="side-by-side">
-
-        {/* displaying instructions on how to sort and filter */}
-        <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
-          <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any
-             column.</p>
+      <div>
+        <header className="Countries-header">
+          <div className = "Countries-h1">
+            <h1 className="Countries-h1">Countries</h1>
           </div>
-        <p>Click on a column name to sort by that column.</p>
+          <br />
+          
+          <div className="side-by-side">
 
-        {/* displaying table with all country instances */}
-        <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
-          <MUIDataTable
-            title={"Countries"}
-            data={countries}
-            columns={columns as MUIDataTableColumnDef[]}
-            options={options}
-          />
-        </div>
-      </header>}
+          {/* displaying instructions on how to sort and filter */}
+          <Image src={require("../assets/filter_icon.png")} width="50px" fluid/>
+            <p>&nbsp;&nbsp;Click this filter icon in the table to filter by any
+              column.</p>
+            </div>
+          <p>Click on a column name to sort by that column.</p>
+          </header>
+
+          {/* displaying table with all country instances */}
+          <div style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
+            <MUIDataTable
+              title={<div className = "table">Countries Data</div>}
+              data={countries}
+              columns={columns as MUIDataTableColumnDef[]}
+              options={options}
+            />
+          </div>
+        </div>}
     </div>
   );
 }

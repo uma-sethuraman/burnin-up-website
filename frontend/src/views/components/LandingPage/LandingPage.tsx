@@ -30,8 +30,8 @@ function LandingPage() {
       {/* header */}
       <header className="Landing-header">
         {/* <div className="hook"> */}
-        <h3> OUR WORLD IS BURNIN' UP. </h3>
-        <h2>it's "burnin' up, burnin' up for you baby" - Jonas Brothers </h2>
+        <h3> OUR WORLD IS BURNING UP. </h3>
+        <h1>it's "burnin' up, burnin' up for you baby" - Jonas Brothers </h1>
         {/* </div> */}
       </header>
       {/* summary */}

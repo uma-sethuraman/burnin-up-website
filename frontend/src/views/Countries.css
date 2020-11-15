@@ -3,14 +3,30 @@
 }
 
 .Countries-header {
-  background-color: #556875;
-  min-height: 100vh;
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+  url("../assets/world-map.jpeg");
+height: 100%; /* You must set a specified height */
+background-position: center; /* Center the image */
+background-repeat: no-repeat; /* Do not repeat the image */
+background-size: contain; /* Cover the entire container */
+min-height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-size: calc(10px + 2vmin);
+text-align: center;
+color: #FFFFFF;
+background-color: black;
+}
+
+.Countries-h1 {
+  height: 100%;
+  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  font-size: 200px;
 }
 
 .Countries-table {
@@ -22,5 +38,9 @@
 .side-by-side {
   display:flex; 
   flex-direction:row;
-  color: white;
+  color: #FFFFFF;
+}
+
+.table {
+  text-align: left;
 }
