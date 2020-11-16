@@ -64,32 +64,46 @@ class OurNavbar extends React.Component {
     /* attach ref to FormControl component */
     return (
       <div className="OurNavbar">
-        <Navbar className="navbar-header" bg={"dark"} variant={window.scrollY > 150? "dark": "dark"} fixed="top">
+        {/* <div style = {{backgroundColor: "#e3f2fd"}}> */}
+        <Navbar fixed="top" style={window.scrollY > 150? {backgroundColor: "black"}: {}} variant = "dark">
           <Navbar.Brand href="/">
+            
+            <div style={{color: "white", fontFamily: "Raleway"}}>
             <b>
               Burnin Up
-            </b>
+              </b>
+            </div>
           </Navbar.Brand>
 
           {/* links to navbar pages */}
           <Nav className="mr-auto">
             <Nav.Link href="/about" >
-              <div className="b-navbar">About Us</div>
+              <div style={{color: "white", fontFamily: "Raleway"}}>About Us</div>
             </Nav.Link>
             <Nav.Link href="/cities">
+            <div style={{color: "white", fontFamily: "Raleway"}}>
               Cities
+              </div>
             </Nav.Link>
             <Nav.Link href="/countries">
+            <div style={{color: "white", fontFamily: "Raleway"}}>
               Countries
+              </div>
             </Nav.Link>
             <Nav.Link href="/years">
+            <div style={{color: "white", fontFamily: "Raleway"}}>
               Annual Global Climate Change
+              </div>
             </Nav.Link>
             <Nav.Link href="/howtohelp">
+            <div style={{color: "white", fontFamily: "Raleway"}}>
               How To Help
+              </div>
             </Nav.Link>
             <Nav.Link href="/visualizations">
+            <div style={{color: "white", fontFamily: "Raleway"}}>
               Visualizations
+              </div>
             </Nav.Link>
           </Nav>
 
@@ -116,6 +130,7 @@ class OurNavbar extends React.Component {
             </Button>
           </Form>
         </Navbar>
+        {/* </div> */}
       </div>
     );
   }

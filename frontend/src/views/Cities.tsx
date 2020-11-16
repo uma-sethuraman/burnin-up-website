@@ -3,17 +3,20 @@ import "./Cities.css";
 import Image from "react-bootstrap/Image";
 import Navbar from "./components/OurNavbar";
 import { CityObject, City } from "./components/City/CityInstance";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
 import { MUIDataTableColumnDef } from "mui-datatables";
+import Highlighter from "react-highlight-words";
+import { search } from "../__mocks__/fileMock";
 
 /* general cities model page (route: "/cities") */
 const Cities = () => {
   /* array of all cities retrieved from api */
   const [cities, setCities] = useState<City[]>([]);
 
+  const [search_text, setSearchText] = useState<string>("he");
   /* loads api data into data */
   const [{ data, loading, error }] = useAxios("/api/cities");
 
@@ -63,6 +66,15 @@ const Cities = () => {
             return !show;
           },
         },
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) =>
+        (<div>
+          <Highlighter
+              highlightClassName="highlight-class"
+              searchWords={[search_text]}
+              textToHighlight={value}>
+            </Highlighter>
+          </div>
+        ),
       },
     },
     {
@@ -188,6 +200,9 @@ const Cities = () => {
     filterType: "checkbox" as any,
     onRowClick: (rowData: any) => {
       window.location.assign("/cities/id=" + rowData[0]);
+    },
+    onSearchChange: (searchText: any) => {
+      setSearchText(searchText != null? searchText: "");
     },
   };
 

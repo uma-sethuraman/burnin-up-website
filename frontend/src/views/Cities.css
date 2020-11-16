@@ -56,3 +56,7 @@
 .p_cities {
     color: #FFFFFF;
 }
+
+.highlight-class {
+    background-color: rgb(251, 255, 0);
+}

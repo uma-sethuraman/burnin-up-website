@@ -11,7 +11,7 @@ import PieChart from "./components/Visualizations/PieChart";
 import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
 import Choropleth from "./components/Visualizations/choropleth";
-import BarChart from "./components/Visualizations/Barchart";
+import BarChart from "./components/Visualizations/BarChart";
 
 /* page for Helpful Links */
 function Visuals() {
