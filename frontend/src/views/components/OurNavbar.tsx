@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import WebFont from "webfontloader";
-// import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 
 /* navbar component used at the top of all pages */
 class OurNavbar extends React.Component {
@@ -126,7 +126,7 @@ class OurNavbar extends React.Component {
               }}
             />
             <Button variant="info" onClick={() => this.onClick()}>
-              Search
+              <AiOutlineSearch />
             </Button>
           </Form>
         </Navbar>
