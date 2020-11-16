@@ -5,11 +5,13 @@ import "./Visualizations.css";
 import catf_img from "../assets/CATF.png";
 import crfn_img from "../assets/cfrn-min.png";
 import climate from "../assets/fightClimate.png";
+import country from "../vizdata/countries.json"
 
 import PieChart from "./components/Visualizations/PieChart";
 import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
 import Choropleth from "./components/Visualizations/choropleth";
+import BarChart from "./components/Visualizations/Barchart";
 
 /* page for Helpful Links */
 function Visuals() {
@@ -20,9 +22,8 @@ function Visuals() {
       <div className="Visuals-header">
         <Image src={climate} fluid />
         <div className="Visuals-body">
-          {/* <PieChart /> */}
-          <p>Choropleth graph: </p>
-          <Choropleth />
+		<h2>country emission barchart</h2>
+          <BarChart data={country} xAttr="country" yAttr="emissions" />
           <br />
           <br />
           <div className="carbonemissions-vis">
