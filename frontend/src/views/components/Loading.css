@@ -1,0 +1,19 @@
+.Loading-header {
+    background-image: linear-gradient( rgba(0.5, 0, 0, 0.0), 
+    rgba(0.0, 0, 0, 0) ),
+      url("../../assets/WorldPeace.gif");
+    height: 100%; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .Loading-p {
+    font-size: calc(10px + 2vmin);
+    font-family: 'Raleway';
+    color: black;
+    padding-bottom: 25%;
+  }

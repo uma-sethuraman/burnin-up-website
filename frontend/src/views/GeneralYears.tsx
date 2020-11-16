@@ -5,7 +5,7 @@ import Navbar from "./components/OurNavbar";
 import { Year, YearsObject } from "./components/Year/YearInstance";
 import { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
-import Spinner from "react-bootstrap/Spinner";
+import Loading from "./components/Loading";
 import MUIDataTable from "mui-datatables";
 import {MUIDataTableColumnDef} from "mui-datatables";
 
@@ -234,7 +234,7 @@ const GeneralYears = () => {
 
       {/* if it's loading display spinner animation */}
       {loading ? (
-        <Spinner animation="border" />
+        <Loading/>
       ) : (
         <header className="Years-header">
           <h1> Annual Global Climate Change</h1>

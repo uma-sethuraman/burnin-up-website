@@ -4,10 +4,10 @@ import Navbar from "./components/OurNavbar";
 import { CountriesObject, Country } from "./components/Country/CountryInstance";
 import { useState, useEffect } from 'react';
 import useAxios from 'axios-hooks';
-import Spinner from "react-bootstrap/Spinner";
 import MUIDataTable from "mui-datatables";
 import "./Countries.css";
 import {MUIDataTableColumnDef} from "mui-datatables";
+import Loading from "./components/Loading";
 
 /* general countries model page (route: "/countries") */
 const Countries = () => {
@@ -225,7 +225,7 @@ const Countries = () => {
       <Navbar />
 
       {/* display loading animation if data is still loading */}
-      {loading ? <Spinner animation="border" /> : 
+      {loading ? <Loading/> : 
       <div>
         <header className="Countries-header">
           <div className = "Countries-h1">
