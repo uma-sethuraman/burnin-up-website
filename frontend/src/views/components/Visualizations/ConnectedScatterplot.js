@@ -26,18 +26,20 @@ class ConnectedScatterplot extends React.Component {
       .style('color', 'white');
     
     // x-axis
-    const x = d3.scaleLinear()
+    var x = d3.scaleTime()
       .domain([this.props.xMin, this.props.xMax])
       .range([0, width]);
-      // .ticks(d3.timeYear.every(1));
+      // .tickFormat(d3.timeFormat("%Y"));
+    
+    x.domain(d3.extent(this.props.data, function (d) { return new Date(parseInt(d.Year),0); }));
 
     svg
       .append('g')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x));
-    
+      .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%Y")));
+
     // y-axis
-    const y = d3.scaleLinear()
+    var y = d3.scaleLinear()
       .domain([this.props.yMin, this.props.yMax])
       .range([height, 0]);
     svg.append('g').call(d3.axisLeft(y));
