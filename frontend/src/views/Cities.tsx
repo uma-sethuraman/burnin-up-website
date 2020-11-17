@@ -5,7 +5,7 @@ import Navbar from "./components/OurNavbar";
 import { CityObject, City } from "./components/City/CityInstance";
 import { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
-import Spinner from "react-bootstrap/Spinner";
+import Loading from "./components/Loading";
 import MUIDataTable from "mui-datatables";
 import { MUIDataTableColumnDef } from "mui-datatables";
 import Highlighter from "react-highlight-words";
@@ -251,10 +251,7 @@ const Cities = () => {
     <div className="Cities">
       <Navbar />
       {/* display loading animation if data is still loading */}
-      {loading ? 
-        (<div>
-          <br /> <br /> <Spinner animation="border" />
-        </div>) : (
+      {loading ? <Loading /> : (
         <div>
           {/* image header */}
           <header className="Cities-header">

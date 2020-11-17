@@ -212,32 +212,45 @@ function About() {
         changes are throughout history.
         </div>
 
-        {/* total commits, issues, and unit tests */}
         <br></br>
+
         <div className="h2_about">
-          {commitsSum === -1 ? (
-            <h2>Total Commits: </h2>
-          ) : (
-            <h2>Total Commits: {commitsSum}</h2>
-          )}
-
-          {issuesSum === -1 ? (
-            <h2>Total Issues: </h2>
-          ) : (
-            <h2>Total Issues: {issuesSum}</h2>
-          )}
-
-          <h2>Total Unit Tests: {unittestsSum}</h2>
+        <h2>Meet the Team</h2>
         </div>
+
         {/* member info */}
         <AboutCarousel members={members}/>
-        <br></br>
+        <br/><br/>
+
+        {/* total commits, issues, and unit tests */}
+        <div className="h2_about">
+          <div className="row">
+              <div className="columns">
+                {commitsSum === -1 ? (
+                  <h2>Total Commits: </h2>
+                ) : (
+                  <h2>Total Commits: {commitsSum}</h2>
+                )}
+              </div>
+              <div className="columns">
+                {issuesSum === -1 ? (
+                  <h2>Total Issues: </h2>
+                ) : (
+                  <h2>Total Issues: {issuesSum}</h2>
+                )}
+              </div>
+              <div className="columns">
+              <h2>Total Unit Tests: {unittestsSum}</h2>
+              </div>
+          </div>
+        </div>
+        <br/>
         {/* datasets and APIs */}
         <AboutSets />
         <br></br>
+        {/* tools sections */}
+        <AboutTools />
       </div>
-      {/* tools sections */}
-      <AboutTools />
     </div>
   );
 }
