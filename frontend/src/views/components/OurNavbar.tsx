@@ -69,7 +69,7 @@ class OurNavbar extends React.Component {
             
             <div style={{color: "white", fontFamily: "Raleway"}}>
               <b>
-                Burnin Up
+                Burnin' Up
               </b>
             </div>
           </Navbar.Brand>

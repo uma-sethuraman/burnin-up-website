@@ -40,7 +40,7 @@ function LandingPage() {
   function arrowClick () {
     if (arrowType === "down") {
       /* scroll down */
-      window.scrollTo({top: 555, left: 0, behavior: 'smooth'});
+      window.scrollTo({top: 10000, left: 0, behavior: 'smooth'});
     }
     else {
       /* scroll up */
