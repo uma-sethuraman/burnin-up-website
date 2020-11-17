@@ -1,17 +1,25 @@
 .GeneralYears {
     text-align: center;
-  }
+}
   
 .Years-header {
-    background-color: #556875;
-    min-height: 100vh;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+    url("../assets/fire.jpg");
+    height: 100%; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Cover the entire container */
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
-}
+    text-align: center;
+    color: #FFFFFF;
+    background-color: black;
+    font-family: "Raleway";
+  }
   
 .Years-table {
     display: 'table';
@@ -24,3 +32,12 @@
     flex-direction:row;
     color: white;
 }
+
+.Years-h1 {
+    height: 100%;
+    text-align: center;
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    font-size: 150px;
+  }
