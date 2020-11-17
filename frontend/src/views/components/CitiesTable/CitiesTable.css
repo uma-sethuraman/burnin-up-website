@@ -1,0 +1,12 @@
+.CitiesTable {
+    text-align: center;
+}
+
+.table-title {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.highlight-class {
+    background-color: rgb(251, 255, 0);
+}

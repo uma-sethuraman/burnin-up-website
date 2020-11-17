@@ -18,9 +18,10 @@
   font-size: calc(10px + 2vmin);
   text-align: center;
   color: #FFFFFF;
+  font-family: "Raleway";
 }
 
-.Cities-h1 {
+.Cities-h1{
     height: 100%;
     text-align: center;
     display: flex;
@@ -35,10 +36,6 @@
     width:'100%';
 }
 
-.table {
-    text-align: left;
-}
-
 .side-by-side {
     display:flex; 
     flex-direction:row;
@@ -49,6 +46,3 @@
     color: #FFFFFF;
 }
 
-.highlight-class {
-    background-color: rgb(251, 255, 0);
-}
