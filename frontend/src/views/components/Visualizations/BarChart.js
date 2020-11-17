@@ -62,7 +62,7 @@ class BarChart extends Component {
             .attr('y', d => y(d[this.props.yAttr]))
             .attr('width', x.bandwidth())
             .attr('height', d => height - y(d[this.props.yAttr]))
-            .attr("fill", function(d){return myColor(d[this.props.yAttr]) })
+            .attr("fill", function(d){return myColor(y(d[this.props.yAttr])) })
 			
     }
 
