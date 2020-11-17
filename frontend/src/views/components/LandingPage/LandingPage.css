@@ -7,10 +7,10 @@ h2 {
   font-style: italic; 
 }
 
-
 .hook {
   background-color: #556875;
 }
+
 .story{
   font-size: 20px;
   color: #FFFFFF;
@@ -19,8 +19,6 @@ h2 {
   text-align:center;
   padding-bottom: 5vh;
   font-family: 'Raleway';
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-  /* font-family: "Optima";, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
 } 
 
 .story-header{
@@ -96,5 +94,10 @@ h2 {
   to {
     transform: rotate(360deg);
   }
+}
+
+.arrow {
+  margin-top: 150px;
+  margin-bottom: 0;
 }
 

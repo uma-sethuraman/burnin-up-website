@@ -64,13 +64,12 @@ class OurNavbar extends React.Component {
     /* attach ref to FormControl component */
     return (
       <div className="OurNavbar">
-        {/* <div style = {{backgroundColor: "#e3f2fd"}}> */}
         <Navbar fixed="top" style={window.scrollY > 150? {backgroundColor: "black"}: {}} variant = "dark">
           <Navbar.Brand href="/">
             
             <div style={{color: "white", fontFamily: "Raleway"}}>
-            <b>
-              Burnin Up
+              <b>
+                Burnin Up
               </b>
             </div>
           </Navbar.Brand>
@@ -81,28 +80,28 @@ class OurNavbar extends React.Component {
               <div style={{color: "white", fontFamily: "Raleway"}}>About Us</div>
             </Nav.Link>
             <Nav.Link href="/cities">
-            <div style={{color: "white", fontFamily: "Raleway"}}>
-              Cities
+              <div style={{color: "white", fontFamily: "Raleway"}}>
+                Cities
               </div>
             </Nav.Link>
             <Nav.Link href="/countries">
-            <div style={{color: "white", fontFamily: "Raleway"}}>
-              Countries
+              <div style={{color: "white", fontFamily: "Raleway"}}>
+                Countries
               </div>
             </Nav.Link>
             <Nav.Link href="/years">
-            <div style={{color: "white", fontFamily: "Raleway"}}>
-              Annual Global Climate Change
+              <div style={{color: "white", fontFamily: "Raleway"}}>
+                Annual Global Climate Change
               </div>
             </Nav.Link>
             <Nav.Link href="/howtohelp">
-            <div style={{color: "white", fontFamily: "Raleway"}}>
-              How To Help
+              <div style={{color: "white", fontFamily: "Raleway"}}>
+                How To Help
               </div>
             </Nav.Link>
             <Nav.Link href="/visualizations">
-            <div style={{color: "white", fontFamily: "Raleway"}}>
-              Visualizations
+              <div style={{color: "white", fontFamily: "Raleway"}}>
+                Visualizations
               </div>
             </Nav.Link>
           </Nav>
@@ -125,12 +124,12 @@ class OurNavbar extends React.Component {
                 }
               }}
             />
-            <Button variant="info" onClick={() => this.onClick()}>
+            <Button style={{backgroundColor: "white", borderColor: "white", color: "black"}} 
+            variant="info" onClick={() => this.onClick()}>
               <AiOutlineSearch />
             </Button>
           </Form>
         </Navbar>
-        {/* </div> */}
       </div>
     );
   }

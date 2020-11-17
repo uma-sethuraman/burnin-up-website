@@ -4,6 +4,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import Image from "react-bootstrap/Image";
+import WebFont from "webfontloader";
 
 import landing from "../../../assets/landing-bg.jpg";
 import austin from "../../../assets/austin-capitol.jpg";
@@ -92,6 +93,8 @@ const useStyles = makeStyles((theme: Theme) =>
     imageTitle: {
       position: 'relative',
       padding: `${theme.spacing(2)}px ${theme.spacing(4)}px ${theme.spacing(1) + 6}px`,
+      fontFamily: "Raleway",
+      fontSize: "25px"
     },
     imageMarked: {
       height: 3,
@@ -106,6 +109,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function LandingButton() {
+
+  WebFont.load({
+    google: {
+      families: [
+        "Raleway",
+      ],
+    },
+  });
+
   const classes = useStyles();
 
   return (
@@ -133,7 +145,7 @@ export default function LandingButton() {
               color="inherit"
               className={classes.imageTitle}
             >
-              {image.title}
+              <b>{image.title}</b>
               <span className={classes.imageMarked} />
             </Typography>
           </span>
