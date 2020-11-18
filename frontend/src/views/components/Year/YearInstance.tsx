@@ -6,15 +6,9 @@ import Table from "react-bootstrap/Table";
 import "./YearInstance.css";
 import { useEffect } from "react";
 import YearMap from "../Map/YearMap";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Legend,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, 
+        Tooltip, CartesianGrid, 
+        Legend, Label } from "recharts";
 import useAxios from "axios-hooks";
 import Spinner from "react-bootstrap/Spinner";
 
@@ -48,6 +42,25 @@ const YearInstance = (id: any) => {
     window.location.assign("/countries/id=" + currCountry.country_id);
   }
 
+  const CustomAxisTick = (props: any) => {
+      const {x, y, payload} = props;
+      
+       return (
+        <g transform={`translate(${x},${y})`}>
+          <text 
+            fontSize = {14}
+            x={0}
+            y={0}
+            dy={16}
+            textAnchor="end"
+            fill="white"
+            transform="rotate(-35)">
+            {payload.value}
+          </text>
+        </g>
+      );
+  };
+
   return (
     <div className="YearInstance">
       <Navbar />
@@ -63,27 +76,35 @@ const YearInstance = (id: any) => {
           {/* bar chart with country data */}
           <h1>Top 10 Countries with Highest CO2 Emissions This Year</h1>
           <p>Click on a bar to learn more about that country!</p>
+          
           <BarChart width={1200} height={500} data={year?.countries_emissions}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="country"
               stroke="#FFFFFF"
-              tick={{ fontSize: 12 }}
               interval={0}
+              height={150}
+              tick={<CustomAxisTick />}
+              label={{value: 'Country', dy: 30, fill:'white', fontSize: 20}}
             />
-            <YAxis stroke="#FFFFFF" />
+            <YAxis 
+              stroke="#FFFFFF"
+              label={{value: 'CO2 Emissions (ppm)', dx: -30, 
+                      fill:'white', fontSize: 20, angle: -90}}
+              width={100}
+            />
             <Tooltip />
-            <Legend wrapperStyle={{ bottom: -30 }} />
             <Bar
               dataKey="country_co2"
               fill="#8884d8"
-              name="CO2 Level (ppm)"
+              name="CO2 Emissions (ppm)"
               onClick={barClick}
             />
           </BarChart>
+  
           <br />
           <br />
-
+          
           {/* year table */}
           <Table bordered hover size="sm" variant="dark">
             <tbody>
