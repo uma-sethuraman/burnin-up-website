@@ -64,7 +64,7 @@ class OurNavbar extends React.Component {
     /* attach ref to FormControl component */
     return (
       <div className="OurNavbar">
-        <Navbar fixed="top" style={window.scrollY > 150? {backgroundColor: "black"}: {}} variant = "dark">
+        <Navbar fixed="top" style={{backgroundColor: "black"}} variant = "dark">
           <Navbar.Brand href="/">
             
             <div style={{color: "white", fontFamily: "Raleway"}}>

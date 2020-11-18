@@ -29,7 +29,7 @@ const LocationPhoto = (name: any) => {
                 JSON.stringify(response)).data as LocationPhotoData;
                 
                 setActualPhoto("https://maps.googleapis.com/maps/api/place"
-                + "/photo?maxwidth=360&photoreference=" + 
+                + "/photo?maxwidth=400&photoreference=" + 
                 ret.candidates[0].photos[0].photo_reference + 
                 "&key=AIzaSyCzdtsBKJELtLdSZD7NJAsiTKcULgSZGlc");
             })

@@ -6,12 +6,13 @@ import Marker from '../Marker/Marker';
 +"reactjs-google-maps-with-custom-marker-ece0c7d184c4 */
 
 /* displays world map with a marker at the location passed in */
-const OurMap = (latitude: number, longitude: number, locationName: string) => {
+/*style={{ height: '100vh', width: '100%' }*/
+const OurMap = (latitude: number, longitude: number, locationName: string, map_style?: any ) => {
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
+        <div style={map_style ? map_style: { height: '75vh', width: '90vh', margin:'10vh' }}> 
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBhcWoY9R1YI__bc0fC8vHRN8eEMVYoLKM' }}
-          defaultCenter={{lat:0, lng:0}}
+          defaultCenter={{lat:latitude, lng:longitude}}
           defaultZoom={1}
         >
           <Marker

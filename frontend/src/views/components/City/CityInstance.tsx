@@ -9,6 +9,9 @@ import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import WebFont from "webfontloader";
+import { AiOutlineLine } from "react-icons/ai";
+import Image from "react-bootstrap/Image";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -33,92 +36,122 @@ const CityInstance = (id: any) => {
     }
   }, [data]);
 
+  WebFont.load({
+    google: {
+      families: [
+        "serif",
+        "Staatliches",
+        "sans-serif",
+        "Raleway",
+      ],
+    },
+  });
+
   return (
     <div className="CityInstance">
       <Navbar />
 
       {/* show spinner if content is loading */}
-      {loading ? (
-        <Spinner animation="border" />
-      ) : (
-        <header className="App-header">
-          <div className="image-text">
-            <h3> {city?.city_name} </h3>
-          </div>
-
-          {/* display image of the city */}
-          <LocationPhoto name={(encodeURI(city?.city_name!))} />
-          <br />
-
-          {/* city table */}
-          <Table bordered hover size="sm" variant="dark">
-            <tbody>
-              <tr>
-                <td>Country</td>
-                <td>
-                  <Link to={"/countries/id=" + city?.country_id}>
-                    {city?.country_name}
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td>O3 (Dobson Units)</td>
-                <td>{city?.o3 + " "}</td>
-              </tr>
-              <tr>
-                <td>PM10 (ug/m3)</td>
-                <td>{city?.pm10 + " "}</td>
-              </tr>
-              <tr>
-                <td>PM2.5 (ug/m3)</td>
-                <td>{city?.pm25 + " "}</td>
-              </tr>
-              <tr>
-                <td>Highest Annual Temperature</td>
-                {city?.highest_temp !== (undefined || -1) ? (
-                  <td>
-                    {city?.highest_temp +
-                      (city?.highest_temp! > 40 ? " °F" : " °C")}
-                  </td>
-                ) : (
-                  <td>-</td>
-                )}
-              </tr>
-              <tr>
-                <td>Year of Highest Annual Temperature</td>
-                {city?.year_highest !== (undefined || -1) ? (
-                  <td>
-                    <Link to={"/years/id=" + city?.year_highest}>
-                      {city?.year_highest}
-                    </Link>
-                  </td>
-                ) : (
-                  <td>
-                    <Link to={"/years/id=2018"}>2018</Link>
-                  </td>
-                )}
-              </tr>
-              <tr>
-                <td>Population</td>
-                {city?.population !== -1 ? (
-                  <td>{city?.population}</td>
-                ) : (
-                  <td>-</td>
-                )}
-              </tr>
-            </tbody>
-          </Table>
+      { loading ? (
+        <Spinner animation="border" />) : (
+        
+        <div className="row">
+        
+         
+        <div className="column1">
+          <header className="City-header">
+            
+            <div>
+              <LocationPhoto name={(encodeURI(city?.city_name!))} />
+              <br/>
           
-          {/* map with city on it */}
-          {OurMap(
-            Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!)),
-            Number(
-              city?.longitude! === undefined ? 0 : Number(city?.longitude!)
-            ),
-            city?.city_name!
-          )}
-        </header>
-      )}
+              <div className="info-style">
+                {(city?.highest_temp !== (undefined || -1)) ? 
+                (city?.highest_temp.toFixed(2) + 
+                  (city?.highest_temp! > 40 ? " °F" : " °C")) : "-"
+                }
+              </div>
+              <div className="info-title-style">
+                Highest Annual Temperature
+              </div>
+            
+              <br/>
+
+              <div className="info-style">
+              {city?.year_highest !== (undefined || -1) ? (
+                <Link to={"/years/id=" + city?.year_highest}>
+                  {city?.year_highest} </Link>) : (
+                <Link to={"/years/id=2018"}>2018</Link>)}
+              </div>
+              <div className="info-title-style">
+                Year of Highest Annual Temperature
+              </div>
+              
+              <br/>
+
+              <div className="info-style">
+                  {city?.population !== -1 ? 
+                  (city?.population) : ("-")}
+              </div>
+              <div className="info-title-style">
+                Population
+              </div>
+              <br />
+  
+            </div>
+          </header> 
+        </div>  
+        
+        <div className="line">
+          <Image src={require("../../../assets/line-shadow.png")} height="100%"></Image>
+        </div>
+                
+        <div className="column2">
+          <header className="City-header">
+             <div className="title">
+              <h3> {city?.city_name} </h3>
+              <h3> <Link to={"/countries/id=" + city?.country_id}>
+                      {city?.country_name}
+                    </Link> </h3>
+            </div>
+            {/* <AiOutlineLine size="500px"/> */}
+            <div className="row-style"> 
+              <div className="row">
+                <div className="subcolumn">
+                  <div className="info-style">{city?.pm25 + " "}</div>
+                  <div className="info-title-style">PM2.5</div>
+                  <div className="info-unit-style">ug/m3</div>
+                </div> 
+                    
+                <div className="subcolumn">
+                  <div className="info-style">{city?.pm10 + " "}</div>
+                  <div className="info-title-style">PM10 </div>
+                  <div className="info-unit-style">ug/m3</div>
+                </div>
+
+                <div className="subcolumn">
+                  <div className="info-style">{city?.o3 + " "}</div>
+                  <div className="info-title-style">O3</div>
+                  <div className="info-unit-style">Dobson Units</div>
+                </div>
+  
+              </div>
+            </div>
+                     
+                {OurMap(
+                  Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!)),
+                  Number(
+                  city?.longitude! === undefined ? 0 : Number(city?.longitude!)
+                  ),
+                  city?.city_name!, {height: '75vh', width: '90vh', margin:'10vh'}
+                    )}
+
+                     
+          </header>
+        </div>
+          
+        </div>
+        )} 
     </div>
   );
 };
