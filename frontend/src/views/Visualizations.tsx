@@ -28,7 +28,7 @@ function Visuals() {
       <div className="Visuals-header">
         <div className="Visuals-body">
 		  <h2>country emission barchart</h2>
-          <BarChart data={country} xAttr="country" yAttr="emissions" />
+          {/* <BarChart data={country} xAttr="country" yAttr="emissions" /> */}
           <br />
           <h2>Recent City Temperatures Worldwide Grouped by Range:</h2>
           <BubbleChart
@@ -65,19 +65,18 @@ function Visuals() {
           <br />
 		  
           <div className="carbonemissions-vis" style={{color: "white"}}>
-            <h2>help me</h2>
-            <br />
-            <ConnectedScatterplot data={carbonemissions} xAttr="Year" yAttr="CarbonEmissions" xMin={1880} xMax={2020} yMin={200} yMax={500} xLabel="Year" yLabel="Carbon Emissions (ppm)" />
-			{/* <LineChart
+            <h2>Mean Global Carbon Emissions from 1880-2020</h2>
+            {/* <ConnectedScatterplot data={carbonemissions} xAttr="Year" yAttr="CarbonEmissions" xMin={1880} xMax={2020} yMin={200} yMax={500} xLabel="Year" yLabel="Carbon Emissions (ppm)" /> */}
+			<LineChart
 				width={1000}
 				height={500}
 				data={carbonemissions}
-				margin={{top: 20, right: 20, left: 20, bottom: 20,}}
+				margin={{top: 20, right: 20, left: 300, bottom: 20,}}
 			>
-				<XAxis dataKey="Year" stroke="white" label={{value: 'Year', color:'white', fontSize: 12}} tick={{fontSize: 12}} domain={['dataMin', 'dataMax']} tickCount={10}/>
-				<YAxis dataKey="CarbonEmissions" stroke="white" label={{value: 'Carbon Emissions', color:'white', fontSize: 12}} tick={{fontSize: 12}} />
-				<Line type="monotone" dataKey="CarbonEmissions" stroke="#8884d8" dot={false} />
-			</LineChart> */}
+				<XAxis dataKey="Year" stroke="white" label={{value: 'Year', position: "insideBottomRight", dx: -250, dy: 25, fill:'white', fontSize: 20}} tick={{fontSize: 12}} domain={['dataMin', 'dataMax']} type='number' tickCount={16}/>
+				<YAxis dataKey="CarbonEmissions" stroke="white" label={{value: 'Carbon Emissions (ppm)', position: "insideLeft", angle: -90, dx: -10, dy: 90, fill:'white', fontSize: 20}} tick={{fontSize: 12}} domain={[270, 'auto']} tickCount={35} interval={1} />
+				<Line type="monotone" dataKey="CarbonEmissions" stroke="#CB4C4C" dot={false} strokeWidth="3" />
+			</LineChart>
 		  </div>
 		  <br/>
 		  <p>Provider's Visualizations</p>

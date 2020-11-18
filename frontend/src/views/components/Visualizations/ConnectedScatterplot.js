@@ -28,7 +28,7 @@ class ConnectedScatterplot extends React.Component {
     // x-axis
     var x = d3.scaleTime()
       .domain([this.props.xMin, this.props.xMax])
-      .range([0, width]);
+      .range([0, width])
       // .tickFormat(d3.timeFormat("%Y"));
     
     x.domain(d3.extent(this.props.data, function (d) { return new Date(parseInt(d.Year),0); }));
