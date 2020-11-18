@@ -7,7 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
 
-//https://www.newline.co/@dmitryrogozhny/how-to-show-carousel-in-react-applications-with-react-slick--07445c23
+//https://www.newline.co/@dmitryrogozhny/
+//how-to-show-carousel-in-react-applications-with-react-slick--07445c23
 export default function AboutCarousel(props:any) {
   const renderSlides = () =>
   props.members.map((member:GroupMember) => (
@@ -20,7 +21,8 @@ export default function AboutCarousel(props:any) {
       <div>
         <Slider 
         dots={true}
-        slidesToShow={3}>
+        slidesToShow={3}
+        autoplay={true}>
         {renderSlides()}
         </Slider>
       </div>
