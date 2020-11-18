@@ -2,8 +2,10 @@
   text-align: center;
   background: linear-gradient(180deg, #3C0C0C 0%, 
   #791414 45.83%, #960E0E 95.83%);
-  margin:0;
-  padding:0;
+  width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
 }
 
 .City-header{
@@ -26,18 +28,12 @@
   height: 360px;
 }
 
-/* centered text */
-.carousel-caption {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 .column1 {
-  padding-left:7vw;
+  padding-left:6vw;
   padding-right:6vw;
   width: 35%;
+  text-align:left;
 }
 
 .line{
@@ -45,7 +41,8 @@
 }
 
 .column2 {
-  padding-left:7vw;
+  padding-left:8vw;
+  padding-right:6vw;
   width: 64.5%;
 }
 .title{
@@ -64,8 +61,7 @@
   font-style: normal;
   font-weight: bold;
   font-size: 80px;
-  line-height: 113px;
-  text-align:left;
+  line-height: 90px;
 }
 
 .info-title-style{
@@ -74,7 +70,6 @@
   font-weight: normal;
   font-size: 36px;
   line-height: 42px;
-  text-align:left;
 }
 
 .info-unit-style{
@@ -83,7 +78,6 @@
   font-weight: lighter;
   font-size: 24px;
   line-height: 24px;
-  text-align:left;
 }
 
 .map-style {
