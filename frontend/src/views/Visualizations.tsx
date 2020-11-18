@@ -3,7 +3,7 @@ import Image from "react-bootstrap/Image";
 import Navbar from "./components/OurNavbar";
 import "./Visualizations.css";
 import country from "../vizdata/countries.json"
-
+import energy_sources from "../vizdata/energy_sources.json"
 
 import PieChart from "./components/Visualizations/PieChart";
 import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
@@ -28,7 +28,7 @@ function Visuals() {
       <div className="Visuals-header">
         <div className="Visuals-body">
 		  <h2>country emission barchart</h2>
-          {/* <BarChart data={country} xAttr="country" yAttr="emissions" /> */}
+          { <BarChart data={country} xAttr="country" yAttr="emissions" />}
           <br />
           <h2>Recent City Temperatures Worldwide Grouped by Range:</h2>
           <BubbleChart
@@ -112,6 +112,10 @@ function Visuals() {
 				}}
 				data={fuelingstations}
 			/>
+			<h2>energy resource vs total power</h2>
+			{<BarChart data={energy_sources} xAttr="energy" yAttr="power" />}
+          <br />
+			
         </div>
       </div>
     </div>
