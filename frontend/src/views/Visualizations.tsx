@@ -113,7 +113,7 @@ function Visuals() {
 				data={fuelingstations}
 			/>
 			<h2>energy resource vs total power</h2>
-			{<BarChart data={energy_sources} xAttr="energy" yAttr="power" />}
+			{<BarChart data={energy_sources} xAttr="energe" yAttr="power" />}
           <br />
 			
         </div>
