@@ -4,6 +4,9 @@ import Navbar from "./components/OurNavbar";
 import "./Visualizations.css";
 import country from "../vizdata/countries.json"
 
+import energy_sources from "../vizdata/energy_sources.json"
+
+// import PieChart from "./components/Visualizations/PieChart";
 import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
 import Choropleth from "./components/Visualizations/choropleth";
@@ -27,7 +30,7 @@ function Visuals() {
       <div className="Visuals-header">
         <div className="Visuals-body">
 		  <h2>country emission barchart</h2>
-          {/* <BarChart data={country} xAttr="country" yAttr="emissions" /> */}
+          { <BarChart data={country} xAttr="country" yAttr="emissions" />}
           <br />
           <h2>Recent City Temperatures Worldwide Grouped by Range:</h2>
           <BubbleChart
@@ -117,6 +120,9 @@ function Visuals() {
 				<Pie dataKey="Count" isAnimationActive={false} data={manufacturers} cx={675} cy={250} outerRadius={200} fill="#8884d8" label />
 				<Tooltip />
 			</PieChart> */}
+			<h2>energy resource vs total power</h2>
+			{<BarChart data={energy_sources} xAttr="energe" yAttr="power" />}
+          <br />
 			
         </div>
       </div>
