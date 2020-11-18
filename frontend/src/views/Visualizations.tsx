@@ -6,7 +6,7 @@ import country from "../vizdata/countries.json"
 
 import energy_sources from "../vizdata/energy_sources.json"
 
-// import PieChart from "./components/Visualizations/PieChart";
+import PieChart from "./components/Visualizations/PieChart";
 import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
 import Choropleth from "./components/Visualizations/choropleth";
@@ -17,7 +17,7 @@ import fuelingstations from "../vizdata/FuelingStationsPerState.json";
 import manufacturers from "../vizdata/Manufacturer.json";
 
 import {
-	LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip, Legend
+	LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
   } from 'recharts';
 
 
@@ -115,15 +115,11 @@ function Visuals() {
 				data={fuelingstations}
 			/>
 			<h2>Number of Eco-Friendly Cars Per Manufacturer:</h2>
-			{/* <PieChart data={manufacturers}/> */}
-			{/* <PieChart width={1000} height={800}>
-				<Pie dataKey="Count" isAnimationActive={false} data={manufacturers} cx={675} cy={250} outerRadius={200} fill="#8884d8" label />
-				<Tooltip />
-			</PieChart> */}
-			<h2>energy resource vs total power</h2>
+			{<PieChart data={manufacturers} />}
+			<br />
+			<h2>Energy Resource vs Total Power</h2>
 			{<BarChart data={energy_sources} xAttr="energe" yAttr="power" />}
-          <br />
-			
+          <br />	
         </div>
       </div>
     </div>
