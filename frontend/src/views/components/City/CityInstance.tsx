@@ -135,8 +135,8 @@ const CityInstance = (id: any) => {
             </div>
                    
                 <OurMap
-                  latitude = {Number(city?.latitude! === -1 ? 0 : Number(city?.latitude!))}
-                  longitude = {Number(city?.longitude! === -1 ? 0 : Number(city?.longitude!))}
+                  latitude = {Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!))}
+                  longitude = {Number(city?.longitude! === undefined ? 0 : Number(city?.longitude!))}
                   locationName = {city?.city_name!}
                   map_style = {{height: '75vh', width: '90vh', margin:'10vh'}}
                 />
