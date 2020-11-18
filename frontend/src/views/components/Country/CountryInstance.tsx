@@ -145,11 +145,11 @@ const CountryInstance = (id: any) => {
           </Table>
 
           {/* display world map with country plotted as a marker */}
-          {OurMap(
-            country?.lat! === undefined ? 0 : country?.lat!,
-            country?.long! === undefined ? 0 : country?.long!,
-            country?.country_name!
-          )}
+          <OurMap
+            latitude = {country?.lat! === undefined ? 0 : country?.lat!}
+            longitude = {country?.long! === undefined ? 0 : country?.long!}
+            locationName = {country?.country_name!}
+          />
         </header>
       )}
     </div>

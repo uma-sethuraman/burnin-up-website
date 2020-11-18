@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import "../../App.css";
 import Navbar from "../OurNavbar";
-import Table from "react-bootstrap/Table";
 import "./CityInstance.css";
 import useAxios from "axios-hooks";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
@@ -10,8 +9,8 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import WebFont from "webfontloader";
-import { AiOutlineLine } from "react-icons/ai";
 import Image from "react-bootstrap/Image";
+import Loading from "../Loading";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -52,12 +51,9 @@ const CityInstance = (id: any) => {
       <Navbar />
 
       {/* show spinner if content is loading */}
-      { loading ? (
-        <Spinner animation="border" />) : (
+      { loading ? (<Spinner animation="border" color="black"/>) : (
         
         <div className="row">
-        
-         
         <div className="column1">
           <header className="City-header">
             
@@ -137,14 +133,13 @@ const CityInstance = (id: any) => {
   
               </div>
             </div>
-                     
-                {OurMap(
-                  Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!)),
-                  Number(
-                  city?.longitude! === undefined ? 0 : Number(city?.longitude!)
-                  ),
-                  city?.city_name!, {height: '75vh', width: '90vh', margin:'10vh'}
-                    )}
+                   
+                <OurMap
+                  latitude = {Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!))}
+                  longitude = {Number(city?.longitude! === undefined ? 0 : Number(city?.longitude!))}
+                  locationName = {city?.city_name!}
+                  map_style = {{height: '75vh', width: '90vh', margin:'10vh'}}
+                />
 
                      
           </header>
