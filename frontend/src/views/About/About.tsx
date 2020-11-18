@@ -192,7 +192,7 @@ function About() {
         </div>
 
         {/* describing general purpose of website */}
-        <div className="purpose">
+        <div className="about-purpose">
         Burnin’ Up aims to educate people on the climate crisis of our planet,
         and make them aware of how quickly our home is changing. This website
         will allow you to navigate from city to city, or country to country,
@@ -204,7 +204,9 @@ function About() {
         using, or carpooling with others when you can. By understanding the
         history of our Earth, we can understand where we will be in the
         future.
-        <br></br>
+        </div>
+        <br/>
+        <div className="about-purpose">
         The compilation of our data allows us to expand our views on climate
         change to other areas of the world. We often only hear about the state
         of our environment within our own countries or regions. The
@@ -221,6 +223,20 @@ function About() {
         {/* member info */}
         <AboutCarousel members={members}/>
         <br/><br/>
+
+          <h2>
+            <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
+              Our Postman API<br></br>
+              {/* <Image className="ToolImage" src={PostmanLogo} /> */}
+            </a>
+          </h2>
+       
+        <h2>
+          <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
+            Our GitLab Repository<br></br>
+            {/* <Image className="ToolImage" src={GitlabLogo} /> */}
+          </a>
+        </h2>
 
         {/* total commits, issues, and unit tests */}
         <div className="h2_about">

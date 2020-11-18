@@ -9,29 +9,8 @@ import GitlabLogo from "../../assets/GitlabLogo.jpg";
 function AboutSets() {
   return (
     <div className="h2_about">
-      <div className="row">
-        <div className="column">
-          <h2>
-            <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
-              Our Postman API<br></br>
-              <Image className="ToolImage" src={PostmanLogo} />
-            </a>
-          </h2>
-        </div>
-        <div className="column">
-        <h2>
-          <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
-            Our GitLab Repository<br></br>
-            <Image className="ToolImage" src={GitlabLogo} />
-          </a>
-        </h2>
-      </div>
-      </div>
 
-
-      <br></br>
-
-      <div className="purpose">
+      <div className="about-purpose">
         <h2>Different API and data sources</h2>
         <p></p>
         Raw csv data formatted using Jupyter Notebook and Pandas. Flask, SQL

@@ -71,10 +71,12 @@ const renderSlides = () =>
 function AboutTools() {
   return (
     <div>
-      <div className="purpose">
+      <div className="about-purpose">
         <h2>Tools</h2>
       </div>
-      <Slider dots={true} slidesToShow={4}>
+      <Slider dots={true}
+        autoplay={true}
+       slidesToShow={4}>
         {renderSlides()}
       </Slider>
     </div>
