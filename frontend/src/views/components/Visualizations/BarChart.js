@@ -17,8 +17,6 @@ class BarChart extends Component {
     }
 
     createBarChart(){
-		var myColor = d3.scaleLinear().domain([1,10])
-		.range(["white", "blue"])
 		
         const margin = { top: 50, right: 20, bottom: 100, left: 60};
         const height = 600 - margin.top - margin.bottom;
@@ -62,7 +60,7 @@ class BarChart extends Component {
             .attr('y', d => y(d[this.props.yAttr]))
             .attr('width', x.bandwidth())
             .attr('height', d => height - y(d[this.props.yAttr]))
-            .attr("fill", function(d){return myColor(y(d[this.props.yAttr])) })
+            .attr("fill", 'black')
 			
     }
 
