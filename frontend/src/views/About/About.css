@@ -23,7 +23,8 @@
     min-height: 50vh;
     padding-right: 2vw;
     padding-left: 2vw;
-    background-color: #556875;
+    background: linear-gradient(180deg, #3C0C0C 0%, 
+    #791414 45.83%, #960E0E 95.83%);
 }
   
 /* Three image containers (use 25% for four, and 50% for two, etc) */
@@ -82,7 +83,6 @@
     text-align: left;
     font-size: 20px;
     color: #ffffff;
-    background-color: #556875;
 }
   
 .About-logo {
