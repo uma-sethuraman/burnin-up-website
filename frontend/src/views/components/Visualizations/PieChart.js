@@ -32,7 +32,7 @@ class PieChart extends React.Component {
       .arc()
       .innerRadius(0)
       .outerRadius(radius);
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+    const colorScale = d3.scaleOrdinal(d3.schemePaired);
 
     svg
       .selectAll('mySlices')
