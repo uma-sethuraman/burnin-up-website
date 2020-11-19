@@ -93,7 +93,8 @@ const YearInstance = (id: any) => {
             <div>  
 
               <div className="info-title-style">
-                Top 10 Countries with Highest CO2 Emissions This Year</div>
+                Top 10 Countries with Highest CO2 Emissions {year?.year_id}
+              </div>
               <div className="info-unit-style">
                 Click on a bar to learn more about that country!</div>
               <br />
@@ -119,17 +120,17 @@ const YearInstance = (id: any) => {
                 <Tooltip />
                 <Bar
                   dataKey="country_co2"
-                  fill="#8884d8"
+                  fill="#a8b3ba"
                   name="CO2 Emissions (ppm)"
                   onClick={barClick}
                 />
               </BarChart>
               </div>
               <div className="info-title-style" >
-                Top 10 Cities with Highest Temperatures This Year
+                Top 10 Cities by Average Temperature {year?.year_id}
                 </div>
               <div className="info-unit-style" >
-              Click on a map marker or table row to learn more about that city.
+              Click on a map marker or table row to learn more about that city!
               </div>
                 
 
