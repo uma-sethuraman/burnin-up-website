@@ -4,6 +4,7 @@ import Navbar from "../components/OurNavbar";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import Image from "react-bootstrap/Image";
+import WebFont from "webfontloader";
 
 /* importing images for all group members */
 import UmaSethuraman from "../../assets/uma-headshot.jpg";
@@ -12,17 +13,36 @@ import LaurenMangibin from "../../assets/LaurenMangibin-headshot.jpg";
 import SamanthaTuapen from "../../assets/samantha-headshot.jpg";
 import CatilinLien from "../../assets/CaitlinLien.jpeg";
 import CherrySun from "../../assets/cherry.jpeg";
+import PostmanLogo from "../../assets/PostmanLogo.png";
+import GitlabLogo from "../../assets/GitlabLogo.jpg";
 
 /* importing interfaces and images for tools and data sections */
 import AboutTools from "./AboutTools";
 import AboutSets from "./AboutSets";
 import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
-import { bisector } from "d3";
 import AboutCarousel from "./AboutCarousel";
 
 function About() {
   /* team member information */
 
+    WebFont.load({
+      google: {
+        families: [
+          "Trirong",
+          "Staatliches",
+          "Quicksand",
+          "Vesper Libre",
+          "Trocchi",
+          "serif",
+          "Advantage",
+          "Prompt",
+          "cursive",
+          "Raleway",
+          "sans-serif",
+          "Montserrat"
+        ],
+      },
+    });
 
   const [members, changeMembers] = useState<GroupMember[]>([
     {
@@ -71,7 +91,9 @@ function About() {
       unittest: 11,
       bio:
       "Caitlin is a junior from Dallas, TX. Some of her technical" +
-      " interests are front end web and app development and NLP. Her hobbies" + " include painting and drawing, playing oboe, listening to classical " + " music, and drinking tea.",
+      " interests are front end web and app development and NLP. Her hobbies" + 
+        " include painting and drawing, playing oboe, listening to classical " + 
+      " music, and drinking tea.",
     },
     {
       name: "Lauren Mangibin",
@@ -227,16 +249,18 @@ function About() {
           <h2>
             <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
               Our Postman API<br></br>
-              {/* <Image className="ToolImage" src={PostmanLogo} /> */}
+              <Image className="ToolImage" src={PostmanLogo} />
             </a>
           </h2>
        
         <h2>
           <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
             Our GitLab Repository<br></br>
-            {/* <Image className="ToolImage" src={GitlabLogo} /> */}
+            <Image className="ToolImage" src={GitlabLogo} />
           </a>
         </h2>
+
+        <br/>
 
         {/* total commits, issues, and unit tests */}
         <div className="h2_about">
@@ -270,5 +294,6 @@ function About() {
     </div>
   );
 }
+
 
 export default About;

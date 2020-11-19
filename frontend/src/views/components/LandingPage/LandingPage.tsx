@@ -68,7 +68,7 @@ function LandingPage() {
         <br></br>
         <div className="story">
           <div className="story-header">
-            <h1>Our Purpose</h1>
+            <h1>OUR PURPOSE</h1>
           </div>
           <p>
             Earth’s climate is changing faster than ever. Our website shows a

@@ -77,7 +77,7 @@ const GeneralYears = () => {
         <div>
           <header className="Years-header">
             <div className = "Years-h1">
-              <h1 className="Years-h1">Annual Global<br />Climate Change</h1>
+              <h1 className="Years-h1">Annual<br />Climate Change</h1>
             </div>
 
             {/* years search bar */}

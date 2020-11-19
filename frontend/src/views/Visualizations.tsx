@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "react-bootstrap/Image";
 import Navbar from "./components/OurNavbar";
 import "./Visualizations.css";
 import country from "../vizdata/countries.json"
@@ -7,9 +6,7 @@ import country from "../vizdata/countries.json"
 import energy_sources from "../vizdata/energy_sources.json"
 
 import PieChart from "./components/Visualizations/PieChart";
-import ConnectedScatterplot from "./components/Visualizations/ConnectedScatterplot";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
-import Choropleth from "./components/Visualizations/choropleth";
 import BarChart from "./components/Visualizations/BarChart";
 import BubbleChart from '@weknow/react-bubble-chart-d3';
 import citytemps from "../vizdata/CityRecentTempsRanges.json";
@@ -17,7 +14,7 @@ import fuelingstations from "../vizdata/FuelingStationsPerState.json";
 import manufacturers from "../vizdata/Manufacturer.json";
 
 import {
-	LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
+	LineChart, Line, XAxis, YAxis
   } from 'recharts';
 
 

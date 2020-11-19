@@ -64,6 +64,7 @@ const Cities = () => {
     google: {
       families: [
         "Raleway",
+        "Prompt"
       ],
     },
   });

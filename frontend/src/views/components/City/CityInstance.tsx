@@ -7,7 +7,6 @@ import useAxios from "axios-hooks";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
-import Spinner from "react-bootstrap/Spinner";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
 import Loading from "../Loading";
@@ -51,7 +50,7 @@ const CityInstance = (id: any) => {
       <Navbar />
 
       {/* show spinner if content is loading */}
-      { loading ? (<Spinner animation="border" color="black"/>) : (
+      { loading ? (<Loading/>) : (
         
         <div className="row">
         <div className="column1">

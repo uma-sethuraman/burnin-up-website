@@ -58,6 +58,7 @@ class OurNavbar extends React.Component {
           "cursive",
           "Raleway",
           "sans-serif",
+          "Montserrat"
         ],
       },
     });
@@ -70,7 +71,7 @@ class OurNavbar extends React.Component {
             
             <div style={{color: "white", fontFamily: "Raleway"}}>
               <b>
-                Burnin' Up
+                BURNIN' UP &nbsp;
               </b>
             </div>
           </Navbar.Brand>
@@ -78,31 +79,33 @@ class OurNavbar extends React.Component {
           {/* links to navbar pages */}
           <Nav className="mr-auto">
             <Nav.Link href="/about" >
-              <div style={{color: "white", fontFamily: "Raleway"}}>About Us</div>
+              <div style={{ color: "white", fontFamily: "Raleway" }}>
+                ABOUT US &nbsp;
+              </div>
             </Nav.Link>
             <Nav.Link href="/cities">
               <div style={{color: "white", fontFamily: "Raleway"}}>
-                Cities
+                CITIES &nbsp;
               </div>
             </Nav.Link>
             <Nav.Link href="/countries">
               <div style={{color: "white", fontFamily: "Raleway"}}>
-                Countries
+                COUNTRIES &nbsp;
               </div>
             </Nav.Link>
             <Nav.Link href="/years">
               <div style={{color: "white", fontFamily: "Raleway"}}>
-                Annual Global Climate Change
+                  ANNUAL CLIMATE CHANGE &nbsp;
               </div>
             </Nav.Link>
             <Nav.Link href="/howtohelp">
               <div style={{color: "white", fontFamily: "Raleway"}}>
-                How To Help
+                HOW TO HELP &nbsp;
               </div>
             </Nav.Link>
             <Nav.Link href="/visualizations">
               <div style={{color: "white", fontFamily: "Raleway"}}>
-                Visualizations
+                VISUALIZATIONS
               </div>
             </Nav.Link>
           </Nav>

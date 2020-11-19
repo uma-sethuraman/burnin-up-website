@@ -1,10 +1,6 @@
 import React from "react";
 import "./About.css";
 
-import Image from "react-bootstrap/Image";
-import PostmanLogo from "../../assets/PostmanLogo.png";
-import GitlabLogo from "../../assets/GitlabLogo.jpg";
-
 /* displays datasets and APIs on About Us page */
 function AboutSets() {
   return (

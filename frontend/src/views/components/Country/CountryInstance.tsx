@@ -8,8 +8,8 @@ import { useEffect } from "react";
 import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
-import Spinner from "react-bootstrap/Spinner";
 import WebFont from "webfontloader";
+import Loading from "../Loading";
 
 /* country instance page, takes in country id,
    route: "/countries/id=" */
@@ -58,7 +58,7 @@ const CountryInstance = (id: any) => {
         <Navbar />
   
         {/* show spinner if content is loading */}
-        { loading ? (<Spinner animation="border" color="black"/>) : (
+        { loading ? (<Loading />) : (
           
           <div className="row">
           <div className="column1">

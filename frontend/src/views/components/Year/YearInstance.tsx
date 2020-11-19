@@ -1,20 +1,37 @@
-import { Link } from "react-router-dom";
 import React from "react";
-import "../../App.css";
 import Navbar from "../OurNavbar";
-import Table from "react-bootstrap/Table";
 import "./YearInstance.css";
 import { useEffect } from "react";
 import YearMap from "../Map/YearMap";
 import { BarChart, Bar, XAxis, YAxis, 
-        Tooltip, CartesianGrid, 
-        Legend, Label } from "recharts";
+        Tooltip, CartesianGrid } from "recharts";
 import useAxios from "axios-hooks";
-import Spinner from "react-bootstrap/Spinner";
+import Image from "react-bootstrap/Image";
+import YearInstanceTable from "./YearInstanceTable";
+import Loading from "../Loading";
+import WebFont from "webfontloader";
 
 /* year instance page, takes in year id,
 route: "/years/id=" */
 const YearInstance = (id: any) => {
+  WebFont.load({
+    google: {
+      families: [
+        "Trirong",
+        "Staatliches",
+        "Quicksand",
+        "Vesper Libre",
+        "Trocchi",
+        "serif",
+        "Advantage",
+        "Prompt",
+        "cursive",
+        "Raleway",
+        "sans-serif",
+        "Montserrat"
+      ],
+    },
+  });
 
   /* contains all data about current year */
   const [year, setYear] = React.useState<Year>();
@@ -60,117 +77,138 @@ const YearInstance = (id: any) => {
         </g>
       );
   };
+ 
 
   return (
     <div className="YearInstance">
       <Navbar />
-
-      {/* display spinner animation if loading */}
-      {loading ? (
-        <Spinner animation="border" />
-      ) : (
-        <header className="App-header">
-          <h3> {year?.year_id} </h3>
-          <br />
-
-          {/* bar chart with country data */}
-          <h1>Top 10 Countries with Highest CO2 Emissions This Year</h1>
-          <p>Click on a bar to learn more about that country!</p>
+      
+          {/* show spinner if content is loading */}
+          { loading ? (<Loading />) : (
           
-          <BarChart width={1200} height={500} data={year?.countries_emissions}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="country"
-              stroke="#FFFFFF"
-              interval={0}
-              height={150}
-              tick={<CustomAxisTick />}
-              label={{value: 'Country', dy: 30, fill:'white', fontSize: 20}}
-            />
-            <YAxis 
-              stroke="#FFFFFF"
-              label={{value: 'CO2 Emissions (ppm)', dx: -30, 
-                      fill:'white', fontSize: 20, angle: -90}}
-              width={100}
-            />
-            <Tooltip />
-            <Bar
-              dataKey="country_co2"
-              fill="#8884d8"
-              name="CO2 Emissions (ppm)"
-              onClick={barClick}
-            />
-          </BarChart>
-  
-          <br />
-          <br />
+          <div className="row">
+
+          <div className="year-column1">
+            <header className="Year-header">
+            <div>  
+
+              <div className="info-title-style">
+                Top 10 Countries with Highest CO2 Emissions This Year</div>
+              <div className="info-unit-style">
+                Click on a bar to learn more about that country!</div>
+              <br />
+            
+              <div className="graph-style">
+              <BarChart width={650} height={500} 
+              data={year?.countries_emissions}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="country"
+                  stroke="#FFFFFF"
+                  interval={0}
+                  height={150}
+                  tick={<CustomAxisTick />}
+                  label={{value: 'Country', dy: 30, fill:'white', fontSize: 20}}
+                />
+                <YAxis 
+                  stroke="#FFFFFF"
+                  label={{value: 'CO2 Emissions (ppm)', dx: -30, 
+                          fill:'white', fontSize: 20, angle: -90}}
+                  width={100}
+                />
+                <Tooltip />
+                <Bar
+                  dataKey="country_co2"
+                  fill="#8884d8"
+                  name="CO2 Emissions (ppm)"
+                  onClick={barClick}
+                />
+              </BarChart>
+              </div>
+              <div className="info-title-style" >
+                Top 10 Cities with Highest Temperatures This Year
+                </div>
+              <div className="info-unit-style" >
+              Click on a map marker or table row to learn more about that city.
+              </div>
+                
+
+              <YearMap
+                cities = {year?.city_temperatures !== undefined ? 
+                  year?.city_temperatures : []}
+                map_style = {{height: '50vh', width: '85vh', marginLeft:'10vw', marginRight:'10vw', marginTop:'5vh', marginBottom:'5vh'}}
+              />
+              
+              <YearInstanceTable cities={year?.city_temperatures}/>
+              <br/>
+              </div>
+              </header> 
+            </div>  
+
+          <div className="line">
+            <Image src={require("../../../assets/line-shadow.png")} height="100%"></Image>
+          </div>
+        
+          <div className="year-column2">
+            <header className="Year-header">
+            <div className="year-title">
+                {year?.year_id}
+            </div>
+            <br />
           
-          {/* year table */}
-          <Table bordered hover size="sm" variant="dark">
-            <tbody>
-              <tr>
-                <td>Global Mean Surface Temperature Anomaly</td>
-                <td>{year?.temp_anomaly}</td>
-              </tr>
-              <tr>
-                <td>Mean Carbon Dioxide Level (ppm)</td>
-                <td>{year?.co2}</td>
-              </tr>
-              <tr>
-                <td>Methane Level (ppb)</td>
-                <td>{year?.methane}</td>
-              </tr>
-              <tr>
-                <td>Nitrous Oxide Level (ppb)</td>
-                <td>{year?.nitrous_oxide}</td>
-              </tr>
-              <tr>
-                <td>
-                  Ice Extent (km<sup>2</sup>)
-                </td>
-                <td>{year?.polar_ice}</td>
-              </tr>
-              <tr>
-                <td>Absolute Sea Level Change Since 1880 (inches)</td>
-                <td>{year?.sea_level}</td>
-              </tr>
-            </tbody>
-          </Table>
+          {/*year table*/}
+          <br />
+          <div className="info-style">{year?.temp_anomaly.toFixed(2)}</div>
+          <div className="info-title-style">
+            Global Mean Surface <br /> Temperature Anomaly
+          </div>
+          
+          <br/>
+          
+          <div className="info-style">{year?.co2.toFixed(2)}</div>
+          <div className="info-title-style">
+            Mean Carbon Dioxide Level
+          </div>
+          <div className="info-unit-style">ppm</div>
+
+          <br/>
+
+          <div className="info-style">{year?.methane.toFixed(2)}</div>
+          <div className="info-title-style">
+            Methane Level
+          </div>
+          <div className="info-unit-style">ppb</div>
+
+          <br/>
+
+          <div className="info-style">{year?.nitrous_oxide.toFixed(2)}</div>
+          <div className="info-title-style">
+            Nitrous Oxide Level
+          </div>
+          <div className="info-unit-style">ppb</div>
+
+          <br/>
+
+          <div className="info-style">{year?.polar_ice.toFixed(2)}</div>
+          <div className="info-title-style">
+            Ice Extent
+          </div>
+          <div className="info-unit-style">km<sup>2</sup></div>
+
+          <br/>
+              
+          <div className="info-style">{year?.sea_level.toFixed(2)}</div>
+          <div className="info-title-style">
+            Absolute Sea Level <br /> Change Since 1880 
+          </div>
+          <div className="info-unit-style">inches</div>
           <br />
 
-          {/* city temperature table */}
-          <h1> Top 10 Cities with Highest Average Temperatures This Year</h1>
-          <p>
-            Explore the map and click on a marker to learn more about a city!
-          </p>
-          <Table bordered hover size="sm" variant="dark">
-            <thead>
-              <tr>
-                <th>City</th>
-                <th>Highest Temperature</th>
-              </tr>
-            </thead>
-            <tbody>
-              {year?.city_temperatures.map((city) => (
-                <tr key={city.city_id}>
-                  <td>
-                    <Link to={"/cities/id=" + city.city_id}>{city.city}</Link>
-                  </td>
-                  <td>
-                    {city.city_temp + (city.city_temp > 40 ? " °F" : " °C")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          
-          {/* map with the top 10 cities */}
-          {YearMap(
-            year?.city_temperatures !== undefined ? year?.city_temperatures : []
-          )}
-        </header>
-      )}
-    </div>
+            </header>
+          </div>
+          </div>
+          )} 
+      </div>
   );
 };
 

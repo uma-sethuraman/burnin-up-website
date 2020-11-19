@@ -1,7 +1,6 @@
 import React from "react";
 import "./About.css";
-import { Card, CardDeck } from "react-bootstrap";
-import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
+import { Card } from "react-bootstrap";
 
 function AboutToolCard(props: any) {
   return (

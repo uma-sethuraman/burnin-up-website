@@ -1,6 +1,5 @@
 import React from "react";
 import "./About.css";
-import Image from "react-bootstrap/Image";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
