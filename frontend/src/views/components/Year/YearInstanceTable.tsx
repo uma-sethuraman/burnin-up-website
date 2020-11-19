@@ -24,11 +24,15 @@ function YearInstanceTable(props: any) {
         },
         {
           name: "city_temp",
-          label: "Highest Temperature",
+          label: "Annual Average Temperature",
           options: {
             filter: false,
             sort: true,
-          },
+            customBodyRender: (value: any, tableMeta: any, updateValue: any) => 
+                <div>
+                    {value + (value > 40 ? " °F" : " °C")}
+                </div>
+          }
         }];
 
         const options = {
