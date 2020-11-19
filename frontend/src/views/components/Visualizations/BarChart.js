@@ -18,9 +18,10 @@ class BarChart extends Component {
 
     createBarChart(){
 		
-        const margin = { top: 100, right: 20, bottom: 150, left: 60};
+        const margin = { top: 100, right: 20, bottom: 150, left: 110};
         const height = 600 - margin.top - margin.bottom;
         const width = 1200 - margin.left - margin.right;
+        const padding = -110; // Space around the chart, not including labels
 
         const svg = d3
             .select(this.refs.barChart)
@@ -61,6 +62,19 @@ class BarChart extends Component {
             .attr('width', x.bandwidth())
             .attr('height', d => height - y(d[this.props.yAttr]))
             .attr("fill", 'orange')
+
+        // Now add titles to the axes
+        svg.append("text")
+        .attr("text-anchor", "middle") // This makes it easy to centre the text as the transform is applied to the anchor.
+        .attr("transform", "translate(" + (padding / 2) + "," + (height / 2) + ")rotate(-90)") // Text is drawn off the screen top left, move down and out and rotate.
+        .text(this.props.yLabel)
+        .attr('fill', 'white');
+
+        svg.append("text")
+        .attr("text-anchor", "middle") // This makes it easy to centre the text as the transform is applied to the anchor.
+        .attr("transform", "translate(" + (width / 2) + "," + (height + 100) + ")") // Centre below axis.
+        .text(this.props.xLabel)
+        .attr('fill', 'white');
 			
     }
 

@@ -1,11 +1,17 @@
 .h3_about {
-  font-size: 90px;
+  font-size: 36px;
   color: #ffffff;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
 }
 
 .h2_about {
   font-size: 25px;
   color: #ffffff;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
 }
 
 .Visuals {
