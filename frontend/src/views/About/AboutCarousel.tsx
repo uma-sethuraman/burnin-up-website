@@ -18,7 +18,7 @@ export default function AboutCarousel(props:any) {
   ));
   
   return ( 
-      <div>
+      <div className="about-carousel">
         <Slider 
         dots={true}
         slidesToShow={3}

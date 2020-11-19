@@ -1,21 +1,33 @@
 .h3_about {
-    font-size: 90px;
+    font-size: 36px;
     color: #ffffff;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
   }
   
 .h2_about {
     font-size: 25px;
     color: #ffffff;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
 }
 
 .h1_about {
     font-size: 20px;
     color: #ffffff;
+    
 }
 
 .p_about {
     font-size: 20px;
-    color: #ffffff;
+    color: #FFFFFF;
+    text-align:left;
+    padding-bottom: 5vh;
+    padding-left:5vh;
+    padding-right:5vh;
+    font-family: 'Raleway';
 }
   
 .About-body {
@@ -27,13 +39,24 @@
     background: linear-gradient(180deg, #3C0C0C 0%, 
     #791414 45.83%, #3C0C0C 95.83%);
 }
-  
+.row {
+    align-content: center;
+}
 /* Three image containers (use 25% for four, and 50% for two, etc) */
 .columns{
     width: 33.333%;
 }
-.Carousel{
-    padding: 2px;
+.set-column{
+    width:50%
+}
+
+.about-column{
+    align-content: center;
+   
+}
+.about-carousel{
+    padding-left:5vh;
+    padding-right:5vh;
     align-content: center;
 }
 .card-img-top {
@@ -56,6 +79,7 @@
   
 .About {
     text-align: center;
+    font-family: 'Raleway';
 }
 
 .ToolImage{
@@ -69,6 +93,7 @@
     padding-left: 2vw;
     text-align: left;
     font-size: 25px;
+    font-family: 'Raleway';
     color: black;
     background-color: white;
 
@@ -78,12 +103,17 @@
     font-size: 14px;
     color: black;
     text-align: center;
+    font-family: 'Raleway';
 }
 
 .about-purpose {
-    text-align: left;
     font-size: 20px;
-    color: #ffffff;
+    color: #FFFFFF;
+    text-align:center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 5vh;
+    font-family: 'Raleway';
 }
   
 .About-logo {

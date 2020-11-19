@@ -14,6 +14,7 @@ import ElasticBeanstalkLogo from "../../assets/ElasticBeanstalk.png";
 import NameCheapLogo from "../../assets/NameCheapLogo.png";
 import DiscordLogo from "../../assets/DiscordLogo.png";
 import JupyterNotebookLogo from "../../assets/JupyterNotebook.svg";
+import AlgoliaLogo from "../../assets/algolialogo.png"
 import AboutToolCard from "./AboutToolCard";
 
 /* displays tools section on About Us page */
@@ -58,6 +59,11 @@ const tools = [
     caption: "AWS Elastic Beanstalk: hosts website from Git Repository",
     href: "https://aws.amazon.com/elasticbeanstalk/",
   },
+  {
+    src: AlgoliaLogo,
+    caption: "Algolia: powers site search",
+    href: "https://www.algolia.com/",
+  },
 ];
 
 const renderSlides = () =>
@@ -70,14 +76,15 @@ const renderSlides = () =>
 function AboutTools() {
   return (
     <div>
-      <div className="about-purpose">
+      <div className="p_about">
         <h2>Tools</h2>
+        <br/>
+        <Slider dots={true}
+          autoplay={true}
+        slidesToShow={4}>
+          {renderSlides()}
+        </Slider>
       </div>
-      <Slider dots={true}
-        autoplay={true}
-       slidesToShow={4}>
-        {renderSlides()}
-      </Slider>
     </div>
   );
 }

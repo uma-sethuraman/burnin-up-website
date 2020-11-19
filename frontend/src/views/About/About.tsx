@@ -76,10 +76,10 @@ function About() {
       image: SamanthaTuapen,
       unittest: 5,
       bio: 
-      "Samantha is a junior from Dallas, TX. She’s working on the"+
-      " backend development of this site and has an interest in overall"+
+      "Samantha is a junior from Dallas, TX. She’s working on"+
+      " backend for the site and has an interest in"+
       " full stack app development. Outside of the CS world, she enjoys"+
-      " journaling, kickboxing, playing musical instruments, and eating"+
+      " kickboxing, playing musical instruments, and eating"+
       " good food.",
 
     },
@@ -92,7 +92,7 @@ function About() {
       bio:
       "Caitlin is a junior from Dallas, TX. Some of her technical" +
       " interests are front end web and app development and NLP. Her hobbies" + 
-        " include painting and drawing, playing oboe, listening to classical " + 
+      " include painting and drawing, playing oboe, listening to classical " + 
       " music, and drinking tea.",
     },
     {
@@ -102,10 +102,10 @@ function About() {
       image: LaurenMangibin,
       unittest: 9,
       bio: 
-      "Lauren is Junior from Austin, TX whose eyebags got much bigger" +
+      "Lauren is a junior from Austin, TX whose eyebags got much bigger" +
       " from sleeping late. She is working on the front end of the site" +
       " and loves working with people. She is a hip-hop dancer and" +
-      " choreographer for UT dance teams and loves to explore and hike.",
+      " choreographer for UT dance teams.",
     },
     {
       name: "Uma Sethuraman",
@@ -215,11 +215,11 @@ function About() {
 
         {/* describing general purpose of website */}
         <div className="about-purpose">
-        Burnin’ Up aims to educate people on the climate crisis of our planet,
+        Burnin’ Up aims to educate people on the climate crisis of our planet
         and make them aware of how quickly our home is changing. This website
-        will allow you to navigate from city to city, or country to country,
-        to see how each city or country is contributing to, or has been
-        affected by climate change. You can also see how climate change has
+        will allow you to navigate between cities and countries 
+        to see how each city or country is affected by and contributing to 
+        climate change. You can also see how climate change has
         been affecting the world on a year by year basis. We encourage you to
         take action by making small changes in your life to decrease your
         individual carbon footprint, such as turning off lights you aren’t
@@ -227,13 +227,12 @@ function About() {
         history of our Earth, we can understand where we will be in the
         future.
         </div>
-        <br/>
         <div className="about-purpose">
         The compilation of our data allows us to expand our views on climate
         change to other areas of the world. We often only hear about the state
         of our environment within our own countries or regions. The
         visualizations and graphs we show help us understand how drastic the
-        changes are throughout history.
+        changes are worldwide and throughout history.
         </div>
 
         <br></br>
@@ -241,49 +240,56 @@ function About() {
         <div className="h2_about">
         <h2>Meet the Team</h2>
         </div>
-
+        <br/>
         {/* member info */}
         <AboutCarousel members={members}/>
         <br/><br/>
-
-          <h2>
-            <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
-              Our Postman API<br></br>
-              <Image className="ToolImage" src={PostmanLogo} />
-            </a>
-          </h2>
-       
-        <h2>
-          <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
-            Our GitLab Repository<br></br>
-            <Image className="ToolImage" src={GitlabLogo} />
-          </a>
-        </h2>
-
-        <br/>
-
-        {/* total commits, issues, and unit tests */}
-        <div className="h2_about">
+         {/* total commits, issues, and unit tests */}
+         <div className="h2_about">
           <div className="row">
-              <div className="columns">
+              <div className="col-sm-4">
                 {commitsSum === -1 ? (
                   <h2>Total Commits: </h2>
                 ) : (
                   <h2>Total Commits: {commitsSum}</h2>
                 )}
               </div>
-              <div className="columns">
+              <div className="col-sm-4">
                 {issuesSum === -1 ? (
                   <h2>Total Issues: </h2>
                 ) : (
                   <h2>Total Issues: {issuesSum}</h2>
                 )}
               </div>
-              <div className="columns">
+              <div className="col-sm-4">
               <h2>Total Unit Tests: {unittestsSum}</h2>
               </div>
           </div>
         </div>
+        <br/>
+        <div className="container">
+        <div className="row">
+          <div className="col-sm-6">
+          <h2>
+            <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
+              Our Postman API<br></br>
+              <Image className="ToolImage" src={PostmanLogo} />
+            </a>
+          </h2>
+          </div>
+          <div className=	"col-sm-6">
+          <h2>
+            <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
+              Our GitLab Repository<br></br>
+              <Image className="ToolImage" src={GitlabLogo} />
+            </a>
+          </h2>
+          </div>
+        </div>
+        </div>
+        <br/>
+
+       
         <br/>
         {/* datasets and APIs */}
         <AboutSets />

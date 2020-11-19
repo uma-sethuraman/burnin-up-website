@@ -22,15 +22,14 @@
   min-height: 50vh;
   padding-right: 2vw;
   padding-left: 2vw;
-  background: linear-gradient(180deg, #3C0C0C 0%, 
-  #791414 45.83%, #3C0C0C 95.83%);
 }
 .p_howtohelp {
-  text-align: center;
+  text-align: left;
   font-size: 20px;
   color: #ffffff;
-  padding-right: 20vw;
-  padding-left: 20vw;
+  margin-right: 15vw;
+  margin-left: 15vw;
+  font-family: 'Raleway';
 }
 
 .side-by-side {
@@ -39,3 +38,49 @@
   color: white;
 }
 
+.image-header {
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+  url("../assets/fightClimate.png");
+height: 100%; /* You must set a specified height */
+background-position: center; /* Center the image */
+background-repeat: no-repeat; /* Do not repeat the image */
+background-size: cover; /* Cover the entire container */
+background-color: #556875;
+min-height: 60vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-size: calc(10px + 2vmin);
+font-family: 'Raleway';
+color: white;
+}
+
+.h1-style {
+  font-family: 'Raleway';
+  font-size: 150px;
+  padding-top: 5vh;
+}
+.h3-style {
+  font-family: 'Raleway';
+  font-size: 75px;
+  padding-top: 20px;
+}
+
+.row-image1 {
+  display: inline-block;
+  float: left;
+  padding-top: 1.5vh;
+  padding-right: 2.5vw;
+}
+
+.row-image2 {
+  display: inline-block;
+  float: left;
+  padding-top: 5vh;
+  padding-right: 2.5vw;
+}
+
+.resource-title {
+  font-size: 25px;
+}

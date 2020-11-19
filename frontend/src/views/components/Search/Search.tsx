@@ -5,6 +5,8 @@ import { SearchBox, Hits, Highlight } from "react-instantsearch-dom";
 import { connectStateResults } from "react-instantsearch-dom";
 import "./Search.css";
 import Navbar from "../OurNavbar";
+import Image from "react-bootstrap/image";
+import WebFont from "webfontloader";
 
 /* creating search client for our Algolia search application */
 const searchClient = algoliasearch(
@@ -15,6 +17,7 @@ const searchClient = algoliasearch(
 /* what is displayed for each city in search results */
 const CityHit = (hit: any) => (
   <div className="hit">
+    <div className="result-style">
     <a href={"/cities/id=" + hit.hit.city_id}>
       <h1>{hit.hit.city_name}</h1>
     </a>
@@ -58,6 +61,7 @@ const CityHit = (hit: any) => (
       Longitude: {" "}
       <Highlight attribute="longitude" tagName="mark" hit={hit.hit} />
     </p>
+    </div>
   </div>
 );
 
@@ -73,6 +77,7 @@ const CityContent = connectStateResults(({ searchState }) =>
 /* what is displayed for each country in search results */
 const CountryHit = (hit: any) => (
   <div className="hit">
+    <div className="result-style">
     <a href={"/countries/id=" + hit.hit.country_id}>
       <h1>{hit.hit.country_name}</h1>
     </a>
@@ -128,6 +133,7 @@ const CountryHit = (hit: any) => (
       Recent CO2 Emissions: {" "}
       <Highlight attribute="recent_emissions" tagName="mark" hit={hit.hit} />
     </p>
+    </div>
   </div>
 );
 
@@ -143,6 +149,7 @@ const CountryContent = connectStateResults(({ searchState }) =>
 /* what is displayed for each year in search results */
 const YearHit = (hit: any) => (
   <div className="hit">
+    <div className="result-style">
     <a href={"/years/id=" + hit.hit.year_id}>
       <h1>{hit.hit.year_id}</h1>
     </a>
@@ -207,6 +214,7 @@ const YearHit = (hit: any) => (
         ))}
       </ul>
     </div>
+    </div>
   </div>
 );
 
@@ -221,10 +229,22 @@ const YearContent = connectStateResults(({ searchState }) =>
 
 /* takes in query that the user searches and returns search results */
 function Search(q: any) {
+
+  WebFont.load({
+    google: {
+      families: [
+        "serif",
+        "Raleway",
+        "sans-serif",
+      ],
+    },
+  });
+
   return (
-    <div>
-      <Navbar />
+    // <div>
+      
       <div className="Search">
+      <Navbar />
         <h1>Search Results</h1>
         <br />
         <InstantSearch
@@ -268,8 +288,17 @@ function Search(q: any) {
             </main>
           </Index>
         </InstantSearch>
+        <div className="search-side-by-side">
+          <div>
+              Powered by &nbsp;
+          </div>
+          <div>
+            <Image src={require("../../../assets/algolialogo.png")} height="5%" width="5%"/>
+          </div>
+        </div>
+        <br />
       </div>
-    </div>
+    // </div>
   );
 }
 

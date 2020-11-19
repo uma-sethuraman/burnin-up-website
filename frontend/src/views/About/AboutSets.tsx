@@ -6,12 +6,17 @@ function AboutSets() {
   return (
     <div className="h2_about">
 
-      <div className="about-purpose">
-        <h2>Different API and data sources</h2>
-        <p></p>
+      <div className="p_about">
+        <div className="row">
+          
+         
+        <h2>APIs and Data Sources</h2>
+        <p>
         Raw csv data formatted using Jupyter Notebook and Pandas. Flask, SQL
         Alchemy, and URL Lib were used to get data from the external APIs and
-        create the JSON response.
+        create the JSON response.</p>
+        <br/>
+        <div className="set-column"> 
         <li>
           <a href="https://developers.google.com/places/web-service/photos">
             Google Places API:{" "}
@@ -58,6 +63,8 @@ function AboutSets() {
           <a href="https://www.algolia.com/">Algolia: </a>
           Used to facilitate searching through the entire website.
         </li>
+        </div>
+        <div className="set-column"> 
         <li>
           <a href="https://data.giss.nasa.gov/modelforce/ghgases/Fig1A.ext.txt">
             Carbon Emissions Dataset 1:{" "}
@@ -105,6 +112,8 @@ function AboutSets() {
           </a>
           Used to get the world population from 1800-2019.
         </li>
+        </div>
+      </div>
       </div>
     </div>
   );

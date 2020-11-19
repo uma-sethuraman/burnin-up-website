@@ -7,9 +7,27 @@
     text-align: left;
     padding-right: 2vw;
     padding-left: 2vw;
+    background: linear-gradient(180deg, #3C0C0C 0%, 
+    #791414 45.83%, #3C0C0C 95.83%);
+    font-family: "Raleway";
+    color: white;
+    background-size: cover;
+}
+
+.result-style {
+    font-family: "Raleway";
+    color: white;
 }
 
 .list-item {
     padding-left: 2vw;
+}
+
+.search-side-by-side {
+    display:flex; 
+    flex-direction:row;
+    color: white;
+    align-items: center;
+    font-family: "Raleway";
 }
   
