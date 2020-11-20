@@ -12,8 +12,8 @@ import Slider from "react-slick";
 export default function AboutCarousel(props:any) {
   const renderSlides = () =>
   props.members.map((member:GroupMember) => (
-    <div>
-      <AboutCard member={member}/>
+    <div key={member.commits? member.commits: 0} >
+      <AboutCard member={member} />
     </div>
   ));
   

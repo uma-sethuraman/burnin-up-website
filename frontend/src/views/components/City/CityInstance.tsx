@@ -47,7 +47,7 @@ const CityInstance = (id: any) => {
 
   return (
     <div className="CityInstance">
-      <Navbar />
+      <Navbar singleColor = {true} />
 
       {/* show spinner if content is loading */}
       { loading ? (<Loading/>) : (

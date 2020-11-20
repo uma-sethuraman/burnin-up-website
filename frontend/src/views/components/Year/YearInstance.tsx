@@ -81,7 +81,7 @@ const YearInstance = (id: any) => {
 
   return (
     <div className="YearInstance">
-      <Navbar />
+      <Navbar singleColor = {true} />
       
           {/* show spinner if content is loading */}
           { loading ? (<Loading />) : (

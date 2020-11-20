@@ -245,7 +245,7 @@ function Search(q: any) {
       
       <div className="Search">
       <Navbar />
-        <h1>Search Results</h1>
+        <h1 className="search-heading">Search Results</h1>
         <br />
         <InstantSearch
           indexName="cities_index"
