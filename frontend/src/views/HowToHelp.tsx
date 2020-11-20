@@ -14,7 +14,7 @@ function HowToHelp() {
       <Navbar />
       <header className="image-header">
         <div>
-          <h1 className="h1-style"> How to help </h1>
+          <h1 className="h1-style"> How to Help </h1>
         </div>
       </header>
       <div className="HowToHelp-header">
