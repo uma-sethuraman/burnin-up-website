@@ -55,7 +55,7 @@ const CountryInstance = (id: any) => {
     });
     return (
       <div className="CountryInstance">
-        <Navbar />
+        <Navbar singleColor = {true} />
   
         {/* show spinner if content is loading */}
         { loading ? (<Loading />) : (

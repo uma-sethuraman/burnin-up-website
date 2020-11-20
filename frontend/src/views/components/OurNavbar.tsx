@@ -6,137 +6,150 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import WebFont from "webfontloader";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useState, useEffect } from "react";
 
-/* navbar component used at the top of all pages */
-class OurNavbar extends React.Component {
-  textInput: any;
-  navbarColor: string;
+/* the navigation bar which appears on
+all the pages */
+const OurNavbar = (props: any) => {
 
-  constructor(props: any) {
-    super(props);
-    this.navbarColor = "";
+  /* input for search bar */
+  const textInput: any = React.useRef();
 
-    /* initialize ref to store search bar input */
-    this.textInput = React.createRef();
+  /* save y position of window in order to 
+  change navbar color to solid after certain
+  y position */
+  const [windowYPos, setWindowYPos] = useState<number>(0);
+
+  /* used when pressing search button in navbar */
+  function searchOnClick() {
+    window.location.assign("/search/q=" + textInput.current.value);
   }
 
-  /* when clicking enter or the search button,
-  redirect to search page and pass in the query */
-  onClick() {
-    window.location.assign("/search/q=" + this.textInput.current.value);
+  /* load the fonts */
+  WebFont.load({
+    google: {
+      families: [
+        "Raleway",
+        "sans-serif",
+        "Prompt"
+      ],
+    },
+  });
+
+  /* for navbar tabs */
+  const styles = {
+    tabs: {
+      color: "white", 
+      fontFamily: "Raleway",
+    } as React.CSSProperties,
+    searchButton: {
+      backgroundColor: "white", 
+      borderColor: "white", 
+      color: "black"
+    } as React.CSSProperties,
   }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  handleScroll = () => {
-    if (window.scrollY > 100) {
-      this.setState({ navbarColor: "white"});
-    } else {
-      this.setState({ navbarColor: "black"});
+  /* if the user passes in props.singleColor as true,
+  then make the navbar solid black. otherwise, make the
+  navbar clear until the user scrolls past the given y
+  position and then change the navbar to solid black. */
+  function getNavbarStyle() {
+    if (props.singleColor !== undefined && props.singleColor) {
+      return {backgroundColor: "black"};
     }
+    else {
+      if (windowYPos > 150)
+        return {backgroundColor: "black"};
+      else
+        return {};
+    } 
+  }
+
+  /* store window y position as user scrolls */
+  const handleScroll = () => {
+    setWindowYPos(window.scrollY);
   };
 
-  render() {
-    WebFont.load({
-      google: {
-        families: [
-          "Trirong",
-          "Nunito Sans",
-          "Quicksand",
-          "Vesper Libre",
-          "Trocchi",
-          "serif",
-          "Advantage",
-          "Prompt",
-          "Big Shoulders Stencil Text",
-          "cursive",
-          "Raleway",
-          "sans-serif",
-          "Montserrat"
-        ],
-      },
-    });
-    /* attach ref to FormControl component */
-    return (
-      <div className="OurNavbar">
-        {/* <Navbar fixed="top" style={window.scrollY > 150? {backgroundColor: "black"}: {}} variant = "dark"> */}
-        <Navbar fixed="top" style={{backgroundColor: "black"}} variant="dark">
-          <Navbar.Brand href="/">
-            
-            <div style={{color: "white", fontFamily: "Raleway"}}>
-              <b>
-                BURNIN' UP &nbsp;
-              </b>
+  /* add scroll event listener to window */
+  useEffect(() =>{
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <div className="OurNavbar">
+      <Navbar fixed="top" style={getNavbarStyle()} variant="dark">
+        <Navbar.Brand href="/"> 
+          <div style={{color: "white", fontFamily: "Raleway"}}>
+            <b>
+              BURNIN' UP &nbsp;
+            </b>
+          </div>
+        </Navbar.Brand>
+        {/* links to navbar pages */}
+        <Nav className="mr-auto">
+          <Nav.Link href="/about" >
+            <div style={styles.tabs}>
+              ABOUT US &nbsp;
             </div>
-          </Navbar.Brand>
-
-          {/* links to navbar pages */}
-          <Nav className="mr-auto">
-            <Nav.Link href="/about" >
-              <div style={{ color: "white", fontFamily: "Raleway" }}>
-                ABOUT US &nbsp;
-              </div>
-            </Nav.Link>
-            <Nav.Link href="/cities">
-              <div style={{color: "white", fontFamily: "Raleway"}}>
-                CITIES &nbsp;
-              </div>
-            </Nav.Link>
-            <Nav.Link href="/countries">
-              <div style={{color: "white", fontFamily: "Raleway"}}>
-                COUNTRIES &nbsp;
-              </div>
-            </Nav.Link>
-            <Nav.Link href="/years">
-              <div style={{color: "white", fontFamily: "Raleway"}}>
-                  ANNUAL CLIMATE CHANGE &nbsp;
-              </div>
-            </Nav.Link>
-            <Nav.Link href="/howtohelp">
-              <div style={{color: "white", fontFamily: "Raleway"}}>
+          </Nav.Link>
+          <Nav.Link href="/cities">
+            <div style={styles.tabs}>
+              CITIES &nbsp;
+            </div>
+          </Nav.Link>
+          <Nav.Link href="/countries">
+            <div style={styles.tabs}>
+              COUNTRIES &nbsp;
+            </div>
+          </Nav.Link>
+          <Nav.Link href="/years">
+            <div style={styles.tabs}>
+                ANNUAL CLIMATE CHANGE &nbsp;
+            </div>
+          </Nav.Link>
+          <Nav.Link href="/howtohelp">
+            <div style={styles.tabs}>
                 HOW TO HELP &nbsp;
-              </div>
-            </Nav.Link>
-            <Nav.Link href="/visualizations">
-              <div style={{color: "white", fontFamily: "Raleway"}}>
-                VISUALIZATIONS
-              </div>
-            </Nav.Link>
-          </Nav>
-
-          {/* saves query when user clicks enter or "search" button */}
-          <Form
-            inline
-            onSubmit={(e) => {
-              e.preventDefault();
+            </div>
+          </Nav.Link>
+          <Nav.Link href="/visualizations">
+            <div style={styles.tabs}>
+              VISUALIZATIONS
+            </div>
+          </Nav.Link>
+        </Nav>
+    
+        {/* saves query when user clicks enter or "search" button */}
+        <Form
+          inline
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <FormControl
+            className="mr-sm-2"
+            type="text"
+            placeholder="Search"
+            ref={textInput}
+            onKeyPress={(event: any) => {
+              if (event.key === "Enter") {
+                searchOnClick();
+              }
             }}
-          >
-            <FormControl
-              className="mr-sm-2"
-              type="text"
-              placeholder="Search"
-              ref={this.textInput}
-              onKeyPress={(event: any) => {
-                if (event.key === "Enter") {
-                  this.onClick();
-                }
-              }}
-            />
-            <Button style={{backgroundColor: "white", borderColor: "white", color: "black"}} 
-            variant="info" onClick={() => this.onClick()}>
+          />
+
+          {/* search button */}
+          <Button style={styles.searchButton} 
+            variant="info" onClick={() => searchOnClick()}>
               <AiOutlineSearch />
-            </Button>
-          </Form>
-        </Navbar>
-      </div>
-    );
-  }
+          </Button>
+        </Form>
+      </Navbar>
+    </div>
+  );
 }
 
 export default OurNavbar;

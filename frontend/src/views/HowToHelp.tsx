@@ -5,7 +5,6 @@ import "./HowToHelp.css";
 import catf_img from "../assets/CATF.png";
 import crfn_img from "../assets/cfrn-min.png";
 import rainforest_img from "../assets/rainforestfoundation.jpeg";
-import climate from "../assets/fightClimate.png";
 
 /* page for Helpful Links */
 function HowToHelp() {

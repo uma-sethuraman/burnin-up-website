@@ -82,7 +82,7 @@ function Visuals() {
 				<h3>Visualizations</h3>
 				<br />
 
-				<AppBar position="static" style={{ background : '#000000', width : '75%' }} >
+				<AppBar position="static" style={{ background : '#000000'}} >
 					<Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered >
 						<Tab label="Countries" {...a11yProps(0)} />
 						<Tab label="Cities" {...a11yProps(1)} />
@@ -91,8 +91,8 @@ function Visuals() {
 					</Tabs>
 				</AppBar>
 				<TabPanel value={value} index={0}>
-					<h2>country emission barchart</h2>
-					{ <BarChart data={country} xAttr="country" yAttr="emissions" />}
+					<h2>Top 50 Countries with Highest Carbon Emissions</h2>
+					{ <BarChart data={country} xAttr="country" yAttr="emissions" xLabel="Countries" yLabel="Emissions"/>} 
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<h2>Recent City Temperatures Worldwide Grouped by Range:</h2>
@@ -184,7 +184,7 @@ function Visuals() {
 					<br />
 					<br />
 					<h2>Energy Resource vs Total Power</h2>
-					{<BarChart data={energy_sources} xAttr="energe" yAttr="power" />}
+					{<BarChart data={energy_sources} xAttr="energe" yAttr="power" xLabel="Energy" yLabel="Power"/>}
 				</TabPanel>
 			
 			</div>

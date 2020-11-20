@@ -23,52 +23,61 @@ const tools = [
     src: ReactLogo,
     caption: "React: renders website and connects user-interface to backend",
     href: "https://reactjs.org/",
+    key: 0
   },
   {
     src: ReactBootstrapLogo,
     caption: "ReactBootstrap: CSS framework for website",
     href: "https://react-bootstrap.github.io/",
+    key: 1
   },
   {
     src: PostmanLogo,
     caption: "Postman: create Burnin' Up API",
     href: "https://www.postman.com/",
+    key: 2
   },
   {
     src: GitlabLogo,
     caption: "GitLab: holds repository",
     href: "https://www.gitlab.com/",
+    key: 3
   },
   {
     src: NameCheapLogo,
     caption: "NameCheap: website name",
     href: "https://www.namecheap.com/",
+    key: 4
   },
   {
     src: DiscordLogo,
     caption: "Discord: group communication",
     href: "https://www.discord.com/",
+    key: 5
   },
   {
     src: JupyterNotebookLogo,
     caption: "Jupyter Notebook: used to parse data",
     href: "https://jupyter.org/",
+    key: 6
   },
   {
     src: ElasticBeanstalkLogo,
     caption: "AWS Elastic Beanstalk: hosts website from Git Repository",
     href: "https://aws.amazon.com/elasticbeanstalk/",
+    key: 7
   },
   {
     src: AlgoliaLogo,
     caption: "Algolia: powers site search",
     href: "https://www.algolia.com/",
+    key: 8
   },
 ];
 
 const renderSlides = () =>
   tools.map((tool) => (
-    <div>
+    <div key={tool.key}>
       <AboutToolCard tool={tool} />
     </div>
   ));
