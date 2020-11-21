@@ -10,6 +10,8 @@ export interface GroupMember {
     commits?: number;
     issues?: number;
     unittest?: number;
+    role?: string;
+    linkedin?: string;
 }
   
 /* interfaces for all GitLab related data */

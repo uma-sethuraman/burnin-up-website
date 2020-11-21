@@ -51,6 +51,8 @@ function About() {
       username: "caitlinlien",
       image: CatilinLien,
       unittest: 4,
+      role: "Backend Project Lead",
+      linkedin: "https://www.linkedin.com/in/caitlinlien/",
       bio:
       "Caitlin is a junior from Round Rock, TX. She works on backend"+
       " development for the site and enjoys Data Science and Machine"+
@@ -63,6 +65,8 @@ function About() {
       username: "cherrysun9",
       image: CherrySun,
       unittest: 39, 
+      role: "Backend",
+      linkedin: "https://www.linkedin.com/in/cherry-sun-53289216b/",
       bio: 
       "Cherry aged at least 5 years from doing this project. She’s" +
       " working on backend and has interest in overall full stack app" +
@@ -75,6 +79,8 @@ function About() {
       username: "samantha3pen",
       image: SamanthaTuapen,
       unittest: 5,
+      role: "Backend",
+      linkedin: "https://www.linkedin.com/in/samantha-tuapen/",
       bio: 
       "Samantha is a junior from Dallas, TX. She’s working on"+
       " backend for the site and has an interest in"+
@@ -89,6 +95,8 @@ function About() {
       username: "caitlinocallaghan",
       image: CaitlinOCallaghan,
       unittest: 11,
+      role: "Frontend",
+      linkedin: "https://www.linkedin.com/in/caitlinocallaghan/",
       bio:
       "Caitlin is a junior from Dallas, TX. Some of her technical" +
       " interests are front end web and app development and NLP. Her hobbies" + 
@@ -101,6 +109,8 @@ function About() {
       username: "lauren.mangibin",
       image: LaurenMangibin,
       unittest: 9,
+      role: "Frontend",
+      linkedin: "https://www.linkedin.com/in/lauren-mangibin/",
       bio: 
       "Lauren is a junior from Austin, TX whose eyebags got much bigger" +
       " from sleeping late. She is working on the front end of the site" +
@@ -113,6 +123,8 @@ function About() {
       username: "uma-sethuraman",
       image: UmaSethuraman,
       unittest: 8,
+      role: "Frontend Project Lead",
+      linkedin: "https://www.linkedin.com/in/uma-sethuraman/",
       bio:
       "Uma is a junior from Houston, TX. She is working on the frontend"+
       " development for this project. Some of her other technical"+
@@ -272,7 +284,7 @@ function About() {
           <div className="col-sm-6">
           <h2>
             <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
-              Our Postman API<br></br>
+              <u>Our Postman API</u><br></br>
               <Image className="ToolImage" src={PostmanLogo} />
             </a>
           </h2>
@@ -280,16 +292,13 @@ function About() {
           <div className=	"col-sm-6">
           <h2>
             <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
-              Our GitLab Repository<br></br>
+              <u>Our GitLab Repository</u><br></br>
               <Image className="ToolImage" src={GitlabLogo} />
             </a>
           </h2>
           </div>
         </div>
         </div>
-        <br/>
-
-       
         <br/>
         {/* datasets and APIs */}
         <AboutSets />

@@ -8,7 +8,10 @@ function AboutCard(props:any) {
         <Card>
         <Card.Img variant="top" src={props.member.image} />
         <Card.Body>
-            <Card.Title>{props.member.name}</Card.Title>
+            <a href={props.member.linkedin}>
+                <Card.Title><u>{props.member.name}</u></Card.Title>
+            </a>
+            <Card.Text>{props.member.role}</Card.Text>
             <Card.Text>{props.member.bio}</Card.Text>
             <div className="row">
                 <div className="columns">

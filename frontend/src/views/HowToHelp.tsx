@@ -17,15 +17,14 @@ function HowToHelp() {
         </div>
       </header>
       <div className="HowToHelp-header">
-        <h3 className="h3-style"> Resources</h3>
+        <br/>
         <div className="HowToHelp-body">
-
           <div className="row">
             <div className="p_howtohelp">
               <a className="resource-title" href="https://www.rainforestcoalition.org/">
                 <Image className="row-image1" src={crfn_img} />
                 <br />
-                Coalition for Rainforest Nations
+                <u>Coalition for Rainforest Nations</u>
               </a>
 
               <br />
@@ -47,7 +46,7 @@ function HowToHelp() {
               <a className="resource-title" href="https://www.catf.us/">
                 <Image className="row-image2" src={catf_img} />
                 <br />
-                Clean Air Task Force
+                <u>Clean Air Task Force</u>
               </a>
               <br />
               <i>
@@ -69,7 +68,7 @@ function HowToHelp() {
               <a className="resource-title" href="https://rainforestfoundation.org/">
                 <Image className="row-image1" src={rainforest_img} />
                 <br />
-                Rainforest Foundation US
+                <u>Rainforest Foundation US</u>
               </a>
 
               <br />

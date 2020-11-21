@@ -13,10 +13,9 @@
     color: white;
     background-size: cover;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow-x: hidden;
-    overflow-y: hidden;
-    min-height: 100%;
+    align-items: center;
 }
 
 .result-style {
@@ -34,24 +33,28 @@
     color: white;
     align-items: center;
     font-family: "Raleway";
+    text-align: left;
 }
   
 .search-heading {
     margin-top: 100px;
 }
 
-.columns{
+.search-columns{
     width: 33.333%;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
 }
 
-.card-style {
+.card {
+    display:inline-block;
+} 
+
+.card-title-style {
+    text-align: center;
+    font-size: 40px;
+}
+
+.card-text-style {
+    text-align: left;
     color: black;
 }
-
-.search-columns {
-    width: 33.333%;
-    display: inline-block;
-}
-
-.card {display:inline-block;} 

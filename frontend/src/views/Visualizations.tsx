@@ -71,6 +71,7 @@ function Visuals() {
 			<div className="Visuals-body">
 				<h3>Visualizations</h3>
 				<br />
+				<div className='visuals-appbar'>
 				{/* appbar for navigating between visualizations */}
 				<AppBar position="static" style={{ background : '#000000'}} >
 					<Tabs 
@@ -85,6 +86,7 @@ function Visuals() {
 						<Tab label="Provider's Visualizations" {...a11yProps(3)} />
 					</Tabs>
 				</AppBar>
+				</div>
 				{/* tab for countries visualization */}
 				<TabPanel value={value} index={0}>
 					<h2>Top 50 Countries with The Highest Carbon Emissions</h2>

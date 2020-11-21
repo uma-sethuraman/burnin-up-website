@@ -69,7 +69,7 @@
     height: 10vw;
     object-fit: contain;
 }
-   
+
 /* Clear floats after image containers */
 .row::after {
     content: "";
@@ -138,5 +138,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.set-list-image{
+    height:50px;
+    width:auto;
 }
   
