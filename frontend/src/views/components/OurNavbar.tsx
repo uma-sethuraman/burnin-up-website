@@ -11,7 +11,6 @@ import { useState, useEffect } from "react";
 /* the navigation bar which appears on
 all the pages */
 const OurNavbar = (props: any) => {
-
   /* input for search bar */
   const textInput: any = React.useRef();
 
@@ -28,26 +27,22 @@ const OurNavbar = (props: any) => {
   /* load the fonts */
   WebFont.load({
     google: {
-      families: [
-        "Raleway",
-        "sans-serif",
-        "Prompt"
-      ],
+      families: ["Raleway", "sans-serif", "Prompt"],
     },
   });
 
   /* for navbar tabs */
   const styles = {
     tabs: {
-      color: "white", 
+      color: "white",
       fontFamily: "Raleway",
     } as React.CSSProperties,
     searchButton: {
-      backgroundColor: "white", 
-      borderColor: "white", 
-      color: "black"
+      backgroundColor: "white",
+      borderColor: "white",
+      color: "black",
     } as React.CSSProperties,
-  }
+  };
 
   /* if the user passes in props.singleColor as true,
   then make the navbar solid black. otherwise, make the
@@ -55,14 +50,11 @@ const OurNavbar = (props: any) => {
   position and then change the navbar to solid black. */
   function getNavbarStyle() {
     if (props.singleColor !== undefined && props.singleColor) {
-      return {backgroundColor: "black"};
+      return { backgroundColor: "black" };
+    } else {
+      if (windowYPos > 75) return { backgroundColor: "black" };
+      else return {};
     }
-    else {
-      if (windowYPos > 75)
-        return {backgroundColor: "black"};
-      else
-        return {};
-    } 
   }
 
   /* store window y position as user scrolls */
@@ -71,7 +63,7 @@ const OurNavbar = (props: any) => {
   };
 
   /* add scroll event listener to window */
-  useEffect(() =>{
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -81,47 +73,36 @@ const OurNavbar = (props: any) => {
   return (
     <div className="OurNavbar">
       <Navbar fixed="top" style={getNavbarStyle()} variant="dark">
-        <Navbar.Brand href="/"> 
-          <div style={{color: "white", fontFamily: "Raleway"}}>
-            <b>
-              BURNIN' UP &nbsp;
-            </b>
+        <Navbar.Brand href="/">
+          <div style={{ color: "white", fontFamily: "Raleway" }}>
+            <b>BURNIN' UP &nbsp;</b>
           </div>
         </Navbar.Brand>
         {/* links to navbar pages */}
         <Nav className="mr-auto">
-          <Nav.Link href="/about" >
-            <div style={styles.tabs}>
-              ABOUT US &nbsp;
-            </div>
+          <Nav.Link href="/about">
+            <div style={styles.tabs}>ABOUT US &nbsp;</div>
           </Nav.Link>
           <Nav.Link href="/cities">
-            <div style={styles.tabs}>
-              CITIES &nbsp;
-            </div>
+            <div style={styles.tabs}>CITIES &nbsp;</div>
           </Nav.Link>
           <Nav.Link href="/countries">
-            <div style={styles.tabs}>
-              COUNTRIES &nbsp;
-            </div>
+            <div style={styles.tabs}>COUNTRIES &nbsp;</div>
           </Nav.Link>
           <Nav.Link href="/years">
-            <div style={styles.tabs}>
-                ANNUAL CLIMATE CHANGE &nbsp;
-            </div>
+            <div style={styles.tabs}>ANNUAL CLIMATE CHANGE &nbsp;</div>
           </Nav.Link>
           <Nav.Link href="/howtohelp">
-            <div style={styles.tabs}>
-                HOW TO HELP &nbsp;
-            </div>
+            <div style={styles.tabs}>HOW TO HELP &nbsp;</div>
           </Nav.Link>
           <Nav.Link href="/visualizations">
-            <div style={styles.tabs}>
-              VISUALIZATIONS
-            </div>
+            <div style={styles.tabs}>OUR DATA &nbsp;</div>
+          </Nav.Link>
+          <Nav.Link href="/provider-visualizations">
+            <div style={styles.tabs}>PROVIDER DATA &nbsp;</div>
           </Nav.Link>
         </Nav>
-    
+
         {/* saves query when user clicks enter or "search" button */}
         <Form
           inline
@@ -142,14 +123,17 @@ const OurNavbar = (props: any) => {
           />
 
           {/* search button */}
-          <Button style={styles.searchButton} 
-            variant="info" onClick={() => searchOnClick()}>
-              <AiOutlineSearch />
+          <Button
+            style={styles.searchButton}
+            variant="info"
+            onClick={() => searchOnClick()}
+          >
+            <AiOutlineSearch />
           </Button>
         </Form>
       </Navbar>
     </div>
   );
-}
+};
 
 export default OurNavbar;

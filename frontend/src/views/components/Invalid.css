@@ -1,6 +1,8 @@
 .h3_invalid {
-    font-size: 90px;
+    font-size: 200px;
     color: #ffffff;
+    font-family: "Raleway";
+    margin-top: 20vh;
   }
   
 .h2_invalid {
@@ -19,7 +21,9 @@
     padding-top: 2vw;
     padding-right: 2vw;
     padding-left: 2vw;
-    background-color: #556875;
+    background: linear-gradient(180deg, #3C0C0C 0%, 
+  #791414 45.83%, #3C0C0C 95.83%);
+    font-family: "Raleway";
   }
   
   /* Three image containers (use 25% for four, and 50% for two, etc) */

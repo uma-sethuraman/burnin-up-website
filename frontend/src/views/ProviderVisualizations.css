@@ -1,0 +1,66 @@
+.h3_about {
+    font-size: 36px;
+    color: #ffffff;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+  }
+  
+  .h2_about {
+    font-size: 25px;
+    color: #ffffff;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+  }
+  
+  .ProviderVisuals {
+    text-align: center;
+    background: linear-gradient(180deg, #3C0C0C 0%, 
+    #791414 45.83%, #3C0C0C 95.83%);
+    color: white;
+  }
+  
+  .ProviderVisuals-header {
+    background: linear-gradient(180deg, #3C0C0C 0%, 
+    #791414 45.83%, #3C0C0C 95.83%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .ProviderVisuals-body {
+    text-align: center;
+    min-height: 50vh;
+    padding-right: 2vw;
+    padding-top: 100px;  
+    padding-left: 2vw;
+    background: linear-gradient(180deg, #3C0C0C 0%, 
+    #791414 45.83%, #3C0C0C 95.83%);
+    font-family: "Raleway";
+  }
+  .p_ProviderVisuals {
+    text-align: center;
+    font-size: 20px;
+    color: #ffffff;
+    padding-right: 20vw;
+    padding-left: 20vw;
+  }
+  
+  .side-by-side {
+    display:flex; 
+    flex-direction:row;
+    color: white;
+  }
+  .provider-visuals-appbar{
+    padding-left:15vw;
+    padding-right:15vw;
+  }
+  
+  .provider-vis-app-bar {
+    font-family: "Raleway";
+  }

@@ -5,6 +5,8 @@ import "./HowToHelp.css";
 import catf_img from "../assets/CATF.png";
 import crfn_img from "../assets/cfrn-min.png";
 import rainforest_img from "../assets/rainforestfoundation.jpeg";
+import ember_img from "../assets/emberlogo.jpeg";
+import climate_img from "../assets/climateemergency.jpeg";
 
 /* page for Helpful Links */
 function HowToHelp() {
@@ -17,12 +19,14 @@ function HowToHelp() {
         </div>
       </header>
       <div className="HowToHelp-header">
-        <br/>
+        <br />
         <div className="HowToHelp-body">
           <div className="row">
             <div className="p_howtohelp">
-              <a className="resource-title" 
-              href="https://www.rainforestcoalition.org/">
+              <a
+                className="resource-title"
+                href="https://www.rainforestcoalition.org/"
+              >
                 <Image className="row-image1" src={crfn_img} />
                 <br />
                 <u>Coalition for Rainforest Nations</u>
@@ -60,13 +64,15 @@ function HowToHelp() {
                 catastrophic climate change through realistic solutions."
               </i>
             </div>
-            <br />
           </div>
 
           <br />
           <div className="row">
             <div className="p_howtohelp">
-              <a className="resource-title" href="https://rainforestfoundation.org/">
+              <a
+                className="resource-title"
+                href="https://rainforestfoundation.org/"
+              >
                 <Image className="row-image1" src={rainforest_img} />
                 <br />
                 <u>Rainforest Foundation US</u>
@@ -75,11 +81,55 @@ function HowToHelp() {
               <br />
 
               <i>
-                "The 2020 fire season in the Amazon is just as devastating if not 
-                worse than those that captured the world’s attention in 2019. 
-                Rainforest Foundation US is closely tracking the fires and working 
-                with partners to actively prevent and respond to the threat of fires 
-                in their communities."
+                "The 2020 fire season in the Amazon is just as devastating if
+                not worse than those that captured the world’s attention in
+                2019. Rainforest Foundation US is closely tracking the fires and
+                working with partners to actively prevent and respond to the
+                threat of fires in their communities."
+              </i>
+            </div>
+          </div>
+          <br />
+          <div className="row">
+            <div className="p_howtohelp">
+              <a className="resource-title" href="https://ember-climate.org/">
+                <Image className="row-image3" src={ember_img} />
+                <br />
+                <u>Ember</u>
+              </a>
+
+              <br />
+
+              <i>
+                "Ember's objective is to accelerate the global electricity
+                transition from coal to clean energy. Ember uses its data and
+                analysis to support high impact, viable policies that accelerate
+                the coal phase-out, empower campaign organizations, and shape
+                the global narrative on coal."
+              </i>
+            </div>
+          </div>
+          <br />
+          <div className="row">
+            <div className="p_howtohelp">
+              <a
+                className="resource-title"
+                href="https://climateemergencyfund.org/"
+              >
+                <Image className="row-image4" src={climate_img} />
+                <br />
+                <u>Climate Emergency Fund</u>
+              </a>
+
+              <br />
+
+              <i>
+                "We fund the most impactful climate activists working to disrupt
+                the status quo, inspire others to do the same and force
+                policy-makers to take action. Our role in winning the future is
+                to turbocharge activism, to put pressure on government leaders,
+                divest from fossil fuel financing, and diversify the movement by
+                engaging new voices."
               </i>
             </div>
           </div>

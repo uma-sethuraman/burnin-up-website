@@ -7,7 +7,7 @@ import "./Search.css";
 import Navbar from "../OurNavbar";
 import Image from "react-bootstrap/image";
 import WebFont from "webfontloader";
-import SearchCityCard from "./SearchCityCard"; 
+import SearchCityCard from "./SearchCityCard";
 import SearchCountryCard from "./SearchCountryCard";
 import SearchYearCard from "./SearchYearCard";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -30,14 +30,14 @@ enum SearchType {
 /* custom display of the cities results */
 const CityHits = ({ hits }) => (
   <div className="row">
-    {hits.map(hit => (
+    {hits.map((hit) => (
       <div className="search-columns" key={hit.city_id}>
         <SearchCityCard hit={hit} />
       </div>
     ))}
   </div>
 );
-const CustomCityHits = connectHits(CityHits)
+const CustomCityHits = connectHits(CityHits);
 
 /* displays element for resulting city when user types in query */
 const CityContent = connectStateResults(({ searchState }) =>
@@ -51,15 +51,14 @@ const CityContent = connectStateResults(({ searchState }) =>
 /* custom display of the countries results */
 const CountryHits = ({ hits }) => (
   <div className="row">
-    {hits.map(hit => (
+    {hits.map((hit) => (
       <div className="search-columns" key={hit.country_id}>
-        <SearchCountryCard hit={hit}/>
+        <SearchCountryCard hit={hit} />
       </div>
     ))}
   </div>
 );
-const CustomCountryHits = connectHits(CountryHits)
-
+const CustomCountryHits = connectHits(CountryHits);
 
 /* displays element for resulting country when user types in query */
 const CountryContent = connectStateResults(({ searchState }) =>
@@ -73,14 +72,14 @@ const CountryContent = connectStateResults(({ searchState }) =>
 /* custom display of the years results */
 const YearsHits = ({ hits }) => (
   <div className="row">
-    {hits.map(hit => (
+    {hits.map((hit) => (
       <div className="search-columns" key={hit.year_id}>
-        <SearchYearCard hit={hit}/>
+        <SearchYearCard hit={hit} />
       </div>
     ))}
   </div>
 );
-const CustomYearsHits = connectHits(YearsHits)
+const CustomYearsHits = connectHits(YearsHits);
 
 /* displays element for resulting year when user types in query */
 const YearContent = connectStateResults(({ searchState }) =>
@@ -93,16 +92,13 @@ const YearContent = connectStateResults(({ searchState }) =>
 
 /* takes in query that the user searches and returns search results */
 function Search(q: any) {
-
   const [filterType, setFilterType] = React.useState<number>(SearchType.None);
-  const [filterTitle, setFilterTitle] = React.useState<String>("Filter by");
+  const [filterTitle, setFilterTitle] = React.useState<String>(
+    "Filter by Model"
+  );
   WebFont.load({
     google: {
-      families: [
-        "serif",
-        "Raleway",
-        "sans-serif",
-      ],
+      families: ["serif", "Raleway", "sans-serif"],
     },
   });
 
@@ -123,78 +119,106 @@ function Search(q: any) {
 
   function noneOnClick() {
     setFilterType(SearchType.None);
-    setFilterTitle("Filter by");
+    setFilterTitle("Filter by Model");
   }
 
   return (
     <div className="Search">
-      <Navbar singleColor={true}/>
-      
-        <h1 className="search-heading">SEARCH RESULTS</h1>
-        <h2 className="query-style">{q.q}</h2>
-        <br />
+      <Navbar singleColor={true} />
 
-        <DropdownButton id="dropdown-basic-button" title={filterTitle} >
-          <Dropdown.Item onClick={citiesOnClick}>Cities</Dropdown.Item>
-          <Dropdown.Item onClick={countriesOnClick}>Countries</Dropdown.Item>
-          <Dropdown.Item onClick={yearsOnClick}>Years</Dropdown.Item>
-          <Dropdown.Item onClick={noneOnClick}>None</Dropdown.Item>
-        </DropdownButton>
+      <h1 className="search-heading">SEARCH RESULTS</h1>
+      <h2 className="query-style">{q.q}</h2>
+      <br />
 
-        <br />
-        <InstantSearch
-          indexName="cities_index"
-          searchClient={searchClient}
-          searchState={{
-            query: q.q,
-          }}
-        >
-          <div style={{ display: "none" }}><SearchBox /></div>
+      <DropdownButton id="dropdown-basic-button" title={filterTitle}>
+        <Dropdown.Item onClick={citiesOnClick}>Cities</Dropdown.Item>
+        <Dropdown.Item onClick={countriesOnClick}>Countries</Dropdown.Item>
+        <Dropdown.Item onClick={yearsOnClick}>Years</Dropdown.Item>
+        <Dropdown.Item onClick={noneOnClick}>None</Dropdown.Item>
+      </DropdownButton>
 
-          {/* index containing all cities data  */}
-          <Index indexName="cities_index">
-          {(filterType === SearchType.Cities) || 
-          (filterType === SearchType.None)?
+      <br />
+      <InstantSearch
+        indexName="cities_index"
+        searchClient={searchClient}
+        searchState={{
+          query: q.q,
+        }}
+      >
+        <div style={{ display: "none" }}>
+          <SearchBox />
+        </div>
+
+        {/* index containing all cities data  */}
+        <Index indexName="cities_index">
+          {filterType === SearchType.Cities ||
+          filterType === SearchType.None ? (
             <div>
               <h1 className="section-title">Cities</h1>
-              <p className="section-subtitle">Learn about climate change in cities around the world. </p>
+              <p className="section-subtitle">
+                Learn about climate change in cities around the world.{" "}
+              </p>
               <br />
-              <main><CityContent /></main>
-            </div>: <div></div>}
-          </Index>
+              <main>
+                <CityContent />
+              </main>
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </Index>
 
-          {/* index containing all countries data */}
-          <Index indexName="country_index">
-          {(filterType === SearchType.Countries) || 
-          (filterType === SearchType.None)? 
-          <div>
-            <h1 className="section-title">Countries</h1>
-            <p className="section-subtitle">Learn about climate change in countries around the world. </p>
-            <br />
-            <main> <CountryContent /></main>
-          </div>: <div></div>}
-          </Index>
+        {/* index containing all countries data */}
+        <Index indexName="country_index">
+          {filterType === SearchType.Countries ||
+          filterType === SearchType.None ? (
+            <div>
+              <h1 className="section-title">Countries</h1>
+              <p className="section-subtitle">
+                Learn about climate change in countries around the world.{" "}
+              </p>
+              <br />
+              <main>
+                {" "}
+                <CountryContent />
+              </main>
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </Index>
 
-          {/* index containing all years data */}
-          <Index indexName="years_index">
-          {(filterType === SearchType.Years) || 
-          (filterType === SearchType.None)? 
-          <div>
-            <h1 className="section-title">Years</h1>
-            <p className="section-subtitle">Learn about climate change across the years. </p>
-            <br />
-            <main> <YearContent /></main>
-          </div>: <div></div>}
-          </Index> 
-        </InstantSearch>
-        <div className="search-side-by-side">
-          <div>Powered by &nbsp;</div>
-          <div>
-            <Image src={require("../../../assets/algolialogo.png")} height="5%" width="5%"/>
-          </div>
+        {/* index containing all years data */}
+        <Index indexName="years_index">
+          {filterType === SearchType.Years || filterType === SearchType.None ? (
+            <div>
+              <h1 className="section-title">Years</h1>
+              <p className="section-subtitle">
+                Learn about climate change across the years.{" "}
+              </p>
+              <br />
+              <main>
+                {" "}
+                <YearContent />
+              </main>
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </Index>
+      </InstantSearch>
+      <div className="search-side-by-side">
+        <div>Powered by &nbsp;</div>
+        <div>
+          <Image
+            src={require("../../../assets/algolialogo.png")}
+            height="5%"
+            width="5%"
+          />
         </div>
-        <br />
       </div>
+      <br />
+    </div>
   );
 }
 

@@ -21,9 +21,9 @@ import CountryInstance from "./views/components/Country/CountryInstance";
 import YearInstance from "./views/components/Year/YearInstance";
 import Search from "./views/components/Search/Search";
 import Invalid from "./views/components/Invalid";
-import HowToHelp from "./views/HowToHelp"
-import Visuals from "./views/Visualizations"
-
+import HowToHelp from "./views/HowToHelp";
+import Visuals from "./views/Visualizations";
+import ProviderVisualizations from "./views/ProviderVisualizations";
 
 /* sets up routes for all pages on website */
 ReactDOM.render(
@@ -61,7 +61,7 @@ ReactDOM.render(
         path="/years/id=:id"
         render={(props) => <YearInstance id={props.match.params.id} />}
       />
-      
+
       {/* search page based on provided query q */}
       <Route
         path="/search/q=:q"
@@ -71,14 +71,18 @@ ReactDOM.render(
       {/* how to help page for resources */}
       <Route path="/howtohelp" exact component={HowToHelp} />
 
-      {/* Visualizations */}
+      {/* our visualizations */}
       <Route path="/visualizations" exact component={Visuals} />
 
-      {/* search page when query is empty */}
+      {/* provider visualizations */}
       <Route
-        path="/search/q="
-        render={(props) => <Search q={""} />}
+        path="/provider-visualizations"
+        exact
+        component={ProviderVisualizations}
       />
+
+      {/* search page when query is empty */}
+      <Route path="/search/q=" render={(props) => <Search q={""} />} />
 
       {/* redirect to 404 page for invalid urls */}
       <Route path="/404" component={Invalid} />

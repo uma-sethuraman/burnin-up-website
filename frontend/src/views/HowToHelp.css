@@ -72,13 +72,30 @@ color: white;
   float: left;
   padding-top: 1.5vh;
   padding-right: 2.5vw;
+  min-width: 18vw;
 }
 
 .row-image2 {
   display: inline-block;
   float: left;
-  padding-top: 5vh;
+  padding-top: 1.5vh;
   padding-right: 2.5vw;
+  min-width: 18vw;
+}
+
+.row-image3 {
+  display: inline-block;
+  float: left;
+  padding-top: 1.5vh;
+  padding-right: 2.5vw;
+  min-width: 18vw;
+}
+.row-image4 {
+  display: inline-block;
+  float: left;
+  padding-top: 3vh;
+  padding-right: 2.5vw;
+  min-width: 18vw;
 }
 
 .resource-title {

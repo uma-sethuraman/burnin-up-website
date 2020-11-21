@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./components/OurNavbar";
-import "./Visualizations.css";
+import "./ProviderVisualizations.css";
 import PieChart from "./components/Visualizations/PieChart";
 import manufacturers from "../vizdata/Manufacturer.json";
 import BarChart from "./components/Visualizations/BarChart";
@@ -18,6 +18,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import WebFont from "webfontloader";
+import { Link } from "react-router-dom";
 
 /* allows for tabs in the appbar  */
 function TabPanel(props) {
@@ -56,7 +57,7 @@ function a11yProps(index) {
 }
 
 /* page for Visualizations */
-function Visuals() {
+function ProviderVisualizations() {
   const [value, setValue] = React.useState(0);
 
   /* event listener for navigating tabs */
@@ -71,13 +72,18 @@ function Visuals() {
   });
 
   return (
-    <div className="Visuals">
+    <div className="ProviderVisuals">
       <Navbar />
 
-      <div className="Visuals-body">
-        <h3>Our Visualizations</h3>
+      <div className="ProviderVisuals-body">
+        <h3>Provider Visualizations</h3>
+        <a href="https://econyoom.me">
+          <h2>
+            <u>EcoNyoom</u>
+          </h2>
+        </a>
         <br />
-        <div className="visuals-appbar">
+        <div className="provider-visuals-appbar">
           {/* appbar for navigating between visualizations */}
           <AppBar
             position="static"
@@ -90,15 +96,17 @@ function Visuals() {
               centered
             >
               <Tab
-                label={<div className="vis-app-bar">Countries</div>}
+                label={<div className="provider-vis-app-bar">Vehicles</div>}
                 {...a11yProps(0)}
               />
               <Tab
-                label={<div className="vis-app-bar">Cities</div>}
+                label={
+                  <div className="provider-vis-app-bar">Fueling Stations</div>
+                }
                 {...a11yProps(1)}
               />
               <Tab
-                label={<div className="vis-app-bar">Annual Climate Change</div>}
+                label={<div className="provider-vis-app-bar">Energy</div>}
                 {...a11yProps(2)}
               />
             </Tabs>
@@ -106,36 +114,30 @@ function Visuals() {
         </div>
         {/* tab for countries visualization */}
         <TabPanel value={value} index={0}>
-          <h2 className="vis-app-bar">
-            Top 50 Countries with The Highest Carbon Emissions
+          <h2 className="provider-vis-app-bar">
+            Number of Eco-Friendly Cars Per Manufacturer:
           </h2>
-          <BarChart
-            data={country}
-            xAttr="country"
-            yAttr="emissions"
-            xLabel="Countries"
-            yLabel="Carbon Emissions (ppm)"
-          />
+          <PieChart data={manufacturers} />
+          <br />
         </TabPanel>
-        {/* tab for cities visualization */}
         <TabPanel value={value} index={1}>
-          <h2 className="vis-app-bar">
-            Recent City Temperatures Worldwide Grouped by Range:
+          <h2 className="provider-vis-app-bar">
+            Number of Fueling Stations per State in the US:
           </h2>
           <BubbleChart
             graph={{
-              zoom: 0.75,
-              offsetX: 0.15,
+              zoom: 0.85,
+              offsetX: 0.0,
               offsetY: -0.01,
             }}
             width={1400}
             height={1000}
             padding={15}
             showLegend={true}
-            legendPercentage={20}
+            legendPercentage={15}
             legendFont={{
               family: "Arial",
-              size: 16,
+              size: 10,
               color: "#FFFFFF",
               weight: "bold",
             }}
@@ -151,67 +153,26 @@ function Visuals() {
               color: "#fff",
               weight: "bold",
             }}
-            data={citytemps}
+            data={fuelingstations}
           />
+          <br />
         </TabPanel>
-        {/* tab for annual climate change visualization */}
         <TabPanel value={value} index={2}>
-          <div className="carbonemissions-vis" style={{ color: "white" }}>
-            <h2 className="vis-app-bar">
-              Mean Global Carbon Emissions from 1880-2020
-            </h2>
-            <LineChart
-              width={1000}
-              height={500}
-              data={carbonemissions}
-              margin={{ top: 20, right: 20, left: 300, bottom: 20 }}
-            >
-              <XAxis
-                dataKey="Year"
-                stroke="white"
-                label={{
-                  value: "Year",
-                  position: "insideBottomRight",
-                  dx: -250,
-                  dy: 25,
-                  fill: "white",
-                  fontSize: 20,
-                }}
-                tick={{ fontSize: 12 }}
-                domain={["dataMin", "dataMax"]}
-                type="number"
-                tickCount={16}
-              />
-              <YAxis
-                dataKey="CarbonEmissions"
-                stroke="white"
-                label={{
-                  value: "Carbon Emissions (ppm)",
-                  position: "insideLeft",
-                  angle: -90,
-                  dx: -10,
-                  dy: 90,
-                  fill: "white",
-                  fontSize: 20,
-                }}
-                tick={{ fontSize: 12 }}
-                domain={[270, "auto"]}
-                tickCount={35}
-                interval={1}
-              />
-              <Line
-                type="monotone"
-                dataKey="CarbonEmissions"
-                stroke="white"
-                dot={false}
-                strokeWidth="3"
-              />
-            </LineChart>
-          </div>
+          <h2 className="provider-vis-app-bar">
+            Total Power per Energy Source
+          </h2>
+          <BarChart
+            data={energy_sources}
+            xAttr="energe"
+            yAttr="power"
+            xLabel="Energy Source"
+            yLabel="Total Power (MWh)"
+          />
+          <br />
         </TabPanel>
       </div>
     </div>
   );
 }
 
-export default Visuals;
+export default ProviderVisualizations;
