@@ -25,7 +25,7 @@ const images = [
   },
   {
     url: landing,
-    title: 'Annual Global Climate Change',
+    title: 'Annual Climate Change',
     width: '33%',
     ref: "/years",
   },

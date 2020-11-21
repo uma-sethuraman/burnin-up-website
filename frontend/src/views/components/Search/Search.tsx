@@ -1,12 +1,18 @@
 import React from "react";
 import algoliasearch from "algoliasearch/lite";
 import { Index, InstantSearch } from "react-instantsearch-dom";
-import { SearchBox, Hits, Highlight } from "react-instantsearch-dom";
+import { SearchBox, Highlight, connectHits } from "react-instantsearch-dom";
 import { connectStateResults } from "react-instantsearch-dom";
 import "./Search.css";
 import Navbar from "../OurNavbar";
 import Image from "react-bootstrap/image";
 import WebFont from "webfontloader";
+import SearchCityCard from "./SearchCard";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Slider from "react-slick";
 
 /* creating search client for our Algolia search application */
 const searchClient = algoliasearch(
@@ -16,8 +22,13 @@ const searchClient = algoliasearch(
 
 /* what is displayed for each city in search results */
 const CityHit = (hit: any) => (
-  <div className="hit">
-    <div className="result-style">
+  // <div className="hit">
+  <div className="search-side-by-side">
+  <div>
+    {/* <div className="search-columns"> */}
+    <SearchCityCard hit={hit.hit} />
+    {/* </div> */}
+    {/* <div className="result-style">
     <a href={"/cities/id=" + hit.hit.city_id}>
       <h1>{hit.hit.city_name}</h1>
     </a>
@@ -61,7 +72,11 @@ const CityHit = (hit: any) => (
       Longitude: {" "}
       <Highlight attribute="longitude" tagName="mark" hit={hit.hit} />
     </p>
-    </div>
+    </div> */}
+  </div>
+  <div>
+    Hello
+  </div>
   </div>
 );
 
@@ -69,10 +84,22 @@ const CityHit = (hit: any) => (
 const CityContent = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <div className="content">
-      <Hits hitComponent={CityHit} />
+      <CustomCityHits />
     </div>
   ) : null
 );
+
+const CityHits = ({ hits }) => (
+  <div className="row">
+    {hits.map(hit => (
+      <div className="columns">
+        <SearchCityCard hit={hit}/>
+      </div>
+    ))}
+  </div>
+);
+
+const CustomCityHits = connectHits(CityHits)
 
 /* what is displayed for each country in search results */
 const CountryHit = (hit: any) => (
@@ -141,7 +168,7 @@ const CountryHit = (hit: any) => (
 const CountryContent = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <div className="content">
-      <Hits hitComponent={CountryHit} />
+      {/* <Hits hitComponent={CountryHit} /> */}
     </div>
   ) : null
 );
@@ -222,7 +249,8 @@ const YearHit = (hit: any) => (
 const YearContent = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <div className="content">
-      <Hits hitComponent={YearHit} />
+      {console.log("here")}
+      {/* <Hits hitComponent={YearHit} /> */}
     </div>
   ) : null
 );
@@ -245,6 +273,7 @@ function Search(q: any) {
       
       <div className="Search">
       <Navbar />
+      
         <h1 className="search-heading">Search Results</h1>
         <br />
         <InstantSearch
