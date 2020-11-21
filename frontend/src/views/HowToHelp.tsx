@@ -21,7 +21,8 @@ function HowToHelp() {
         <div className="HowToHelp-body">
           <div className="row">
             <div className="p_howtohelp">
-              <a className="resource-title" href="https://www.rainforestcoalition.org/">
+              <a className="resource-title" 
+              href="https://www.rainforestcoalition.org/">
                 <Image className="row-image1" src={crfn_img} />
                 <br />
                 <u>Coalition for Rainforest Nations</u>
