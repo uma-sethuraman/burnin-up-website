@@ -58,7 +58,7 @@ const OurNavbar = (props: any) => {
       return {backgroundColor: "black"};
     }
     else {
-      if (windowYPos > 150)
+      if (windowYPos > 75)
         return {backgroundColor: "black"};
       else
         return {};

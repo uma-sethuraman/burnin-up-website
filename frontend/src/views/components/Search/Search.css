@@ -38,6 +38,7 @@
   
 .search-heading {
     margin-top: 100px;
+    font-size:80px;
 }
 
 .search-columns{
@@ -57,4 +58,27 @@
 .card-text-style {
     text-align: left;
     color: black;
+}
+
+.section-title {
+    text-align: left;
+    font-size: 70px;
+}
+
+.section-subtitle {
+    text-align: left;
+    font-size: 20px;
+}
+
+.query-style {
+    font-size: 50px;
+}
+
+.ais-Highlight-highlighted {
+    background-color: rgb(251, 255, 0);
+}
+
+.btn-primary {
+    background-color: black;
+    border-color: black;
 }

@@ -31,8 +31,8 @@ enum SearchType {
 const CityHits = ({ hits }) => (
   <div className="row">
     {hits.map(hit => (
-      <div className="search-columns">
-        <SearchCityCard hit={hit}/>
+      <div className="search-columns" key={hit.city_id}>
+        <SearchCityCard hit={hit} />
       </div>
     ))}
   </div>
@@ -52,7 +52,7 @@ const CityContent = connectStateResults(({ searchState }) =>
 const CountryHits = ({ hits }) => (
   <div className="row">
     {hits.map(hit => (
-      <div className="search-columns">
+      <div className="search-columns" key={hit.country_id}>
         <SearchCountryCard hit={hit}/>
       </div>
     ))}
@@ -74,7 +74,7 @@ const CountryContent = connectStateResults(({ searchState }) =>
 const YearsHits = ({ hits }) => (
   <div className="row">
     {hits.map(hit => (
-      <div className="search-columns">
+      <div className="search-columns" key={hit.year_id}>
         <SearchYearCard hit={hit}/>
       </div>
     ))}
@@ -130,8 +130,8 @@ function Search(q: any) {
     <div className="Search">
       <Navbar singleColor={true}/>
       
-        <h1 className="search-heading">Search Results</h1>
-        <h2>{q.q}</h2>
+        <h1 className="search-heading">SEARCH RESULTS</h1>
+        <h2 className="query-style">{q.q}</h2>
         <br />
 
         <DropdownButton id="dropdown-basic-button" title={filterTitle} >
@@ -156,8 +156,8 @@ function Search(q: any) {
           {(filterType === SearchType.Cities) || 
           (filterType === SearchType.None)?
             <div>
-              <h1>Cities</h1>
-              <p>Learn about climate change in cities around the world. </p>
+              <h1 className="section-title">Cities</h1>
+              <p className="section-subtitle">Learn about climate change in cities around the world. </p>
               <br />
               <main><CityContent /></main>
             </div>: <div></div>}
@@ -168,8 +168,8 @@ function Search(q: any) {
           {(filterType === SearchType.Countries) || 
           (filterType === SearchType.None)? 
           <div>
-            <h1>Countries</h1>
-            <p>Learn about climate change in countries around the world. </p>
+            <h1 className="section-title">Countries</h1>
+            <p className="section-subtitle">Learn about climate change in countries around the world. </p>
             <br />
             <main> <CountryContent /></main>
           </div>: <div></div>}
@@ -180,8 +180,8 @@ function Search(q: any) {
           {(filterType === SearchType.Years) || 
           (filterType === SearchType.None)? 
           <div>
-            <h1>Years</h1>
-            <p>Learn about climate change across the years. </p>
+            <h1 className="section-title">Years</h1>
+            <p className="section-subtitle">Learn about climate change across the years. </p>
             <br />
             <main> <YearContent /></main>
           </div>: <div></div>}

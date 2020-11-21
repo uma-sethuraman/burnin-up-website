@@ -8,50 +8,60 @@ function SearchCityCard(props:any) {
     const city_attributes = [
         {
             name: "Name:",
-            attribute: "city_name"
+            attribute: "city_name",
+            attribute_id: 0
         },
         {
             name: "Country:",
-            attribute: "country_name"
+            attribute: "country_name",
+            attribute_id: 1
         },
         {
             name: "Population:",
-            attribute: "population"
+            attribute: "population",
+            attribute_id: 2
         },
         {
             name: "PM10:",
-            attribute: "pm10"
+            attribute: "pm10",
+            attribute_id: 3
         },
         {
             name: "O3:",
-            attribute: "o3"
+            attribute: "o3",
+            attribute_id: 4
         },
         {
             name: "PM2.5:",
-            attribute: "pm25"
+            attribute: "pm25",
+            attribute_id: 5
         },
         {
             name: "Highest Annual Temperature:",
-            attribute: "highest_temp"
+            attribute: "highest_temp",
+            attribute_id: 6
         },
         {
             name: "Year of Highest Annual Temperature:",
-            attribute: "year_highest"
+            attribute: "year_highest",
+            attribute_id: 7
         },
         {
             name: "Latitude:",
-            attribute: "latitude"
+            attribute: "latitude",
+            attribute_id: 8
         },
         {
             name: "Longitude:",
-            attribute: "longitude"
+            attribute: "longitude",
+            attribute_id: 9
         }
     ]
 
     const displayCardText = () => {
         return (
             city_attributes.map((city) => (
-                <Card.Text className="card-text-style">
+                <Card.Text className="card-text-style" key={city.attribute_id}>
                     <b>{city.name} {" "}</b>
                     <Highlight attribute={city.attribute} tagName="mark" hit={props.hit} />
                 </Card.Text>

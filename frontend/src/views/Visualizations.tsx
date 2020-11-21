@@ -12,12 +12,12 @@ import fuelingstations from "../vizdata/FuelingStationsPerState.json";
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
 import carbonemissions from "../vizdata/CarbonEmissions.json";
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import WebFont from "webfontloader";
 
 /* allows for tabs in the appbar  */
 function TabPanel(props) {
@@ -64,6 +64,16 @@ function Visuals() {
 		setValue(newValue);
 	};	
 
+	WebFont.load({
+		google: {
+		  families: [
+			"serif",
+			"Raleway",
+			"sans-serif",
+		  ],
+		},
+	  });
+
 	return (
 		<div className="Visuals">
 			<Navbar />
@@ -73,23 +83,31 @@ function Visuals() {
 				<br />
 				<div className='visuals-appbar'>
 				{/* appbar for navigating between visualizations */}
-				<AppBar position="static" style={{ background : '#000000'}} >
+				<AppBar position="static" style={{ background : '#000000', fontFamily: 'Raleway'}} >
 					<Tabs 
 						value={value} 
 						onChange={handleChange} 
 						aria-label="simple tabs example" 
 						centered 
 					>
-						<Tab label="Countries" {...a11yProps(0)} />
-						<Tab label="Cities" {...a11yProps(1)} />
-						<Tab label="Annual Climate Change" {...a11yProps(2)} />
-						<Tab label="Provider's Visualizations" {...a11yProps(3)} />
+						<Tab 
+							label={<div className="vis-app-bar">Countries</div>} 
+							{...a11yProps(0)} />
+						<Tab 
+							label={<div className="vis-app-bar">Cities</div>} 
+							{...a11yProps(1)} />
+						<Tab 
+							label={<div className="vis-app-bar">Annual Climate Change</div>} 
+							{...a11yProps(2)} />
+						<Tab 
+							label={<div className="vis-app-bar">Provider's Visualizations</div>}
+							{...a11yProps(3)} />
 					</Tabs>
 				</AppBar>
 				</div>
 				{/* tab for countries visualization */}
 				<TabPanel value={value} index={0}>
-					<h2>Top 50 Countries with The Highest Carbon Emissions</h2>
+					<h2 className="vis-app-bar">Top 50 Countries with The Highest Carbon Emissions</h2>
 					<BarChart 
 						data={country} 
 						xAttr="country" 
@@ -100,7 +118,7 @@ function Visuals() {
 				</TabPanel>
 				{/* tab for cities visualization */}
 				<TabPanel value={value} index={1}>
-					<h2>Recent City Temperatures Worldwide Grouped by Range:</h2>
+					<h2 className="vis-app-bar">Recent City Temperatures Worldwide Grouped by Range:</h2>
 					<BubbleChart
 							graph={{
 								zoom: 0.75,
@@ -136,7 +154,7 @@ function Visuals() {
 				{/* tab for annual climate change visualization */}
 				<TabPanel value={value} index={2}>
 					<div className="carbonemissions-vis" style={{color: "white"}}>
-						<h2>Mean Global Carbon Emissions from 1880-2020</h2>
+						<h2 className="vis-app-bar">Mean Global Carbon Emissions from 1880-2020</h2>
 						<LineChart
 							width={1000}
 							height={500}
@@ -175,7 +193,7 @@ function Visuals() {
 				</TabPanel>
 				{/* tab for provider's visualizations */}
 				<TabPanel value={value} index={3}>
-					<h2>Number of Fueling Stations per State in the US:</h2>
+					<h2 className="vis-app-bar">Number of Fueling Stations per State in the US:</h2>
 					<BubbleChart
 						graph={{
 							zoom: 0.85,
@@ -209,11 +227,11 @@ function Visuals() {
 					/>
 					<br />
 					<br />
-					<h2>Number of Eco-Friendly Cars Per Manufacturer:</h2>
+					<h2 className="vis-app-bar">Number of Eco-Friendly Cars Per Manufacturer:</h2>
 					<PieChart data={manufacturers} />
 					<br />
 					<br />
-					<h2>Total Power per Energy Source</h2>
+					<h2 className="vis-app-bar">Total Power per Energy Source</h2>
 					<BarChart 
 						data={energy_sources} 
 						xAttr="energe" 
