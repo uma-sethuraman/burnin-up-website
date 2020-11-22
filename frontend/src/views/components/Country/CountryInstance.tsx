@@ -85,10 +85,10 @@ const CountryInstance = (id: any) => {
                   <div>
                   <YearsTimeline year={country?.high_year}/>
                   <Link to={"/years/id=" + country?.high_year}>
-                    {country?.high_year} </Link></div>) : (
+                    <u>{country?.high_year}</u> </Link></div>) : (
                       <div>
                       <YearsTimeline year={2018}/>
-                      <Link to={"/years/id=2018"}>2018</Link>
+                      <Link to={"/years/id=2018"}><u>2018</u></Link>
                       </div>)}
                 </div>
                 <div className="info-title-style">
@@ -150,7 +150,6 @@ const CountryInstance = (id: any) => {
                <div className="title">
                 <h3> {country?.country_name!} </h3>
               </div>
-              {/* <AiOutlineLine size="500px"/> */}
 
               {/* displays country flag */}
               <Image src={flagLink} alt="Flag" />
@@ -166,7 +165,7 @@ const CountryInstance = (id: any) => {
               <br />
               <div className="info-style">
                 <Link to={"/cities/id=" + country?.capital_city_id}>
-                    {country?.country_capital_city}
+                    <u>{country?.country_capital_city}</u>
                 </Link> 
               </div>
               <div className="info-title-style">Capital City</div>

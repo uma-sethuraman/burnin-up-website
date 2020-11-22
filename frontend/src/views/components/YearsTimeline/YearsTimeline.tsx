@@ -16,7 +16,7 @@ export default function YearsTimeline(props) {
           <TimelineConnector />
         </TimelineSeparator>
         <Link to={"/years/id=" + (props.year-10)}>
-          <TimelineContent>{props.year-10}</TimelineContent>
+          <TimelineContent><u>{props.year-10}</u></TimelineContent>
         </Link>
       </TimelineItem>
       <TimelineItem>
@@ -25,7 +25,7 @@ export default function YearsTimeline(props) {
           <TimelineConnector />
         </TimelineSeparator>
         <Link to={"/years/id=" + (props.year)}>
-          <TimelineContent>{props.year}</TimelineContent>
+          <TimelineContent><u>{props.year}</u></TimelineContent>
         </Link>
       </TimelineItem>
       <TimelineItem>
@@ -33,7 +33,7 @@ export default function YearsTimeline(props) {
           <TimelineDot />
         </TimelineSeparator>
         <Link to={"/years/id=" + (props.year+10)}>
-          <TimelineContent>{props.year+10}</TimelineContent>
+          <TimelineContent><u>{props.year+10}</u></TimelineContent>
         </Link>
       </TimelineItem>
     </Timeline>

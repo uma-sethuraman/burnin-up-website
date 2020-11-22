@@ -24,7 +24,7 @@ enum SearchType {
   Cities,
   Countries,
   Years,
-  None,
+  All,
 }
 
 /* custom display of the cities results */
@@ -92,7 +92,7 @@ const YearContent = connectStateResults(({ searchState }) =>
 
 /* takes in query that the user searches and returns search results */
 function Search(q: any) {
-  const [filterType, setFilterType] = React.useState<number>(SearchType.None);
+  const [filterType, setFilterType] = React.useState<number>(SearchType.All);
   const [filterTitle, setFilterTitle] = React.useState<String>(
     "Filter by Model"
   );
@@ -118,7 +118,7 @@ function Search(q: any) {
   }
 
   function noneOnClick() {
-    setFilterType(SearchType.None);
+    setFilterType(SearchType.All);
     setFilterTitle("Filter by Model");
   }
 
@@ -134,7 +134,7 @@ function Search(q: any) {
         <Dropdown.Item onClick={citiesOnClick}>Cities</Dropdown.Item>
         <Dropdown.Item onClick={countriesOnClick}>Countries</Dropdown.Item>
         <Dropdown.Item onClick={yearsOnClick}>Years</Dropdown.Item>
-        <Dropdown.Item onClick={noneOnClick}>None</Dropdown.Item>
+        <Dropdown.Item onClick={noneOnClick}>All</Dropdown.Item>
       </DropdownButton>
 
       <br />
@@ -152,7 +152,7 @@ function Search(q: any) {
         {/* index containing all cities data  */}
         <Index indexName="cities_index">
           {filterType === SearchType.Cities ||
-          filterType === SearchType.None ? (
+          filterType === SearchType.All ? (
             <div>
               <h1 className="section-title">Cities</h1>
               <p className="section-subtitle">
@@ -171,7 +171,7 @@ function Search(q: any) {
         {/* index containing all countries data */}
         <Index indexName="country_index">
           {filterType === SearchType.Countries ||
-          filterType === SearchType.None ? (
+          filterType === SearchType.All ? (
             <div>
               <h1 className="section-title">Countries</h1>
               <p className="section-subtitle">
@@ -190,7 +190,7 @@ function Search(q: any) {
 
         {/* index containing all years data */}
         <Index indexName="years_index">
-          {filterType === SearchType.Years || filterType === SearchType.None ? (
+          {filterType === SearchType.Years || filterType === SearchType.All ? (
             <div>
               <h1 className="section-title">Years</h1>
               <p className="section-subtitle">
