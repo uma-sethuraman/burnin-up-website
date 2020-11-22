@@ -194,7 +194,7 @@ function Search(q: any) {
             <div>
               <h1 className="section-title">Years</h1>
               <p className="section-subtitle">
-                Learn about climate change across the years.{" "}
+                Learn about annual climate change across the years.{" "}
               </p>
               <br />
               <main>
