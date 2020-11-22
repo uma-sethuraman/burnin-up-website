@@ -3,7 +3,7 @@
 }
   
 .Years-header {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) ),
     url("../assets/fire.jpg");
     height: 100%; /* You must set a specified height */
     background-position: center; /* Center the image */
@@ -39,5 +39,5 @@
     display: flex;
     margin-top: 60px;
     margin-bottom: 20px;
-    font-size: 150px;
+    font-size: 120px;
   }

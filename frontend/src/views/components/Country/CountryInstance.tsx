@@ -10,6 +10,7 @@ import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import WebFont from "webfontloader";
 import Loading from "../Loading";
+import YearsTimeline from "../YearsTimeline/YearsTimeline";
 
 /* country instance page, takes in country id,
    route: "/countries/id=" */
@@ -81,9 +82,14 @@ const CountryInstance = (id: any) => {
   
                 <div className="info-style">
                 {country?.high_year !== undefined ? (
+                  <div>
+                  <YearsTimeline year={country?.high_year}/>
                   <Link to={"/years/id=" + country?.high_year}>
-                    {country?.high_year} </Link>) : (
-                  <Link to={"/years/id=2018"}>2018</Link>)}
+                    {country?.high_year} </Link></div>) : (
+                      <div>
+                      <YearsTimeline year={2018}/>
+                      <Link to={"/years/id=2018"}>2018</Link>
+                      </div>)}
                 </div>
                 <div className="info-title-style">
                   Year of Highest Annual CO2 Emissions
@@ -149,14 +155,6 @@ const CountryInstance = (id: any) => {
               {/* displays country flag */}
               <Image src={flagLink} alt="Flag" />
               <br/>
-
-              <div className="info-style">
-                <Link to={"/cities/id=" + country?.capital_city_id}>
-                    {country?.country_capital_city}
-                </Link> 
-              </div>
-              <div className="info-title-style">Capital City</div>
-              <br/>
               <div className="info-style">
                       {country?.country_region + " "}
                     </div>
@@ -165,14 +163,27 @@ const CountryInstance = (id: any) => {
               <div className="info-style"> {country?.income_level}
               </div>
               <div className="info-title-style">Income Level</div>
-                     
+              <br />
+              <div className="info-style">
+                <Link to={"/cities/id=" + country?.capital_city_id}>
+                    {country?.country_capital_city}
+                </Link> 
+              </div>
+              <div className="info-title-style">Capital City</div>
+              <br/>
+              <br />
+              <div className="info-title-style">
+                Click on map marker to view capital city!
+              </div>   
               <OurMap
               latitude = {country?.lat! === -1 ? 0 : country?.lat!}
               longitude = {country?.long! === -1 ? 0 : country?.long!}
               locationName = {country?.country_name!}
-              map_style = {{height: '75vh', width: '90vh', margin:'10vh'}}
+              map_style = {{height: '75vh', width: '90vh', marginLeft:'10vh',
+                           marginRight:'10vh', marginBottom: '10vh'}}
+              id={country?.capital_city_id}
+              map_type="country"
               />
-    
             </header>
           </div>
             

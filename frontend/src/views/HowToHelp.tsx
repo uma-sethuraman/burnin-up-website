@@ -17,10 +17,17 @@ function HowToHelp() {
         <div>
           <h1 className="h1-style"> How to Help </h1>
         </div>
+        <br/>
+        <div className="instructions">
+            “What you do makes a difference, and you have to decide what kind
+            of difference you want to make.”
+            <br/>
+            -Dr. Jane Goodall
+        </div>
       </header>
       <div className="HowToHelp-header">
-        <br />
         <div className="HowToHelp-body">
+          <br/>
           <div className="row">
             <div className="p_howtohelp">
               <a
@@ -132,6 +139,13 @@ function HowToHelp() {
                 engaging new voices."
               </i>
             </div>
+          </div>
+          <br/>
+          <br />
+          <div className="instructions">
+            <p>"I'm tryna keep from goin' under" - Jonas Brothers 2008 </p>
+            <p>Save the Jonas Brothers</p>
+            <p>Save the Earth </p>
           </div>
 
           <br />

@@ -3,7 +3,7 @@
 }
 
 .Countries-header {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ),
+  background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9) ),
   url("../assets/golden-map.jpg");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -43,4 +43,8 @@
 
 .table {
   text-align: left;
+}
+
+.instructions{
+  font-size: 16px;
 }

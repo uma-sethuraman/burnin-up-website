@@ -109,6 +109,12 @@ const GeneralYears = () => {
               </Button>
             </Form>
             <br />
+            <div className="instructions">
+              <p>Select row to learn more!</p>
+              <p>Click filter icon in table toolbar to filter.</p>
+              <p>Click column name to sort by attribute.</p>
+            </div>
+            <br />
           </header>
           {/* years table with all years instances displayed*/}
           <YearsTable

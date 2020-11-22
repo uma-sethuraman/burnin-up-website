@@ -10,11 +10,7 @@ countries general page */
 function CountriesTable(props: any) {
   /* custom render for countries table elements to allow for
     highlighting of search terms */
-  const countryCustomBodyRender = (
-    value: any,
-    tableMeta: any,
-    updateValue: any
-  ) => (
+  const countryCustomBodyRender = (value: any, tableMeta: any, updateValue: any) => (
     <div>
       <Highlighter
         highlightClassName="highlight-class"
@@ -40,6 +36,8 @@ function CountriesTable(props: any) {
       name: "country_name",
       label: "Country",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -67,6 +65,8 @@ function CountriesTable(props: any) {
       name: "income_level",
       label: "Income Level",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -100,6 +100,8 @@ function CountriesTable(props: any) {
       name: "country_region",
       label: "Country Region",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* enable highlighting */
@@ -111,6 +113,8 @@ function CountriesTable(props: any) {
       name: "country_capital_city",
       label: "Capital City",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -138,6 +142,8 @@ function CountriesTable(props: any) {
       name: "country_population",
       label: "Population",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -164,6 +170,8 @@ function CountriesTable(props: any) {
       name: "lat",
       label: "Latitude",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -184,6 +192,8 @@ function CountriesTable(props: any) {
       name: "long",
       label: "Longitude",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -204,6 +214,8 @@ function CountriesTable(props: any) {
       name: "recent_emissions",
       label: "Most Recent CO2 Emissions (ppm)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         filterOptions: {
@@ -253,8 +265,20 @@ function CountriesTable(props: any) {
       families: ["Raleway"],
     },
   });
-
+  WebFont.load({
+    google: {
+      families: [
+        "Roboto", 
+        "Helvetica", 
+        "Arial", 
+        "sans-serif"
+      ],
+    },
+  });
+  
   return (
+    
+
     <div className="CountriesTable">
       {/* displaying the table of all countries, 
             with searching and pagination */}
@@ -262,8 +286,7 @@ function CountriesTable(props: any) {
         <MUIDataTable
           title={
             <div className="table-title">
-              <p>Click the filter icon in the table toolbar to filter.</p>
-              <p>Click on a column name to sort by that column.</p>
+              Countries Data
             </div>
           }
           data={props.countriesArray}

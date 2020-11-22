@@ -35,6 +35,8 @@ function YearsTable(props:any) {
       name: "year_id",
       label: "Year",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -83,6 +85,8 @@ function YearsTable(props:any) {
       name: "temp_anomaly",
       label: "Global Mean Surface Temperature Anomaly",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -104,6 +108,8 @@ function YearsTable(props:any) {
       name: "co2",
       label: "Mean Carbon Dioxide Level (ppm)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -128,6 +134,8 @@ function YearsTable(props:any) {
       name: "methane",
       label: "Methane Level (ppb)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -156,6 +164,8 @@ function YearsTable(props:any) {
       name: "nitrous_oxide",
       label: "Nitrous Oxide Level (ppb)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -186,6 +196,8 @@ function YearsTable(props:any) {
       name: "polar_ice",
       label: "Ice Extent (square km)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -212,6 +224,8 @@ function YearsTable(props:any) {
       name: "sea_level",
       label: "Absolute Sea Level Change Since 1880 (inches)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -279,9 +293,9 @@ function YearsTable(props:any) {
                 <MUIDataTable
                     title={
                       <div className="table-title">
-                        <p>Click the filter icon in the table toolbar to filter.</p>
-                        <p>Click on a column name to sort by that column.</p>
-                      </div>}
+                        Annual Climate Change Data
+                      </div>
+                    }
                     data={props.yearsArray}
                     columns={columns as MUIDataTableColumnDef[]}
                     options={options}

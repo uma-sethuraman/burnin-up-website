@@ -16,13 +16,13 @@
 }
   
   .Invalid-body {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9) ),
+    url("../../assets/elmo-fire.gif");
     text-align: center;
     min-height: 100vh;
     padding-top: 2vw;
     padding-right: 2vw;
     padding-left: 2vw;
-    background: linear-gradient(180deg, #3C0C0C 0%, 
-  #791414 45.83%, #3C0C0C 95.83%);
     font-family: "Raleway";
   }
   

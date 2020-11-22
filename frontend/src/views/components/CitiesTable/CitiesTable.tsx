@@ -35,6 +35,8 @@ function CitiesTable(props:any) {
       name: "city_name",
       label: "City",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -63,6 +65,8 @@ function CitiesTable(props:any) {
       name: "country_name",
       label: "Country",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -91,10 +95,14 @@ function CitiesTable(props:any) {
       name: "o3",
       label: "O3 (Dobson Units)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
         filterOptions: {
+          setCellHeaderProps: value => 
+          ({ style: {fontWeight: 'bold' } }),
           names: ["Low O3", "Medium O3", "High O3"],
           logic(o3: any, filterVal: any) {
             const show =
@@ -113,6 +121,8 @@ function CitiesTable(props:any) {
       name: "pm10",
       label: "PM10 (ug/m3)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -137,6 +147,8 @@ function CitiesTable(props:any) {
       name: "pm25",
       label: "PM2.5 (ug/m3)",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -161,6 +173,8 @@ function CitiesTable(props:any) {
       name: "population",
       label: "Population",
       options: {
+        setCellHeaderProps: value => 
+        ({ style: {fontWeight: 'bold' } }),
         filter: true,
         sort: true, 
         /* filtering options */
@@ -230,8 +244,7 @@ function CitiesTable(props:any) {
               <MUIDataTable
                 title={
                   <div className="table-title">
-                    <p>Click the filter icon in the table toolbar to filter.</p>
-                    <p>Click on a column name to sort by that column.</p>
+                    Cities Data
                   </div>}
                 data={props.citiesArray}
                 columns={columns as MUIDataTableColumnDef[]}

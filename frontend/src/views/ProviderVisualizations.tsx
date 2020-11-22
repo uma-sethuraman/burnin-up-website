@@ -5,12 +5,8 @@ import PieChart from "./components/Visualizations/PieChart";
 import manufacturers from "../vizdata/Manufacturer.json";
 import BarChart from "./components/Visualizations/BarChart";
 import energy_sources from "../vizdata/energy_sources.json";
-import country from "../vizdata/countries.json";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
-import citytemps from "../vizdata/CityRecentTempsRanges.json";
 import fuelingstations from "../vizdata/FuelingStationsPerState.json";
-import { LineChart, Line, XAxis, YAxis } from "recharts";
-import carbonemissions from "../vizdata/CarbonEmissions.json";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -18,7 +14,6 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import WebFont from "webfontloader";
-import { Link } from "react-router-dom";
 
 /* allows for tabs in the appbar  */
 function TabPanel(props) {

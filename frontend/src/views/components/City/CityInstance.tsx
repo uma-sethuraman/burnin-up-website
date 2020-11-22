@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
 import Loading from "../Loading";
+import YearsTimeline from "../YearsTimeline/YearsTimeline";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -71,13 +72,18 @@ const CityInstance = (id: any) => {
               </div>
             
               <br/>
-
               <div className="info-style">
-              {city?.year_highest !== (undefined || -1) ? (
-                <Link to={"/years/id=" + city?.year_highest}>
-                  {city?.year_highest} </Link>) : (
-                <Link to={"/years/id=2018"}>2018</Link>)}
-              </div>
+                {(city?.year_highest !== -1 
+                || city?.year_highest === undefined)? (
+                  <div>
+                  <YearsTimeline year={city?.year_highest}/>
+                  <Link to={"/years/id=" + city?.year_highest}>
+                    {city?.year_highest} </Link></div>) : (
+                      <div>
+                      <YearsTimeline year={2018}/>
+                      <Link to={"/years/id=2018"}>2018</Link>
+                      </div>)}
+                </div>
               <div className="info-title-style">
                 Year of Highest Annual Temperature
               </div>
@@ -132,15 +138,19 @@ const CityInstance = (id: any) => {
   
               </div>
             </div>
-                   
+            <br /> <br /> <br />
+            <div className="info-title-style">
+                Click on map marker to view {" "}
+                {city?.country_name}!
+              </div> 
                 <OurMap
                   latitude = {Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!))}
                   longitude = {Number(city?.longitude! === undefined ? 0 : Number(city?.longitude!))}
                   locationName = {city?.city_name!}
-                  map_style = {{height: '75vh', width: '90vh', margin:'10vh'}}
-                />
-
-                     
+                  map_style = {{height: '75vh', width: '90vh', marginLeft:'10vh', marginRight:'10vh', marginBottom: '10vh'}}
+                  id = {city?.country_id}
+                  map_type="city"
+                />      
           </header>
         </div>
           

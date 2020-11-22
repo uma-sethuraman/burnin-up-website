@@ -3,7 +3,7 @@
 }
   
 .Cities-header {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1.0) ),
     url("../assets/city-landing-photo-singapore.jpg");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -44,5 +44,9 @@
 
 .p_cities {
     color: #FFFFFF;
+}
+
+.instructions {
+    font-size: 18px;
 }
 

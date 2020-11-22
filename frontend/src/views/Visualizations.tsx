@@ -1,14 +1,10 @@
 import React from "react";
 import Navbar from "./components/OurNavbar";
 import "./Visualizations.css";
-import PieChart from "./components/Visualizations/PieChart";
-import manufacturers from "../vizdata/Manufacturer.json";
 import BarChart from "./components/Visualizations/BarChart";
-import energy_sources from "../vizdata/energy_sources.json";
 import country from "../vizdata/countries.json";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import citytemps from "../vizdata/CityRecentTempsRanges.json";
-import fuelingstations from "../vizdata/FuelingStationsPerState.json";
 import { LineChart, Line, XAxis, YAxis } from "recharts";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
 import PropTypes from "prop-types";

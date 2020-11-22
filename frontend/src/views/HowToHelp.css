@@ -39,7 +39,7 @@
 }
 
 .image-header {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+  background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9) ),
   url("../assets/fightClimate.png");
 height: 100%; /* You must set a specified height */
 background-position: center; /* Center the image */
@@ -100,4 +100,10 @@ color: white;
 
 .resource-title {
   font-size: 25px;
+}
+
+.instructions{
+  font-size: 18px;
+  font-family: 'Raleway';
+  text-align: center;
 }
