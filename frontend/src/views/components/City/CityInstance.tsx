@@ -9,8 +9,9 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
-import { BsCalendar } from 'react-icons/bs';
-import LoadingSpinner from '../LoadingSpinner';
+import { BsCalendar } from "react-icons/bs";
+import LoadingSpinner from "../LoadingSpinner";
+import CityInstanceTemp from "./CityInstanceTemp";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -18,9 +19,7 @@ const CityInstance = (id: any) => {
   const [city, setCity] = React.useState<City>();
 
   /* fetch city data */
-  const [{ data, loading, error }] = useAxios(
-    "/api/cities/id=" + id.id
-  );
+  const [{ data, loading, error }] = useAxios("/api/cities/id=" + id.id);
 
   /* if id is undefined show our 404 page */
   if (error || id.id === undefined) {
@@ -37,127 +36,89 @@ const CityInstance = (id: any) => {
 
   WebFont.load({
     google: {
-      families: [
-        "serif",
-        "Staatliches",
-        "sans-serif",
-        "Raleway",
-      ],
+      families: ["serif", "Staatliches", "sans-serif", "Raleway"],
     },
   });
 
   return (
     <div className="CityInstance">
-      <Navbar singleColor = {true} />
+      <Navbar singleColor={true} />
 
       {/* show spinner if content is loading */}
-      { loading ? (<LoadingSpinner />) : (
-        
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
         <div className="row">
-        <div className="column1">
-          <header className="City-header">
-            
-            <div>
-              <LocationPhoto name={(encodeURI(city?.city_name!))} />
-              <br/>
+          <div className="column1">
+            <CityInstanceTemp city={city}></CityInstanceTemp>
+          </div>
 
-              <div className="info-style">
-                  {city?.population !== -1 ? 
-                  (city?.population) : ("-")}
-              </div>
-              <div className="info-title-style">
-                Population
-              </div>
-              <br />
-          
-              <div className="info-style">
-                {(city?.highest_temp !== (undefined || -1)) ? 
-                (city?.highest_temp.toFixed(2) + 
-                  (city?.highest_temp! > 40 ? " °F" : " °C")) : "-"
-                }
-              </div>
-              <div className="info-title-style">
-                Highest Annual Temperature
-              </div>
-            
-              <br/>
-              <div className="info-style">
-                {(city?.year_highest !== -1 
-                || city?.year_highest === undefined)? (
-                  <div>
-                  {/* <YearsTimeline year={city?.year_highest}/> */}
-                  <Link to={"/years/id=" + city?.year_highest}>
-                    <BsCalendar/>{" "}
-                    <u>{city?.year_highest}</u></Link></div>) : (
-                      <div>
-                      {/* <YearsTimeline year={2018}/> */}
-                      <Link to={"/years/id=2018"}>
-                        <BsCalendar/>{" "}
-                        <u>2018</u></Link>
-                      </div>)}
-                </div>
-              <div className="info-title-style">
-                Year of Highest Annual Temperature
-              </div>
-              
-              <br/>  
-            </div>
-          </header> 
-        </div>  
-        
-        <div className="line">
-          <Image src={require("../../../assets/line-shadow.png")} height="100%"></Image>
-        </div>
-                
-        <div className="column2">
-          <header className="City-header">
-             <div className="title">
-              <h3> {city?.city_name} </h3>
-              <h3> <Link to={"/countries/id=" + city?.country_id}>
-                      <u>{city?.country_name}</u>
-                    </Link> </h3>
-            </div>
-            {/* <AiOutlineLine size="500px"/> */}
-            <div className="row-style"> 
-              <div className="row">
-                <div className="subcolumn">
-                  <div className="info-style">{city?.pm25 + " "}</div>
-                  <div className="info-title-style">PM2.5</div>
-                  <div className="info-unit-style">ug/m3</div>
-                </div> 
-                    
-                <div className="subcolumn">
-                  <div className="info-style">{city?.pm10 + " "}</div>
-                  <div className="info-title-style">PM10 </div>
-                  <div className="info-unit-style">ug/m3</div>
-                </div>
+          <div className="line">
+            <Image
+              src={require("../../../assets/line-shadow.png")}
+              height="100%"
+            ></Image>
+          </div>
 
-                <div className="subcolumn">
-                  <div className="info-style">{city?.o3 + " "}</div>
-                  <div className="info-title-style">O3</div>
-                  <div className="info-unit-style">Dobson Units</div>
-                </div>
-  
+          <div className="column2">
+            <header className="City-header">
+              <div className="title">
+                <h3> {city?.city_name} </h3>
+                <h3>
+                  {" "}
+                  <Link to={"/countries/id=" + city?.country_id}>
+                    <u>{city?.country_name}</u>
+                  </Link>{" "}
+                </h3>
               </div>
-            </div>
-            <br /> <br /> <br />
-            <div className="info-title-style">
-                Click on map marker to view {" "}
-                {city?.country_name}!
-              </div> 
-                <OurMap
-                  latitude = {Number(city?.latitude! === undefined ? 0 : Number(city?.latitude!))}
-                  longitude = {Number(city?.longitude! === undefined ? 0 : Number(city?.longitude!))}
-                  locationName = {city?.city_name!}
-                  map_style = {{height: '75vh', width: '90vh', marginLeft:'10vh', marginRight:'10vh', marginBottom: '10vh'}}
-                  id = {city?.country_id}
-                  map_type="city"
-                />      
-          </header>
+              {/* <AiOutlineLine size="500px"/> */}
+              <div className="row-style">
+                <div className="row">
+                  <div className="subcolumn">
+                    <div className="info-style">{city?.pm25 + " "}</div>
+                    <div className="info-title-style">PM2.5</div>
+                    <div className="info-unit-style">ug/m3</div>
+                  </div>
+
+                  <div className="subcolumn">
+                    <div className="info-style">{city?.pm10 + " "}</div>
+                    <div className="info-title-style">PM10 </div>
+                    <div className="info-unit-style">ug/m3</div>
+                  </div>
+
+                  <div className="subcolumn">
+                    <div className="info-style">{city?.o3 + " "}</div>
+                    <div className="info-title-style">O3</div>
+                    <div className="info-unit-style">Dobson Units</div>
+                  </div>
+                </div>
+              </div>
+              <br /> <br /> <br />
+              <div className="info-title-style">
+                Click on map marker to view {city?.country_name}!
+              </div>
+              <OurMap
+                latitude={Number(
+                  city?.latitude! === undefined ? 0 : Number(city?.latitude!)
+                )}
+                longitude={Number(
+                  city?.longitude! === undefined ? 0 : Number(city?.longitude!)
+                )}
+                locationName={city?.city_name!}
+                map_style={{
+                  height: "75vh",
+                  width: "90vh",
+                  marginLeft: "10vh",
+                  marginRight: "10vh",
+                  marginBottom: "10vh",
+                }}
+                id={city?.country_id}
+                map_type="city"
+              />
+            </header>
+          </div>
         </div>
-          
-        </div>
-        )} 
+      )}
     </div>
   );
 };

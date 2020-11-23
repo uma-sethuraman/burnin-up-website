@@ -7,18 +7,18 @@ import WebFont from "webfontloader";
 
 /* displays table of all cities in
 cities general page */
-function CitiesTable(props:any) {
-
+function CitiesTable(props: any) {
   /* custom render for cities table elements to allow for
   highlighting of search terms */
-  const cityCustomBodyRender = (value: any, tableMeta: any, updateValue: any) => 
+  const cityCustomBodyRender = (val: any, tableMeta: any, updateVal: any) => (
     <div>
       <Highlighter
-          highlightClassName="highlight-class"
-          searchWords={[props.searchQuery]}
-          textToHighlight={value+""}>
-        </Highlighter>
-      </div>
+        highlightClassName="highlight-class"
+        searchWords={[props.searchQuery]}
+        textToHighlight={val + ""}
+      ></Highlighter>
+    </div>
+  );
 
   /* all columns of the cities table */
   const columns = [
@@ -35,8 +35,7 @@ function CitiesTable(props:any) {
       name: "city_name",
       label: "City",
       options: {
-        setCellHeaderProps: value => 
-        ({ style: {fontWeight: 'bold' } }),
+        setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -57,16 +56,15 @@ function CitiesTable(props:any) {
           },
         },
         /* enable highlighting */
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => 
-          cityCustomBodyRender(value, tableMeta, updateValue)
+        customBodyRender: (val: any, tableMeta: any, updateVal: any) =>
+          cityCustomBodyRender(val, tableMeta, updateVal),
       },
     },
     {
       name: "country_name",
       label: "Country",
       options: {
-        setCellHeaderProps: value => 
-        ({ style: {fontWeight: 'bold' } }),
+        setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -87,22 +85,20 @@ function CitiesTable(props:any) {
           },
         },
         /* enable highlighting */
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => 
-          cityCustomBodyRender(value, tableMeta, updateValue)
+        customBodyRender: (val: any, tableMeta: any, updateVal: any) =>
+          cityCustomBodyRender(val, tableMeta, updateVal),
       },
     },
     {
       name: "o3",
       label: "O3 (Dobson Units)",
       options: {
-        setCellHeaderProps: value => 
-        ({ style: {fontWeight: 'bold' } }),
+        setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
         filter: true,
         sort: true,
         /* filtering options */
         filterOptions: {
-          setCellHeaderProps: value => 
-          ({ style: {fontWeight: 'bold' } }),
+          setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
           names: ["Low O3", "Medium O3", "High O3"],
           logic(o3: any, filterVal: any) {
             const show =
@@ -113,16 +109,15 @@ function CitiesTable(props:any) {
           },
         },
         /* enable highlighting */
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => 
-          cityCustomBodyRender(value, tableMeta, updateValue)
+        customBodyRender: (val: any, tableMeta: any, updateVal: any) =>
+          cityCustomBodyRender(val, tableMeta, updateVal),
       },
     },
     {
       name: "pm10",
       label: "PM10 (ug/m3)",
       options: {
-        setCellHeaderProps: value => 
-        ({ style: {fontWeight: 'bold' } }),
+        setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -139,16 +134,15 @@ function CitiesTable(props:any) {
           },
         },
         /* enable highlighting */
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => 
-          cityCustomBodyRender(value, tableMeta, updateValue)
+        customBodyRender: (val: any, tableMeta: any, updateVal: any) =>
+          cityCustomBodyRender(val, tableMeta, updateVal),
       },
     },
     {
       name: "pm25",
       label: "PM2.5 (ug/m3)",
       options: {
-        setCellHeaderProps: value => 
-        ({ style: {fontWeight: 'bold' } }),
+        setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
         filter: true,
         sort: true,
         /* filtering options */
@@ -165,18 +159,17 @@ function CitiesTable(props:any) {
           },
         },
         /* enable highlighting */
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => 
-          cityCustomBodyRender(value, tableMeta, updateValue)
+        customBodyRender: (val: any, tableMeta: any, updateVal: any) =>
+          cityCustomBodyRender(val, tableMeta, updateVal),
       },
     },
     {
       name: "population",
       label: "Population",
       options: {
-        setCellHeaderProps: value => 
-        ({ style: {fontWeight: 'bold' } }),
+        setCellHeaderProps: (val) => ({ style: { fontWeight: "bold" } }),
         filter: true,
-        sort: true, 
+        sort: true,
         /* filtering options */
         filterOptions: {
           names: ["Small Population", "Medium Population", "Large Population"],
@@ -193,11 +186,11 @@ function CitiesTable(props:any) {
           },
         },
         /* enable highlighting */
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) =>
-          value === -1 ? (
-            /* for cities without population data */
-            cityCustomBodyRender("-", tableMeta, updateValue)
-          ): cityCustomBodyRender(value, tableMeta, updateValue),
+        customBodyRender: (val: any, tableMeta: any, updateVal: any) =>
+          val === -1
+            ? /* for cities without population data */
+              cityCustomBodyRender("-", tableMeta, updateVal)
+            : cityCustomBodyRender(val, tableMeta, updateVal),
       },
     },
   ];
@@ -209,7 +202,7 @@ function CitiesTable(props:any) {
     onRowClick: (rowData: any) => {
       window.location.assign("/cities/id=" + rowData[0]);
     },
-    searchText: props.searchQuery, /* what is searched for */
+    searchText: props.searchQuery /* what is searched for */,
     search: false,
     download: false,
     print: false,
@@ -220,39 +213,32 @@ function CitiesTable(props:any) {
 
   const styles = {
     table: {
-      display: "table", 
-      tableLayout: "fixed", 
+      display: "table",
+      tableLayout: "fixed",
       width: "100%",
-    } as React.CSSProperties
-  } 
+    } as React.CSSProperties,
+  };
 
   WebFont.load({
     google: {
-      families: [
-        "Raleway",
-      ],
+      families: ["Raleway"],
     },
   });
 
   return (
     <div className="CitiesTable">
-            {/* displaying the table of all cities, 
+      {/* displaying the table of all cities, 
             with searching and pagination */}
-            <div
-              style={styles.table}
-            >
-              <MUIDataTable
-                title={
-                  <div className="table-title">
-                    Cities Data
-                  </div>}
-                data={props.citiesArray}
-                columns={columns as MUIDataTableColumnDef[]}
-                options={options}
-              />
-          </div>
+      <div style={styles.table}>
+        <MUIDataTable
+          title={<div className="table-title">Cities Data</div>}
+          data={props.citiesArray}
+          columns={columns as MUIDataTableColumnDef[]}
+          options={options}
+        />
+      </div>
     </div>
   );
-};
+}
 
 export default CitiesTable;
