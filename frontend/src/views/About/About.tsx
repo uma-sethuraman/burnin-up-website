@@ -3,7 +3,6 @@ import "./About.css";
 import Navbar from "../components/OurNavbar";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import Image from "react-bootstrap/Image";
 import WebFont from "webfontloader";
 
 /* importing images for all group members */
@@ -13,8 +12,6 @@ import LaurenMangibin from "../../assets/LaurenMangibin-headshot.jpg";
 import SamanthaTuapen from "../../assets/samantha-headshot.jpg";
 import CatilinLien from "../../assets/CaitlinLien.jpeg";
 import CherrySun from "../../assets/cherry.jpeg";
-import PostmanLogo from "../../assets/postmanicon.png";
-import GitlabLogo from "../../assets/gitlabicon.png";
 
 /* importing interfaces and images for tools and data sections */
 import AboutTools from "./AboutTools";
@@ -223,12 +220,10 @@ function About() {
   return (
     <div className="About">
       <Navbar />
-
       <div className="About-body">
         <div className="h3_about">
           <h3>About Us</h3>
         </div>
-
         {/* describing general purpose of website */}
         <div className="about-purpose">
           Burnin’ Up aims to educate people on the climate crisis of our planet
@@ -249,9 +244,7 @@ function About() {
           visualizations and graphs we show help us understand how drastic the
           changes are worldwide and throughout history.
         </div>
-
         <br></br>
-
         <div className="h2_about">
           <h2>Meet the Team</h2>
         </div>
@@ -280,35 +273,9 @@ function About() {
             </div>
           </div>
         </div>
-        <br />
-        <br />
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-6">
-              <h2>
-                <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
-                  <Image className="ToolImage" src={PostmanLogo} />
-                  <br></br>
-                  <u>Our Postman API</u>
-                </a>
-              </h2>
-            </div>
-            <div className="col-sm-6">
-              <h2>
-                <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
-                <Image className="ToolImage" src={GitlabLogo} />
-                <br></br>
-                <u>Our GitLab Repository</u>
-                </a>
-              </h2>
-            </div>
-          </div>
-        </div>
-        <br />
-        <br />
+        <br></br>
         {/* datasets and APIs */}
         <AboutSets />
-        <br></br>
         {/* tools sections */}
         <AboutTools />
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "react-bootstrap/Image";
 import "./About.css";
 
 import "slick-carousel/slick/slick.css";
@@ -19,8 +20,9 @@ import noaa from "../../assets/noaa.png"
 import epa from "../../assets/epa.png"
 import nsidc from "../../assets/nsidc.png"
 import our_world_in_data from "../../assets/our_world_in_data.jpg"
+import PostmanLogo from "../../assets/postmanicon.png";
+import GitlabLogo from "../../assets/gitlabicon.png";
 import AboutToolSetCard from "./AboutToolSetCard";
-
 
 /* displays datasets and APIs on About Us page */
 function AboutSets() {
@@ -158,6 +160,29 @@ function AboutSets() {
 
   return (
     <div>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-6">
+            <h2>
+              <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
+                <Image className="ToolImage" src={PostmanLogo} />
+                <br></br>
+                <u>Our Postman API</u>
+              </a>
+            </h2>
+          </div>
+          <div className="col-sm-6">
+            <h2>
+              <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
+              <Image className="ToolImage" src={GitlabLogo} />
+              <br></br>
+              <u>Our GitLab Repository</u>
+              </a>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <br></br>
       <div className="p_about">
         <h2>APIs and Data Sources</h2>
         <p>
