@@ -35,16 +35,15 @@ const CityInstanceTemp = (city: any) => {
 
         <br />
         <div className="info-style">
+          {/* year information */}
           {city?.year_highest !== -1 || city?.year_highest === undefined ? (
             <div>
-              {/* <YearsTimeline year={city?.year_highest}/> */}
               <Link to={"/years/id=" + city?.year_highest}>
                 <BsCalendar /> <u>{city?.year_highest}</u>
               </Link>
             </div>
           ) : (
             <div>
-              {/* <YearsTimeline year={2018}/> */}
               <Link to={"/years/id=2018"}>
                 <BsCalendar /> <u>2018</u>
               </Link>

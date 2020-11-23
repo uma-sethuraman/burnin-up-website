@@ -9,14 +9,10 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
-<<<<<<< HEAD
 import { BsCalendar } from "react-icons/bs";
 import LoadingSpinner from "../LoadingSpinner";
 import CityInstanceTemp from "./CityInstanceTemp";
-=======
-import LoadingSpinner from '../LoadingSpinner';
-import CityThermometer from '../Thermometer/Thermometer';
->>>>>>> 77bbadea1827902f7e2febba2029fd5ff80cfe39
+import CityThermometer from "../Thermometer/Thermometer";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
