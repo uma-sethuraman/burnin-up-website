@@ -9,8 +9,8 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
-import { BsCalendar } from 'react-icons/bs';
 import LoadingSpinner from '../LoadingSpinner';
+import CityThermometer from '../Thermometer/Thermometer';
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -56,7 +56,6 @@ const CityInstance = (id: any) => {
         <div className="row">
         <div className="column1">
           <header className="City-header">
-            
             <div>
               <LocationPhoto name={(encodeURI(city?.city_name!))} />
               <br/>
@@ -69,9 +68,29 @@ const CityInstance = (id: any) => {
                 Population
               </div>
               <br />
-          
+
               <div className="info-style">
-                {(city?.highest_temp !== (undefined || -1)) ? 
+                {(city?.year_highest !== -1 
+                || city?.year_highest === undefined)? (
+                  <div>
+                  <Link to={"/years/id=" + city?.year_highest}>
+                    <u>{city?.year_highest}</u></Link></div>) : (
+                      <div>
+                      <Link to={"/years/id=2018"}>
+                        <u>2018</u></Link>
+                      </div>)}
+                </div>
+              <div className="info-title-style">
+                Year of Highest Annual Temperature
+              </div>
+              <br />
+              
+              <CityThermometer year = {city?.year_highest} temp={city?.highest_temp.toFixed(2)}/>
+
+              <br />
+              <div className="info-style">
+                {(city?.highest_temp !== undefined || 
+                city?.highest_temp !== -1) ? 
                 (city?.highest_temp.toFixed(2) + 
                   (city?.highest_temp! > 40 ? " °F" : " °C")) : "-"
                 }
@@ -80,27 +99,9 @@ const CityInstance = (id: any) => {
                 Highest Annual Temperature
               </div>
             
-              <br/>
-              <div className="info-style">
-                {(city?.year_highest !== -1 
-                || city?.year_highest === undefined)? (
-                  <div>
-                  {/* <YearsTimeline year={city?.year_highest}/> */}
-                  <Link to={"/years/id=" + city?.year_highest}>
-                    <BsCalendar/>{" "}
-                    <u>{city?.year_highest}</u></Link></div>) : (
-                      <div>
-                      {/* <YearsTimeline year={2018}/> */}
-                      <Link to={"/years/id=2018"}>
-                        <BsCalendar/>{" "}
-                        <u>2018</u></Link>
-                      </div>)}
-                </div>
-              <div className="info-title-style">
-                Year of Highest Annual Temperature
-              </div>
               
-              <br/>  
+              {/* </div> */}
+              <br />
             </div>
           </header> 
         </div>  

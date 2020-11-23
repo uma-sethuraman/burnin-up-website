@@ -1,0 +1,20 @@
+.temp-side-by-side {
+    display:flex; 
+    flex-direction:row;
+    color: white;
+    align-items: center;
+    font-family: "Raleway";
+    text-align: left;
+  }
+  
+  .thermometer-style {
+    margin-left: 7vh;
+  }
+  
+  .thermometer-caption {
+    margin-left: 5vh;
+    font-family: "Raleway";
+    text-align: left;
+    color: white;
+    font-size: 20px;
+  }

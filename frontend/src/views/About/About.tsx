@@ -107,7 +107,7 @@ function About() {
       email: "lauren.mangibin@gmail.com",
       username: "lauren.mangibin",
       image: LaurenMangibin,
-      unittest: 9,
+      unittest: 11,
       role: "Frontend",
       linkedin: "https://www.linkedin.com/in/lauren-mangibin/",
       bio:

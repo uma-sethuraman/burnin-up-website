@@ -11,9 +11,9 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import WebFont from "webfontloader";
+import Container from '@material-ui/core/Container';
 
 /* allows for tabs in the appbar  */
 function TabPanel(props) {
@@ -28,9 +28,11 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Container>
+          <Box>
+            {children}
+          </Box>
+        </Container>
       )}
     </div>
   );
@@ -109,13 +111,18 @@ function ProviderVisualizations() {
         </div>
         {/* tab for countries visualization */}
         <TabPanel value={value} index={0}>
-          <h2 className="provider-vis-app-bar">
-            Number of Eco-Friendly Cars Per Manufacturer:
-          </h2>
-          <PieChart data={manufacturers} />
-          <br />
+          <div className="provider-tabs">
+            <br/>
+            <h2 className="provider-vis-app-bar">
+              Number of Eco-Friendly Cars Per Manufacturer:
+            </h2>
+            <PieChart data={manufacturers} />
+            <br />
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
+        <div className="provider-tabs">
+        <br/>
           <h2 className="provider-vis-app-bar">
             Number of Fueling Stations per State in the US:
           </h2>
@@ -126,7 +133,7 @@ function ProviderVisualizations() {
               offsetY: -0.01,
             }}
             width={1400}
-            height={1000}
+            height={1500}
             padding={15}
             showLegend={true}
             legendPercentage={15}
@@ -151,8 +158,13 @@ function ProviderVisualizations() {
             data={fuelingstations}
           />
           <br />
+          <br/>
+          <br/>
+          </div>
         </TabPanel>
         <TabPanel value={value} index={2}>
+        <div className="provider-tabs">
+        <br/>
           <h2 className="provider-vis-app-bar">
             Total Power per Energy Source
           </h2>
@@ -164,6 +176,7 @@ function ProviderVisualizations() {
             yLabel="Total Power (MWh)"
           />
           <br />
+          </div>
         </TabPanel>
       </div>
     </div>
