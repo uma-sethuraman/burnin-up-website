@@ -1,12 +1,14 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import WebFont from "webfontloader";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState, useEffect } from "react";
+import logo from "../../assets/burninup_icon-removebg-preview.png";
 
 /* the navigation bar which appears on
 all the pages */
@@ -74,8 +76,26 @@ const OurNavbar = (props: any) => {
     <div className="OurNavbar">
       <Navbar fixed="top" style={getNavbarStyle()} variant="dark">
         <Navbar.Brand href="/">
-          <div style={{ color: "white", fontFamily: "Raleway" }}>
-            <b>BURNIN' UP &nbsp;</b>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div className="logo-style">
+              <Image
+                src={logo}
+                style={{
+                  maxHeight: "5vh",
+                  marginRight: "2vh",
+                  marginLeft: "1vh",
+                }}
+              ></Image>
+            </div>
+            <div
+              style={{
+                color: "white",
+                fontFamily: "Raleway",
+                display: "flex",
+              }}
+            >
+              <b>BURNIN' UP &nbsp;</b>
+            </div>
           </div>
         </Navbar.Brand>
         {/* links to navbar pages */}
