@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import "./Thermometer.css";
+import "./CityThermometer.css";
 import Thermometer from 'react-thermometer-component'
 
+/* displays a clickable thermometer of 
+the highest annual temperature of 
+passed in city */
 function CityThermometer(props: any) {
-    let link: string = "";
-    let temp: number = 0;
-    let degreeType: string = "°C";
+    let link: string = ""; /* link to year of highest temperature */
+    let temp: number = 0; /* highest annual temperature */
+    let degreeType: string = "°C"; /* temperature format */
+
+    /* set the link to corresponding year or default */
     if (props.year === -1 || props.year === undefined) {
         link = "/years/id=2018"
     }
@@ -14,6 +19,8 @@ function CityThermometer(props: any) {
         link = "/years/id=" + props.year;
     }
 
+    /* set the temp to corresponding temperature
+    or default and set the temperature format */
     if (props.temp === -1 || props.temp === undefined) {
         temp = 10;
     }
@@ -29,6 +36,7 @@ function CityThermometer(props: any) {
     return (
         <div className = "temp-side-by-side">
             <div className="thermometer-style">
+                {/* thermometer links to year of highest temperature */}
                 <Link to ={link} >
                   <Thermometer
                     theme="dark"
