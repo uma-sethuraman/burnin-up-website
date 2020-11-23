@@ -3,6 +3,7 @@
 module.exports = {
   preset: "ts-jest",
   roots: ['<rootDir>/src'],
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   transform: {
     '^.+\.(ts|tsx)?$': 'ts-jest',
     "\\.(jpg|jpeg|png|gif|eot|otf)$": "<rootDir>/assetsTransformer.js",

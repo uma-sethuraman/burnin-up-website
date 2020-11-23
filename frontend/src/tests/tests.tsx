@@ -16,6 +16,8 @@ import CountryInstance from "../views/components/Country/CountryInstance";
 import YearInstance from "../views/components/Year/YearInstance";
 import Search from "../views/components/Search/Search";
 import HowToHelp from '../views/HowToHelp';
+import Visualizations from "../views/Visualizations"
+import ProviderVisualizations from "../views/ProviderVisualizations"
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -34,7 +36,7 @@ it('Get About Page', async () => {
 	const copy = shallow(<About />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
-	expect(copy.find("div")).to.have.length(13);
+	expect(copy.find("div")).to.have.length(15);
 });
 
 /* city general page test */
@@ -66,7 +68,7 @@ it('Get How To Help page', async () => {
 	const copy = shallow(<HowToHelp />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
-	expect(copy.find("div")).to.have.length(7);
+	expect(copy.find("div")).to.have.length(16);
 });
   
 /* city instance page test */
@@ -96,4 +98,19 @@ it('Get a Search Page', async () => {
 	expect(component).to.not.be.undefined;
 	expect(component).to.have.length(1);
 });
+
+/* visualizations page test */
+it('Get a Visualizations Page', async () => {
+	const component = mount(<Router><Visualizations /></Router>);
+	expect(component).to.not.be.undefined;
+	expect(component).to.have.length(1);
+});
+
+/* visualizations page test */
+it('Get a Provider Visualizations Page', async () => {
+	const component = mount(<Router><ProviderVisualizations /></Router>);
+	expect(component).to.not.be.undefined;
+	expect(component).to.have.length(1);
+});
+
 
