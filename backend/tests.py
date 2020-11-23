@@ -139,7 +139,7 @@ class Tests(TestCase):
         r = requests.get("https://burninup.me/api/cities")
         assert r.status_code == 200
         d = r.json()
-        assert len(d["cities"]) == 305
+        assert len(d["cities"]) == 3057
 
     # asserts expected first object in all cities response
     def test_cities_list(self):
