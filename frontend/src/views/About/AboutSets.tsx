@@ -4,6 +4,8 @@ import "./About.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+//https://www.newline.co/@dmitryrogozhny/
+//how-to-show-carousel-in-react-applications-with-react-slick--07445c23
 
 // import Image from "react-bootstrap/Image";
 import mapsIcon from "../../assets/maps-icon.svg"
