@@ -7,7 +7,9 @@ class BubbleChart extends React.Component {
     render() {
         return(
             <div className="BubbleChart">
-                {/* used bubble chart React component from @weknowinc */}
+                {/* used bubble chart React component from @weknowinc 
+                    customizeable aspects are graph, height, legend
+                    percentage, and data */}
                 <BubbleChartOrig
                     graph={{
                         zoom: this.props.zoom,
