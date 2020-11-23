@@ -9,9 +9,14 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
+<<<<<<< HEAD
 import { BsCalendar } from "react-icons/bs";
 import LoadingSpinner from "../LoadingSpinner";
 import CityInstanceTemp from "./CityInstanceTemp";
+=======
+import LoadingSpinner from '../LoadingSpinner';
+import CityThermometer from '../Thermometer/Thermometer';
+>>>>>>> 77bbadea1827902f7e2febba2029fd5ff80cfe39
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -49,6 +54,7 @@ const CityInstance = (id: any) => {
         <LoadingSpinner />
       ) : (
         <div className="row">
+<<<<<<< HEAD
           <div className="column1">
             <CityInstanceTemp city={city}></CityInstanceTemp>
           </div>
@@ -79,6 +85,86 @@ const CityInstance = (id: any) => {
                     <div className="info-title-style">PM2.5</div>
                     <div className="info-unit-style">ug/m3</div>
                   </div>
+=======
+        <div className="column1">
+          <header className="City-header">
+            <div>
+              <LocationPhoto name={(encodeURI(city?.city_name!))} />
+              <br/>
+
+              <div className="info-style">
+                  {city?.population !== -1 ? 
+                  (city?.population) : ("-")}
+              </div>
+              <div className="info-title-style">
+                Population
+              </div>
+              <br />
+
+              <div className="info-style">
+                {(city?.year_highest !== -1 
+                || city?.year_highest === undefined)? (
+                  <div>
+                  <Link to={"/years/id=" + city?.year_highest}>
+                    <u>{city?.year_highest}</u></Link></div>) : (
+                      <div>
+                      <Link to={"/years/id=2018"}>
+                        <u>2018</u></Link>
+                      </div>)}
+                </div>
+              <div className="info-title-style">
+                Year of Highest Annual Temperature
+              </div>
+              <br />
+              
+              <CityThermometer year = {city?.year_highest} temp={city?.highest_temp.toFixed(2)}/>
+
+              <br />
+              <div className="info-style">
+                {(city?.highest_temp !== undefined || 
+                city?.highest_temp !== -1) ? 
+                (city?.highest_temp.toFixed(2) + 
+                  (city?.highest_temp! > 40 ? " °F" : " °C")) : "-"
+                }
+              </div>
+              <div className="info-title-style">
+                Highest Annual Temperature
+              </div>
+            
+              
+              {/* </div> */}
+              <br />
+            </div>
+          </header> 
+        </div>  
+        
+        <div className="line">
+          <Image src={require("../../../assets/line-shadow.png")} height="100%"></Image>
+        </div>
+                
+        <div className="column2">
+          <header className="City-header">
+             <div className="title">
+              <h3> {city?.city_name} </h3>
+              <h3> <Link to={"/countries/id=" + city?.country_id}>
+                      <u>{city?.country_name}</u>
+                    </Link> </h3>
+            </div>
+            {/* <AiOutlineLine size="500px"/> */}
+            <div className="row-style"> 
+              <div className="row">
+                <div className="subcolumn">
+                  <div className="info-style">{city?.pm25 + " "}</div>
+                  <div className="info-title-style">PM2.5</div>
+                  <div className="info-unit-style">ug/m3</div>
+                </div> 
+                    
+                <div className="subcolumn">
+                  <div className="info-style">{city?.pm10 + " "}</div>
+                  <div className="info-title-style">PM10 </div>
+                  <div className="info-unit-style">ug/m3</div>
+                </div>
+>>>>>>> 77bbadea1827902f7e2febba2029fd5ff80cfe39
 
                   <div className="subcolumn">
                     <div className="info-style">{city?.pm10 + " "}</div>

@@ -3,7 +3,7 @@ import Navbar from "./components/OurNavbar";
 import "./Visualizations.css";
 import BarChart from "./components/Visualizations/BarChart";
 import country from "../vizdata/countries.json";
-import BubbleChart from "@weknow/react-bubble-chart-d3";
+import BubbleChart from "./components/Visualizations/BubbleChart";
 import citytemps from "../vizdata/CityRecentTempsRanges.json";
 import { LineChart, Line, XAxis, YAxis } from "recharts";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
@@ -11,9 +11,9 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import WebFont from "webfontloader";
+import Container from '@material-ui/core/Container';
 
 /* allows for tabs in the appbar  */
 function TabPanel(props) {
@@ -28,9 +28,11 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Container>
+          <Box>
+            {children}
+          </Box>
+        </Container>
       )}
     </div>
   );
@@ -102,6 +104,7 @@ function Visuals() {
         </div>
         {/* tab for countries visualization */}
         <TabPanel value={value} index={0}>
+          <br />
           <h2 className="vis-app-bar">
             Top 50 Countries with The Highest Carbon Emissions
           </h2>
@@ -112,46 +115,26 @@ function Visuals() {
             xLabel="Countries"
             yLabel="Carbon Emissions (ppm)"
           />
+          <br />
         </TabPanel>
         {/* tab for cities visualization */}
         <TabPanel value={value} index={1}>
+          <br />
           <h2 className="vis-app-bar">
             Recent City Temperatures Worldwide Grouped by Range:
           </h2>
-          <BubbleChart
-            graph={{
-              zoom: 0.75,
-              offsetX: 0.15,
-              offsetY: -0.01,
-            }}
-            width={1400}
-            height={1000}
-            padding={15}
-            showLegend={true}
-            legendPercentage={20}
-            legendFont={{
-              family: "Arial",
-              size: 16,
-              color: "#FFFFFF",
-              weight: "bold",
-            }}
-            valueFont={{
-              family: "Arial",
-              size: 12,
-              color: "#fff",
-              weight: "bold",
-            }}
-            labelFont={{
-              family: "Arial",
-              size: 16,
-              color: "#fff",
-              weight: "bold",
-            }}
-            data={citytemps}
-          />
+		  <BubbleChart 
+			  data={citytemps}
+			  zoom={0.75}
+			  offsetX={0.15}
+			  height={1000}
+			  legendPercentage={20}
+		  />
+          <br />
         </TabPanel>
         {/* tab for annual climate change visualization */}
         <TabPanel value={value} index={2}>
+          <br />
           <div className="carbonemissions-vis" style={{ color: "white" }}>
             <h2 className="vis-app-bar">
               Mean Global Carbon Emissions from 1880-2020
@@ -203,6 +186,7 @@ function Visuals() {
                 strokeWidth="3"
               />
             </LineChart>
+            <br />
           </div>
         </TabPanel>
       </div>

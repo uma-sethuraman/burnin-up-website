@@ -12,6 +12,7 @@ export interface GroupMember {
     unittest?: number;
     role?: string;
     linkedin?: string;
+    key:number;
 }
   
 /* interfaces for all GitLab related data */

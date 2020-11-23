@@ -129,6 +129,9 @@
     },
     "snapshotSerializers": [
       "enzyme-to-json"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
     ]
   }
 }

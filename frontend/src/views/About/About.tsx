@@ -58,6 +58,7 @@ function About() {
         " development for the site and enjoys Data Science and Machine" +
         " Learning. Her hobbies includes baking, playing video games, and" +
         " taking group stretch breaks.",
+      key: 0,
     },
     {
       name: "Cherry Sun",
@@ -72,6 +73,7 @@ function About() {
         " working on backend and has interest in overall full stack app" +
         " development. She likes working out, swimming, getting a massage," +
         " going to spa and just enjoying life.",
+      key: 1,
     },
     {
       name: "Samantha Tuapen",
@@ -87,34 +89,7 @@ function About() {
         " full stack app development. Outside of the CS world, she enjoys" +
         " kickboxing, playing musical instruments, and eating" +
         " good food.",
-    },
-    {
-      name: "Caitlin O'Callaghan",
-      email: "caitlinocallaghan@Caitlins-MBP.lan",
-      username: "caitlinocallaghan",
-      image: CaitlinOCallaghan,
-      unittest: 11,
-      role: "Frontend",
-      linkedin: "https://www.linkedin.com/in/caitlinocallaghan/",
-      bio:
-        "Caitlin is a junior from Dallas, TX. Some of her technical" +
-        " interests are front end web and app development and NLP. Her hobbies" +
-        " include painting and drawing, playing oboe, listening to classical " +
-        " music, and drinking tea.",
-    },
-    {
-      name: "Lauren Mangibin",
-      email: "lauren.mangibin@gmail.com",
-      username: "lauren.mangibin",
-      image: LaurenMangibin,
-      unittest: 9,
-      role: "Frontend",
-      linkedin: "https://www.linkedin.com/in/lauren-mangibin/",
-      bio:
-        "Lauren is a junior from Austin, TX whose eyebags got much bigger" +
-        " from sleeping late. She is working on the front end of the site" +
-        " and loves working with people. She is a hip-hop dancer and" +
-        " choreographer for UT dance teams.",
+        key: 2,
     },
     {
       name: "Uma Sethuraman",
@@ -129,6 +104,37 @@ function About() {
         " development for this project. Some of her other technical" +
         " interests include mobile development and machine learning. She" +
         " also enjoys dancing and cooking.",
+      key: 5,
+    },
+    {
+      name: "Caitlin O'Callaghan",
+      email: "caitlinocallaghan@Caitlins-MBP.lan",
+      username: "caitlinocallaghan",
+      image: CaitlinOCallaghan,
+      unittest: 11,
+      role: "Frontend",
+      linkedin: "https://www.linkedin.com/in/caitlinocallaghan/",
+      bio:
+        "Caitlin is a junior from Dallas, TX. Some of her technical" +
+        " interests are front end web and app development and NLP. Her hobbies" +
+        " include painting and drawing, playing oboe, listening to classical " +
+        " music, and drinking tea.",
+        key: 3,
+    },
+    {
+      name: "Lauren Mangibin",
+      email: "lauren.mangibin@gmail.com",
+      username: "lauren.mangibin",
+      image: LaurenMangibin,
+      unittest: 11,
+      role: "Frontend",
+      linkedin: "https://www.linkedin.com/in/lauren-mangibin/",
+      bio:
+        "Lauren is a junior from Austin, TX whose eyebags got much bigger" +
+        " from sleeping late. She is working on the front end of the site" +
+        " and loves working with people. She is a hip-hop dancer and" +
+        " choreographer for UT dance teams.",
+      key: 4,
     },
   ]);
 
@@ -252,8 +258,6 @@ function About() {
         <br />
         {/* member info */}
         <AboutCarousel members={members} />
-        <br />
-        <br />
         {/* total commits, issues, and unit tests */}
         <div className="h2_about">
           <div className="row">
@@ -286,8 +290,6 @@ function About() {
                   <Image className="ToolImage" src={PostmanLogo} />
                   <br></br>
                   <u>Our Postman API</u>
-                  
-                  
                 </a>
               </h2>
             </div>

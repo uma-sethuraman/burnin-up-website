@@ -59,6 +59,12 @@
     padding-right:5vh;
     align-content: center;
 }
+
+.about-member-columns{
+    width: 33.333%;
+    margin-bottom: 100px;
+}
+
 .card-img-top {
     width: 100%;
     height: 30vw;

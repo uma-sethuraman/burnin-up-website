@@ -5,7 +5,7 @@ import { SearchBox, connectHits } from "react-instantsearch-dom";
 import { connectStateResults } from "react-instantsearch-dom";
 import "./Search.css";
 import Navbar from "../OurNavbar";
-import Image from "react-bootstrap/image";
+import Image from "react-bootstrap/Image";
 import WebFont from "webfontloader";
 import SearchCityCard from "./SearchCityCard";
 import SearchCountryCard from "./SearchCountryCard";
