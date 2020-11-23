@@ -3,7 +3,7 @@ import Navbar from "./components/OurNavbar";
 import "./Visualizations.css";
 import BarChart from "./components/Visualizations/BarChart";
 import country from "../vizdata/countries.json";
-import BubbleChart from "@weknow/react-bubble-chart-d3";
+import BubbleChart from "./components/Visualizations/BubbleChart";
 import citytemps from "../vizdata/CityRecentTempsRanges.json";
 import { LineChart, Line, XAxis, YAxis } from "recharts";
 import carbonemissions from "../vizdata/CarbonEmissions.json";
@@ -123,37 +123,13 @@ function Visuals() {
           <h2 className="vis-app-bar">
             Recent City Temperatures Worldwide Grouped by Range:
           </h2>
-          <BubbleChart
-            graph={{
-              zoom: 0.75,
-              offsetX: 0.15,
-              offsetY: -0.01,
-            }}
-            width={1400}
-            height={1000}
-            padding={15}
-            showLegend={true}
-            legendPercentage={20}
-            legendFont={{
-              family: "Arial",
-              size: 16,
-              color: "#FFFFFF",
-              weight: "bold",
-            }}
-            valueFont={{
-              family: "Arial",
-              size: 12,
-              color: "#fff",
-              weight: "bold",
-            }}
-            labelFont={{
-              family: "Arial",
-              size: 16,
-              color: "#fff",
-              weight: "bold",
-            }}
-            data={citytemps}
-          />
+		  <BubbleChart 
+			  data={citytemps}
+			  zoom={0.75}
+			  offsetX={0.15}
+			  height={1000}
+			  legendPercentage={20}
+		  />
           <br />
         </TabPanel>
         {/* tab for annual climate change visualization */}

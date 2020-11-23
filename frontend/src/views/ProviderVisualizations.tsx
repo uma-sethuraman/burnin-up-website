@@ -5,7 +5,7 @@ import PieChart from "./components/Visualizations/PieChart";
 import manufacturers from "../vizdata/Manufacturer.json";
 import BarChart from "./components/Visualizations/BarChart";
 import energy_sources from "../vizdata/energy_sources.json";
-import BubbleChart from "@weknow/react-bubble-chart-d3";
+import BubbleChart from "./components/Visualizations/BubbleChart";
 import fuelingstations from "../vizdata/FuelingStationsPerState.json";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -71,13 +71,10 @@ function ProviderVisualizations() {
   return (
     <div className="ProviderVisuals">
       <Navbar />
-
       <div className="ProviderVisuals-body">
         <h3>Provider Visualizations</h3>
         <a href="https://econyoom.me">
-          <h2>
-            <u>EcoNyoom</u>
-          </h2>
+          <h2><u>EcoNyoom</u></h2>
         </a>
         <br />
         <div className="provider-visuals-appbar">
@@ -87,10 +84,9 @@ function ProviderVisualizations() {
             style={{ background: "#000000", fontFamily: "Raleway" }}
           >
             <Tabs
-              value={value}
+              value={value} centered
               onChange={handleChange}
               aria-label="simple tabs example"
-              centered
             >
               <Tab
                 label={<div className="provider-vis-app-bar">Vehicles</div>}
@@ -117,7 +113,6 @@ function ProviderVisualizations() {
               Number of Eco-Friendly Cars Per Manufacturer:
             </h2>
             <PieChart data={manufacturers} />
-            <br />
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
@@ -126,40 +121,12 @@ function ProviderVisualizations() {
           <h2 className="provider-vis-app-bar">
             Number of Fueling Stations per State in the US:
           </h2>
-          <BubbleChart
-            graph={{
-              zoom: 0.85,
-              offsetX: 0.0,
-              offsetY: -0.01,
-            }}
-            width={1400}
-            height={1500}
-            padding={15}
-            showLegend={true}
-            legendPercentage={15}
-            legendFont={{
-              family: "Arial",
-              size: 10,
-              color: "#FFFFFF",
-              weight: "bold",
-            }}
-            valueFont={{
-              family: "Arial",
-              size: 12,
-              color: "#fff",
-              weight: "bold",
-            }}
-            labelFont={{
-              family: "Arial",
-              size: 16,
-              color: "#fff",
-              weight: "bold",
-            }}
+          <BubbleChart 
             data={fuelingstations}
+            zoom={0.85} offsetX={0.0}
+            height={1500}
+            legendPercentage={15}
           />
-          <br />
-          <br/>
-          <br/>
           </div>
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -170,12 +137,10 @@ function ProviderVisualizations() {
           </h2>
           <BarChart
             data={energy_sources}
-            xAttr="energe"
-            yAttr="power"
+            xAttr="energe" yAttr="power"
             xLabel="Energy Source"
             yLabel="Total Power (MWh)"
           />
-          <br />
           </div>
         </TabPanel>
       </div>
