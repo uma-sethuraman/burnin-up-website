@@ -1,6 +1,6 @@
 import React from "react";
 import "./Loading.css";
-import Image from "react-bootstrap/image";
+import Image from "react-bootstrap/Image";
 
 
 /* page for loading */
