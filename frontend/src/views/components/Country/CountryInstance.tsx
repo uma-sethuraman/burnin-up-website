@@ -9,8 +9,8 @@ import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import WebFont from "webfontloader";
-import Loading from "../Loading";
-import YearsTimeline from "../YearsTimeline/YearsTimeline";
+import { BsCalendar } from 'react-icons/bs';
+import LoadingSpinner from '../LoadingSpinner';
 
 /* country instance page, takes in country id,
    route: "/countries/id=" */
@@ -59,7 +59,7 @@ const CountryInstance = (id: any) => {
         <Navbar singleColor = {true} />
   
         {/* show spinner if content is loading */}
-        { loading ? (<Loading />) : (
+        { loading ? (<LoadingSpinner />) : (
           
           <div className="row">
           <div className="column1">
@@ -81,15 +81,19 @@ const CountryInstance = (id: any) => {
                 <br/>
   
                 <div className="info-style">
+        
                 {country?.high_year !== undefined ? (
                   <div>
-                  <YearsTimeline year={country?.high_year}/>
+                  {/* <YearsTimeline year={country?.high_year}/> */}
                   <Link to={"/years/id=" + country?.high_year}>
-                    <u>{country?.high_year}</u> </Link></div>) : (
-                      <div>
-                      <YearsTimeline year={2018}/>
-                      <Link to={"/years/id=2018"}><u>2018</u></Link>
-                      </div>)}
+                    <BsCalendar/>{" "}
+                    <u>{country?.high_year}</u> 
+                  </Link></div>) : (
+                  <div>
+                  {/* <YearsTimeline year={2018}/> */}
+                  <BsCalendar/>{" "}
+                  <Link to={"/years/id=2018"}><u>2018</u></Link>
+                  </div>)}
                 </div>
                 <div className="info-title-style">
                   Year of Highest Annual CO2 Emissions

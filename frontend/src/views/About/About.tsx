@@ -13,8 +13,8 @@ import LaurenMangibin from "../../assets/LaurenMangibin-headshot.jpg";
 import SamanthaTuapen from "../../assets/samantha-headshot.jpg";
 import CatilinLien from "../../assets/CaitlinLien.jpeg";
 import CherrySun from "../../assets/cherry.jpeg";
-import PostmanLogo from "../../assets/PostmanLogo.png";
-import GitlabLogo from "../../assets/GitlabLogo.jpg";
+import PostmanLogo from "../../assets/postmanicon.png";
+import GitlabLogo from "../../assets/gitlabicon.png";
 
 /* importing interfaces and images for tools and data sections */
 import AboutTools from "./AboutTools";
@@ -283,18 +283,20 @@ function About() {
             <div className="col-sm-6">
               <h2>
                 <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
-                  <u>Our Postman API</u>
-                  <br></br>
                   <Image className="ToolImage" src={PostmanLogo} />
+                  <br></br>
+                  <u>Our Postman API</u>
+                  
+                  
                 </a>
               </h2>
             </div>
             <div className="col-sm-6">
               <h2>
                 <a href="https://gitlab.com/caitlinlien/cs373-sustainability/">
-                  <u>Our GitLab Repository</u>
-                  <br></br>
-                  <Image className="ToolImage" src={GitlabLogo} />
+                <Image className="ToolImage" src={GitlabLogo} />
+                <br></br>
+                <u>Our GitLab Repository</u>
                 </a>
               </h2>
             </div>

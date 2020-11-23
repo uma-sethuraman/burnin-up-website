@@ -3,7 +3,7 @@ import "./Loading.css";
 import Image from "react-bootstrap/image";
 
 
-/* page for 404 errors */
+/* page for loading */
 function Loading() {
   return (
     <div>

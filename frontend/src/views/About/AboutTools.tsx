@@ -13,7 +13,7 @@ import ReactBootstrapLogo from "../../assets/ReactBootstrap.png";
 import ElasticBeanstalkLogo from "../../assets/ElasticBeanstalk.png";
 import NameCheapLogo from "../../assets/NameCheapLogo.png";
 import DiscordLogo from "../../assets/DiscordLogo.png";
-import JupyterNotebookLogo from "../../assets/JupyterNotebook.svg";
+import JupyterNotebookLogo from "../../assets/jupyter-notebook.jpg";
 import AlgoliaLogo from "../../assets/algolialogo.png"
 import AboutToolSetCard from "./AboutToolSetCard";
 

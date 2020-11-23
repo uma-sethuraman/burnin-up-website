@@ -8,8 +8,8 @@ import { BarChart, Bar, XAxis, YAxis,
 import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
 import YearInstanceTable from "./YearInstanceTable";
-import Loading from "../Loading";
 import WebFont from "webfontloader";
+import LoadingSpinner from '../LoadingSpinner';
 
 /* year instance page, takes in year id,
 route: "/years/id=" */
@@ -84,7 +84,7 @@ const YearInstance = (id: any) => {
       <Navbar singleColor = {true} />
       
           {/* show spinner if content is loading */}
-          { loading ? (<Loading />) : (
+          { loading ? (<LoadingSpinner />) : (
           
           <div className="row">
 

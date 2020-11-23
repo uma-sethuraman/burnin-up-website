@@ -9,8 +9,8 @@ import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
-import Loading from "../Loading";
-import YearsTimeline from "../YearsTimeline/YearsTimeline";
+import { BsCalendar } from 'react-icons/bs';
+import LoadingSpinner from '../LoadingSpinner';
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -51,7 +51,7 @@ const CityInstance = (id: any) => {
       <Navbar singleColor = {true} />
 
       {/* show spinner if content is loading */}
-      { loading ? (<Loading/>) : (
+      { loading ? (<LoadingSpinner />) : (
         
         <div className="row">
         <div className="column1">
@@ -60,6 +60,15 @@ const CityInstance = (id: any) => {
             <div>
               <LocationPhoto name={(encodeURI(city?.city_name!))} />
               <br/>
+
+              <div className="info-style">
+                  {city?.population !== -1 ? 
+                  (city?.population) : ("-")}
+              </div>
+              <div className="info-title-style">
+                Population
+              </div>
+              <br />
           
               <div className="info-style">
                 {(city?.highest_temp !== (undefined || -1)) ? 
@@ -76,29 +85,22 @@ const CityInstance = (id: any) => {
                 {(city?.year_highest !== -1 
                 || city?.year_highest === undefined)? (
                   <div>
-                  <YearsTimeline year={city?.year_highest}/>
+                  {/* <YearsTimeline year={city?.year_highest}/> */}
                   <Link to={"/years/id=" + city?.year_highest}>
+                    <BsCalendar/>{" "}
                     <u>{city?.year_highest}</u></Link></div>) : (
                       <div>
-                      <YearsTimeline year={2018}/>
-                      <Link to={"/years/id=2018"}><u>2018</u></Link>
+                      {/* <YearsTimeline year={2018}/> */}
+                      <Link to={"/years/id=2018"}>
+                        <BsCalendar/>{" "}
+                        <u>2018</u></Link>
                       </div>)}
                 </div>
               <div className="info-title-style">
                 Year of Highest Annual Temperature
               </div>
               
-              <br/>
-
-              <div className="info-style">
-                  {city?.population !== -1 ? 
-                  (city?.population) : ("-")}
-              </div>
-              <div className="info-title-style">
-                Population
-              </div>
-              <br />
-  
+              <br/>  
             </div>
           </header> 
         </div>  
