@@ -1,5 +1,10 @@
 import React from 'react';
 import * as d3 from 'd3';
+
+/**
+ *  Pie chart visualization for presenting data from our provider
+ *  Used code from D3.js  
+ */
 class PieChart extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +16,7 @@ class PieChart extends React.Component {
   }
 
   createPieChart() {
-	//format the margin and size 
+    //format the margin and size 
     const margin = 40;
     const height = 500;
     const width = 700;
@@ -25,17 +30,17 @@ class PieChart extends React.Component {
     const svg = rawSvg
       .append('g')
       .attr('transform', 'translate(' + width / 2 + ',' 
-	  + height / 2 + ')');
-	//getting the input and format the chart based on input 
+          + height / 2 + ')');
+    //getting the input and format the chart based on input 
     const pie = d3.pie().value(d => d.value);
     const data = pie(d3.entries(this.props.data)
-	.sort((a, b) => b.value - a.value));
+      .sort((a, b) => b.value - a.value));
     const arcGenerator = d3
       .arc()
       .innerRadius(0)
       .outerRadius(radius);
     const colorScale = d3.scaleOrdinal(d3.schemePaired);
-	//filling the graph
+    //filling the graph
     svg
       .selectAll('mySlices')
       .data(data)
@@ -52,7 +57,7 @@ class PieChart extends React.Component {
       .enter()
       .append('g')
       .attr('transform', (d, i) => 'translate(' 
-	  + (width - 50) + ',' + (i * 20 + 20) + ')')
+          + (width - 50) + ',' + (i * 20 + 20) + ')')
       .attr('class', 'legend')
       .style('fill', 'white');
     legend
