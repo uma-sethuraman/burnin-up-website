@@ -73,7 +73,8 @@ function SearchCountryCard(props:any) {
             country_attributes.map((country) => (
                 <Card.Text className="card-text-style" key={country.attribute_id}>
                     <b>{country.name} {" "}</b>
-                    <Highlight attribute={country.attribute} tagName="mark" hit={props.hit} />
+                    <Highlight attribute={country.attribute} 
+                    tagName="mark" hit={props.hit} />
                 </Card.Text>
             ))
         );

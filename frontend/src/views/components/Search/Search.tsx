@@ -125,30 +125,22 @@ function Search(q: any) {
   return (
     <div className="Search">
       <Navbar singleColor={true} />
-
       <h1 className="search-heading">SEARCH RESULTS</h1>
       <h2 className="query-style">{q.q}</h2>
       <br />
-
       <DropdownButton id="dropdown-basic-button" title={filterTitle}>
         <Dropdown.Item onClick={citiesOnClick}>Cities</Dropdown.Item>
         <Dropdown.Item onClick={countriesOnClick}>Countries</Dropdown.Item>
         <Dropdown.Item onClick={yearsOnClick}>Years</Dropdown.Item>
         <Dropdown.Item onClick={noneOnClick}>All</Dropdown.Item>
       </DropdownButton>
-
       <br />
       <InstantSearch
         indexName="cities_index"
         searchClient={searchClient}
-        searchState={{
-          query: q.q,
-        }}
-      >
-        <div style={{ display: "none" }}>
-          <SearchBox />
-        </div>
+        searchState={{query: q.q,}}>
 
+        <div style={{ display: "none" }}><SearchBox /></div>
         {/* index containing all cities data  */}
         <Index indexName="cities_index">
           {filterType === SearchType.Cities ||
@@ -157,15 +149,9 @@ function Search(q: any) {
               <h1 className="section-title">Cities</h1>
               <p className="section-subtitle">
                 Learn about climate change in cities around the world.{" "}
-              </p>
-              <br />
-              <main>
-                <CityContent />
-              </main>
-            </div>
-          ) : (
-            <div></div>
-          )}
+              </p><br />
+              <main><CityContent /></main>
+            </div>) : (<div></div>)}
         </Index>
 
         {/* index containing all countries data */}
@@ -178,14 +164,8 @@ function Search(q: any) {
                 Learn about climate change in countries around the world.{" "}
               </p>
               <br />
-              <main>
-                {" "}
-                <CountryContent />
-              </main>
-            </div>
-          ) : (
-            <div></div>
-          )}
+              <main>{" "}<CountryContent /></main>
+            </div>) : (<div></div>)}
         </Index>
 
         {/* index containing all years data */}
@@ -197,28 +177,22 @@ function Search(q: any) {
                 Learn about annual climate change across the years.{" "}
               </p>
               <br />
-              <main>
-                {" "}
-                <YearContent />
-              </main>
-            </div>
-          ) : (
-            <div></div>
-          )}
+              <main>{" "}<YearContent /></main>
+            </div>) : (<div></div>)}
         </Index>
       </InstantSearch>
-      <div className="search-side-by-side">
-        <div>Powered by &nbsp;</div>
-        <div>
-          <Image
-            src={require("../../../assets/algolialogo.png")}
-            height="5%"
-            width="5%"
-          />
-        </div>
+
+    <div className="search-side-by-side">
+      <div>Powered by &nbsp;</div>
+      <div>
+        <Image
+          src={require("../../../assets/algolialogo.png")}
+          height="5%"
+          width="5%"/>
       </div>
-      <br />
     </div>
+    <br />
+  </div>
   );
 }
 
