@@ -108,6 +108,7 @@ function Visuals() {
           <h2 className="vis-app-bar">
             Top 50 Countries with The Highest Carbon Emissions
           </h2>
+          {/* use barchart visualization to display data */}
           <BarChart
             data={country}
             xAttr="country"
@@ -123,13 +124,14 @@ function Visuals() {
           <h2 className="vis-app-bar">
             Recent City Temperatures Worldwide Grouped by Range:
           </h2>
-		  <BubbleChart 
-			  data={citytemps}
-			  zoom={0.75}
-			  offsetX={0.15}
-			  height={1000}
-			  legendPercentage={20}
-		  />
+          {/* use bubblechart visualization to display data */}
+          <BubbleChart 
+            data={citytemps}
+            zoom={0.75}
+            offsetX={0.15}
+            height={1000}
+            legendPercentage={20}
+          />
           <br />
         </TabPanel>
         {/* tab for annual climate change visualization */}
@@ -139,6 +141,7 @@ function Visuals() {
             <h2 className="vis-app-bar">
               Mean Global Carbon Emissions from 1880-2020
             </h2>
+            {/* use linechart visualization to display data */}
             <LineChart
               width={1000}
               height={500}
