@@ -72,9 +72,41 @@ const OurNavbar = (props: any) => {
     };
   }, []);
 
+  const tabs = [
+  {
+    href: "/about",
+    name: "ABOUT US",
+  },
+  {
+    href: "/cities",
+    name: "CITIES",
+  },
+  {
+    href: "/countries",
+    name: "COUNTRIES",
+  },
+  {
+    href: "/years",
+    name: "ANNUAL CLIMATE CHANGE",
+  },
+  {
+    href: "/howtohelp",
+    name: "HOW TO HELP",
+  },
+  {
+    href: "/visualizations",
+    name: "OUR DATA",
+  },
+  {
+    href: "/provider-visualizations",
+    name: "PROVIDER DATA",
+  },
+  ];
+
   return (
     <div className="OurNavbar">
       <Navbar fixed="top" style={getNavbarStyle()} variant="dark">
+
         <Navbar.Brand href="/">
           <div style={{ display: "flex", alignItems: "center" }}>
             <div className="logo-style">
@@ -84,49 +116,30 @@ const OurNavbar = (props: any) => {
                   maxHeight: "5vh",
                   marginRight: "2vh",
                   marginLeft: "1vh",
-                }}
-              ></Image>
+                }}>
+              </Image>
             </div>
-            <div
-              style={{
+            <div style={{
                 color: "white",
                 fontFamily: "Raleway",
-                display: "flex",
-              }}
-            >
+                display: "flex",}}>
               <b>BURNIN' UP &nbsp;</b>
             </div>
           </div>
         </Navbar.Brand>
+
         {/* links to navbar pages */}
         <Nav className="mr-auto">
-          <Nav.Link href="/about">
-            <div style={styles.tabs}>ABOUT US &nbsp;</div>
+        {tabs.map((tab) => (
+          <Nav.Link href={tab.href}>
+            <div style={styles.tabs}>{tab.name} &nbsp;</div>
           </Nav.Link>
-          <Nav.Link href="/cities">
-            <div style={styles.tabs}>CITIES &nbsp;</div>
-          </Nav.Link>
-          <Nav.Link href="/countries">
-            <div style={styles.tabs}>COUNTRIES &nbsp;</div>
-          </Nav.Link>
-          <Nav.Link href="/years">
-            <div style={styles.tabs}>ANNUAL CLIMATE CHANGE &nbsp;</div>
-          </Nav.Link>
-          <Nav.Link href="/howtohelp">
-            <div style={styles.tabs}>HOW TO HELP &nbsp;</div>
-          </Nav.Link>
-          <Nav.Link href="/visualizations">
-            <div style={styles.tabs}>OUR DATA &nbsp;</div>
-          </Nav.Link>
-          <Nav.Link href="/provider-visualizations">
-            <div style={styles.tabs}>PROVIDER DATA &nbsp;</div>
-          </Nav.Link>
+        ))}
         </Nav>
 
         {/* saves query when user clicks enter or "search" button */}
         <Form
-          inline
-          onSubmit={(e) => {
+          inline onSubmit={(e) => {
             e.preventDefault();
           }}
         >
@@ -141,14 +154,13 @@ const OurNavbar = (props: any) => {
               }
             }}
           />
-
           {/* search button */}
           <Button
             style={styles.searchButton}
             variant="info"
             onClick={() => searchOnClick()}
           >
-            <AiOutlineSearch />
+          <AiOutlineSearch />
           </Button>
         </Form>
       </Navbar>
