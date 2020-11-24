@@ -21,7 +21,6 @@ format:
 install:
 	pip install -r ./backend/requirements.txt
 
-
 # check files, check their existence with make check
 CFILES :=                                 \
     .gitignore                            \
