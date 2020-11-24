@@ -165,8 +165,8 @@ function AboutSets() {
         <div className="row">
           <div className="col-sm-6">
             <h2>
-              <a href="https://documenter.getpostman.com/
-              view/12123261/TVRdAWse">
+              <a href="https://documenter.getpostman.com/view/
+              12123261/TVRdAWse">
                 <Image className="ToolImage" src={PostmanLogo} />
                 <br></br>
                 <u>Our Postman API</u>

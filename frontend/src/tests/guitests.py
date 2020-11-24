@@ -76,20 +76,17 @@ class tests(unittest.TestCase):
         assert "https://burninup.me/search/q=" in self.driver.current_url
 
     def test_about(self):
-        self.driver.get("https://burninup.me")
-        self.driver.implicitly_wait(10)
-        # go to about us page via nav bar
-        self.driver.find_elements_by_xpath("/html/body/div/"
-        +"div/div[1]/nav/div/a[1]")[0].click()
-        assert ("https://burninup.me/about"
-            in self.driver.current_url)
+        # go to about us page
+        self.driver.get("https://burninup.me/about")
+        assert "about" in self.driver.current_url
+        # verify title
         title = self.driver.find_elements_by_xpath(
             "/html/body/div/div/div[2]/div[1]/h3"
         )[0].text
-        assert title == "About Us" # verify title
+        assert title == "About Us"
         # test links on about page
-        self.driver.find_elements_by_xpath("/html/body/div/div/div[2]/div[7]/"+
-            "div[1]/div/div[1]/h2/a")[0].click()
+        self.driver.find_elements_by_xpath("/html/body/div/div/"
+        +"div[2]/div[7]/div[1]/div/div[1]/h2/a")[0].click()
         assert (
             "https://documenter.getpostman.com/view/12123261/TVRdAWse"
             in self.driver.current_url)
