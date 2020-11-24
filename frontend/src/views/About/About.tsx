@@ -25,18 +25,9 @@ function About() {
   WebFont.load({
     google: {
       families: [
-        "Trirong",
-        "Staatliches",
-        "Quicksand",
-        "Vesper Libre",
-        "Trocchi",
         "serif",
-        "Advantage",
-        "Prompt",
-        "cursive",
         "Raleway",
         "sans-serif",
-        "Montserrat",
       ],
     },
   });
@@ -86,7 +77,7 @@ function About() {
         " full stack app development. Outside of the CS world, she enjoys" +
         " kickboxing, playing musical instruments, and eating" +
         " good food.",
-        key: 2,
+      key: 2,
     },
     {
       name: "Uma Sethuraman",

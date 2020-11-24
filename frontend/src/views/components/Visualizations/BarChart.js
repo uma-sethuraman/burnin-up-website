@@ -19,7 +19,7 @@ class BarChart extends Component {
         this.createBarChart();
     }
     createBarChart(){
-				//format the margin and size 
+		//format the margin and size 
         const margin = { top: 100, right: 20, bottom: 150, left: 110};
         const height = 600 - margin.top - margin.bottom;
         const width = 1200 - margin.left - margin.right;
@@ -34,7 +34,7 @@ class BarChart extends Component {
             .style('color', 'white')
             .attr('transform', 'translate(' 
 								+ margin.left + ',' + margin.top + ')');
-				//getting the data from input file 
+		//getting the data from input file 
         const x = d3
             .scaleBand()
             .range([0, width])
@@ -46,7 +46,8 @@ class BarChart extends Component {
             .call(d3.axisBottom(x))
             .selectAll('text')
             .attr('transform', 'translate(-10,0)rotate(-45)')
-            .style('text-anchor', 'end');
+            .style('text-anchor', 'end')
+            .style('fill', 'white');
 
         const maxValue = 
 				Math.max(...this.props.data.map(d => d[this.props.yAttr]));
@@ -54,7 +55,9 @@ class BarChart extends Component {
             .scaleLinear()
             .domain([0, Math.ceil(maxValue / 10) * 10])
             .range([height, 0]);
-            svg.append('g').call(d3.axisLeft(y));
+            svg.append('g').call(d3.axisLeft(y))
+            .selectAll('text')
+            .style('fill', 'white');
 
         svg
             .selectAll('mybar')
@@ -70,10 +73,10 @@ class BarChart extends Component {
         // Now add titles to the axes
         svg.append("text")
         .attr("text-anchor", "middle") 
-				// This makes it easy to centre the text
-        .attr("transform", "translate(" + (padding / 2) + "," 
+		// This makes it easy to centre the text
+        .attr("transform", "translate(" + (padding / 1.5) + "," 
 						+ (height / 2) + ")rotate(-90)") 
-				// Text is drawn off the screen top left
+		// Text is drawn off the screen top left
         .text(this.props.yLabel)
         .attr('fill', 'white');
 

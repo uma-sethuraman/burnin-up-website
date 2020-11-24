@@ -67,4 +67,9 @@
 
 .carbonemissions-vis {
   height: 85vh;
+  color: white;
+}
+
+.barchart-style {
+  color: white;
 }

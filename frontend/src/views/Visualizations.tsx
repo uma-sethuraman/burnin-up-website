@@ -137,7 +137,7 @@ function Visuals() {
         {/* tab for annual climate change visualization */}
         <TabPanel value={value} index={2}>
           <br />
-          <div className="carbonemissions-vis" style={{ color: "white" }}>
+          <div className="carbonemissions-vis">
             <h2 className="vis-app-bar">
               Mean Global Carbon Emissions from 1880-2020
             </h2>

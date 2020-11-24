@@ -76,30 +76,37 @@ const OurNavbar = (props: any) => {
   {
     href: "/about",
     name: "ABOUT US",
+    key: 0
   },
   {
     href: "/cities",
     name: "CITIES",
+    key: 1
   },
   {
     href: "/countries",
     name: "COUNTRIES",
+    key: 2
   },
   {
     href: "/years",
     name: "ANNUAL CLIMATE CHANGE",
+    key: 3
   },
   {
     href: "/howtohelp",
     name: "HOW TO HELP",
+    key: 4
   },
   {
     href: "/visualizations",
     name: "OUR DATA",
+    key: 5
   },
   {
     href: "/provider-visualizations",
     name: "PROVIDER DATA",
+    key: 6
   },
   ];
 
@@ -131,7 +138,7 @@ const OurNavbar = (props: any) => {
         {/* links to navbar pages */}
         <Nav className="mr-auto">
         {tabs.map((tab) => (
-          <Nav.Link href={tab.href}>
+          <Nav.Link href={tab.href} key={tab.key}>
             <div style={styles.tabs}>{tab.name} &nbsp;</div>
           </Nav.Link>
         ))}
