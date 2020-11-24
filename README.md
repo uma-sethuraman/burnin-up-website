@@ -26,7 +26,7 @@ Estimated completion time for each member:
 Actual completion time for each member:
 - Caitlin L - 20 hours
 - Caitlin O - 33 hours
-- Cherry - 21 hours
+- Cherry - 18 hours
 - Lauren - 43 hours
 - Samantha - 24 hours
 - Uma - 44 hours
