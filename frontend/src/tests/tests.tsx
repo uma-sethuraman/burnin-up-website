@@ -36,7 +36,7 @@ it('Get About Page', async () => {
 	const copy = shallow(<About />);
 	expect(copy).to.not.be.undefined;
 	expect(copy).to.have.length(1);
-	expect(copy.find("div")).to.have.length(15);
+	expect(copy.find("div")).to.have.length(11);
 });
 
 /* city general page test */
@@ -106,7 +106,7 @@ it('Get a Visualizations Page', async () => {
 	expect(component).to.have.length(1);
 });
 
-/* visualizations page test */
+/* provider visualizations page test */
 it('Get a Provider Visualizations Page', async () => {
 	const component = mount(<Router><ProviderVisualizations /></Router>);
 	expect(component).to.not.be.undefined;
