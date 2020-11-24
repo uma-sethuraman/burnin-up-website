@@ -29,6 +29,7 @@ frontend/build/
 .env.production.local
 __pycache__
 backend/datasets/
+.vscode/
 
 npm-debug.log*
 yarn-debug.log*
