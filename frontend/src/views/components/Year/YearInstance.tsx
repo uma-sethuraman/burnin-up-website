@@ -14,21 +14,14 @@ import LoadingSpinner from '../LoadingSpinner';
 /* year instance page, takes in year id,
 route: "/years/id=" */
 const YearInstance = (id: any) => {
+  /* loading fonts */
   WebFont.load({
     google: {
       families: [
-        "Trirong",
         "Staatliches",
-        "Quicksand",
-        "Vesper Libre",
-        "Trocchi",
         "serif",
-        "Advantage",
-        "Prompt",
-        "cursive",
         "Raleway",
         "sans-serif",
-        "Montserrat"
       ],
     },
   });
@@ -59,6 +52,7 @@ const YearInstance = (id: any) => {
     window.location.assign("/countries/id=" + currCountry.country_id);
   }
 
+  /* axis tick for countries graph */
   const CustomAxisTick = (props: any) => {
       const {x, y, payload} = props;
       
@@ -78,6 +72,7 @@ const YearInstance = (id: any) => {
       );
   };
 
+  /* attributes of year instance */
   const year_info = [
   {
     info: year?.temp_anomaly.toFixed(2),
@@ -112,76 +107,78 @@ const YearInstance = (id: any) => {
   }
   ];
  
-
   return (
     <div className="YearInstance">
-      <Navbar singleColor = {true} />
+        <Navbar singleColor = {true} />
         {/* show spinner if content is loading */}
         { loading ? (<LoadingSpinner />) : (
         <div className="row">
-        <div className="year-column1">
-          <header className="Year-header">
-          <div>  
-            <div className="info-title-style">
-              Top 10 Countries with Highest CO2 Emissions {year?.year_id}
-            </div>
-            <div className="info-unit-style">
-              Click on a bar to learn more about that country!</div>
-            <br />
-            <div className="graph-style">
-            <BarChart width={650} height={500} data={year?.countries_emissions}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="country" stroke="#FFFFFF" interval={0}
-                height={150} tick={<CustomAxisTick />}
-                label={{value: 'Country', dy: 30, fill:'white', fontSize: 20}}/>
-              <YAxis 
-                stroke="#FFFFFF" width={100}
-                label={{value: 'CO2 Emissions (ppm)', dx: -30, 
-                        fill:'white', fontSize: 20, angle: -90}}/>
-              <Tooltip />
-              <Bar dataKey="country_co2"      fill="#a8b3ba"
-                   name="CO2 Emissions (ppm)" onClick={barClick}/>
-            </BarChart>
-            </div>
-            <div className="info-title-style" >
-              Top 10 Cities by Average Temperature {year?.year_id}
-            </div>
-            <div className="info-unit-style" >
-            Click on a map marker or table row to learn more about that city!
-            </div>
-            <YearMap
-              cities = {year?.city_temperatures !== undefined ? 
-                        year?.city_temperatures : []}
-              map_style = {{height: '50vh', width: '85vh', marginLeft:'10vw',
-              marginRight:'10vw', marginTop:'5vh', marginBottom:'5vh'}}/>
-            <YearInstanceTable cities={year?.city_temperatures}/>
-            <br/>
+          <div className="year-column1">
+            <header className="Year-header">
+              <div>  
+                <div className="info-title-style">
+                  Top 10 Countries with Highest CO2 Emissions {year?.year_id}
+                </div>
+                <div className="info-unit-style">
+                  Click on a bar to learn more about that country!</div>
+                <br />
+                {/* bar chart of top 10 countries */}
+                <div className="graph-style">
+                  <BarChart width={650} height={500} 
+                  data={year?.countries_emissions}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="country" stroke="#FFFFFF" interval={0}
+                      height={150} tick={<CustomAxisTick />}
+                      label={{value: 'Country', dy: 30, 
+                      fill:'white', fontSize: 20}}/>
+                    <YAxis 
+                      stroke="#FFFFFF" width={100}
+                      label={{value: 'CO2 Emissions (ppm)', dx: -30, 
+                              fill:'white', fontSize: 20, angle: -90}}/>
+                    <Tooltip />
+                    <Bar dataKey="country_co2"      fill="#a8b3ba"
+                        name="CO2 Emissions (ppm)" onClick={barClick}/>
+                  </BarChart>
+                </div>
+                <div className="info-title-style" >
+                  Top 10 Cities by Average Temperature {year?.year_id}
+                </div>
+                <div className="info-unit-style" >
+                Click on a map marker or table row
+                to learn more about that city!
+                </div>
+                {/* map and table of top 10 cities */}
+                <YearMap
+                  cities = {year?.city_temperatures !== undefined ? 
+                            year?.city_temperatures : []}
+                  map_style = {{height: '50vh', width: '85vh', 
+                  marginLeft:'10vw',marginRight:'10vw', 
+                  marginTop:'5vh', marginBottom:'5vh'}}/>
+                <YearInstanceTable cities={year?.city_temperatures}/>
+                <br/>
+              </div>
+            </header> 
+          </div>  
+          <div className="line">
+            <Image src={require("../../../assets/line-shadow.png")} 
+                  height="100%"></Image>
           </div>
-          </header> 
-        </div>  
-
-        <div className="line">
-          <Image src={require("../../../assets/line-shadow.png")} 
-                 height="100%"></Image>
-        </div>
-      
-        <div className="year-column2">
-          <header className="Year-header">
-          <div className="year-title">{year?.year_id} </div> <br />
-          {/*year table*/}
-          {year_info.map((attr) => (
-            <div>
-              <div className="info-style">{attr.info}</div>
-              <div className="info-title-style">{attr.title}</div>
-              <div className="info-title-style">{attr.title2}</div>
-              <div className="info-unit-style">{attr.unit}</div>
-              <br/>
-            </div>))} <br />
-          </header>
-        </div>
-      </div> 
-      )} 
+          <div className="year-column2">
+            <header className="Year-header">
+              <div className="year-title">{year?.year_id} </div> <br />
+              {/* year data */}
+              {year_info.map((attr) => (
+                <div>
+                  <div className="info-style">{attr.info}</div>
+                  <div className="info-title-style">{attr.title}</div>
+                  <div className="info-title-style">{attr.title2}</div>
+                  <div className="info-unit-style">{attr.unit}</div>
+                  <br/>
+                </div>))} <br />
+            </header>
+          </div>
+        </div> )} 
     </div>
   );
 };

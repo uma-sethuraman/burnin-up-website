@@ -53,7 +53,7 @@ function a11yProps(index) {
   };
 }
 
-/* page for Visualizations */
+/* page for provider visualizations */
 function ProviderVisualizations() {
   const [value, setValue] = React.useState(0);
 
@@ -106,7 +106,7 @@ function ProviderVisualizations() {
             </Tabs>
           </AppBar>
         </div>
-        {/* tab for countries visualization */}
+        {/* tab for all three visualization */}
         <TabPanel value={value} index={0}>
           <div className="vehicles-tab">
             <br/>

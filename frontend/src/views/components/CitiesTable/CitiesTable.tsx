@@ -210,6 +210,7 @@ function CitiesTable(props: any) {
     viewColumns: false,
   };
 
+  /* table styling */
   const styles = {
     table: {
       display: "table",
@@ -218,6 +219,7 @@ function CitiesTable(props: any) {
     } as React.CSSProperties,
   };
 
+  /* load in fonts */
   WebFont.load({
     google: {
       families: ["Raleway"],

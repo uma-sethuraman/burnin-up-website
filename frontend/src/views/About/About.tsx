@@ -20,8 +20,8 @@ import { GroupMember, Gitlab, CommitsInfo } from "./AboutInterfaces";
 import AboutCarousel from "./AboutCarousel";
 
 function About() {
-  /* team member information */
-
+  
+  /* load in fonts */
   WebFont.load({
     google: {
       families: [
@@ -32,6 +32,7 @@ function About() {
     },
   });
 
+  /* team member information */
   const [members, changeMembers] = useState<GroupMember[]>([
     {
       name: "Caitlin Lien",

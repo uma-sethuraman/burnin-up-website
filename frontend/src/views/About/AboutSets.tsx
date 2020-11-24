@@ -27,6 +27,8 @@ import AboutToolSetCard from "./AboutToolSetCard";
 how-to-show-carousel-in-react-applications-with-react-slick--07445c23 */
 
 function AboutSets() {
+
+  /* list of datasets and apis */
   const sets = [
     {
       href:"https://developers.google.com/places/web-service/photos",
@@ -152,13 +154,15 @@ function AboutSets() {
   
   ];
 
+  /* displays cards for datasets/apis */
   const renderSlides = () =>
-  sets.map((set) => (
-    <div key={set.key}>
-      <AboutToolSetCard toolset={set} />
-    </div>
-  ));
+    sets.map((set) => (
+      <div key={set.key}>
+        <AboutToolSetCard toolset={set} />
+      </div>
+    ));
 
+  /* display datasets/apis */
   return (
     <div>
       <div className="container">
@@ -194,7 +198,7 @@ function AboutSets() {
         <br/>
         <Slider dots={true}
           autoplay={true}
-        slidesToShow={4}>
+          slidesToShow={4}>
           {renderSlides()}
         </Slider>
       </div>

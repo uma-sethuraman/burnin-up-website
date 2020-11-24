@@ -1,19 +1,19 @@
-.h3_invalid {
-    font-size: 200px;
-    color: #ffffff;
-    font-family: "Raleway";
-    margin-top: 20vh;
+  .h3_invalid {
+      font-size: 200px;
+      color: #ffffff;
+      font-family: "Raleway";
+      margin-top: 20vh;
   }
-  
-.h2_invalid {
-    font-size: 25px;
-    color: #ffffff;
-}
+    
+  .h2_invalid {
+      font-size: 25px;
+      color: #ffffff;
+  }
 
-.p_invalid {
-    font-size: 20px;
-    color: #ffffff;
-}
+  .p_invalid {
+      font-size: 20px;
+      color: #ffffff;
+  }
   
   .Invalid-body {
     background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9) ),

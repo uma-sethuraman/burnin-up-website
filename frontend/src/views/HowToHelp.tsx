@@ -8,6 +8,7 @@ import rainforest_img from "../assets/rainforestfoundation.jpeg";
 import ember_img from "../assets/emberlogo.jpeg";
 import climate_img from "../assets/climateemergency.jpeg";
 
+/* list of helpful resources */
 const resources = [
   {
     href: "https://www.rainforestcoalition.org/",

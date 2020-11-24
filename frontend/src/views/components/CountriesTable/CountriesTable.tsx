@@ -249,6 +249,7 @@ function CountriesTable(props: any) {
     viewColumns: false,
   };
 
+  /* table styling */
   const styles = {
     table: {
       display: "table",
@@ -256,14 +257,11 @@ function CountriesTable(props: any) {
       width: "100%",
     } as React.CSSProperties,
   };
+
+  /* load in fonts */
   WebFont.load({
     google: {
-      families: ["Raleway"],
-    },
-  });
-  WebFont.load({
-    google: {
-      families: ["Roboto", "Helvetica", "Arial", "sans-serif"],
+      families: ["Raleway", "Roboto", "Helvetica", "Arial", "sans-serif"],
     },
   });
 
