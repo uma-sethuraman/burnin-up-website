@@ -39,7 +39,7 @@ function About() {
       username: "caitlinlien",
       image: CatilinLien,
       unittest: 4,
-      role: "Backend, Project Lead",
+      role: "Backend Project Lead",
       linkedin: "https://www.linkedin.com/in/caitlinlien/",
       bio:
         "Caitlin is a junior from Round Rock, TX. She works on backend" +
