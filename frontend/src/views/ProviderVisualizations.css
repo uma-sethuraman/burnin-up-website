@@ -6,22 +6,22 @@
     font-weight: bold;
   }
   
-  .h2_about {
+.h2_about {
     font-size: 25px;
     color: #ffffff;
     font-family: Raleway;
     font-style: normal;
     font-weight: bold;
-  }
+}
   
-  .ProviderVisuals {
+.ProviderVisuals {
     text-align: center;
     background: linear-gradient(180deg, #3C0C0C 0%, 
     #791414 45.83%, #3C0C0C 95.83%);
     color: white;
-  }
+}
   
-  .ProviderVisuals-header {
+.ProviderVisuals-header {
     background: linear-gradient(180deg, #3C0C0C 0%, 
     #791414 45.83%, #3C0C0C 95.83%);
     min-height: 100vh;
@@ -31,9 +31,9 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-  }
+}
   
-  .ProviderVisuals-body {
+.ProviderVisuals-body {
     text-align: center;
     min-height: 50vh;
     padding-right: 2vw;
@@ -42,29 +42,31 @@
     background: linear-gradient(180deg, #3C0C0C 0%, 
     #791414 45.83%, #3C0C0C 95.83%);
     font-family: "Raleway";
-  }
-  .p_ProviderVisuals {
+}
+
+.p_ProviderVisuals {
     text-align: center;
     font-size: 20px;
     color: #ffffff;
     padding-right: 20vw;
     padding-left: 20vw;
-  }
+}
   
-  .side-by-side {
+.side-by-side {
     display:flex; 
     flex-direction:row;
     color: white;
-  }
-  .provider-visuals-appbar{
+}
+
+.provider-visuals-appbar{
     padding-left:15vw;
     padding-right:15vw;
-  }
+}
   
-  .provider-vis-app-bar {
+.provider-vis-app-bar {
     font-family: "Raleway";
-  }
+}
 
-  .provider-tabs {
-    height: 250vh;
-  }
+.provider-tabs {
+    height: 100%;
+}

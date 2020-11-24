@@ -62,6 +62,7 @@ function Visuals() {
     setValue(newValue);
   };
 
+  /* load in fonts */
   WebFont.load({
     google: {
       families: ["serif", "Raleway", "sans-serif"],

@@ -38,6 +38,7 @@ const GeneralYears = () => {
     }
   }, [data]);
 
+  /* button styles */
   const styles = {
     searchButton: {
       backgroundColor: "white", 
@@ -59,6 +60,7 @@ const GeneralYears = () => {
       setSearchText(text_input.current.value);
   }
 
+  /* load in fonts */
   WebFont.load({
     google: {
       families: [
@@ -104,6 +106,8 @@ const GeneralYears = () => {
               </Button>
             </Form>
             <br />
+
+            {/* table instructions */}
             <div className="instructions">
               <p>Select row to learn more!</p>
               <p>Click filter icon in table toolbar to filter.</p>

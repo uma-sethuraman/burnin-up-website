@@ -62,6 +62,7 @@ function ProviderVisualizations() {
     setValue(newValue);
   };
 
+  /* load in fonts */
   WebFont.load({
     google: {
       families: ["serif", "Raleway", "sans-serif"],
@@ -112,7 +113,7 @@ function ProviderVisualizations() {
             <h2 className="provider-vis-app-bar">
               Number of Eco-Friendly Cars Per Manufacturer:
             </h2>
-            <PieChart data={manufacturers} />
+            <PieChart data={manufacturers} /> <br />
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
@@ -129,14 +130,14 @@ function ProviderVisualizations() {
         </TabPanel>
         <TabPanel value={value} index={2}>
         <div className="provider-tabs">
-        <br/>
+          <br/>
           <h2 className="provider-vis-app-bar">
             Total Power per Energy Source
           </h2>
           <BarChart
             data={energy_sources} xAttr="energe" yAttr="power"
             xLabel="Energy Source" yLabel="Total Power (MWh)"
-          />
+          /> <br />
           </div>
         </TabPanel>
       </div>

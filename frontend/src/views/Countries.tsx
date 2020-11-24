@@ -40,6 +40,7 @@ const Countries = () => {
     }
   }, [data]);
 
+  /* button styles */
   const styles = {
     searchButton: {
       backgroundColor: "white", 
@@ -61,6 +62,7 @@ const Countries = () => {
       setSearchText(text_input.current.value);
   }
 
+  /* load in web fonts */
   WebFont.load({
     google: {
       families: [

@@ -2,6 +2,7 @@ import React from "react";
 import { GroupMember} from "./AboutInterfaces";
 import AboutCard from "./AboutCard";
 
+/* displays about cards for all group members */
 export default function AboutCarousel(props:any) {
  
   return ( 

@@ -5,13 +5,12 @@ import "./App.css";
 
 /* main page, displays landing page and navbar */
 function App() {
-
-return (  
-  <div className="App">
-     <OurNavbar />    
-     <LandingPage />
-  </div>
-); 
+  return (  
+    <div className="App">
+      <OurNavbar />    
+      <LandingPage />
+    </div>
+  ); 
 }
 
 export default App;

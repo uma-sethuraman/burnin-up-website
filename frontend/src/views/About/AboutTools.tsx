@@ -4,8 +4,6 @@ import "./About.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-//https://www.newline.co/@dmitryrogozhny/
-//how-to-show-carousel-in-react-applications-with-react-slick--07445c23
 
 /* importing images for tools and data sections */
 import PostmanLogo from "../../assets/PostmanLogo.png";
@@ -20,6 +18,10 @@ import AlgoliaLogo from "../../assets/algolialogo.png"
 import AboutToolSetCard from "./AboutToolSetCard";
 
 /* displays tools section on About Us page */
+
+/* tutorial from : //https://www.newline.co/@dmitryrogozhny/
+//how-to-show-carousel-in-react-applications-with-react-slick--07445c23 */
+
 const tools = [
   {
     src: ReactLogo,

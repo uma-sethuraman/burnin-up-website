@@ -17,13 +17,12 @@ const Cities = () => {
   /* array of all cities retrieved from api */
   const [cities, setCities] = useState<City[]>([]);
 
-   /* text passed into search bar */
-   const [search_text, setSearchText] = useState<string>("");
+  /* text passed into search bar */
+  const [search_text, setSearchText] = useState<string>("");
 
-   /* reference for search bar input */
-   const text_input: any = React.useRef();
+  /* reference for search bar input */
+  const text_input: any = React.useRef();
   
-
   /* loads api data into data */
   const [{ data, loading, error }] = useAxios("/api/cities");
 
@@ -31,6 +30,7 @@ const Cities = () => {
   if (error) {
     window.location.assign("/404");
   }
+
   /* fills the cities array with the correct values retrieved from data */
   useEffect(() => {
     const cityObj: CityObject = data as CityObject;
@@ -39,6 +39,7 @@ const Cities = () => {
     }
   }, [data]);
 
+  /* button styles */
   const styles = {
     searchButton: {
       backgroundColor: "white", 
@@ -60,6 +61,7 @@ const Cities = () => {
       setSearchText(text_input.current.value);
   }
 
+  /* load in fonts */
   WebFont.load({
     google: {
       families: ["Raleway","Prompt"],
@@ -104,6 +106,8 @@ const Cities = () => {
                 <AiOutlineClose />
               </Button>
             </Form>
+
+            {/* table instructions */}
             <br />
               <div className="instructions">
                 <p>Select row to learn more!</p>

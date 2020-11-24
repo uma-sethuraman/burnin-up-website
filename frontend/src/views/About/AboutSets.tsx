@@ -5,10 +5,7 @@ import "./About.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-//https://www.newline.co/@dmitryrogozhny/
-//how-to-show-carousel-in-react-applications-with-react-slick--07445c23
 
-// import Image from "react-bootstrap/Image";
 import mapsIcon from "../../assets/maps-icon.svg"
 import worldBank from "../../assets/worldbank.svg"
 import openSoft from "../../assets/openDataWorldCitiesPop.png"
@@ -25,6 +22,10 @@ import GitlabLogo from "../../assets/gitlabicon.png";
 import AboutToolSetCard from "./AboutToolSetCard";
 
 /* displays datasets and APIs on About Us page */
+
+/* tutorial from: https://www.newline.co/@dmitryrogozhny/
+how-to-show-carousel-in-react-applications-with-react-slick--07445c23 */
+
 function AboutSets() {
   const sets = [
     {
@@ -164,7 +165,8 @@ function AboutSets() {
         <div className="row">
           <div className="col-sm-6">
             <h2>
-              <a href="https://documenter.getpostman.com/view/12123261/TVRdAWse">
+              <a href="https://documenter.getpostman.com/
+              view/12123261/TVRdAWse">
                 <Image className="ToolImage" src={PostmanLogo} />
                 <br></br>
                 <u>Our Postman API</u>
@@ -197,7 +199,6 @@ function AboutSets() {
         </Slider>
       </div>
     </div>
-
   );
 }
 

@@ -7,6 +7,7 @@ import crfn_img from "../assets/cfrn-min.png";
 import rainforest_img from "../assets/rainforestfoundation.jpeg";
 import ember_img from "../assets/emberlogo.jpeg";
 import climate_img from "../assets/climateemergency.jpeg";
+
 const resources = [
   {
     href: "https://www.rainforestcoalition.org/",
@@ -63,8 +64,6 @@ const resources = [
   }
 ];
 
-
-
 /* page for Helpful Links */
 function HowToHelp() {
   return (
@@ -83,6 +82,7 @@ function HowToHelp() {
         </div>
       </header>
       
+      {/* display resources */}
       <div className="HowToHelp-header">
         <div className="HowToHelp-body">
           <br/>

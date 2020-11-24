@@ -2,6 +2,8 @@ import React from "react";
 import "./About.css";
 import { Card } from "react-bootstrap";
 
+/* a card component to display info about
+all group members */
 function AboutCard(props: any) {
   return (
     <div className="col-sm d-flex">

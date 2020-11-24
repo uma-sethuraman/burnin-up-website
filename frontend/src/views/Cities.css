@@ -5,20 +5,20 @@
 .Cities-header {
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1.0) ),
     url("../assets/city-landing-photo-singapore.jpg");
-  height: 100%; /* You must set a specified height */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Cover the entire container */
-  background-color: #FFFFFF;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  text-align: center;
-  color: #FFFFFF;
-  font-family: "Raleway";
+    height: 100%; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Cover the entire container */
+    background-color: #FFFFFF;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "Raleway";
 }
 
 .Cities-h1{
@@ -49,4 +49,3 @@
 .instructions {
     font-size: 18px;
 }
-

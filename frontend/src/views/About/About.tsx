@@ -53,7 +53,7 @@ function About() {
       email: "cherrysun9@utexas.edu",
       username: "cherrysun9",
       image: CherrySun,
-      unittest: 39,
+      unittest: 34,
       role: "Backend",
       linkedin: "https://www.linkedin.com/in/cherry-sun-53289216b/",
       bio:
@@ -84,7 +84,7 @@ function About() {
       email: "uma.sethuraman@utexas.edu",
       username: "uma-sethuraman",
       image: UmaSethuraman,
-      unittest: 8,
+      unittest: 5,
       role: "Frontend Project Lead",
       linkedin: "https://www.linkedin.com/in/uma-sethuraman/",
       bio:
@@ -99,14 +99,14 @@ function About() {
       email: "caitlinocallaghan@Caitlins-MBP.lan",
       username: "caitlinocallaghan",
       image: CaitlinOCallaghan,
-      unittest: 11,
+      unittest: 10,
       role: "Frontend",
       linkedin: "https://www.linkedin.com/in/caitlinocallaghan/",
       bio:
         "Caitlin is a junior from Dallas, TX. Some of her technical" +
-        " interests are front end web and app development and NLP. Her hobbies" +
-        " include painting and drawing, playing oboe, listening to classical " +
-        " music, and drinking tea.",
+        " interests are front end web and app development and NLP."+ 
+        "Her hobbies include painting and drawing, playing oboe, "+
+        "listening to classical music, and drinking tea.",
         key: 3,
     },
     {
@@ -114,7 +114,7 @@ function About() {
       email: "lauren.mangibin@gmail.com",
       username: "lauren.mangibin",
       image: LaurenMangibin,
-      unittest: 11,
+      unittest: 10,
       role: "Frontend",
       linkedin: "https://www.linkedin.com/in/lauren-mangibin/",
       bio:
@@ -129,7 +129,7 @@ function About() {
   /* cumulative totals for about page statistics */
   const [issuesSum, changeIssuesSum] = useState(-1);
   const [commitsSum, changeCommitsSum] = useState(-1);
-  const unittestsSum: number = 64;
+  const unittestsSum: number = 68;
 
   /* create a copy of the members array to apply changes to */
   let membersCopy: GroupMember[] = JSON.parse(JSON.stringify(members));
@@ -217,15 +217,17 @@ function About() {
         </div>
         {/* describing general purpose of website */}
         <div className="about-purpose">
-          Burnin’ Up aims to educate people on the climate crisis of our planet
-          and make them aware of how quickly our home is changing. This website
+          Burnin’ Up aims to educate people on the climate crisis of 
+          our planet and make them aware of
+          how quickly our home is changing. This website
           will allow you to navigate between cities and countries to see how
           each city or country is affected by and contributing to climate
           change. You can also see how climate change has been affecting the
           world on a year by year basis. We encourage you to take action by
           making small changes in your life to decrease your individual carbon
-          footprint, such as turning off lights you aren’t using, or carpooling
-          with others when you can. By understanding the history of our Earth,
+          footprint, such as turning off lights you aren’t using, 
+          or carpooling with others when you can. 
+          By understanding the history of our Earth,
           we can understand where we will be in the future.
         </div>
         <div className="about-purpose">
