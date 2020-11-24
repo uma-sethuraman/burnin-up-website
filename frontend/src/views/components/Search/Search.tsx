@@ -15,8 +15,8 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 
 /* creating search client for our Algolia search application */
 const searchClient = algoliasearch(
-  "55BA5YQNJQ",
-  "0fb7c07cd58d91990a6ca879e44885e5"
+  "JLYMGSLKAK",
+  "5f470a089f411bfb08d7651de14a2987"
 );
 
 /* filter type for search */

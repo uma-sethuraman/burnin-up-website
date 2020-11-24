@@ -4,9 +4,8 @@ import "./Visualizations.css";
 import BarChart from "./components/Visualizations/BarChart";
 import country from "../vizdata/countries.json";
 import BubbleChart from "./components/Visualizations/BubbleChart";
+import LineChart from "./components/Visualizations/MyLineChart";
 import citytemps from "../vizdata/CityRecentTempsRanges.json";
-import { LineChart, Line, XAxis, YAxis } from "recharts";
-import carbonemissions from "../vizdata/CarbonEmissions.json";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -14,6 +13,7 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import WebFont from "webfontloader";
 import Container from '@material-ui/core/Container';
+import carbonemissions from "../vizdata/CarbonEmissions.json";
 
 /* allows for tabs in the appbar  */
 function TabPanel(props) {
@@ -137,58 +137,15 @@ function Visuals() {
         {/* tab for annual climate change visualization */}
         <TabPanel value={value} index={2}>
           <br />
-          <div className="carbonemissions-vis" style={{ color: "white" }}>
+          <div className="carbonemissions-vis">
             <h2 className="vis-app-bar">
               Mean Global Carbon Emissions from 1880-2020
             </h2>
+            <br />
             {/* use linechart visualization to display data */}
-            <LineChart
-              width={1000}
-              height={500}
+            < LineChart 
               data={carbonemissions}
-              margin={{ top: 20, right: 20, left: 300, bottom: 20 }}
-            >
-              <XAxis
-                dataKey="Year"
-                stroke="white"
-                label={{
-                  value: "Year",
-                  position: "insideBottomRight",
-                  dx: -250,
-                  dy: 25,
-                  fill: "white",
-                  fontSize: 20,
-                }}
-                tick={{ fontSize: 12 }}
-                domain={["dataMin", "dataMax"]}
-                type="number"
-                tickCount={16}
-              />
-              <YAxis
-                dataKey="CarbonEmissions"
-                stroke="white"
-                label={{
-                  value: "Carbon Emissions (ppm)",
-                  position: "insideLeft",
-                  angle: -90,
-                  dx: -10,
-                  dy: 90,
-                  fill: "white",
-                  fontSize: 20,
-                }}
-                tick={{ fontSize: 12 }}
-                domain={[270, "auto"]}
-                tickCount={35}
-                interval={1}
-              />
-              <Line
-                type="monotone"
-                dataKey="CarbonEmissions"
-                stroke="white"
-                dot={false}
-                strokeWidth="3"
-              />
-            </LineChart>
+            />
             <br />
           </div>
         </TabPanel>

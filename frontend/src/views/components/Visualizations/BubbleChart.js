@@ -18,8 +18,11 @@ class BubbleChart extends React.Component {
 						}}
 						width={1400}
 						height={this.props.height}
+						// optional value, number that set the padding between bubbles
 						padding={15}
+						// optional value, pass false to disable the legend.
 						showLegend={true}
+						// number that represent the % of with that legend going to use.
 						legendPercentage={this.props.legendPercentage}
 						legendFont={{
 							family: "Arial",

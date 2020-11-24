@@ -11,7 +11,8 @@ function YearsTable(props:any) {
 
     /* custom render for years table elements to allow for
     highlighting of search terms */
-    const yearCustomBodyRender = (value: any, tableMeta: any, updateValue: any) => 
+    const yearCustomBodyRender = 
+    (value: any, tableMeta: any, updateValue: any) => 
         <div>
             <Highlighter
                 highlightClassName="highlight-class"
@@ -42,37 +43,25 @@ function YearsTable(props:any) {
         /* filtering options */
         filterOptions: {
           names: [
-            "1880-1900",
-            "1900-1920",
-            "1920-1940",
-            "1940-1960",
-            "1960-1980",
-            "1980-2000",
-            "2000-2020",
+            "1880-1900", "1900-1920", "1920-1940", "1940-1960",
+            "1960-1980", "1980-2000", "2000-2020",
           ],
           logic(year_id: any, filterVal: any) {
             const show =
               (filterVal.indexOf("1880-1900") >= 0 &&
-                year_id >= 1880 &&
-                year_id <= 1900) ||
+                year_id >= 1880 && year_id <= 1900) ||
               (filterVal.indexOf("1900-1920") >= 0 &&
-                year_id >= 1900 &&
-                year_id <= 1920) ||
+                year_id >= 1900 && year_id <= 1920) ||
               (filterVal.indexOf("1920-1940") >= 0 &&
-                year_id >= 1920 &&
-                year_id <= 1940) ||
+                year_id >= 1920 && year_id <= 1940) ||
               (filterVal.indexOf("1940-1960") >= 0 &&
-                year_id >= 1940 &&
-                year_id <= 1960) ||
+                year_id >= 1940 && year_id <= 1960) ||
               (filterVal.indexOf("1960-1980") >= 0 &&
-                year_id >= 1960 &&
-                year_id <= 1980) ||
+                year_id >= 1960 && year_id <= 1980) ||
               (filterVal.indexOf("1980-2000") >= 0 &&
-                year_id >= 1980 &&
-                year_id <= 2000) ||
+                year_id >= 1980 && year_id <= 2000) ||
               (filterVal.indexOf("2000-2020") >= 0 &&
-                year_id >= 2000 &&
-                year_id <= 2020);
+                year_id >= 2000 && year_id <= 2020);
             return !show;
           },
         },
@@ -118,9 +107,8 @@ function YearsTable(props:any) {
           logic(co2: any, filterVal: any) {
             const show =
               (filterVal.indexOf("Low CO2 Level") >= 0 && co2 < 300) ||
-              (filterVal.indexOf("Medium CO2 Level") >= 0 &&
-                co2 >= 300 &&
-                co2 < 350) ||
+              (filterVal.indexOf("Medium CO2 Level") >= 0 && 
+              co2 >= 300 && co2 < 350) ||
               (filterVal.indexOf("High CO2 Level") >= 0 && co2 >= 350);
             return !show;
           },
@@ -149,8 +137,7 @@ function YearsTable(props:any) {
             const show =
               (filterVal.indexOf("Low Methane Level") >= 0 && methane < 1000) ||
               (filterVal.indexOf("Medium Methane Level") >= 0 &&
-                methane >= 1000 &&
-                methane < 1500) ||
+                methane >= 1000 && methane < 1500) ||
               (filterVal.indexOf("High Methane Level") >= 0 && methane >= 1500);
             return !show;
           },
@@ -180,8 +167,7 @@ function YearsTable(props:any) {
               (filterVal.indexOf("Low Nitrous Oxide Level") >= 0 &&
                 nitrous_oxide < 290) ||
               (filterVal.indexOf("Medium Nitrous Oxide Level") >= 0 &&
-                nitrous_oxide >= 290 &&
-                nitrous_oxide < 320) ||
+                nitrous_oxide >= 290 && nitrous_oxide < 320) ||
               (filterVal.indexOf("High Nitrous Oxide Level") >= 0 &&
                 nitrous_oxide >= 320);
             return !show;
@@ -208,8 +194,7 @@ function YearsTable(props:any) {
               (filterVal.indexOf("Small Ice Extent") >= 0 &&
                 polar_ice < 23000000) ||
               (filterVal.indexOf("Medium Ice Extent") >= 0 &&
-                polar_ice >= 23000000 &&
-                polar_ice < 27000000) ||
+                polar_ice >= 23000000 && polar_ice < 27000000) ||
               (filterVal.indexOf("Large Ice Extent") >= 0 &&
                 polar_ice >= 27000000);
             return !show;
@@ -231,7 +216,7 @@ function YearsTable(props:any) {
         /* filtering options */
         filterOptions: {
           names: [
-            "Small Sea Level Change",
+            "Small Sea Level Change", 
             "Medium Sea Level Change",
             "Large Sea Level Change",
           ],
@@ -278,11 +263,7 @@ function YearsTable(props:any) {
     } 
 
     WebFont.load({
-        google: {
-          families: [
-            "Raleway",
-          ],
-        },
+        google: { families: ["Raleway",],},
     });
 
     return (

@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import '../../App.css';
 import * as d3 from 'd3';
 
+/**
+ * 	Bar chart visualization used to present data for ours and
+ * 	providers
+ * 	Used code from D3.js 
+ */
 class BarChart extends Component {
     constructor(props){
         super(props);
@@ -28,7 +33,7 @@ class BarChart extends Component {
             .append('g')
             .style('color', 'white')
             .attr('transform', 'translate(' 
-			+ margin.left + ',' + margin.top + ')');
+								+ margin.left + ',' + margin.top + ')');
 		//getting the data from input file 
         const x = d3
             .scaleBand()
@@ -41,15 +46,18 @@ class BarChart extends Component {
             .call(d3.axisBottom(x))
             .selectAll('text')
             .attr('transform', 'translate(-10,0)rotate(-45)')
-            .style('text-anchor', 'end');
+            .style('text-anchor', 'end')
+            .style('fill', 'white');
 
         const maxValue = 
-			Math.max(...this.props.data.map(d => d[this.props.yAttr]));
+				Math.max(...this.props.data.map(d => d[this.props.yAttr]));
         const y = d3
             .scaleLinear()
             .domain([0, Math.ceil(maxValue / 10) * 10])
             .range([height, 0]);
-            svg.append('g').call(d3.axisLeft(y));
+            svg.append('g').call(d3.axisLeft(y))
+            .selectAll('text')
+            .style('fill', 'white');
 
         svg
             .selectAll('mybar')
@@ -66,8 +74,8 @@ class BarChart extends Component {
         svg.append("text")
         .attr("text-anchor", "middle") 
 		// This makes it easy to centre the text
-        .attr("transform", "translate(" + (padding / 2) + "," 
-		+ (height / 2) + ")rotate(-90)") 
+        .attr("transform", "translate(" + (padding / 1.5) + "," 
+						+ (height / 2) + ")rotate(-90)") 
 		// Text is drawn off the screen top left
         .text(this.props.yLabel)
         .attr('fill', 'white');
@@ -75,7 +83,7 @@ class BarChart extends Component {
         svg.append("text")
         .attr("text-anchor", "middle")
         .attr("transform", "translate(" + (width / 2) + "," 
-		+ (height + 100) + ")")
+						+ (height + 100) + ")")
         .text(this.props.xLabel)
         .attr('fill', 'white');
     }

@@ -16,9 +16,10 @@ all:
 
 # auto format the code
 format:
-	black ./backend/main.py
-	black ./backend/tests.py
-	black ./backend/models.py
+	black ./backend/*.py
+	# black ./backend/main.py
+	# black ./backend/tests.py
+	# black ./backend/models.py
 
 install:
 	pip install -r ./backend/requirements.txt

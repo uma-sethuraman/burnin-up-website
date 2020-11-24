@@ -4,15 +4,12 @@ import "../../App.css";
 import Navbar from "../OurNavbar";
 import "./CityInstance.css";
 import useAxios from "axios-hooks";
-import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
-import { BsCalendar } from "react-icons/bs";
 import LoadingSpinner from "../LoadingSpinner";
-import CityInstanceTemp from "./CityInstanceTemp";
-import CityThermometer from "../Thermometer/Thermometer";
+import CityInstanceLeft from "./CityInstanceLeft";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -51,7 +48,7 @@ const CityInstance = (id: any) => {
       ) : (
         <div className="row">
           <div className="column1">
-            <CityInstanceTemp city={city}></CityInstanceTemp>
+            <CityInstanceLeft city={city} />
           </div>
 
           <div className="line">

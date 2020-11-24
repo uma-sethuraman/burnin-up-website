@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
-
+# selenium tests for frontend code
 class tests(unittest.TestCase):
     def setUp(self):
         chrome_options = Options()
