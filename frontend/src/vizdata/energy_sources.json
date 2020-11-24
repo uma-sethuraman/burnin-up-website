@@ -1,1 +1,46 @@
-[{"energe": "Liquid Petroleum", "power": 1474734}, {"energe": "Natural Gas", "power": 1474734}, {"energe": "Coal", "power": 959507}, {"energe": "Geothermal", "power": 15569}, {"energe": "Nuclear", "power": 6991}, {"energe": "Solar", "power": 71547}, {"energe": "Wind", "power": 299785}, {"energe": "Wood and Wood Derived Fuels", "power": 13012}, {"energe": "Hydroelectric", "power": 6991}, {"energe": "Biomass", "power": 15741}, {"energe": "Petroleum Coke", "power": 6991}]
+[
+  {
+     "energe":"Liquid Petroleum",
+     "power":1474734
+  },
+  {
+     "energe":"Natural Gas",
+     "power":1474734
+  },
+  {
+     "energe":"Coal",
+     "power":959507
+  },
+  {
+     "energe":"Geothermal",
+     "power":15569
+  },
+  {
+     "energe":"Nuclear",
+     "power":6991
+  },
+  {
+     "energe":"Solar",
+     "power":71547
+  },
+  {
+     "energe":"Wind",
+     "power":299785
+  },
+  {
+     "energe":"Wood and Wood Derived Fuels",
+     "power":13012
+  },
+  {
+     "energe":"Hydroelectric",
+     "power":6991
+  },
+  {
+     "energe":"Biomass",
+     "power":15741
+  },
+  {
+     "energe":"Petroleum Coke",
+     "power":6991
+  }
+]
