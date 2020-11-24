@@ -29,7 +29,7 @@ Actual completion time for each member:
 - Cherry - 21 hours
 - Lauren - 43 hours
 - Samantha - 24 hours
-- Uma - 34 hours
+- Uma - 44 hours
 
 Comments: Still hurt by aws amplify...but we're moving on
 - Frontend tests can be found in frontend/src/tests
