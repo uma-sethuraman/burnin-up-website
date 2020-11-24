@@ -5,8 +5,7 @@ import { MUIDataTableColumnDef } from "mui-datatables";
 import Highlighter from "react-highlight-words";
 import WebFont from "webfontloader";
 
-/* displays table of all cities in
-cities general page */
+/* displays table of all cities in cities general page */
 function CitiesTable(props: any) {
   /* custom render for cities table elements to allow for
   highlighting of search terms */

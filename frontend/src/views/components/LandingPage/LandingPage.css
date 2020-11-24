@@ -66,7 +66,8 @@ h2 {
 }
 
 .Landing-header {
-  background-image: linear-gradient( rgba(161, 77, 77, 0.5), rgba(0.5, 0, 0, 2.0) ),
+  background-image: linear-gradient( rgba(161, 77, 77, 0.5), 
+  rgba(0.5, 0, 0, 2.0) ),
     url("../../../assets/forest-fire-animation.gif");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
