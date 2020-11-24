@@ -95,12 +95,12 @@ function ProviderVisualizations() {
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Vehicles</div>}
+                  <div className="provider-vis-app-bar">Energy</div>}
                   {...a11yProps(1)}
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Energy</div>}
+                  <div className="provider-vis-app-bar">Vehicles</div>}
                   {...a11yProps(2)}
               />
             </Tabs>
@@ -123,21 +123,21 @@ function ProviderVisualizations() {
           <div className="provider-tabs">
             <br/>
             <h2 className="provider-vis-app-bar">
-              Number of Eco-Friendly Cars Per Manufacturer:
+              Total Power per Energy Source
             </h2>
-            <PieChart data={manufacturers} /> <br />
+            <BarChart
+              data={energy_sources} xAttr="energe" yAttr="power"
+              xLabel="Energy Source" yLabel="Total Power (MWh)"
+            /> <br />
           </div>
         </TabPanel>
         <TabPanel value={value} index={2}>
-        <div className="provider-tabs">
-          <br/>
-          <h2 className="provider-vis-app-bar">
-            Total Power per Energy Source
-          </h2>
-          <BarChart
-            data={energy_sources} xAttr="energe" yAttr="power"
-            xLabel="Energy Source" yLabel="Total Power (MWh)"
-          /> <br />
+          <div className="vehicles-tab">
+            <br/>
+            <h2 className="provider-vis-app-bar">
+              Number of Eco-Friendly Cars Per Manufacturer:
+            </h2>
+            <PieChart data={manufacturers} /> <br />
           </div>
         </TabPanel>
       </div>

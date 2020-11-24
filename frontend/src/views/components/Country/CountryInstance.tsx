@@ -3,14 +3,12 @@ import React from "react";
 import "../../App.css";
 import Navbar from "../OurNavbar";
 import "./CountryInstance.css";
-import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import useAxios from "axios-hooks";
 import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import WebFont from "webfontloader";
 import LoadingSpinner from "../LoadingSpinner";
-import cloud from "../../../assets/cloud-grey.png";
 import CountryColumn from "./CountryColumn";
 import CountryInstanceInfo from "./CountryInstanceInfo";
 
@@ -36,12 +34,6 @@ const CountryInstance = (id: any) => {
       setCountry(countryObj);
     }
   }, [data]);
-
-  /* link for this country's flag from the flag API */
-  let flagLink =
-    "https://flagcdn.com/h120/" +
-    country?.country_iso2code?.toLowerCase() +
-    ".png";
 
   WebFont.load({
     google: {
