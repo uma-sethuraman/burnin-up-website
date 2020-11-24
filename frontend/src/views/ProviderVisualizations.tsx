@@ -90,12 +90,12 @@ function ProviderVisualizations() {
             >
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Vehicles</div>}
+                  <div className="provider-vis-app-bar">Fueling Stations</div>}
                   {...a11yProps(0)}
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Fueling Stations</div>}
+                  <div className="provider-vis-app-bar">Vehicles</div>}
                   {...a11yProps(1)}
               />
               <Tab
@@ -111,21 +111,21 @@ function ProviderVisualizations() {
           <div className="provider-tabs">
             <br/>
             <h2 className="provider-vis-app-bar">
-              Number of Eco-Friendly Cars Per Manufacturer:
+              Number of Fueling Stations per State in the US:
             </h2>
-            <PieChart data={manufacturers} /> <br />
+            <BubbleChart 
+              data={fuelingstations} zoom={0.85} offsetX={0.0}
+              height={1500} legendPercentage={15}
+            /> <br />
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-        <div className="provider-tabs">
-        <br/>
-          <h2 className="provider-vis-app-bar">
-            Number of Fueling Stations per State in the US:
-          </h2>
-          <BubbleChart 
-            data={fuelingstations} zoom={0.85} offsetX={0.0}
-            height={1500} legendPercentage={15}
-          />
+          <div className="provider-tabs">
+            <br/>
+            <h2 className="provider-vis-app-bar">
+              Number of Eco-Friendly Cars Per Manufacturer:
+            </h2>
+            <PieChart data={manufacturers} /> <br />
           </div>
         </TabPanel>
         <TabPanel value={value} index={2}>
