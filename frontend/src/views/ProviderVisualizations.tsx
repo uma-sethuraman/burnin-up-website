@@ -90,17 +90,17 @@ function ProviderVisualizations() {
             >
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Fueling Stations</div>}
+                  <div className="provider-vis-app-bar">Vehicles</div>}
                   {...a11yProps(0)}
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Energy</div>}
+                  <div className="provider-vis-app-bar">Fueling Stations</div>}
                   {...a11yProps(1)}
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Vehicles</div>}
+                  <div className="provider-vis-app-bar">Energy</div>}
                   {...a11yProps(2)}
               />
             </Tabs>
@@ -108,6 +108,15 @@ function ProviderVisualizations() {
         </div>
         {/* tab for countries visualization */}
         <TabPanel value={value} index={0}>
+          <div className="vehicles-tab">
+            <br/>
+            <h2 className="provider-vis-app-bar">
+              Number of Eco-Friendly Cars Per Manufacturer:
+            </h2>
+            <PieChart data={manufacturers} /> <br />
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
           <div className="provider-tabs">
             <br/>
             <h2 className="provider-vis-app-bar">
@@ -119,7 +128,7 @@ function ProviderVisualizations() {
             /> <br />
           </div>
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={2}>
           <div className="provider-tabs">
             <br/>
             <h2 className="provider-vis-app-bar">
@@ -129,15 +138,6 @@ function ProviderVisualizations() {
               data={energy_sources} xAttr="energe" yAttr="power"
               xLabel="Energy Source" yLabel="Total Power (MWh)"
             /> <br />
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <div className="vehicles-tab">
-            <br/>
-            <h2 className="provider-vis-app-bar">
-              Number of Eco-Friendly Cars Per Manufacturer:
-            </h2>
-            <PieChart data={manufacturers} /> <br />
           </div>
         </TabPanel>
       </div>
