@@ -16,7 +16,7 @@ GitLab Pipelines:
 Website: https://burninup.me
 
 Estimated completion time for each member: 
-- Caitlin L - 30 hours
+- Caitlin L - 15 hours
 - Caitlin O - 30 hours
 - Cherry - 30 hours
 - Lauren - 30 hours
@@ -24,7 +24,7 @@ Estimated completion time for each member:
 - Uma - 30 hours
 
 Actual completion time for each member:
-- Caitlin L - 18 hours
+- Caitlin L - 20 hours
 - Caitlin O - 32 hours
 - Cherry - 21 hours
 - Lauren - 43 hours
