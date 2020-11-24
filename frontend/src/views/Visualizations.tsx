@@ -71,7 +71,6 @@ function Visuals() {
   return (
     <div className="Visuals">
       <Navbar />
-
       <div className="Visuals-body">
         <h3>Our Visualizations</h3>
         <br />
@@ -82,10 +81,8 @@ function Visuals() {
             style={{ background: "#000000", fontFamily: "Raleway" }}
           >
             <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="simple tabs example"
-              centered
+              value={value} onChange={handleChange}
+              aria-label="simple tabs example" centered
             >
               <Tab
                 label={<div className="vis-app-bar">Countries</div>}
@@ -110,13 +107,9 @@ function Visuals() {
           </h2>
           {/* use barchart visualization to display data */}
           <BarChart
-            data={country}
-            xAttr="country"
-            yAttr="emissions"
-            xLabel="Countries"
-            yLabel="Carbon Emissions (ppm)"
+            data={country} xAttr="country" yAttr="emissions"
+            xLabel="Countries" yLabel="Carbon Emissions (ppm)"
           />
-          <br />
         </TabPanel>
         {/* tab for cities visualization */}
         <TabPanel value={value} index={1}>
@@ -126,13 +119,9 @@ function Visuals() {
           </h2>
           {/* use bubblechart visualization to display data */}
           <BubbleChart 
-            data={citytemps}
-            zoom={0.75}
-            offsetX={0.15}
-            height={1000}
-            legendPercentage={20}
+            data={citytemps} zoom={0.75} offsetX={0.15}
+            height={1000} legendPercentage={20}
           />
-          <br />
         </TabPanel>
         {/* tab for annual climate change visualization */}
         <TabPanel value={value} index={2}>
@@ -146,7 +135,6 @@ function Visuals() {
             < LineChart 
               data={carbonemissions}
             />
-            <br />
           </div>
         </TabPanel>
       </div>

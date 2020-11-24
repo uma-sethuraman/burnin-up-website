@@ -84,28 +84,23 @@ function ProviderVisualizations() {
             style={{ background: "#000000", fontFamily: "Raleway" }}
           >
             <Tabs
-              value={value} centered
-              onChange={handleChange}
+              value={value} centered onChange={handleChange}
               aria-label="simple tabs example"
             >
               <Tab
                 label={
-					<div className="provider-vis-app-bar">Vehicles</div>
-					}
-                {...a11yProps(0)}
+                  <div className="provider-vis-app-bar">Vehicles</div>}
+                  {...a11yProps(0)}
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Fueling Stations
-				  </div>
-                }
-                {...a11yProps(1)}
+                  <div className="provider-vis-app-bar">Fueling Stations</div>}
+                  {...a11yProps(1)}
               />
               <Tab
                 label={
-					<div className="provider-vis-app-bar">Energy</div>
-					}
-                {...a11yProps(2)}
+                  <div className="provider-vis-app-bar">Energy</div>}
+                  {...a11yProps(2)}
               />
             </Tabs>
           </AppBar>
@@ -127,10 +122,8 @@ function ProviderVisualizations() {
             Number of Fueling Stations per State in the US:
           </h2>
           <BubbleChart 
-            data={fuelingstations}
-            zoom={0.85} offsetX={0.0}
-            height={1500}
-            legendPercentage={15}
+            data={fuelingstations} zoom={0.85} offsetX={0.0}
+            height={1500} legendPercentage={15}
           />
           </div>
         </TabPanel>
@@ -141,10 +134,8 @@ function ProviderVisualizations() {
             Total Power per Energy Source
           </h2>
           <BarChart
-            data={energy_sources}
-            xAttr="energe" yAttr="power"
-            xLabel="Energy Source"
-            yLabel="Total Power (MWh)"
+            data={energy_sources} xAttr="energe" yAttr="power"
+            xLabel="Energy Source" yLabel="Total Power (MWh)"
           />
           </div>
         </TabPanel>
