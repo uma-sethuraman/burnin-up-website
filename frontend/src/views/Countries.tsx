@@ -82,12 +82,7 @@ const Countries = () => {
           </div>
 
           {/* countries search bar */}
-          <Form
-              inline
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
+          <Form inline onSubmit={(e) => {e.preventDefault();}}>
               <FormControl
                 className="mr-sm-2"
                 type="text"
@@ -101,14 +96,16 @@ const Countries = () => {
               />
 
               {/* search and clear buttons */}
-              <Button style={styles.searchButton} variant="info" onClick={() => searchOnClick(false)}>
+              <Button style={styles.searchButton} variant="info" 
+              onClick={() => searchOnClick(false)}>
                 <AiOutlineSearch />
               </Button>
               
-              <Button style={styles.searchButton} variant="info" onClick={() => searchOnClick(true)}>
+              <Button style={styles.searchButton} variant="info" 
+              onClick={() => searchOnClick(true)}>
                 <AiOutlineClose />
               </Button>
-            </Form>
+          </Form>
             <br />
             <div className="instructions">
               <p>Select row to learn more!</p>
