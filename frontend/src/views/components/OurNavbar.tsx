@@ -72,6 +72,7 @@ const OurNavbar = (props: any) => {
     };
   }, []);
 
+  /* the navbar tabs */
   const tabs = [
   {
     href: "/about",
@@ -167,7 +168,7 @@ const OurNavbar = (props: any) => {
             variant="info"
             onClick={() => searchOnClick()}
           >
-          <AiOutlineSearch />
+            <AiOutlineSearch />
           </Button>
         </Form>
       </Navbar>

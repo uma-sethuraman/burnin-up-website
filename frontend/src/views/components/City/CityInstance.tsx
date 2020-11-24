@@ -42,6 +42,7 @@ const CityInstance = (id: any) => {
       {/* show spinner if content is loading */}
       {loading ? (<LoadingSpinner />) : (
         <div className="row">
+          {/* left column of data */}
           <div className="column1">
             <CityInstanceLeft city={city} />
           </div>
@@ -53,6 +54,7 @@ const CityInstance = (id: any) => {
             ></Image>
           </div>
 
+          {/* right column of data */}
           <div className="column2">
             <header className="City-header">
               <div className="title">
@@ -86,6 +88,7 @@ const CityInstance = (id: any) => {
               <div className="info-title-style">
                 Click on map marker to view {city?.country_name}!
               </div>
+              {/* show map */}
               <OurMap
                 latitude={Number(
                   city?.latitude! === undefined ? 0 : Number(city?.latitude!)

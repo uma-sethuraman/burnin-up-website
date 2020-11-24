@@ -115,7 +115,7 @@ const Countries = () => {
               <p>Click column name to sort by attribute.</p>
             </div>
             <br />
-          </header>
+        </header>
 
           {/* displaying table with all country instances */}
           <CountriesTable

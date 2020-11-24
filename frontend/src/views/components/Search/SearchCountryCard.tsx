@@ -3,8 +3,11 @@ import "./Search.css";
 import { Card } from "react-bootstrap";
 import { Highlight } from "react-instantsearch-dom";
 
+/* displays card for a country result
+in the search page */
 function SearchCountryCard(props:any) {
 
+    /* attributes of a country */
     const country_attributes = [
         {
             name: "Name:",
@@ -68,6 +71,7 @@ function SearchCountryCard(props:any) {
         }
     ]
 
+    /* map attribute data to card text */
     const displayCountryText = () => {
         return (
             country_attributes.map((country) => (

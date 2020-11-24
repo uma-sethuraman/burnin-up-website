@@ -4,14 +4,13 @@ import AboutCard from "./AboutCard";
 
 /* displays about cards for all group members */
 export default function AboutCarousel(props:any) {
- 
   return ( 
     <div className="row">
-    {props.members.map((member:GroupMember) => (
-      <div className="about-member-columns" key={member.key}>
-        <AboutCard member={member} />
-      </div>
-    ))}
+      {props.members.map((member:GroupMember) => (
+        <div className="about-member-columns" key={member.key}>
+          <AboutCard member={member} />
+        </div>
+      ))}
     </div>
-    );
+  );
 }

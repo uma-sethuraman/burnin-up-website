@@ -4,12 +4,16 @@ import "../../App.css";
 import "./CountryInstance.css";
 import OurMap from "../Map/OurMap";
 import Image from "react-bootstrap/Image";
+import { Country } from "./CountryInstance";
 
-const CountryColumn = (country: Country) => {
+/* displays right column of country instance page */
+const CountryRightColumn = (country: Country) => {
+  /* country flag */
   let flagLink =
     "https://flagcdn.com/h120/" +
     country?.country_iso2code?.toLowerCase() +
     ".png";
+  
   return (
     <header className="City-header">
       <div className="title">
@@ -18,6 +22,7 @@ const CountryColumn = (country: Country) => {
       {/* displays country flag */}
       <Image src={flagLink} alt="Flag" />
       <br />
+      {/* display country data */}
       <div className="info-style">{country?.country_region + " "}</div>
       <div className="info-title-style">Region </div>
       <br />
@@ -35,6 +40,7 @@ const CountryColumn = (country: Country) => {
       <div className="info-title-style">
         Click on map marker to view capital city!
       </div>
+      {/* display country map */}
       <OurMap
         latitude={country?.lat! === -1 ? 0 : country?.lat!}
         longitude={country?.long! === -1 ? 0 : country?.long!}
@@ -53,46 +59,4 @@ const CountryColumn = (country: Country) => {
   );
 };
 
-/* interfaces needed for country data */
-
-export interface CountriesObject {
-  countries: Country[];
-}
-
-export interface Country {
-  capital_city_id: number;
-  country_capital_city: string;
-  country_id: number;
-  country_iso2code: string;
-  country_iso3code: string;
-  country_name: string;
-  country_population: number;
-  country_region: CountryRegion;
-  high_year: number;
-  highest_emission: number;
-  income_level: IncomeLevel;
-  lat: number;
-  long: number;
-  recent_emissions: number;
-}
-
-export enum CountryRegion {
-  Africa = "Africa",
-  Americas = "Americas",
-  Asia = "Asia",
-  EastAsiaPacific = "East Asia & Pacific",
-  Europe = "Europe",
-  LatinAmericaCaribbean = "Latin America & Caribbean ",
-  Oceania = "Oceania",
-}
-
-export enum IncomeLevel {
-  HighIncome = "High income",
-  IncomeLevelHighIncome = "High Income",
-  IncomeLevelUpperMiddleIncome = "Upper Middle Income",
-  LowIncome = "Low income",
-  LowerMiddleIncome = "Lower middle income",
-  UpperMiddleIncome = "Upper middle income",
-}
-
-export default CountryColumn;
+export default CountryRightColumn;

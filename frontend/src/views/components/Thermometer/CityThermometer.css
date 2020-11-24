@@ -1,4 +1,4 @@
-.temp-side-by-side {
+  .temp-side-by-side {
     display:flex; 
     flex-direction:row;
     color: white;

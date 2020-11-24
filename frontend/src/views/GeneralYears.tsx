@@ -115,7 +115,7 @@ const GeneralYears = () => {
             </div>
             <br />
           </header>
-          {/* years table with all years instances displayed*/}
+          {/* years table with all years instances displayed */}
           <YearsTable
             yearsArray={years}
             searchQuery={search_text} />

@@ -73,9 +73,9 @@ class PieChart extends React.Component {
       .attr('y', 10)
       .attr('x', 15);
   }
-    render() {
-      return <div ref="pieChart"></div>;
-    }
+  render() {
+    return <div ref="pieChart"></div>;
+  }
 }
 
 export default PieChart;

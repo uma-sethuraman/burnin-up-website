@@ -40,11 +40,12 @@ const LocationPhoto = (name: any) => {
 
     /* return an image of the provided location */
     return(
-    <div>
-        {actualPhoto === "" ? 
-        (<Spinner animation="border" />):
-        (<Image src={actualPhoto}/>)}
-    </div>);
+        <div>
+            {actualPhoto === "" ? 
+            (<Spinner animation="border" />):
+            (<Image src={actualPhoto}/>)}
+        </div>
+    );
 }
 
 export default LocationPhoto;

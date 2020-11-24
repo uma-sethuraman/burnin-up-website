@@ -115,7 +115,7 @@ const Cities = () => {
                 <p>Click column name to sort by attribute.</p>
               </div>
             <br/>
-            </header>
+          </header>
 
             {/* displaying the table of all cities, 
             with searching and pagination */}

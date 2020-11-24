@@ -3,8 +3,11 @@ import "./Search.css";
 import { Card } from "react-bootstrap";
 import { Highlight } from "react-instantsearch-dom";
 
+/* display card for a year result
+in the search page */
 function SearchYearCard(props:any) {
 
+    /* attributes of a year */
     const year_attributes = [
         {
             name: "Year:",
@@ -48,6 +51,7 @@ function SearchYearCard(props:any) {
         }
     ]
 
+    /* map attribute data to card text */
     const displayYearText = () => {
         return (
             year_attributes.map((year) => (
@@ -60,6 +64,8 @@ function SearchYearCard(props:any) {
         );
     }
 
+    /* display top 10 countries
+    with highest emissions */
     const countryEmissionsList = () => {
         return (
             <div>
@@ -85,6 +91,8 @@ function SearchYearCard(props:any) {
         );
     }
 
+    /* display top 10 cities
+    with highest temperatures */
     const cityTempsList = () => {
         return (
             <div>

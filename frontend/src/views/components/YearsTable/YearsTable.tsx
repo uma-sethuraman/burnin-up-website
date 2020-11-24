@@ -254,6 +254,7 @@ function YearsTable(props:any) {
         viewColumns: false,
     };
 
+    /* table styling */
     const styles = {
         table: {
           display: "table", 
@@ -262,27 +263,28 @@ function YearsTable(props:any) {
         } as React.CSSProperties
     } 
 
+    /* load fonts */
     WebFont.load({
         google: { families: ["Raleway",],},
     });
 
     return (
-        <div className="YearsTable">
-            {/* displaying the table of all years, 
-            with searching and pagination */}
-            <div style={styles.table}>
-                <MUIDataTable
-                    title={
-                      <div className="table-title">
-                        Annual Climate Change Data
-                      </div>
-                    }
-                    data={props.yearsArray}
-                    columns={columns as MUIDataTableColumnDef[]}
-                    options={options}
-                />
-            </div>
-        </div>
+      <div className="YearsTable">
+          {/* displaying the table of all years, 
+          with searching and pagination */}
+          <div style={styles.table}>
+              <MUIDataTable
+                  title={
+                    <div className="table-title">
+                      Annual Climate Change Data
+                    </div>
+                  }
+                  data={props.yearsArray}
+                  columns={columns as MUIDataTableColumnDef[]}
+                  options={options}
+              />
+          </div>
+      </div>
     );
 }
 

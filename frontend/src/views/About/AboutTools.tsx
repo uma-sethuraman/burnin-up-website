@@ -20,8 +20,9 @@ import AboutToolSetCard from "./AboutToolSetCard";
 /* displays tools section on About Us page */
 
 /* tutorial from : //https://www.newline.co/@dmitryrogozhny/
-//how-to-show-carousel-in-react-applications-with-react-slick--07445c23 */
+how-to-show-carousel-in-react-applications-with-react-slick--07445c23 */
 
+/* list of tools */
 const tools = [
   {
     src: ReactLogo,
@@ -88,6 +89,7 @@ const tools = [
   },
 ];
 
+/* display cards for tools */
 const renderSlides = () =>
   tools.map((tool) => (
     <div key={tool.key}>
@@ -103,7 +105,7 @@ function AboutTools() {
         <br/>
         <Slider dots={true}
           autoplay={true}
-        slidesToShow={4}>
+          slidesToShow={4}>
           {renderSlides()}
         </Slider>
       </div>

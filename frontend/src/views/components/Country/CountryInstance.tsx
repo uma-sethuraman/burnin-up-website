@@ -9,7 +9,7 @@ import Image from "react-bootstrap/Image";
 import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import WebFont from "webfontloader";
 import LoadingSpinner from "../LoadingSpinner";
-import CountryColumn from "./CountryColumn";
+import CountryRightColumn from "./CountryRightColumn";
 import CountryInstanceInfo from "./CountryInstanceInfo";
 
 /* country instance page, takes in country id,
@@ -35,11 +35,13 @@ const CountryInstance = (id: any) => {
     }
   }, [data]);
 
+  /* load in fonts */
   WebFont.load({
     google: {
       families: ["serif", "Staatliches", "sans-serif", "Raleway"],
     },
   });
+
   return (
     <div className="CountryInstance">
       <Navbar singleColor={true} />
@@ -51,8 +53,10 @@ const CountryInstance = (id: any) => {
           <div className="column1">
             <header className="Country-header">
               <div>
+                {/* country photo */}
                 <LocationPhoto name={encodeURI(country?.country_name!)} />
                 <br />
+                {/* country population and emission data */}
                 <div className="info-style">
                   {country?.country_population !== -1
                     ? country?.country_population
@@ -89,6 +93,7 @@ const CountryInstance = (id: any) => {
                   Year of Highest Annual CO2 Emissions
                 </div>
                 <br />
+                {/* remaining country instance info */}
                 <CountryInstanceInfo {...country!}></CountryInstanceInfo>
               </div>
             </header>
@@ -99,8 +104,9 @@ const CountryInstance = (id: any) => {
               height="100%"
             ></Image>
           </div>
+          {/* country right column */}
           <div className="column2">
-            <CountryColumn {...country!}></CountryColumn>
+            <CountryRightColumn {...country!} />
           </div>
         </div>
       )}

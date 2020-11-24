@@ -2,7 +2,7 @@ import React from "react";
 import "./LoadingSpinner.css";
 import Image from "react-bootstrap/Image";
 
-/* page for 404 errors */
+/* page for loading dots to appear */
 function LoadingSpinner() {
   return (
     <div>

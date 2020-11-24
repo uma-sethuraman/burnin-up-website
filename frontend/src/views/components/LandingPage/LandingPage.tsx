@@ -7,6 +7,7 @@ import "./LandingPage.css";
 
 /* home page */
 function LandingPage() {
+  /* loading fonts */
   WebFont.load({
     google: {
       families: [

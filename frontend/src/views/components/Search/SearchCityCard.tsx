@@ -3,8 +3,11 @@ import "./Search.css";
 import { Card } from "react-bootstrap";
 import { Highlight } from "react-instantsearch-dom";
 
+/* displays card for a city result
+in the search page */
 function SearchCityCard(props:any) {
 
+    /* attributes of a city */
     const city_attributes = [
         {
             name: "Name:",
@@ -58,6 +61,7 @@ function SearchCityCard(props:any) {
         }
     ]
 
+    /* map the attribute data to text in the card */
     const displayCardText = () => {
         return (
         city_attributes.map((city) => (

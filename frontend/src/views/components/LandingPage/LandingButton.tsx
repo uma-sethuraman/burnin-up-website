@@ -31,6 +31,7 @@ const images = [
   },
 ];
 
+/* styles for buttons */
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -110,8 +111,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+/* used to display model page buttons
+on landing page */
 export default function LandingButton() {
 
+  /* load fonts */
   WebFont.load({
     google: {
       families: [
@@ -122,6 +126,7 @@ export default function LandingButton() {
 
   const classes = useStyles();
 
+  /* display the three model buttons */
   return (
     <div className={classes.root}>
       {images.map((image) => (
