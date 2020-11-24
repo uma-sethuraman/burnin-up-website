@@ -16,13 +16,10 @@ all:
 
 # auto format the code
 format:
-	black ./backend/main.py
-	black ./backend/tests.py
-	black ./backend/models.py
+	black ./backend/*.py
 
 install:
 	pip install -r ./backend/requirements.txt
-
 
 # check files, check their existence with make check
 CFILES :=                                 \

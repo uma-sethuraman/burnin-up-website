@@ -4,15 +4,12 @@ import "../../App.css";
 import Navbar from "../OurNavbar";
 import "./CityInstance.css";
 import useAxios from "axios-hooks";
-import LocationPhoto from "../LocationPhoto/LocationPhoto";
 import OurMap from "../Map/OurMap";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Image from "react-bootstrap/Image";
-import { BsCalendar } from "react-icons/bs";
 import LoadingSpinner from "../LoadingSpinner";
-import CityInstanceTemp from "./CityInstanceTemp";
-import CityThermometer from "../Thermometer/Thermometer";
+import CityInstanceLeft from "./CityInstanceLeft";
 
 /* city instance page, takes in city id,
 route = "/cities/id=" */
@@ -30,9 +27,7 @@ const CityInstance = (id: any) => {
   /* set city data */
   useEffect(() => {
     const cityObj: City = data as City;
-    if (cityObj) {
-      setCity(cityObj);
-    }
+    if (cityObj) {setCity(cityObj);}
   }, [data]);
 
   WebFont.load({
@@ -44,14 +39,11 @@ const CityInstance = (id: any) => {
   return (
     <div className="CityInstance">
       <Navbar singleColor={true} />
-
       {/* show spinner if content is loading */}
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
+      {loading ? (<LoadingSpinner />) : (
         <div className="row">
           <div className="column1">
-            <CityInstanceTemp city={city}></CityInstanceTemp>
+            <CityInstanceLeft city={city} />
           </div>
 
           <div className="line">
@@ -65,14 +57,12 @@ const CityInstance = (id: any) => {
             <header className="City-header">
               <div className="title">
                 <h3> {city?.city_name} </h3>
-                <h3>
-                  {" "}
+                <h3> {" "}
                   <Link to={"/countries/id=" + city?.country_id}>
                     <u>{city?.country_name}</u>
                   </Link>{" "}
                 </h3>
               </div>
-              {/* <AiOutlineLine size="500px"/> */}
               <div className="row-style">
                 <div className="row">
                   <div className="subcolumn">
@@ -80,13 +70,11 @@ const CityInstance = (id: any) => {
                     <div className="info-title-style">PM2.5</div>
                     <div className="info-unit-style">ug/m3</div>
                   </div>
-
                   <div className="subcolumn">
                     <div className="info-style">{city?.pm10 + " "}</div>
                     <div className="info-title-style">PM10 </div>
                     <div className="info-unit-style">ug/m3</div>
                   </div>
-
                   <div className="subcolumn">
                     <div className="info-style">{city?.o3 + " "}</div>
                     <div className="info-title-style">O3</div>
@@ -106,18 +94,13 @@ const CityInstance = (id: any) => {
                   city?.longitude! === undefined ? 0 : Number(city?.longitude!)
                 )}
                 locationName={city?.city_name!}
-                map_style={{
-                  height: "75vh",
-                  width: "90vh",
-                  marginLeft: "10vh",
-                  marginRight: "10vh",
-                  marginBottom: "10vh",
-                }}
+                map_style={{ height: "75vh", width: "90vh", marginLeft: "10vh",
+                             marginRight: "10vh",marginBottom: "10vh",}}
                 id={city?.country_id}
                 map_type="city"
               />
             </header>
-          </div>
+          </div> 
         </div>
       )}
     </div>

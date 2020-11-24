@@ -14,10 +14,10 @@ app = Flask(
     static_folder="../frontend/build/static",
     template_folder="../frontend/build",
 )
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = ("postgresql+psycopg2://supremeleader:steven04@burninup-db-1."
-     "cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres")
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "postgresql+psycopg2://supremeleader:steven04@burninup-db-1."
+    "cgloqeyb6wie.us-east-2.rds.amazonaws.com:5432/postgres"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.debug = True
 
@@ -105,8 +105,8 @@ class YearInstanceSchema1(ma.Schema):
     polar_ice = fields.Float(required=False)
     sea_level = fields.Float(required=False)
     world_population = fields.Int(required=False)
-    countries_emissions = fields.Nested(
-    CountryEmissionsPerYearSchema1,many=True)
+    countries_emissions = fields.Nested(CountryEmissionsPerYearSchema1, 
+                            many=True)
     city_temperatures = fields.Nested(CityTempPerYearSchema1, many=True)
 
 
@@ -150,7 +150,7 @@ def get_country_id(id):
     country = Country1.query.get(id)
     if country is None:
         response = flask.Response(
-            json.dumps({"error": id + " not found"}),
+            json.dumps({"error": id + " not found"}), 
             mimetype="application/json"
         )
         response.status_code = 404
@@ -176,7 +176,7 @@ def get_year_id(id):
     year = Year1.query.get(id)
     if year is None:
         response = flask.Response(
-            json.dumps({"error": id + " not found"}),
+            json.dumps({"error": id + " not found"}), 
             mimetype="application/json"
         )
         response.status_code = 404
@@ -202,7 +202,7 @@ def get_city_id(id):
     city = City1.query.get(id)
     if city is None:
         response = flask.Response(
-            json.dumps({"error": id + " not found"}),
+            json.dumps({"error": id + " not found"}), 
             mimetype="application/json"
         )
         response.status_code = 404

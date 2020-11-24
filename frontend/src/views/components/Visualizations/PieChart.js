@@ -1,6 +1,10 @@
 import React from 'react';
 import * as d3 from 'd3';
 
+/**
+ *  Pie chart visualization for presenting data from our provider
+ *  Used code from D3.js  
+ */
 class PieChart extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +16,7 @@ class PieChart extends React.Component {
   }
 
   createPieChart() {
+    //format the margin and size 
     const margin = 40;
     const height = 500;
     const width = 700;
@@ -24,16 +29,18 @@ class PieChart extends React.Component {
       .attr('height', height);
     const svg = rawSvg
       .append('g')
-      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
+      .attr('transform', 'translate(' + width / 2 + ',' 
+          + height / 2 + ')');
+    //getting the input and format the chart based on input 
     const pie = d3.pie().value(d => d.value);
-    const data = pie(d3.entries(this.props.data).sort((a, b) => b.value - a.value));
+    const data = pie(d3.entries(this.props.data)
+      .sort((a, b) => b.value - a.value));
     const arcGenerator = d3
       .arc()
       .innerRadius(0)
       .outerRadius(radius);
     const colorScale = d3.scaleOrdinal(d3.schemePaired);
-
+    //filling the graph
     svg
       .selectAll('mySlices')
       .data(data)
@@ -43,13 +50,14 @@ class PieChart extends React.Component {
       .attr('fill', (d, i) => colorScale(i))
       .style('opacity', 0.7);
 
-    // legend
+    // adding the legend
     const legend = rawSvg
       .selectAll('legendElems')
       .data(data)
       .enter()
       .append('g')
-      .attr('transform', (d, i) => 'translate(' + (width - 50) + ',' + (i * 20 + 20) + ')')
+      .attr('transform', (d, i) => 'translate(' 
+          + (width - 50) + ',' + (i * 20 + 20) + ')')
       .attr('class', 'legend')
       .style('fill', 'white');
     legend
@@ -65,8 +73,6 @@ class PieChart extends React.Component {
       .attr('y', 10)
       .attr('x', 15);
   }
-
-
     render() {
       return <div ref="pieChart"></div>;
     }

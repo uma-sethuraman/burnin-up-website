@@ -60,13 +60,15 @@ function SearchCityCard(props:any) {
 
     const displayCardText = () => {
         return (
-            city_attributes.map((city) => (
-                <Card.Text className="card-text-style" key={city.attribute_id}>
-                    <b>{city.name} {" "}</b>
-                    <Highlight attribute={city.attribute} tagName="mark" 
-                    hit={props.hit} />
-                </Card.Text>
-            ))
+        city_attributes.map((city) => (
+            <Card.Text className="card-text-style" 
+                        key={city.attribute_id}>
+                <b>{city.name} {" "}</b>
+                <Highlight attribute={city.attribute} 
+                            tagName="mark" 
+                            hit={props.hit} />
+            </Card.Text>
+        ))
         );
     }
 

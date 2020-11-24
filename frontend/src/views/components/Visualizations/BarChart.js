@@ -2,26 +2,28 @@ import React, {Component} from 'react';
 import '../../App.css';
 import * as d3 from 'd3';
 
+/**
+ * 	Bar chart visualization used to present data for ours and
+ * 	providers
+ * 	Used code from D3.js 
+ */
 class BarChart extends Component {
     constructor(props){
         super(props);
         this.createBarChart = this.createBarChart.bind(this);
     }
-
     componentDidMount(){
         this.createBarChart();
     }
-
     componentDidUpdate(){
         this.createBarChart();
     }
-
     createBarChart(){
-		
+		//format the margin and size 
         const margin = { top: 100, right: 20, bottom: 150, left: 110};
         const height = 600 - margin.top - margin.bottom;
         const width = 1200 - margin.left - margin.right;
-        const padding = -110; // Space around the chart, not including labels
+        const padding = -110;
 
         const svg = d3
             .select(this.refs.barChart)
@@ -30,8 +32,9 @@ class BarChart extends Component {
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
             .style('color', 'white')
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
+            .attr('transform', 'translate(' 
+								+ margin.left + ',' + margin.top + ')');
+		//getting the data from input file 
         const x = d3
             .scaleBand()
             .range([0, width])
@@ -43,14 +46,18 @@ class BarChart extends Component {
             .call(d3.axisBottom(x))
             .selectAll('text')
             .attr('transform', 'translate(-10,0)rotate(-45)')
-            .style('text-anchor', 'end');
+            .style('text-anchor', 'end')
+            .style('fill', 'white');
 
-        const maxValue = Math.max(...this.props.data.map(d => d[this.props.yAttr]));
+        const maxValue = 
+				Math.max(...this.props.data.map(d => d[this.props.yAttr]));
         const y = d3
             .scaleLinear()
             .domain([0, Math.ceil(maxValue / 10) * 10])
             .range([height, 0]);
-            svg.append('g').call(d3.axisLeft(y));
+            svg.append('g').call(d3.axisLeft(y))
+            .selectAll('text')
+            .style('fill', 'white');
 
         svg
             .selectAll('mybar')
@@ -65,17 +72,20 @@ class BarChart extends Component {
 
         // Now add titles to the axes
         svg.append("text")
-        .attr("text-anchor", "middle") // This makes it easy to centre the text as the transform is applied to the anchor.
-        .attr("transform", "translate(" + (padding / 2) + "," + (height / 2) + ")rotate(-90)") // Text is drawn off the screen top left, move down and out and rotate.
+        .attr("text-anchor", "middle") 
+		// This makes it easy to centre the text
+        .attr("transform", "translate(" + (padding / 1.5) + "," 
+						+ (height / 2) + ")rotate(-90)") 
+		// Text is drawn off the screen top left
         .text(this.props.yLabel)
         .attr('fill', 'white');
 
         svg.append("text")
-        .attr("text-anchor", "middle") // This makes it easy to centre the text as the transform is applied to the anchor.
-        .attr("transform", "translate(" + (width / 2) + "," + (height + 100) + ")") // Centre below axis.
+        .attr("text-anchor", "middle")
+        .attr("transform", "translate(" + (width / 2) + "," 
+						+ (height + 100) + ")")
         .text(this.props.xLabel)
         .attr('fill', 'white');
-			
     }
 
     render(){

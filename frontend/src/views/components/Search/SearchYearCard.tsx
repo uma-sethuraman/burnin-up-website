@@ -53,7 +53,8 @@ function SearchYearCard(props:any) {
             year_attributes.map((year) => (
                 <Card.Text className="card-text-style" key={year.attribute_id}>
                     <b>{year.name} {" "}</b>
-                    <Highlight attribute={year.attribute} tagName="mark" hit={props.hit} />
+                    <Highlight attribute={year.attribute}
+                    tagName="mark" hit={props.hit} />
                 </Card.Text>
             ))
         );
@@ -71,8 +72,7 @@ function SearchYearCard(props:any) {
                             {props.hit.countries_emissions.map(
                                 (country_elem: any, index: any) => (
                                 <li key={country_elem?.country_id}>
-                                    <Highlight
-                                    attribute=
+                                    <Highlight attribute =
                                     {`countries_emissions[${index}].country`}
                                     hit={props.hit}
                                     tagName="mark"

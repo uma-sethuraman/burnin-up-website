@@ -70,10 +70,8 @@ const GeneralYears = () => {
   return (
     <div className="GeneralYears">
       <Navbar />
-
       {/* if it's loading display spinner animation */}
-      {loading ? (<Loading/>) : 
-        (
+      {loading ? (<Loading/>) : (
         <div>
           <header className="Years-header">
             <div className = "Years-h1">
@@ -81,12 +79,7 @@ const GeneralYears = () => {
             </div>
 
             {/* years search bar */}
-            <Form
-                inline
-                onSubmit={(e) => {
-                  e.preventDefault();
-                }}
-              >
+            <Form inline onSubmit={(e) => {e.preventDefault();}}>
               <FormControl
                 className="mr-sm-2"
                 type="text"
@@ -100,11 +93,13 @@ const GeneralYears = () => {
               />
 
               {/* search and clear buttons */}
-              <Button style={styles.searchButton} variant="info" onClick={() => searchOnClick(false)}>
+              <Button style={styles.searchButton} variant="info" 
+                      onClick={() => searchOnClick(false)}>
                 <AiOutlineSearch />
               </Button>
-              
-              <Button style={styles.searchButton} variant="info" onClick={() => searchOnClick(true)}>
+                
+              <Button style={styles.searchButton} variant="info" 
+                onClick={() => searchOnClick(true)}>
                 <AiOutlineClose />
               </Button>
             </Form>

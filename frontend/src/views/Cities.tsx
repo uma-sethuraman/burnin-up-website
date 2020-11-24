@@ -62,10 +62,7 @@ const Cities = () => {
 
   WebFont.load({
     google: {
-      families: [
-        "Raleway",
-        "Prompt"
-      ],
+      families: ["Raleway","Prompt"],
     },
   });
 
@@ -83,12 +80,7 @@ const Cities = () => {
             <br />
 
             {/* cities search bar */}
-            <Form
-              inline
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
+            <Form inline onSubmit={(e) => {e.preventDefault();}}>
               <FormControl
                 className="mr-sm-2"
                 type="text"
@@ -102,11 +94,13 @@ const Cities = () => {
               />
 
               {/* search and clear buttons */}
-              <Button style={styles.searchButton} variant="info" onClick={() => searchOnClick(false)}>
+              <Button style={styles.searchButton} variant="info" 
+              onClick={() => searchOnClick(false)}>
                 <AiOutlineSearch />
               </Button>
               
-              <Button style={styles.searchButton} variant="info" onClick={() => searchOnClick(true)}>
+              <Button style={styles.searchButton} variant="info" 
+              onClick={() => searchOnClick(true)}>
                 <AiOutlineClose />
               </Button>
             </Form>
