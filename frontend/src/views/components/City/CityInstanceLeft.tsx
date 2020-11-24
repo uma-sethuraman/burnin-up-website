@@ -9,7 +9,7 @@ import CityThermometer from '../Thermometer/CityThermometer';
 const CityInstanceLeft = (props: any) => {
   return (
     <header className="City-header">
-      <div>
+      <div className="column-1">
         {/* city image */}
         <LocationPhoto name={encodeURI(props.city?.city_name!)} />
         <br />
