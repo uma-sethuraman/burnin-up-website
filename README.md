@@ -6,7 +6,7 @@ Group Members (GitLab ID, EID):
 - Samantha Tuapen: samantha3pen, svt324
 - Uma Sethuraman: uma-sethuraman, us2382
 
-Git SHA: e6cfd77cceb567c00e7577fc690ee2c95456233a
+Git SHA: 0859a7a751542b985da303496e31a5db2085c299
 
 Project Leader: Caitlin Lien
 
@@ -20,7 +20,7 @@ Estimated completion time for each member:
 - Caitlin O - 30 hours
 - Cherry - 30 hours
 - Lauren - 30 hours
-- Samantha - 15 hours
+- Samantha - 30 hours
 - Uma - 30 hours
 
 Actual completion time for each member:
