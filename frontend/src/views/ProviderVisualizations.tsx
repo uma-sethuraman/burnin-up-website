@@ -89,17 +89,22 @@ function ProviderVisualizations() {
               aria-label="simple tabs example"
             >
               <Tab
-                label={<div className="provider-vis-app-bar">Vehicles</div>}
+                label={
+					<div className="provider-vis-app-bar">Vehicles</div>
+					}
                 {...a11yProps(0)}
               />
               <Tab
                 label={
-                  <div className="provider-vis-app-bar">Fueling Stations</div>
+                  <div className="provider-vis-app-bar">Fueling Stations
+				  </div>
                 }
                 {...a11yProps(1)}
               />
               <Tab
-                label={<div className="provider-vis-app-bar">Energy</div>}
+                label={
+					<div className="provider-vis-app-bar">Energy</div>
+					}
                 {...a11yProps(2)}
               />
             </Tabs>
