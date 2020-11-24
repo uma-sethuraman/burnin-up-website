@@ -22,7 +22,7 @@ function CityThermometer(props: any) {
     /* set the temp to corresponding temperature
     or default and set the temperature format */
     if (props.temp === -1 || props.temp === undefined) {
-        temp = 10;
+        temp = -1;
     }
     else {
         if (props.temp > 40) {
