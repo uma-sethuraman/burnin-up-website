@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import WebFont from "webfontloader";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -38,11 +39,14 @@ const OurNavbar = (props: any) => {
     tabs: {
       color: "white",
       fontFamily: "Raleway",
+      fontSize: "1.1vw",
+      display: "flex",
     } as React.CSSProperties,
     searchButton: {
       backgroundColor: "white",
       borderColor: "white",
       color: "black",
+      fontSize: "1.1vw",
     } as React.CSSProperties,
   };
 
@@ -151,25 +155,31 @@ const OurNavbar = (props: any) => {
             e.preventDefault();
           }}
         >
-          <FormControl
-            className="mr-sm-2"
-            type="text"
-            placeholder="Search"
-            ref={textInput}
-            onKeyPress={(event: any) => {
-              if (event.key === "Enter") {
-                searchOnClick();
-              }
-            }}
-          />
-          {/* search button */}
-          <Button
-            style={styles.searchButton}
-            variant="info"
-            onClick={() => searchOnClick()}
-          >
-            <AiOutlineSearch />
-          </Button>
+          <InputGroup>
+            {/* search bar */}
+            <FormControl
+              className="mr-sm-2"
+              type="text"
+              placeholder="Search"
+              ref={textInput}
+              style={{fontSize: "1.1vw"}}
+              onKeyPress={(event: any) => {
+                if (event.key === "Enter") {
+                  searchOnClick();
+                }
+              }}
+            />
+            {/* search button */}
+            <InputGroup.Append style={{fontSize: "1.1vw"}}>
+              <Button
+                style={styles.searchButton}
+                variant="info"
+                onClick={() => searchOnClick()}
+              >
+                <AiOutlineSearch />
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
         </Form>
       </Navbar>
     </div>

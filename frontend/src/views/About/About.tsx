@@ -43,7 +43,8 @@ function About() {
       role: "Backend Project Lead",
       linkedin: "https://www.linkedin.com/in/caitlinlien/",
       bio:
-        "Caitlin is a junior from Round Rock, TX. She works on backend" +
+        "Caitlin is a junior at UT Austin. She is from Round Rock, TX. " +
+        "She works on backend" +
         " development for the site and enjoys Data Science and Machine" +
         " Learning. Her hobbies includes baking, playing video games, and" +
         " taking group stretch breaks.",
@@ -58,7 +59,8 @@ function About() {
       role: "Backend",
       linkedin: "https://www.linkedin.com/in/cherry-sun-53289216b/",
       bio:
-        "Cherry aged at least 5 years from doing this project. She’s" +
+        "Cherry is a student at UT Austin. She aged at least 5 years "
+        +"from doing this project. She’s" +
         " working on backend and has interest in overall full stack app" +
         " development. She likes working out, swimming, getting a massage," +
         " going to spa and just enjoying life.",
@@ -73,7 +75,8 @@ function About() {
       role: "Backend",
       linkedin: "https://www.linkedin.com/in/samantha-tuapen/",
       bio:
-        "Samantha is a junior from Dallas, TX. She’s working on" +
+        "Samantha is a junior at UT Austin. " +
+        "She's from Dallas, TX. She’s working on" +
         " backend for the site and has an interest in" +
         " full stack app development. Outside of the CS world, she enjoys" +
         " kickboxing, playing musical instruments, and eating" +
@@ -89,7 +92,8 @@ function About() {
       role: "Frontend Project Lead",
       linkedin: "https://www.linkedin.com/in/uma-sethuraman/",
       bio:
-        "Uma is a junior from Houston, TX. She is working on the frontend" +
+        "Uma is a junior at UT Austin. " +
+        "She is from Houston, TX. She is working on the frontend" +
         " development for this project. Some of her other technical" +
         " interests include mobile development and machine learning. She" +
         " also enjoys dancing and cooking.",
@@ -104,8 +108,9 @@ function About() {
       role: "Frontend",
       linkedin: "https://www.linkedin.com/in/caitlinocallaghan/",
       bio:
-        "Caitlin is a junior from Dallas, TX. Some of her technical" +
-        " interests are front end web and app development and NLP."+ 
+        "Caitlin is a junior at UT Austin. " +
+        "She's from Dallas, TX. Some of her technical" +
+        " interests are front end web and app development and NLP. "+ 
         "Her hobbies include painting and drawing, playing oboe, "+
         "listening to classical music, and drinking tea.",
         key: 3,
@@ -119,8 +124,10 @@ function About() {
       role: "Frontend",
       linkedin: "https://www.linkedin.com/in/lauren-mangibin/",
       bio:
-        "Lauren is a junior from Austin, TX whose eyebags got much bigger" +
-        " from sleeping late. She is working on the front end of the site" +
+        "Lauren is a junior at UT Austin, whose eyebags " +
+        "have gotten much bigger from sleeping late."+
+        " She is from Austin, TX. " +
+        "She is working on the front end of the site" +
         " and loves working with people. She is a hip-hop dancer and" +
         " choreographer for UT dance teams.",
       key: 4,
