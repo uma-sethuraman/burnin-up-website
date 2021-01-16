@@ -15,7 +15,7 @@ GitLab Pipelines:
 
 Website: https://burninup.me
 
-Completion Times for Each Project Phase:
+Completion Times for Each Phase of the Project:
 - Phase 1: 
     - Estimated completion time for each member:
         - Caitlin L - 10 hours
