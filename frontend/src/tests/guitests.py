@@ -85,12 +85,19 @@ class tests(unittest.TestCase):
             "/html/body/div/div/div[2]/div[1]/h3"
         )[0].text
         assert title == "About Us"
-        # test links on about page
-        self.driver.find_elements_by_xpath("/html/body/div"
-        +"/div/div[2]/div[7]/div[1]/div/div[2]/h2/a")[0].click()
-        assert (
-            "https://gitlab.com/caitlinlien/cs373-sustainability/"
-            in self.driver.current_url)
+        # check different sections of the about page
+        section = self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[2]/div[4]/h2"
+        )[0].text
+        assert section == "Meet the Team"
+        section = self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[2]/div[7]/div[2]/h2"
+        )[0].text
+        assert section == "APIs and Data Sources"
+        section = self.driver.find_elements_by_xpath(
+            "/html/body/div/div/div[2]/div[8]/div/h2"
+        )[0].text
+        assert section == "Tools"
 
     def test_cities(self):
         self.driver.get("https://burninup.me")
