@@ -86,10 +86,10 @@ class tests(unittest.TestCase):
         )[0].text
         assert title == "About Us"
         # test links on about page
-        self.driver.find_elements_by_xpath("/html/body/div/div/"
-        +"div[2]/div[7]/div[1]/div/div[1]/h2/a")[0].click()
+        self.driver.find_elements_by_xpath("/html/body/div"
+        +"/div/div[2]/div[7]/div[1]/div/div[2]/h2/a")[0].click()
         assert (
-            "https://documenter.getpostman.com/view/12123261/TVRdAWse"
+            "https://gitlab.com/caitlinlien/cs373-sustainability/"
             in self.driver.current_url)
 
     def test_cities(self):
