@@ -72,12 +72,13 @@ class tests(unittest.TestCase):
             in self.driver.current_url)
         # test search bar button
         self.driver.find_elements_by_xpath("/html/body/div/"
-        +"div/div[1]/nav/form/button")[0].click()
+        +"div/div[1]/nav/form/div/div/button")[0].click()
         assert "https://burninup.me/search/q=" in self.driver.current_url
 
     def test_about(self):
         # go to about us page
         self.driver.get("https://burninup.me/about")
+        self.driver.implicitly_wait(20)
         assert "about" in self.driver.current_url
         # verify title
         title = self.driver.find_elements_by_xpath(
