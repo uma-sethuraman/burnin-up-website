@@ -23,7 +23,7 @@ const OurMap = (props: any) => {
       <div style={props.map_style !== undefined ? 
       props.map_style: { height: '75vh', width: '90vh', margin:'10vh' }}> 
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBhcWoY9R1YI__bc0fC8vHRN8eEMVYoLKM' }}
+          bootstrapURLKeys={{ key: 'AIzaSyD2k4pzI-ICzju13bIJIHX9YkYec1nkgBs' }}
           center={{lat:props.latitude, lng:props.longitude}}
           defaultZoom={1}
           onChildClick = {markerClick}

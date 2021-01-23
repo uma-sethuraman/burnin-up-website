@@ -20,7 +20,7 @@ const YearMap = (props: any) => {
         props.map_style: { height: '75vh', width: '90vh', margin:'10vh' }}>
           <GoogleMapReact
             bootstrapURLKeys={
-              { key: 'AIzaSyBhcWoY9R1YI__bc0fC8vHRN8eEMVYoLKM' }}
+              { key: 'AIzaSyD2k4pzI-ICzju13bIJIHX9YkYec1nkgBs' }}
             defaultCenter={{lat: 0, lng: 0 }}
             defaultZoom={1}
             onChildClick = {markerClick}
@@ -40,4 +40,3 @@ const YearMap = (props: any) => {
 }
 
 export default YearMap;
-
