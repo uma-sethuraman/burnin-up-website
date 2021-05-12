@@ -1,17 +1,6 @@
-Group Members (GitLab ID, EID): 
-- Caitlin Lien: caitlinlien, cl43686
-- Caitlin O'Callaghan: caitlinocallaghan, cmo2227
-- Cherry Sun: cherrysun9, cs56738
-- Lauren Mangibin: lauren.mangibin, lgm977
-- Samantha Tuapen: samantha3pen, svt324
-- Uma Sethuraman: uma-sethuraman, us2382
+# Burnin Up: Website for Climate Change Awareness
 
-Git SHA: 0859a7a751542b985da303496e31a5db2085c299
-
-Project Leader: Caitlin Lien
-
-GitLab Pipelines: 
-- https://gitlab.com/caitlinlien/cs373-sustainability/-/pipelines
+Group Members: Caitlin Lien, Caitlin O'Callaghan, Cherry Sun, Lauren Mangibin, Samantha Tuapen, Uma Sethuraman
 
 Website: https://burninup.me
 
